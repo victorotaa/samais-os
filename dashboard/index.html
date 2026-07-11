@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samais-OS · Cockpit de Frentes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04060C; --card:#0A0E18; --card-2:#0D1220;
+    --border:rgba(212,168,87,.14); --border-soft:rgba(255,255,255,.06);
+    --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+    --text:#EDEAE2; --text-2:#B0AEA5; --text-3:#9A968C;
+    --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
+    --f-display:'Syne',system-ui,sans-serif; --f-body:'Inter',system-ui,sans-serif; --f-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;background-image:radial-gradient(1200px 600px at 80% -10%,rgba(212,168,87,.05),transparent 60%);}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  header{border-bottom:1px solid var(--border);padding:40px 0 28px}
+  .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+  h1{font-family:var(--f-display);font-weight:800;font-size:34px;margin:10px 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--text-3);font-size:14px}
+  .sub b{color:var(--text-2);font-weight:500}
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}
+  .kpi{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border-soft);border-radius:14px;padding:20px}
+  .kpi .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+  .kpi .val{font-family:var(--f-display);font-weight:700;font-size:28px;margin-top:8px;color:var(--gold)}
+  .kpi .val small{font-size:14px;color:var(--text-2);font-weight:500}
+  /* Frentes */
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:36px 0 14px}
+  .sec-head h2{font-family:var(--f-display);font-weight:700;font-size:18px;margin:0}
+  .sec-head .note{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .fr{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;padding:18px 18px 16px;transition:border-color .2s,transform .2s}
+  .fr:hover{border-color:var(--border);transform:translateY(-2px)}
+  .fr-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .fr-name{font-family:var(--f-display);font-weight:700;font-size:17px}
+  .fr-uf{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
+  .fr-serv{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--gold-dim);
+    border:1px solid var(--border);border-radius:999px;padding:2px 9px;margin-top:8px}
+  .fr-val{font-family:var(--f-mono);font-size:20px;color:var(--gold);margin:14px 0 2px}
+  .fr-val.na{color:var(--text-3);font-size:14px}
+  .fr-val small{font-size:11px;color:var(--text-3)}
+  .fr-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
+  .stage{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:6px;border:1px solid var(--border-soft)}
+  .stage[data-s="radar"]{color:var(--text-3)}
+  .stage[data-s="varredura"],.stage[data-s="estudo"]{color:var(--amber);border-color:rgba(221,141,12,.28)}
+  .stage[data-s="proposta"],.stage[data-s="negociacao"]{color:var(--gold);border-color:var(--border)}
+  .stage[data-s="contrato-ativo"]{color:var(--green);border-color:rgba(95,140,106,.35)}
+  .stage[data-s="arquivada"]{color:var(--text-3);opacity:.6}
+  /* gauge */
+  .gauge{display:flex;align-items:center;gap:8px}
+  .gauge .bar{width:64px;height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
+  .gauge .fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
+  .gauge .n{font-family:var(--f-mono);font-size:12px;color:var(--text-2)}
+  .verdict{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+  .verdict[data-v="go"]{color:var(--green)} .verdict[data-v="atencao"]{color:var(--amber)} .verdict[data-v="no-go"]{color:var(--red)}
+  .next{color:var(--text-3);font-size:12.5px;margin-top:12px;border-top:1px solid var(--border-soft);padding-top:10px}
+  .next b{color:var(--text-2);font-weight:500}
+  footer{border-top:1px solid var(--border);margin-top:48px;padding:22px 0 44px;color:var(--text-3);font-family:var(--f-mono);font-size:11.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .err{background:rgba(194,13,47,.08);border:1px solid rgba(194,13,47,.3);border-radius:12px;padding:18px;color:#e79aa8;font-family:var(--f-mono);font-size:13px;margin:32px 0}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="kicker">Samais-OS · negócio como código</div>
+  <h1>Cockpit de Frentes</h1>
+  <div class="sub">Painel gerado por <b>scripts/build-dashboard.mjs</b> a partir de <b>frentes/**/status.json</b> · validado por schema.</div>
+</div></header>
+
+<main class="wrap">
+  <div id="kpis" class="kpis"></div>
+  <div class="sec-head">
+    <h2>Frentes</h2>
+    <span class="note" id="ordnote">ordenadas por score</span>
+  </div>
+  <div id="grid" class="grid"></div>
+  <div id="error"></div>
+</main>
+
+<footer class="wrap" style="display:flex">
+  <span>samais · gestão + saúde</span>
+  <span id="genstamp"></span>
+</footer>
+
+<script>
+const BRL = n => n==null ? null : "R$ " + Number(n).toLocaleString("pt-BR");
+const BRLc = n => n==null ? null : "R$ " + (Number(n)/1e6).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " mi";
+const stageLabel = s => ({"radar":"radar","varredura":"varredura","estudo":"estudo","proposta":"proposta","negociacao":"negociação","contrato-ativo":"contrato ativo","arquivada":"arquivada"}[s]||s);
+
+fetch("./data.json").then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+  .then(render)
+  .catch(e=>{
+    document.getElementById("error").innerHTML =
+      '<div class="err">Não consegui carregar <b>data.json</b> ('+e.message+').<br>'+
+      'Rode <b>node scripts/build-dashboard.mjs</b> e sirva a pasta por HTTP '+
+      '(ex.: <b>npx serve dashboard</b>) — abrir via file:// bloqueia o fetch.</div>';
+  });
+
+function render(d){
+  const kpis=[
+    ["Frentes no radar", d.total_frentes],
+    ["Contratos ativos", d.contratos_ativos],
+    ["Pipeline mensal (base)", BRLc(d.pipeline_mensal)],
+    ["Pipeline anual (base)", BRLc(d.pipeline_anual)],
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(([l,v])=>
+    `<div class="kpi"><div class="lbl">${l}</div><div class="val">${v}</div></div>`).join("");
+
+  document.getElementById("grid").innerHTML = d.frentes.map(f=>{
+    const val = f.valor_contratual_mensal
+      ? `<div class="fr-val">${BRL(f.valor_contratual_mensal)}<small> /mês · Cenário Base</small></div>`
+      : `<div class="fr-val na">valor a dimensionar</div>`;
+    const verdict = f.verdict ? `<span class="verdict" data-v="${f.verdict}">${f.verdict.replace("-"," ")}</span>` : "";
+    return `<div class="fr">
+      <div class="fr-top">
+        <div class="fr-name">${f.frente}</div>
+        <div class="fr-uf">${f.uf}</div>
+      </div>
+      <span class="fr-serv">${f.servico}</span>
+      ${val}
+      <div class="fr-row">
+        <span class="stage" data-s="${f.estagio}">${stageLabel(f.estagio)}</span>
+        <span class="gauge"><span class="bar"><span class="fill" style="width:${(f.score/10*100).toFixed(0)}%"></span></span><span class="n">${f.score.toFixed(1)}</span></span>
+      </div>
+      ${verdict?`<div class="fr-row"><span></span>${verdict}</div>`:""}
+      <div class="next"><b>Próximo passo:</b> ${f.proximo_passo}</div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("genstamp").textContent = "gerado em " + d.gerado_em;
+}
+</script>
+</body>
+</html>

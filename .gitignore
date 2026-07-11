@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+
+# Saídas de build / trabalho efêmero
+outputs/
+
+# Binários de vídeo e pós-produção — NUNCA entram no git (ver doutrina/higgsfield-canon.md)
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.wav
+*.aac
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Nota: dashboard/data.json É GERADO pelo build (scripts/build-dashboard.mjs).
+# Mantemos ele versionado para que o dashboard abra direto no GitHub Pages / Vercel
+# sem passo de build. Se preferir tratá-lo como artefato, descomente a linha abaixo.
+# dashboard/data.json

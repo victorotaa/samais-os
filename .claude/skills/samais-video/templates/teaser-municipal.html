@@ -1,0 +1,315 @@
+<!doctype html>
+<!--
+  ============================================================================
+  SAMAIS · Teaser Municipal — template-semente (HyperFrames · HTML→MP4)
+  ============================================================================
+  Skeleton B · 8 cenas · 25s · 1920×1080 @ 30fps · determinístico.
+  Identidade Samais TRAVADA (dark-luxury institucional). Audiência externa →
+  padrão FRIO: factual, sem advocacy, SEM valores monetários/BDI proprietários.
+
+  COMO USAR (um template → N municípios)
+  --------------------------------------
+  1. Preencher o objeto DADOS abaixo (alimentado pela skill samais-municipal-study).
+  2. Loop HyperFrames:  npx hyperframes doctor → lint → preview → render
+       npx hyperframes render index.html -o out.mp4        (1920×1080/30fps)
+  3. Refino de motion/pacing é feito no Code com preview ao vivo (:3002).
+
+  DETERMINISMO (inegociável)
+  --------------------------
+  Sem Math.random / Date.now / performance.now / setInterval / setTimeout /
+  requestAnimationFrame / repeat:-1 / stagger:{from:"random"}. Contadores via
+  objeto proxy + onUpdate (a timeline GSAP dirige o valor). Grain via
+  radial-gradient CSS (nunca filtro SVG data:image — quebra shaders no iframe).
+
+  SHADERS (upgrade opcional — ligar no ambiente com CDN + preview)
+  ----------------------------------------------------------------
+  Esta semente usa ~100% cortes secos (autoAlpha) — o modo dominante (~95%) e
+  o que o lint valida sem depender de runtime. Para os 2–3 momentos de shader
+  (reveal do herói do tempo-resposta, virada dos cenários, pouso do CTA),
+  converter as cenas-âncora conforme o contrato: cena-âncora com
+  style="opacity:0;" + primeira âncora do grupo com tl.set("#sN",{opacity:1},start)
+  e HyperShader.init(...) — invariante scenes.length === transitions.length + 1.
+  Fazer isso no preview ao vivo, onde @hyperframes/shader-transitions carrega.
+  ============================================================================
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Samais · Teaser Municipal</title>
+
+    <!-- Head na ordem do contrato: gsap → core runtime → shader-transitions -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/shader-transitions/dist/index.global.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #04060c;
+        --panel: #0a0e18;
+        --gold: #d4a857;
+        --gold-dim: rgba(212, 168, 87, 0.55);
+        --text: #edeae2;
+        --text-2: #9a968c;
+        --hair: rgba(212, 168, 87, 0.14);
+        --f-display: "Syne", system-ui, sans-serif;
+        --f-body: "Inter", system-ui, sans-serif;
+        --f-mono: "JetBrains Mono", monospace;
+      }
+      * { box-sizing: border-box; }
+      body, html {
+        margin: 0; padding: 0; width: 1920px; height: 1080px;
+        overflow: hidden; background: var(--bg);
+        font-family: var(--f-body); color: var(--text);
+      }
+      #main { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+
+      /* Cena e conteúdo (contrato: .scene.clip + .scene-content) */
+      .scene { position: absolute; inset: 0; }
+      .scene-content {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center; padding: 0 200px;
+      }
+
+      /* Grain determinístico via radial-gradient CSS (fora do .scene-content) */
+      .grain {
+        position: absolute; inset: 0; pointer-events: none; z-index: 90;
+        opacity: 0.06;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px);
+        background-size: 3px 3px;
+      }
+      .vignette {
+        position: absolute; inset: 0; pointer-events: none; z-index: 80;
+        background: radial-gradient(120% 120% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+      }
+
+      /* Tipografia */
+      .kicker {
+        font-family: var(--f-mono); font-size: 22px; letter-spacing: 0.42em;
+        text-transform: uppercase; color: var(--gold-dim); margin-bottom: 34px;
+      }
+      .display {
+        font-family: var(--f-display); font-weight: 800; letter-spacing: -0.01em;
+        line-height: 1.02; color: var(--text); margin: 0;
+      }
+      .d-xl { font-size: 132px; }
+      .d-lg { font-size: 96px; }
+      .metric {
+        font-family: var(--f-mono); font-weight: 500; font-variant-numeric: tabular-nums;
+        color: var(--gold); line-height: 1;
+      }
+      .m-hero { font-size: 300px; }
+      .m-big { font-size: 200px; }
+      .label {
+        font-family: var(--f-mono); font-size: 26px; letter-spacing: 0.16em;
+        text-transform: uppercase; color: var(--text-2); margin-top: 30px;
+      }
+      .body { font-family: var(--f-body); font-weight: 400; font-size: 40px; color: var(--text-2); line-height: 1.5; }
+      .gold { color: var(--gold); }
+      .hair { width: 120px; height: 1px; background: var(--gold); opacity: 0.5; margin: 40px auto; }
+
+      /* Linhas de cenário (ordem Mínimo → Base → Amplo) */
+      .cenarios { display: flex; flex-direction: column; gap: 26px; width: 980px; }
+      .cen-row {
+        display: flex; align-items: baseline; justify-content: space-between;
+        border-bottom: 1px solid var(--hair); padding-bottom: 18px;
+      }
+      .cen-k { font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); }
+      .cen-v { font-family: var(--f-body); font-weight: 500; font-size: 40px; color: var(--text); }
+      .cen-row.base .cen-k { color: var(--gold); }
+
+      /* Fecho institucional */
+      .wordmark { font-family: var(--f-display); font-weight: 700; font-size: 72px; letter-spacing: 0.04em; color: var(--text); }
+      .wordmark .dot { color: var(--gold); }
+      .tagline { font-family: var(--f-body); font-style: italic; font-size: 34px; color: var(--text-2); margin-top: 24px; }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="main"
+      data-composition-id="main"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="25"
+    >
+      <!-- ================= CENA 1 · Abertura de marca (0–3s) — visível no load ================= -->
+      <div class="scene clip" id="s1" data-start="0" data-duration="3" data-track-index="0">
+        <div class="scene-content">
+          <div class="kicker">Samais · Gestão em Saúde</div>
+          <h1 class="display d-lg" id="s1-title">Onde gestão se mede em vidas.</h1>
+        </div>
+      </div>
+
+      <!-- ================= CENA 2 · Território + população (3–6.5s) ================= -->
+      <div class="scene clip" id="s2" data-start="3" data-duration="3.5" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="kicker" id="s2-uf">— · —</div>
+          <h1 class="display d-xl" id="s2-municipio">Município</h1>
+          <div class="hair"></div>
+          <div class="metric" style="font-size: 120px" id="s2-pop">0</div>
+          <div class="label">habitantes</div>
+        </div>
+      </div>
+
+      <!-- ================= CENA 3 · HERÓI · tempo-resposta (6.5–10s) — âncora de shader #1 ================= -->
+      <div class="scene clip" id="s3" data-start="6.5" data-duration="3.5" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="kicker">Tempo-resposta</div>
+          <div class="metric m-hero" id="s3-tempo">0,0</div>
+          <div class="label">minutos · meta operacional Samais</div>
+        </div>
+      </div>
+
+      <!-- ================= CENA 4 · Frota (10–13s) ================= -->
+      <div class="scene clip" id="s4" data-start="10" data-duration="3" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="kicker">Cobertura dimensionada</div>
+          <div class="metric m-big" id="s4-frota">0</div>
+          <div class="label">viaturas · fator de cobertura 24/7</div>
+        </div>
+      </div>
+
+      <!-- ================= CENA 5 · Cenários Mínimo → Base → Amplo (13–17s) — âncora de shader #2 ================= -->
+      <div class="scene clip" id="s5" data-start="13" data-duration="4" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="kicker">Três cenários de operação</div>
+          <div class="cenarios">
+            <div class="cen-row" id="s5-min"><span class="cen-k">Mínimo</span><span class="cen-v" id="s5-min-v">—</span></div>
+            <div class="cen-row base" id="s5-base"><span class="cen-k">Base ★</span><span class="cen-v" id="s5-base-v">—</span></div>
+            <div class="cen-row" id="s5-amplo"><span class="cen-k">Amplo</span><span class="cen-v" id="s5-amplo-v">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= CENA 6 · Diferencial tecnológico (17–20s) ================= -->
+      <div class="scene clip" id="s6" data-start="17" data-duration="3" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="kicker">Tecnologia proprietária</div>
+          <h1 class="display d-lg"><span class="gold">CoPilot OS</span></h1>
+          <p class="body" style="margin-top: 28px; max-width: 1100px">
+            Apoio à decisão do regulador médico — a camada de inteligência da operação.
+          </p>
+        </div>
+      </div>
+
+      <!-- ================= CENA 7 · Prova factual (20–22.5s) — âncora de shader #3 (grupo do CTA) ================= -->
+      <div class="scene clip" id="s7" data-start="20" data-duration="2.5" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <p class="body" style="font-size: 46px; color: var(--text); max-width: 1200px">
+            Operação atestada — <span class="gold">disponível para verificação formal.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- ================= CENA 8 · Fecho institucional / CTA (22.5–25s) ================= -->
+      <div class="scene clip" id="s8" data-start="22.5" data-duration="2.5" data-track-index="0" style="visibility: hidden;">
+        <div class="scene-content">
+          <div class="wordmark">samais <span class="dot">·</span> gestão + saúde</div>
+          <div class="tagline">Onde gestão se mede em vidas.</div>
+        </div>
+      </div>
+
+      <!-- Texturas fora do .scene-content -->
+      <div class="grain"></div>
+      <div class="vignette"></div>
+
+      <script>
+        // ===================== DADOS (parametrização por município) =====================
+        // Schema alimentado pelo output da skill samais-municipal-study.
+        // FRIO: sem valores monetários / BDI no teaser externo.
+        const DADOS = {
+          municipio: "Belém",
+          uf: "PA",
+          populacao: 1303403,     // inteiro (contador)
+          frota: 29,              // inteiro (contador)
+          tempoMeta: 8.0,         // min — meta operacional (hero)
+          cenarios: {
+            minimo: "Cobertura mínima regulatória (PNAU)",
+            base: "20 USB · 4 USA · 4 motolâncias · 1 ambulancha",
+            amplo: "Cobertura ampliada — capital + área fluvial",
+          },
+        };
+
+        // ---- Injeção síncrona de texto (determinística, no load) ----
+        const $ = (id) => document.getElementById(id);
+        $("s2-uf").textContent = DADOS.municipio.toLowerCase() + " · " + DADOS.uf;
+        $("s2-municipio").textContent = DADOS.municipio;
+        $("s4-frota").textContent = "0";
+        $("s5-min-v").textContent = DADOS.cenarios.minimo;
+        $("s5-base-v").textContent = DADOS.cenarios.base;
+        $("s5-amplo-v").textContent = DADOS.cenarios.amplo;
+
+        const nf = new Intl.NumberFormat("pt-BR");
+        const fmtMin = (v) => v.toFixed(1).replace(".", ",");
+
+        // ---- Timeline principal (pausada, dirigida pelo runtime) ----
+        const tl = gsap.timeline({ paused: true });
+
+        // Contadores via objeto proxy + onUpdate (GSAP dirige o valor pelo tempo da timeline)
+        const counters = { pop: 0, frota: 0, tempo: 0 };
+
+        // Cena 1 → entrada suave do título (determinística)
+        tl.from("#s1-title", { autoAlpha: 0, y: 40, duration: 0.9, ease: "power3.out" }, 0.15);
+
+        // Corte 1→2
+        tl.set("#s1", { autoAlpha: 0 }, 3);
+        tl.set("#s2", { autoAlpha: 1 }, 3);
+        tl.from("#s2-municipio", { autoAlpha: 0, y: 30, duration: 0.7, ease: "power3.out" }, 3.1);
+        tl.to(counters, {
+          pop: DADOS.populacao, duration: 1.6, ease: "power2.out",
+          onUpdate() { $("s2-pop").textContent = nf.format(Math.round(counters.pop)); },
+        }, 3.3);
+
+        // Corte 2→3 (HERÓI · tempo-resposta — contagem até a meta)
+        tl.set("#s2", { autoAlpha: 0 }, 6.5);
+        tl.set("#s3", { autoAlpha: 1 }, 6.5);
+        tl.to(counters, {
+          tempo: DADOS.tempoMeta, duration: 1.5, ease: "power2.out",
+          onUpdate() { $("s3-tempo").textContent = fmtMin(counters.tempo); },
+        }, 6.7);
+
+        // Corte 3→4 (frota)
+        tl.set("#s3", { autoAlpha: 0 }, 10);
+        tl.set("#s4", { autoAlpha: 1 }, 10);
+        tl.to(counters, {
+          frota: DADOS.frota, duration: 1.3, ease: "power2.out",
+          onUpdate() { $("s4-frota").textContent = String(Math.round(counters.frota)); },
+        }, 10.2);
+
+        // Corte 4→5 (cenários escalonados Mínimo → Base → Amplo)
+        tl.set("#s4", { autoAlpha: 0 }, 13);
+        tl.set("#s5", { autoAlpha: 1 }, 13);
+        tl.from("#s5-min", { autoAlpha: 0, x: -40, duration: 0.5, ease: "power2.out" }, 13.2);
+        tl.from("#s5-base", { autoAlpha: 0, x: -40, duration: 0.5, ease: "power2.out" }, 13.55);
+        tl.from("#s5-amplo", { autoAlpha: 0, x: -40, duration: 0.5, ease: "power2.out" }, 13.9);
+
+        // Corte 5→6 (diferencial)
+        tl.set("#s5", { autoAlpha: 0 }, 17);
+        tl.set("#s6", { autoAlpha: 1 }, 17);
+
+        // Corte 6→7 (prova factual)
+        tl.set("#s6", { autoAlpha: 0 }, 20);
+        tl.set("#s7", { autoAlpha: 1 }, 20);
+
+        // Corte 7→8 (fecho / CTA)
+        tl.set("#s7", { autoAlpha: 0 }, 22.5);
+        tl.set("#s8", { autoAlpha: 1 }, 22.5);
+        tl.from("#s8", { autoAlpha: 0, duration: 0.6, ease: "power2.out" }, 22.5);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

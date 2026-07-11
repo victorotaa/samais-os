@@ -1,0 +1,14 @@
+{
+  "frente": "Belém",
+  "uf": "PA",
+  "servico": "SAMU",
+  "estagio": "estudo",
+  "score": 7.5,
+  "valor_contratual_mensal": 8100000,
+  "populacao": 1303403,
+  "operador_atual": "prefeitura",
+  "verdict": "atencao",
+  "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos em calibração com a diretoria",
+  "atualizado_em": "2026-07-11",
+  "proximo_passo": "Diligência de headcount real e confirmação da CCT-PA antes de fechar o dimensionamento (lição Taboão 148 vs 80)"
+}

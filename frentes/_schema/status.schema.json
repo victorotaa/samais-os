@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samais-os/frentes/_schema/status.schema.json",
+  "title": "Status de Frente Samais",
+  "description": "Contrato mínimo de dados para cada frente comercial/operacional. Validado no build (scripts/build-dashboard.mjs). Falha o build se inválido.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "frente",
+    "uf",
+    "servico",
+    "estagio",
+    "score",
+    "valor_contratual_mensal",
+    "atualizado_em",
+    "proximo_passo"
+  ],
+  "properties": {
+    "frente": {
+      "type": "string",
+      "description": "Nome do município, consórcio ou ente-alvo.",
+      "minLength": 1
+    },
+    "uf": {
+      "type": "string",
+      "description": "Unidade federativa (sigla). Use 'BR' para frentes multi-UF e o código do país para frentes internacionais.",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "servico": {
+      "type": "string",
+      "description": "Serviço-alvo.",
+      "enum": ["SAMU", "UPA", "Hospital", "Mão de obra", "Consultoria", "Outro"]
+    },
+    "estagio": {
+      "type": "string",
+      "description": "Estágio no funil de prospecção Samais.",
+      "enum": [
+        "radar",
+        "varredura",
+        "estudo",
+        "proposta",
+        "negociacao",
+        "contrato-ativo",
+        "arquivada"
+      ]
+    },
+    "score": {
+      "type": "number",
+      "description": "Score de atratividade 0–10 (FASE 3.1 da skill samais-municipal-study).",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "valor_contratual_mensal": {
+      "type": ["number", "null"],
+      "description": "Valor contratual mensal estimado em R$ (Cenário Base). null enquanto não dimensionado.",
+      "minimum": 0
+    },
+    "atualizado_em": {
+      "type": "string",
+      "description": "Data da última atualização (AAAA-MM-DD).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "proximo_passo": {
+      "type": "string",
+      "description": "Próxima ação tática concreta.",
+      "minLength": 1
+    },
+    "populacao": {
+      "type": ["integer", "null"],
+      "description": "População do alvo (IBGE). Opcional — usado para custo per capita.",
+      "minimum": 0
+    },
+    "operador_atual": {
+      "type": ["string", "null"],
+      "description": "Quem opera hoje: 'nenhum', 'prefeitura', nome da OS/empresa, ou 'Samais' se já ativo. Opcional."
+    },
+    "verdict": {
+      "type": ["string", "null"],
+      "description": "Recomendação interna. Opcional.",
+      "enum": ["go", "atencao", "no-go", null]
+    },
+    "gatilho": {
+      "type": ["string", "null"],
+      "description": "Gatilho do interesse (edital, indicação, renovação...). Opcional."
+    }
+  }
+}

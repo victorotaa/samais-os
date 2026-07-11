@@ -1,0 +1,14 @@
+{
+  "frente": "NOME DO ALVO",
+  "uf": "XX",
+  "servico": "SAMU",
+  "estagio": "radar",
+  "score": 0,
+  "valor_contratual_mensal": null,
+  "populacao": null,
+  "operador_atual": null,
+  "verdict": null,
+  "gatilho": null,
+  "atualizado_em": "AAAA-MM-DD",
+  "proximo_passo": "Descrever a próxima ação tática concreta."
+}

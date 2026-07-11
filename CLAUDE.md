@@ -25,6 +25,10 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
    - `higgsfield-canon.md` — cânone de vídeo (decisão fechada).
 2. **`inteligencia/`** — benchmarks SAMU, consórcios, editais.
 3. **`frentes/`** — dados-como-arquivo (uma pasta por alvo). Ver "Frentes" abaixo.
+4. **`transversais/tecnologia-jarvis/agente-embarcado.md`** — arquitetura do agente
+   embarcado do OS (3 camadas de poder · fronteira de confidencialidade · mapa de
+   setores · custo zero). Decisão aprovada, **implementação diferida**; o dashboard
+   permanece read-only até haver servidor dedicado.
 
 ## Não-negociáveis (doutrina Samais)
 

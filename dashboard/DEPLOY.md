@@ -33,21 +33,34 @@ O `Dockerfile` faz o build (valida schema + gera `data.json`) e serve por nginx 
 commits nas frentes: `docker compose up -d --build` de novo (ou automatizar no CI/CD
 interno da empresa).
 
-## 3. Alternativa externa — Vercel (só com proteção de acesso)
+## 3. Vercel — caminho escolhido (privado, custo zero)
 
-A doutrina Samais prevê Vercel (`team samais`). **Só se ativar controle de acesso** —
-senão a URL `*.vercel.app` fica pública por obscuridade, o que é inaceitável para estes
-dados. Requer **Vercel Authentication / Password Protection** (recurso de plano pago).
+A config já está no repo: `vercel.json` (build → `data.json`, saída `dashboard/`,
+`no-store` no `data.json`) + `package.json` (`npm run build`, Node 22).
+
+> ⚠️ **Regra inegociável:** ativar **Deployment Protection → Vercel Authentication**
+> (só membros do time `samais` acessam). É **gratuito** e torna o cockpit privado.
+> Sem isso, a URL `*.vercel.app` fica **pública** — inaceitável para estes dados.
+> (Password Protection com senha compartilhável é recurso Pro; não é necessário —
+> o cockpit é interno, então Vercel Authentication basta.)
+
+### Opção A — Git integration (recomendada; casa com IDE→commit→cockpit)
+
+1. Vercel (time **samais**) → **Add New… → Project** → importar `victorotaa/samais-os`.
+2. O `vercel.json` é lido automaticamente (build + output `dashboard/`). **Deploy**.
+3. **Settings → Deployment Protection → Vercel Authentication: ON.**
+4. Pronto: cada push na `main` re-deploya sozinho. Cockpit sempre fresco e privado.
+
+### Opção B — CLI (deploy pontual)
 
 ```bash
-# uma vez, com a conta samais autenticada:
+# com a conta/time samais autenticado:
 npx vercel --prod --scope samais
-# e ATIVAR Deployment Protection (SSO/senha) no projeto — sem isso, não usar.
+# depois, ATIVAR Vercel Authentication no projeto (Settings → Deployment Protection).
 ```
 
-Config sugerida (`vercel.json`, se optar por este caminho): servir a pasta `dashboard/`
-como estático, com `buildCommand: "node scripts/build-dashboard.mjs"` e
-`outputDirectory: "dashboard"`.
+O deploy exige a conta **samais** autenticada — roda no ambiente de quem tem acesso
+(não em sessão headless sem credencial).
 
 ---
 

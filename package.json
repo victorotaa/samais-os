@@ -1,0 +1,14 @@
+{
+  "name": "samais-os",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Samais-OS — negócio como código: doutrina, frentes, cockpit.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-dashboard.mjs",
+    "serve": "npx --yes serve dashboard"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

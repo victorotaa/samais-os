@@ -1,0 +1,69 @@
+{
+  "gerado_em": "2026-07-11",
+  "total_frentes": 5,
+  "pipeline_mensal": 8100000,
+  "pipeline_anual": 97200000,
+  "contratos_ativos": 0,
+  "frentes": [
+    {
+      "frente": "Belém",
+      "uf": "PA",
+      "servico": "SAMU",
+      "estagio": "estudo",
+      "score": 7.5,
+      "valor_contratual_mensal": 8100000,
+      "populacao": 1303403,
+      "operador_atual": "prefeitura",
+      "verdict": "atencao",
+      "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos em calibração com a diretoria",
+      "atualizado_em": "2026-07-11",
+      "proximo_passo": "Diligência de headcount real e confirmação da CCT-PA antes de fechar o dimensionamento (lição Taboão 148 vs 80)",
+      "_slug": "belem"
+    },
+    {
+      "frente": "Avaré",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "radar",
+      "score": 0,
+      "valor_contratual_mensal": null,
+      "atualizado_em": "2026-07-11",
+      "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study).",
+      "_slug": "avare"
+    },
+    {
+      "frente": "Paraguai — SEME",
+      "uf": "BR",
+      "servico": "Consultoria",
+      "estagio": "radar",
+      "score": 0,
+      "valor_contratual_mensal": null,
+      "atualizado_em": "2026-07-11",
+      "proximo_passo": "Frente internacional — qualificar escopo (SEME) e viabilidade. UF='BR' por convenção do schema (frente fora do padrão UF nacional).",
+      "_slug": "paraguai-seme"
+    },
+    {
+      "frente": "SESAP-RN",
+      "uf": "RN",
+      "servico": "SAMU",
+      "estagio": "radar",
+      "score": 0,
+      "valor_contratual_mensal": null,
+      "operador_atual": null,
+      "atualizado_em": "2026-07-11",
+      "proximo_passo": "Mapear escopo estadual (Secretaria de Saúde Pública do RN) e gatilho de oportunidade.",
+      "_slug": "sesap-rn"
+    },
+    {
+      "frente": "Taboão da Serra",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "radar",
+      "score": 0,
+      "valor_contratual_mensal": null,
+      "atualizado_em": "2026-07-11",
+      "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study). Referência histórica: lição de dimensionamento 148 vs 80.",
+      "_slug": "taboao"
+    }
+  ]
+}

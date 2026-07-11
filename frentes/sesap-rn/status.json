@@ -1,0 +1,11 @@
+{
+  "frente": "SESAP-RN",
+  "uf": "RN",
+  "servico": "SAMU",
+  "estagio": "radar",
+  "score": 0,
+  "valor_contratual_mensal": null,
+  "operador_atual": null,
+  "atualizado_em": "2026-07-11",
+  "proximo_passo": "Mapear escopo estadual (Secretaria de Saúde Pública do RN) e gatilho de oportunidade."
+}

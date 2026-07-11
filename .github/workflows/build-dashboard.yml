@@ -1,0 +1,35 @@
+name: build-dashboard
+
+# Mantém o cockpit honesto: a cada push/PR que toca frentes ou o build,
+# valida todos os status.json contra o schema e regenera data.json.
+# Falha o CI se algum status.json for inválido (o build sai com código 1).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frentes/**"
+      - "scripts/build-dashboard.mjs"
+      - "dashboard/**"
+  pull_request:
+    paths:
+      - "frentes/**"
+      - "scripts/build-dashboard.mjs"
+      - "dashboard/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validar frentes e gerar data.json
+        run: node scripts/build-dashboard.mjs
+      - name: Publicar data.json como artefato do build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-data
+          path: dashboard/data.json

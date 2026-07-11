@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node scripts/build-dashboard.mjs",
+  "outputDirectory": "dashboard",
+  "framework": null,
+  "headers": [
+    {
+      "source": "/data.json",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
+  ]
+}

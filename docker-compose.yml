@@ -1,0 +1,10 @@
+# Samais-OS · cockpit privado atrás da VPN. Um comando: docker compose up -d --build
+# Acesso interno: http://<host>:8080  (nunca expor à internet pública — dados comerciais).
+services:
+  cockpit:
+    build: .
+    image: samais-cockpit
+    container_name: samais-cockpit
+    ports:
+      - "8080:80"      # publique só na interface interna/VPN (ex.: "127.0.0.1:8080:80")
+    restart: unless-stopped

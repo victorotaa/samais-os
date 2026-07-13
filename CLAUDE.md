@@ -90,4 +90,11 @@ npx serve dashboard                    # abrir index.html por HTTP (file:// bloq
 
 ## Git
 
-- Branch de trabalho desta sessão: `claude/samais-os-setup-58a63q`. PR draft contra `main`.
+- `main` é a única branch estável e deve ser a branch padrão do repositório.
+- Toda mudança nasce em branch curta (`codex/*`, `feat/*`, `fix/*` ou `docs/*`) e
+  chega à `main` por pull request revisável.
+- Agentes nunca fazem push direto na `main`, nunca reescrevem histórico compartilhado
+  e nunca fazem merge sem autorização explícita de Ota.
+- Antes de abrir PR: rodar `node scripts/build-dashboard.mjs` e registrar no PR o que
+  mudou, como foi validado e o que permanece pendente.
+- Regras completas em [`GOVERNANCA.md`](GOVERNANCA.md).

@@ -21,6 +21,12 @@ pessoal/meta de Ota), não um substituto.
 | `scripts/` | `build-dashboard.mjs` — varre frentes, valida schema, gera `data.json`. |
 | `.claude/skills/` | Skills proprietárias Samais (brand-guidelines, municipal-study, video-gen). |
 
+## Continuidade
+
+- [`ROADMAP.md`](ROADMAP.md) — prioridades, dependências e critérios de conclusão.
+- [`GOVERNANCA.md`](GOVERNANCA.md) — branches, pull requests, validação e proteção da `main`.
+- [`relatorios/2026-29.md`](relatorios/2026-29.md) — auditoria de retomada de 13/07/2026.
+
 ## Como rodar o dashboard
 
 Requer Node (sem dependências externas).

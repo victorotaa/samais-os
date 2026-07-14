@@ -70,8 +70,13 @@ npx serve dashboard                    # abrir index.html por HTTP (file:// bloq
 - `.claude/skills/samais-municipal-study` (+ `references/`) — protocolo de estudo
   municipal (FASES 1–6). **Referência viva das frentes.**
 - `.claude/skills/video-gen` — embrulha o Higgsfield com os defaults do cânone.
+- `.claude/skills/leitura-resiliente` — **transversal (multi-uso)**; espelhada do
+  `jarvis-os` por decisão de Ota, pois pesquisa/varredura Samais também topa com
+  403/bloqueio de fonte. Protocolo de leitura resiliente (diagnóstico + escalada).
 
 `handoff-generator` **não** vive aqui — é genérica/pessoal, fica no `jarvis-os`.
+(Exceção consciente: `leitura-resiliente` é duplicada aqui por ser infraestrutura
+de pesquisa que ambas as operações precisam.)
 
 ## Roteamento — quando cada skill dispara
 
@@ -87,6 +92,21 @@ npx serve dashboard                    # abrir index.html por HTTP (file:// bloq
 - Determinismo (inegociável): sem Math.random/Date.now/performance.now/setInterval/setTimeout/requestAnimationFrame/repeat:-1/stagger from:"random". Contadores via objeto + onUpdate. Grain via radial-gradient CSS.
 - Contrato: `.scene.clip` + data-*; `.scene-content`; `window.__timelines["main"]` = data-composition-id; head na ordem gsap→core→shader-transitions; âncoras de shader com opacity:0 + primeira âncora com tl.set opacity:1; ~95% hard cuts.
 - Pipeline Samais: `samais-municipal-study` → objeto DADOS → render (batch por município); B-roll Higgsfield como `<video muted playsinline>` de fundo.
+
+## Doutrina de Leitura Resiliente (403 / bloqueios de fonte)
+- Ao tomar **403/bloqueio de qualquer fonte** (WebFetch/curl falha, "página não
+  abre", Cloudflare, CAPTCHA): **não desista nem finja leitura.** Invoque a skill
+  `leitura-resiliente` antes de marcar a fonte como perdida.
+- **Diagnostique a origem primeiro** (a skill faz): `CONNECT tunnel failed,
+  response 403` = **política de egresso** (não contornar — ajustar allowlist,
+  rodar fora da sessão, ou trazer o conteúdo); resposta do site com desafio =
+  **anti-bot** (escalar: navegador real → desbloqueador em nuvem → endpoint JSON
+  → proxy residencial).
+- **Nunca contornar política de egresso** nem desabilitar TLS. Fonte não obtida
+  vira **lacuna declarada** — é o **Princípio da Realidade** aplicado à leitura
+  (nunca premissa disfarçada de fato).
+- Vale para toda pesquisa/varredura Samais (`samais-municipal-study`, benchmarks,
+  editais, frentes).
 
 ## Git
 

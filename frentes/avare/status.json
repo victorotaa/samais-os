@@ -2,9 +2,13 @@
   "frente": "Avaré",
   "uf": "SP",
   "servico": "SAMU",
-  "estagio": "radar",
-  "score": 0,
-  "valor_contratual_mensal": null,
-  "atualizado_em": "2026-07-11",
-  "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study)."
+  "estagio": "proposta",
+  "score": 8.0,
+  "valor_contratual_mensal": 1000000,
+  "populacao": 103335,
+  "operador_atual": "prefeitura",
+  "verdict": "go",
+  "gatilho": "Avaré decide sair da AMVAPA (regulação da CRU regional fora de padrão, óbitos documentados pela SMS); caminho = novo consórcio com Arandu para destravar repasses federais e assumir a própria USA/USBs",
+  "atualizado_em": "2026-07-23",
+  "proximo_passo": "Formalizar consórcio Avaré+Arandu (protocolo → leis nas 2 câmaras → CNPJ/rateio → habilitações no MS) e validar headcount em diligência antes da proposta formal"
 }

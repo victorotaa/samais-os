@@ -50,6 +50,41 @@ Faturamento = CDO_indireto ÷ [1 − (Tributos% + Margem%)]
 Onde **Fator de Cobertura 24/7 = ~4,5** por posto (escala 12×36) — **nunca 2,2**
 (subdimensiona pela metade; erro histórico, lição Taboão 148 vs 80).
 
+## "USA + 5,2" — heurística de teto de mercado (Métrica de Ouro do CEO, jul/2026)
+
+Lente **complementar** ao gross-up acima (não o substitui), calibrada em SP e usada
+nos estudos de Avaré. Serve para ancorar rapidamente o preço de municípios/consórcios
+de médio porte e checar se o número "fecha com o prefeito":
+
+```
+Preço ≈ camada local + linha USA fixa
+  camada local = R$ 5,20 / habitante / mês   (USBs + motolância + gestão)
+  linha USA    ≈ R$ 457 mil / mês de preço   (UTI móvel operada 100% pela Samais)
+```
+
+- O preço assim obtido é **teto de mercado**: custos novos comem margem, **não sobem
+  o preço**. Serve de disciplina anti-inflação de proposta.
+- A **linha USA é fixa** (mesmo valor em qualquer cenário) e seu **repasse federal**
+  (~R$ 134k/mês, quando habilitada) **volta ao ente** como desconto de fato.
+- Ao diluir a USA fixa sobre mais população, o **R$/hab cai** com a escala — por isso
+  somar um município pequeno pode **baixar** o rateio do município-âncora.
+
+### Parâmetros calibrados SP (aplicados nos estudos de Avaré)
+
+| Parâmetro | Valor |
+|---|---|
+| Encargos sobre salário | **68,24%** (Grupo C já cobre rescisão/demissão — **não duplicar**) |
+| Fator de Cobertura | **4,5** (posto 24/7, 12×36) · **2,25** (posto 12h) |
+| Médico da USA | **Plantonista** (~R$ 125/h × 730,5h ≈ R$ 91,3 mil/posto 24/7) — **não** CLT integral |
+| Tributos s/ faturamento | **16,33%** (Lucro Presumido: PIS 0,65 + COFINS 3 + IRPJ 4,8 + CSLL 2,88 + ISS 5) |
+| Honorários advocatícios | **2%** do faturamento (externo/contingência, pedido do CEO) |
+| Indiretos | **10%** (7% overhead admin + 3% operacional) |
+
+> Coerência com o BDI canônico: os 35% de "Composição do Valor Contratual" continuam
+> valendo para a superfície externa; a heurística 5,2 é interna, para **ancorar o teto
+> e dimensionar rápido**. Nunca expor "5,2/hab" nem "margem" ao ente — apresentar
+> sempre valor global e fecho em R$/hab pós-cofinanciamento (padrão Sorriso).
+
 ## Como apresentar
 
 - **Valor global (mais comum):** apresentar apenas o valor final com memória

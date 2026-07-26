@@ -40,6 +40,31 @@ proposta, teaser, estudo municipal, apresentação, branding saúde.
 - Crítico: `#C20D2F`
 - Positivo/validado: verde sóbrio `#5F8C6A`
 
+## Superfície — Vidro Institucional
+
+Camada de superfície canônica desde 2026-07-26. **CSS completo, tokens e regras
+em `doutrina/design-system.md` (seção "Vidro Institucional") — copie de lá, não
+reescreva de memória.** Variante na paleta do estudo municipal em
+`samais-municipal-study/references/design-system.md`.
+
+Resumo operacional:
+
+- Quatro camadas: `.glass` (cards/painéis) · `.glass-strong` (nav, header sticky,
+  modal) · `.glass-media` (sobre fotografia municipal) · `.glass-gold` (o
+  elemento-veredicto, **um por peça**).
+- Corpo escuro e quente + quina dourada em gradiente. A quina é luz de borda:
+  **não** conta contra a cota de ≤10% de superfície dourada.
+- **Exige substrato** (`body::before` com radiais + malha de 64px). Vidro sobre
+  fundo chapado não refrata nada e entrega um retângulo cinza — nesse caso, use
+  card chapado e pronto.
+- **Exige** os blocos `@supports not (backdrop-filter)` e `@media print`. Peça
+  Samais vira PDF e roda em navegador de secretaria; sem eles o bloco fica
+  ilegível.
+- **Audiência externa (padrão FRIO):** só `.glass` e `.glass-media`. Sem
+  `.glass-gold`, sem hover animado, sem brilho pulsante.
+- Não é o glassmorphism genérico proibido abaixo — aquele é vidro branco-azulado
+  com borda branca uniforme sobre fundo liso.
+
 ## Tipografia
 
 - **Display/Títulos**: Syne (600–800) — headlines, números de seção,
@@ -93,5 +118,8 @@ proposta, teaser, estudo municipal, apresentação, branding saúde.
 - Misturar a paleta institucional com a paleta operacional SAMU
   (vermelho vivo) na mesma peça.
 - Usar brasões municipais em peças de vídeo/institucionais.
-- Gradientes coloridos, neon, glassmorphism genérico de template.
+- Gradientes coloridos, neon, **glassmorphism genérico de template** — vidro
+  branco-azulado, `rgba(255,255,255,.1)` com borda branca uniforme e blur solto
+  sobre fundo chapado. O substituto autorizado é o **Vidro Institucional** acima.
+- Vidro sem substrato, ou sem os blocos de `@supports` e `@media print`.
 - Emojis em documentos institucionais.

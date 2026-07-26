@@ -81,6 +81,174 @@ body {
 
 ---
 
+## Vidro Institucional — variante estudo
+
+> Camada de superfície canônica (ver `doutrina/design-system.md`). Aqui os tokens
+> estão reancorados na paleta do estudo (`#060709` / `#C9A84C`), não na do
+> dashboard. **Não é glassmorphism de template** — é vidro escuro quente com quina
+> dourada em gradiente e substrato desenhado atrás.
+>
+> Estudo municipal é peça de audiência EXTERNA → **padrão FRIO**: use apenas
+> `.glass` e `.glass-media`. `.glass-gold` só na versão interna (OUTPUT A).
+
+`.glass` é a **base** (carrega `position: relative` e a quina iluminada `::before`);
+`.glass-strong`, `.glass-media` e `.glass-gold` são **modificadores** e nunca andam
+sozinhos — `class="glass glass-media"`, nunca só `glass-media`.
+
+```css
+:root {
+  --glass-body:        rgba(19, 22, 32, .55);
+  --glass-body-strong: rgba(19, 22, 32, .80);
+  --glass-body-media:  rgba(6, 7, 9, .62);
+  --glass-edge:        rgba(201, 168, 76, .40);
+  --glass-edge-fade:   rgba(201, 168, 76, .08);
+  --glass-specular:    rgba(240, 232, 210, .10);
+  --glass-specular-2:  rgba(240, 232, 210, .028);
+  --glass-blur:        22px;
+  --glass-blur-strong: 34px;
+}
+
+/* Substrato — sem campo ambiente atrás, backdrop-filter não refrata nada.
+   O passo de 64px é o mesmo do .grid-bg da capa: é a malha vista através do
+   vidro que prova ao olho que há blur acontecendo. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(1100px 620px at 82% -12%, rgba(201,168,76,.07), transparent 62%),
+    radial-gradient(820px 520px at 8% 108%, rgba(22,160,133,.04), transparent 60%),
+    linear-gradient(rgba(201,168,76,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,.022) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+}
+
+.glass {
+  position: relative;
+  background-color: var(--glass-body);
+  background-image:
+    linear-gradient(145deg, var(--glass-specular) 0%, var(--glass-specular-2) 30%, transparent 58%),
+    linear-gradient(to bottom, rgba(240,232,210,.03), transparent 40%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.28);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.28);
+  border: 1px solid transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(240,232,210,.09),
+    inset 0 -1px 0 rgba(0,0,0,.30),
+    0 18px 44px rgba(0,0,0,.38);
+}
+
+/* Quina iluminada — o ouro entra como LUZ de borda, não como preenchimento.
+   Não conta contra a cota de ≤10% de superfície dourada. */
+.glass::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  padding: 1px; pointer-events: none;
+  background: linear-gradient(145deg,
+    var(--glass-edge) 0%, var(--glass-edge-fade) 38%,
+    rgba(240,232,210,.05) 66%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+
+/* Nav lateral fixa, cabeçalhos sticky */
+.glass-strong {
+  background-color: var(--glass-body-strong);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.32);
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.32);
+  box-shadow:
+    inset 0 1px 0 rgba(240,232,210,.11),
+    inset 0 -1px 0 rgba(0,0,0,.34),
+    0 24px 60px rgba(0,0,0,.46);
+}
+
+/* Sobre a fotografia do município — capa, .context-card, .part-divider */
+.glass-media {
+  background-color: var(--glass-body-media);
+  background-image:
+    linear-gradient(145deg, rgba(240,232,210,.085) 0%, transparent 55%),
+    linear-gradient(to top, rgba(6,7,9,.55), transparent 70%);
+  backdrop-filter: blur(18px) saturate(1.15) brightness(.92);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15) brightness(.92);
+  box-shadow:
+    inset 0 1px 0 rgba(240,232,210,.10),
+    inset 0 -1px 0 rgba(0,0,0,.40),
+    0 22px 58px rgba(0,0,0,.50);
+}
+
+/* Só na versão INTERNA — um por peça (cenário ★ RECOMENDADO OU composição) */
+.glass-gold {
+  background-color: rgba(28, 23, 11, .58);
+  background-image:
+    linear-gradient(145deg, rgba(201,168,76,.16) 0%, rgba(201,168,76,.04) 34%, transparent 62%);
+  box-shadow:
+    inset 0 1px 0 rgba(201,168,76,.22),
+    inset 0 -1px 0 rgba(0,0,0,.32),
+    0 20px 52px rgba(0,0,0,.42),
+    0 0 46px rgba(201,168,76,.07);
+}
+.glass-gold::before {
+  background: linear-gradient(145deg,
+    rgba(201,168,76,.75) 0%, rgba(201,168,76,.22) 40%, rgba(201,168,76,.06) 100%);
+}
+```
+
+### Degradação — OBRIGATÓRIA em todo estudo
+
+Dossiê vira PDF e é aberto em navegador de secretaria. `backdrop-filter` falha nos
+dois, e falha feio (bloco preto ou texto ilegível). Sem estes dois blocos, o estudo
+**não sai**:
+
+```css
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass, .glass-strong { background-color: var(--bg3); }
+  .glass-media { background-color: rgba(6,7,9,.90); }
+  .glass-gold  { background-color: #1C170B; }
+}
+
+@media print {
+  /* transition ativa na troca de mídia imprime a cor INTERPOLADA */
+  * { transition: none !important; animation: none !important; }
+  body { background: #fff; color: #141413; }
+  body::before, .grid-bg { display: none; }
+  .glass, .glass-strong, .glass-media, .glass-gold {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: #FAF9F5; color: #141413; box-shadow: none;
+    border: 1px solid rgba(0,0,0,.18);
+  }
+  .glass::before, .glass-gold::before { display: none; }
+  .glass-media { background-image: none; }
+  .study-nav { display: none; }
+  .study-main { margin-left: 0; }
+}
+```
+
+### Onde aplicar (mapa sobre os componentes abaixo)
+
+| Componente | Classe | Por quê |
+|---|---|---|
+| `.cover-stats` sobre a foto do município | `glass glass-media` | painel legível sem matar a foto com overlay de 0,9 |
+| `.context-content` (zona de imagem contextual) | `glass glass-media` | idem — hoje o `.context-overlay` apaga a imagem |
+| `.part-divider` com imagem regional | — | fica sem vidro; é respiro, não superfície |
+| `.data-card` | `glass` | hierarquia sem inventar cor nova |
+| `.composition-block` | `glass` | externo → padrão FRIO, nunca `glass-gold` |
+| `.sc-card.recommended` | `glass glass-gold` **só interno** | é o veredicto; um por peça |
+| `.study-nav` | `glass glass-strong` | flutua sobre o conteúdo que rola atrás |
+| `.closing-argument` | `glass` | mantém a borda dourada existente |
+| `.box`, `.tbl`, `.recommendation` | — | linguagem de camada/dado, não de superfície |
+
+**Contraste é verificado no pior caso** — capa de município com céu claro atrás, não
+no fundo médio. Medido em Chromium sobre céu estourado (`#FFF`) e sem overlay:
+composto `rgb(79,78,79)` → **6,58:1** contra `#e8e5dc` (AA = 4,5:1); com o
+`.context-overlay` atrás, 9,55:1. Se uma foto específica não passar, aumente
+`--glass-body-media`; nunca clareie o texto além do token. Meça o pixel composto
+(screenshot → canvas → `getImageData`) — estimar de cabeça erra por larga margem,
+porque o `backdrop-filter` compõe blur + `saturate` + `brightness` + dois
+gradientes.
+
+**Atenção à especificidade:** `.glass` fixa `position: relative` (0,1,0). Um seletor
+de elemento como `header { position: sticky }` (0,0,1) **perde** — use `header.glass`.
+
+---
+
 ## Layout
 
 ### Nav lateral fixo
@@ -635,13 +803,19 @@ section {
 ```html
 <div class="context-card" style="background-image: url('[URL]');">
   <div class="context-overlay"></div>
-  <div class="context-content">
+  <div class="context-content glass glass-media">
     <div class="context-tag">[Tag]</div>
     <h4 class="context-title">[Título]</h4>
     <p class="context-text">[Texto]</p>
   </div>
 </div>
 ```
+
+> **Mudança do vidro:** o painel de texto passa a ser `.glass-media` e o
+> `.context-overlay` cai de `0.88` para `0.42`. Antes, o overlay chapado apagava a
+> foto do município inteira só para o texto caber; agora a foto continua legível e
+> só a área sob o texto é densificada. Mantenha `padding` e `max-width` — o vidro
+> precisa de área para ler como painel, não como faixa.
 
 ```css
 .context-card {
@@ -659,10 +833,12 @@ section {
   background: var(--bg3);
 }
 
+/* Aliviado: o vidro do painel faz o trabalho de contraste que este overlay
+   fazia sozinho apagando a imagem. */
 .context-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.65) 100%);
+  background: linear-gradient(135deg, rgba(6,7,9,0.42) 0%, rgba(6,7,9,0.24) 100%);
 }
 
 .context-content {
@@ -670,6 +846,7 @@ section {
   z-index: 2;
   padding: 40px;
   max-width: 640px;
+  margin: 32px;
 }
 
 .context-tag {
@@ -1211,5 +1388,13 @@ Esta seção é o diferencial competitivo central da Samais e deve receber trata
 - [ ] Dados ausentes marcados com `.data-missing` (nunca inventar)
 - [ ] Rodapé com confidencialidade, mês/ano e versão
 - [ ] Responsivo (nav some em <900px, padding reduz)
+- [ ] **Vidro:** substrato `body::before` presente (sem ele o `backdrop-filter` não
+      refrata nada e o painel vira retângulo cinza)
+- [ ] **Vidro:** blocos `@supports not (backdrop-filter)` e `@media print` presentes
+      — sem eles o dossiê vira mancha ilegível em PDF e em navegador de secretaria
+- [ ] **Vidro:** padrão FRIO respeitado — só `.glass` e `.glass-media` na versão
+      externa; nenhum `.glass-gold`
+- [ ] **Vidro:** contraste do texto verificado sobre a região MAIS CLARA da foto da
+      capa, não sobre o fundo médio
 - [ ] Seção CoPilot OS presente no OUTPUT A com `.copilot-section` e `.cp-dot` animado
 - [ ] Zero dependências externas de servidor

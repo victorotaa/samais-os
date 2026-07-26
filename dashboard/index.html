@@ -15,19 +15,77 @@
     --text:#EDEAE2; --text-2:#B0AEA5; --text-3:#9A968C;
     --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
     --f-display:'Syne',system-ui,sans-serif; --f-body:'Inter',system-ui,sans-serif; --f-mono:'JetBrains Mono',monospace;
+    /* Vidro Institucional — ver doutrina/design-system.md */
+    --glass-body:rgba(10,14,24,.55); --glass-body-strong:rgba(10,14,24,.80);
+    --glass-edge:rgba(212,168,87,.40); --glass-edge-fade:rgba(212,168,87,.08);
+    --glass-specular:rgba(240,228,201,.10); --glass-specular-2:rgba(240,228,201,.028);
+    --glass-blur:22px; --glass-blur-strong:34px;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.6;
-    -webkit-font-smoothing:antialiased;background-image:radial-gradient(1200px 600px at 80% -10%,rgba(212,168,87,.05),transparent 60%);}
+    -webkit-font-smoothing:antialiased;}
+  /* Substrato: sem campo ambiente atrás, o vidro não refrata nada. */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(1100px 620px at 82% -12%,rgba(212,168,87,.07),transparent 62%),
+      radial-gradient(820px 520px at 8% 108%,rgba(64,92,140,.05),transparent 60%),
+      linear-gradient(rgba(212,168,87,.022) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(212,168,87,.022) 1px,transparent 1px);
+    background-size:auto,auto,64px 64px,64px 64px;}
+
+  /* ── Vidro Institucional ── */
+  .glass{position:relative;background-color:var(--glass-body);
+    background-image:
+      linear-gradient(145deg,var(--glass-specular) 0%,var(--glass-specular-2) 30%,transparent 58%),
+      linear-gradient(to bottom,rgba(240,228,201,.03),transparent 40%);
+    backdrop-filter:blur(var(--glass-blur)) saturate(1.28);
+    -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(1.28);
+    border:1px solid transparent;border-radius:14px;
+    box-shadow:inset 0 1px 0 rgba(240,228,201,.09),inset 0 -1px 0 rgba(0,0,0,.30),0 18px 44px rgba(0,0,0,.38);}
+  .glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:linear-gradient(145deg,var(--glass-edge) 0%,var(--glass-edge-fade) 38%,rgba(240,228,201,.05) 66%,transparent 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+            mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;}
+  .glass-strong{background-color:var(--glass-body-strong);
+    backdrop-filter:blur(var(--glass-blur-strong)) saturate(1.32);
+    -webkit-backdrop-filter:blur(var(--glass-blur-strong)) saturate(1.32);
+    box-shadow:inset 0 1px 0 rgba(240,228,201,.11),inset 0 -1px 0 rgba(0,0,0,.34),0 24px 60px rgba(0,0,0,.46);}
+  .glass-gold{background-color:rgba(30,24,12,.58);
+    background-image:linear-gradient(145deg,rgba(212,168,87,.16) 0%,rgba(212,168,87,.04) 34%,transparent 62%);
+    box-shadow:inset 0 1px 0 rgba(212,168,87,.22),inset 0 -1px 0 rgba(0,0,0,.32),0 20px 52px rgba(0,0,0,.42),0 0 46px rgba(212,168,87,.07);}
+  .glass-gold::before{background:linear-gradient(145deg,rgba(212,168,87,.75) 0%,rgba(212,168,87,.22) 40%,rgba(212,168,87,.06) 100%);}
+
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .glass,.glass-strong{background-color:var(--card)}
+    .glass-gold{background-color:#1E180C}
+  }
+  @media print{
+    /* transition ativa durante a troca de mídia imprime cor interpolada */
+    *{transition:none!important;animation:none!important}
+    body{background:#fff;color:#141413}
+    body::before{display:none}
+    .glass,.glass-strong,.glass-gold{backdrop-filter:none;-webkit-backdrop-filter:none;
+      background:#FAF9F5;color:#141413;box-shadow:none;border:1px solid rgba(0,0,0,.18)}
+    .glass::before,.glass-gold::before{display:none}
+    header.glass{position:static}
+    .gauge .bar{background:rgba(0,0,0,.10)}
+    .gauge .fill{background:#8A6D28}
+  }
+
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-  header{border-bottom:1px solid var(--border);padding:40px 0 28px}
+  /* Header flutuante — camada .glass-strong, quina só na base.
+     Seletor com .glass para vencer o `position:relative` da classe base. */
+  header.glass{position:sticky;top:0;z-index:50;padding:28px 0 22px;border-radius:0;
+    border-bottom:1px solid var(--border)}
+  header.glass::before{display:none}
   .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
   h1{font-family:var(--f-display);font-weight:800;font-size:34px;margin:10px 0 6px;letter-spacing:-.01em}
   .sub{color:var(--text-3);font-size:14px}
   .sub b{color:var(--text-2);font-weight:500}
   /* KPIs */
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}
-  .kpi{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border-soft);border-radius:14px;padding:20px}
+  .kpi{padding:20px}
   .kpi .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
   .kpi .val{font-family:var(--f-display);font-weight:700;font-size:28px;margin-top:8px;color:var(--gold)}
   .kpi .val small{font-size:14px;color:var(--text-2);font-weight:500}
@@ -36,8 +94,16 @@
   .sec-head h2{font-family:var(--f-display);font-weight:700;font-size:18px;margin:0}
   .sec-head .note{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-  .fr{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;padding:18px 18px 16px;transition:border-color .2s,transform .2s}
-  .fr:hover{border-color:var(--border);transform:translateY(-2px)}
+  .fr{padding:18px 18px 16px;transition:background-color .25s,box-shadow .25s}
+  /* Hover: sobe especular e quina — nunca transform:scale (doutrina, regra 8) */
+  .fr:hover{background-color:rgba(14,19,32,.66);
+    box-shadow:inset 0 1px 0 rgba(240,228,201,.14),inset 0 -1px 0 rgba(0,0,0,.30),0 22px 52px rgba(0,0,0,.44)}
+  .fr:hover::before{background:linear-gradient(145deg,rgba(212,168,87,.62) 0%,var(--glass-edge-fade) 40%,rgba(240,228,201,.06) 68%,transparent 100%)}
+  .fr.glass-gold:hover{background-color:rgba(38,30,15,.66)}
+  /* Marcador da frente-veredicto (maior score) — o único .glass-gold da peça */
+  .fr-lead{display:inline-block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;background:var(--gold);color:var(--bg);font-weight:600;
+    padding:2px 9px;border-radius:999px;margin-top:8px;margin-left:6px;vertical-align:top}
   .fr-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .fr-name{font-family:var(--f-display);font-weight:700;font-size:17px}
   .fr-uf{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
@@ -68,7 +134,7 @@
 </style>
 </head>
 <body>
-<header><div class="wrap">
+<header class="glass glass-strong"><div class="wrap">
   <div class="kicker">Samais-OS · negócio como código</div>
   <h1>Cockpit de Frentes</h1>
   <div class="sub">Painel gerado por <b>scripts/build-dashboard.mjs</b> a partir de <b>frentes/**/status.json</b> · validado por schema.</div>
@@ -111,19 +177,25 @@ function render(d){
     ["Pipeline anual (base)", BRLc(d.pipeline_anual)],
   ];
   document.getElementById("kpis").innerHTML = kpis.map(([l,v])=>
-    `<div class="kpi"><div class="lbl">${l}</div><div class="val">${v}</div></div>`).join("");
+    `<div class="kpi glass"><div class="lbl">${l}</div><div class="val">${v}</div></div>`).join("");
+
+  // .glass-gold é UM por peça (doutrina, regra 3): a frente de maior score.
+  const topScore = Math.max(...d.frentes.map(f=>f.score));
+  let goldUsed = false;
 
   document.getElementById("grid").innerHTML = d.frentes.map(f=>{
     const val = f.valor_contratual_mensal
       ? `<div class="fr-val">${BRL(f.valor_contratual_mensal)}<small> /mês · Cenário Base</small></div>`
       : `<div class="fr-val na">valor a dimensionar</div>`;
     const verdict = f.verdict ? `<span class="verdict" data-v="${f.verdict}">${f.verdict.replace("-"," ")}</span>` : "";
-    return `<div class="fr">
+    const isLead = !goldUsed && f.score === topScore;
+    if (isLead) goldUsed = true;
+    return `<div class="fr glass${isLead?" glass-gold":""}">
       <div class="fr-top">
         <div class="fr-name">${f.frente}</div>
         <div class="fr-uf">${f.uf}</div>
       </div>
-      <span class="fr-serv">${f.servico}</span>
+      <span class="fr-serv">${f.servico}</span>${isLead?'<span class="fr-lead">prioridade</span>':""}
       ${val}
       <div class="fr-row">
         <span class="stage" data-s="${f.estagio}">${stageLabel(f.estagio)}</span>

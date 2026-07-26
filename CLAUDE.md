@@ -19,7 +19,9 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
 
 1. **`doutrina/`** — fonte de verdade escrita. Ler antes de produzir qualquer peça:
    - `taxonomia-gestao.md` — 3 categorias de gestão (⚠️ stub pendente de migração).
-   - `design-system.md` — dark-luxury · Syne/Inter/JetBrains Mono · `#04060C` / `#D4A857`.
+   - `design-system.md` — dark-luxury · Syne/Inter/JetBrains Mono · `#04060C` / `#D4A857`
+     · **Vidro Institucional** (`.glass` / `.glass-strong` / `.glass-media` /
+     `.glass-gold`) como camada de superfície canônica.
    - `precificacao.md` — BDI decomposto 35%; **nunca "lucro"/"margem"**.
    - `padrao-frio.md` — audiência externa: neutro, factual, sem advocacy.
    - `higgsfield-canon.md` — cânone de vídeo (decisão fechada).

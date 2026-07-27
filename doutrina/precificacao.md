@@ -33,6 +33,58 @@ comercialmente estratégico.
 > A referência `composicao-preco.md` detalha a composição interna de cada linha e traz
 > os **textos prontos** para proposta. Consultar lá ao gerar um estudo.
 
+## ⚠️ Correção estrutural da tabela acima (lição Canoas, jul/2026)
+
+**A tabela lista todas as linhas como "% sobre CDO" — mas os tributos incidem sobre
+o FATURAMENTO (preço), não sobre o CDO.** Com isso, os 35% **não fecham**:
+
+```
+Preço = CDO × 1,35            → BDI disponível = 0,35 × CDO
+Tributos = 13,5% × preço      = 0,135 × 1,35 × CDO = 18,2% do CDO  (não 13,5%)
+Demais linhas (8+5+3+2+2,5)   = 20,5% do CDO
+Total consumido               = 38,7% do CDO  >  35% disponíveis
+→ REMUNERAÇÃO REAL = −2,8% do preço  (NEGATIVA, em qualquer estudo)
+```
+
+Os "4% de remuneração empresarial" da tabela só existem se os tributos fossem
+13,5% *do CDO* — o que não é o caso. **A tabela é uma peça de apresentação
+(decomposição defensável para o cliente), não um motor de cálculo.**
+
+### Regra operacional
+
+1. **Sempre calcular a remuneração residual explicitamente:**
+   `remuneração = preço − CDO − (tributos% × preço) − (demais linhas% × CDO)`
+2. **Se der menos que ~5% do preço, o BDI está errado** para aquela operação.
+3. **Pisos de BDI sobre o CDO** (com tributos 13,5% sobre faturamento):
+
+| Remuneração-alvo (% do preço) | BDI mínimo sobre CDO |
+|---|---|
+| 4% | **46,1%** |
+| 7% (padrão Canoas) | **51,6%** |
+| 10% | **57,5%** |
+
+> **Isso não infla preço.** O preço segue ancorado no teto de mercado (Métrica de
+> Ouro / benchmark). O BDI maior apenas **revela o custo verdadeiro** e impede
+> assinar contrato que opera no prejuízo. Se o preço de mercado não comportar o
+> BDI mínimo, o caminho é **enxugar escopo** — nunca aceitar remuneração negativa.
+
+## Varredura completa do termo de referência (lição Canoas)
+
+O edital é fonte do **escopo E do custo**. Ler só a matriz de pessoal e a frota é
+erro material — em Canoas isso omitiu **R$ 229 mil/mês**. Checklist obrigatório:
+
+- [ ] **Horas extras de capacitação / NEP** (Canoas: 400h médico, 600h enfermeiro,
+      600h técnico, 250h condutor, 150h motolância — todas obrigatórias)
+- [ ] **Seguros exigidos** (seguro total da frota, patrimonial, garantias)
+- [ ] **EPI, uniformes e crachás** especificados item a item
+- [ ] **Resíduos, esterilização, controle de pragas**
+- [ ] **Manutenção predial, de equipamentos médicos e de bens móveis**
+- [ ] **Imóvel por conta da contratada** (locação + adequação + mobiliário)
+- [ ] **Metas com desconto no repasse** (risco de receita, não só de custo)
+- [ ] Concessionárias, telefonia, TI/firewall, material de escritório
+
+Toda obrigação do termo que consome dinheiro **é rubrica de custo** e entra no CDO.
+
 ## Fórmula
 
 ```

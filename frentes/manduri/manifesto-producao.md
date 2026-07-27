@@ -412,15 +412,38 @@ plano precisar de um v2, o lote fica apertado: 6 × 2 × 8,75 = 105 > 88,70.
 Autorizados **5 renders** (M01, M02, M04, M05, M06), teto 43,75. **3 entraram, 2 foram
 barrados pelo provedor.**
 
-| Plano | Status | Créditos |
-|---|---|---|
-| M01 · Portal da cidade | ✅ concluído · 1920×1080 | 8,75 |
-| M02 · Prefeitura / Rua Bahia | ✅ concluído · 1920×1080 | 8,75 |
-| M04 · Rua residencial | ✅ concluído · 1920×1080 | 8,75 |
-| M05 · Pronto Municipal | ❌ `403 grace_daily_limit_reached` | **0** |
-| M06 · Saída para a rodovia | ❌ `403 grace_daily_limit_reached` | **0** |
+| Plano | Status | QC Codex | Créditos |
+|---|---|---|---|
+| M01 · Portal da cidade | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
+| M02 · Prefeitura / Rua Bahia | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
+| M04 · Rua residencial | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
+| M05 · Pronto Municipal | ❌ `403 grace_daily_limit_reached` | — | **0** |
+| M06 · Saída para a rodovia | ❌ `403 grace_daily_limit_reached` | — | **0** |
 
 **Saldo: 88,70 → 62,45** (3 × 8,75 = 26,25).
+
+### ✅ QC visual — M01, M02, M04 aprovados
+
+Inspeção do Codex em **0 · 1,25 · 2,5 · 3,75 · 4,9 s** (os mesmos marcos onde o piloto
+v1 falhou):
+
+| Critério | Resultado |
+|---|---|
+| Emissão / flash / halo / núcleo luminoso nas balizas | ✅ **nenhuma** |
+| Carroceria, rodas, livery | ✅ estáveis |
+| Arquitetura | ✅ estável |
+
+- **M01** — portal e lettering estáveis, passagem calma.
+- **M02** — prefeitura estável, push/tracking discreto, saída à direita.
+- **M04** — **melhor dinamismo do conjunto**: tracking lateral e parallax de árvores,
+  sem leitura de urgência.
+
+> A correção de causa-raiz **funcionou**: escurecer fisicamente as lentes no master
+> resolveu o que o prompt sozinho não resolvia. Regra confirmada para M05 e M06.
+
+Masters de saída (arquivos locais do Codex, fora do Git):
+`m01-portal-kling-pro-v1.mp4` · `m02-prefeitura-kling-pro-v1.mp4` ·
+`m04-rua-kling-pro-v1.mp4`.
 
 ### ⚠️ Limite diário do backend Kling — não é crédito
 
@@ -431,6 +454,11 @@ tentar em vez de martelar o backend.
 **Os dois não foram cobrados** (o saldo bate exatamente com 3 renders), então seguem
 dentro da autorização de cinco, com 17,5 créditos ainda reservados. Basta reexecutar
 quando a cota diária virar — sem necessidade de nova aprovação de custo.
+
+**Retomada armada:** tentativa automática única às **00:05 UTC (21:05 BRT)** de
+2026-07-27→28, reconfirmando saldo e custo antes de submeter. Se o limite repetir,
+**não insistir** — rearmar uma única tentativa para **03:05 UTC (00:05 BRT)**.
+Sem troca de modelo e sem nenhuma geração além de M05 e M06.
 
 ### Conformidade da submissão
 

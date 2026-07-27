@@ -68,6 +68,23 @@ Os "4% de remuneração empresarial" da tabela só existem se os tributos fossem
 > assinar contrato que opera no prejuízo. Se o preço de mercado não comportar o
 > BDI mínimo, o caminho é **enxugar escopo** — nunca aceitar remuneração negativa.
 
+## Anexo de composição de preço (3º artefato de todo estudo)
+
+Todo estudo passa a gerar, além do markdown interno e da página cliente-facing,
+um **anexo de memória financeira** — a peça que **valida a fórmula perante a
+diretoria**: composição rubrica a rubrica com a regra de cálculo explícita, ponte
+custo→preço até a **remuneração residual**, benchmark e tabela fato × premissa.
+
+- Local: `samais-estudos/anexos/<municipio-uf>-memoria-financeira.html`
+- Especificação: `samais-estudos/referencias/anexo-composicao-preco.md`
+- Referência viva: `anexos/canoas-rs-memoria-financeira.html`
+- ⚠️ **Nunca dentro de `site/`** — expõe BDI, remuneração e composição; o deploy
+  Vercel varre `site/` e publicaria o documento.
+
+Seções obrigatórias: (01) método + alerta do BDI · (02) serviço principal rubrica
+a rubrica + benchmark · (03) serviço secundário e seu piso de preço · (04)
+consolidado · (05) procedência e sensibilidade.
+
 ## Varredura completa do termo de referência (lição Canoas)
 
 O edital é fonte do **escopo E do custo**. Ler só a matriz de pessoal e a frota é

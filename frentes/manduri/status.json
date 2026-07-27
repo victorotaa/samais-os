@@ -2,13 +2,13 @@
   "frente": "Manduri",
   "uf": "SP",
   "servico": "SAMU",
-  "estagio": "radar",
-  "score": 0,
+  "estagio": "negociacao",
+  "score": 8,
   "valor_contratual_mensal": null,
-  "populacao": 10122,
-  "operador_atual": null,
-  "verdict": null,
-  "gatilho": "Produção de filme institucional (handoff 2026-07-27). Alvo entra pelo eixo audiovisual, não por edital — sem gatilho licitatório identificado até agora.",
+  "populacao": 9871,
+  "operador_atual": "AMVAPA (CRU Vale do Jurumirim, 17 municípios)",
+  "verdict": "atencao",
+  "gatilho": "Reunião com secretário de saúde de Avaré e prefeito de Manduri. Cenário 4 do estudo avare-manduri-sp: Manduri no lugar de Arandu como parceira do novo consórcio com Avaré (106.321 hab).",
   "atualizado_em": "2026-07-27",
-  "proximo_passo": "Obter briefing do filme com Victor (natureza do alvo, duração, escopo, números). Em paralelo: validar em fonte primária a composição atual da CRU de Avaré e o operador atual do SAMU que cobre Manduri."
+  "proximo_passo": "Roteiro (30–60s) + storyboard HTML para aprovação — eixo da transferência, sem motolância (fora do escopo desde jul/2026) e sem menção a consórcio. Valor mensal deixado null de propósito: negociação não assinada e repo público (ver interpretacao.md)."
 }

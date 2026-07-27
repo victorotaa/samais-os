@@ -5,115 +5,133 @@
 
 ## Síntese comercial
 
-Manduri entrou na carteira pelo **eixo audiovisual** (handoff de produção de filme
-institucional, 2026-07-27), não por edital. Não há gatilho licitatório identificado.
-Isso inverte a ordem normal: normalmente o estudo puxa a peça; aqui a peça está
-puxando o estudo.
+Manduri **não é uma frente autônoma** — é a **parceira do par** no cenário 4 do estudo
+`avare-manduri-sp`: um **novo consórcio intermunicipal Avaré + Manduri** (106.321 hab),
+com Manduri entrando **no lugar de Arandu**. A origem é reunião com o secretário de
+saúde de Avaré (que fala pelo prefeito) e o prefeito de Manduri.
 
-Dois achados desta rodada mudam o enquadramento do projeto:
+A lógica do arranjo: mais população dividindo a linha fixa da USA derruba o per capita
+**para os dois**, e a cota de Avaré cai em relação ao cenário Solo — argumento que o
+próprio secretário de Avaré pode defender internamente.
 
-1. **A hipótese do handoff se confirma — Manduri orbita a CRU de Avaré.** Pela
-   regionalização *de saúde* (a que rege SAMU), Manduri está na Região de Saúde de
-   Avaré, e não na de Ourinhos, apesar de o IBGE colocá-lo na microrregião de Ourinhos.
-   Consequência prática: o acervo de Avaré (CRU, TARM, médico regulador, uniformes,
-   telas CoPilot) é **legitimamente reaproveitável** — não é atalho de produção, é
-   correspondência real de regional.
+**Números de dimensionamento e composição do valor contratual não são replicados aqui**
+— vivem no estudo. Ver a ressalva de confidencialidade no fim desta página.
 
-2. **A Samais já opera na região vizinha (SAMU Ourinhos).** Isso é ativo comercial de
-   primeira ordem: há atestado de capacidade técnica geograficamente adjacente, com
-   gestores que podem servir de referência. Muda a conversa de "quem é a Samais" para
-   "a Samais já roda o 192 aqui do lado".
+## 🔴 Duas coisas que o handoff de vídeo não sabia
 
-## O fato estrutural: Manduri é pequeno demais para ter SAMU próprio
+O handoff de produção (2026-07-27) herdou o cânone de Avaré. Dois pontos do estudo o
+contradizem, e ambos mudam o filme:
 
-~10,1 mil habitantes e, aparentemente, **sem hospital com internação**. Um município
-desse porte não sustenta CRU nem frota própria — e não é alvo de contrato SAMU autônomo
-em escala relevante.
+### 1. A motolância saiu do escopo (decisão do CEO, jul/2026)
 
-**Leitura honesta:** Manduri isoladamente **não é uma frente comercial de SAMU.**
-O que existe de real é uma de três coisas — e é isso que precisa ser decidido com Victor
-antes de qualquer produção:
+O cânone audiovisual de Avaré dedica **um ato inteiro** (Ato 4, blocos B09–B11) à
+motolância furando o trânsito no horário de pico — é, inclusive, uma das regras
+narrativas travadas do handoff ("fluxo real da motolância").
 
-| Tese | O que Manduri seria | Implicação
-|---|---|---|
-| **A — Porta de entrada regional** | Vitrine para vender a **regional inteira** (Região de Saúde de Avaré, 11 municípios) | O filme não é "de Manduri", é da regional, com Manduri como caso ilustrativo |
-| **B — Adesão à regional existente** | Município que **entra** na CRU já operante | Narrativa muda de "instalar" para "aderir" — exatamente o que o handoff previu |
-| **C — Cortesia institucional** | Peça de relacionamento, sem tese comercial direta | Escopo e orçamento menores; não justifica 24 blocos |
+**Esse ato está morto para Manduri.** A motolância foi retirada do escopo comercial.
+Mantê-la no filme significaria **vender o que não está sendo ofertado** — exatamente o
+tipo de promessa que a doutrina de honestidade de dado existe para impedir. Some-se a
+isso que Manduri **não terá ambulância 24/7 dedicada**: recebe ponto de apoio, acesso à
+USA e à regulação.
 
-O handoff assume implicitamente o modelo Avaré (filme de 2:00, 24 blocos, 72 frames,
-~280 créditos). **Para um município de 10 mil habitantes esse formato provavelmente é
-superdimensionado**, a menos que a tese seja A — aí o filme se paga por servir a
-11 municípios, não a um.
+Consequência prática: o reaproveitamento de assets de Avaré é **menor** do que os ~40%
+que o handoff projetava. Os frames de motolância — que são muitos — não servem.
 
-## Narrativa — o que Manduri tem que Avaré não tinha
+### 2. O filme não pode narrar o que o negócio realmente é
 
-Se a ausência de hospital se confirmar, o filme ganha um eixo mais forte e mais
-verdadeiro que o de Avaré:
+O arranjo é **dois membros da AMVAPA saindo juntos** para formar consórcio novo. O
+próprio estudo registra o risco: perder Avaré **e** Manduri de uma vez é baque maior
+para a AMVAPA, com resistência institucional proporcional.
+
+**Um filme institucional é peça pública.** Se ele narrar "novo consórcio", "nova
+regional" ou qualquer coisa que soe a saída da AMVAPA, ele **entrega a jogada** antes
+do protocolo estar assinado — e converte uma negociação em disputa aberta, com a
+diretoria da AMVAPA (presidida por José Ramiro, prefeito de Itaí) avisada pela própria
+Samais.
+
+**Regra para o roteiro:** o filme fala de **serviço, tempo e regulação**. Nunca de
+arranjo institucional, consórcio, rateio ou governança. Padrão FRIO sem exceção.
+
+## O eixo narrativo aprovado
+
+Aprovado por Victor: **eixo da transferência**.
 
 > Em Manduri, a ambulância não leva ao tratamento. **A ambulância é o tratamento.**
 
-Todo caso grave é transferência inter-municipal. O tempo que importa não é o
-tempo-resposta até a cena — é o **tempo até a retaguarda em Avaré**. Isso reposiciona o
-CoPilot: a tecnologia não está otimizando um trajeto urbano curto (Avaré), está
-sustentando o paciente durante uma travessia longa entre cidades. É uma tese
-diferenciada, aterrada e defensável — e conversa direto com a tese-âncora
-"salvar vidas é segundo a segundo".
+Sem hospital com internação, todo caso grave é transferência inter-municipal. O tempo
+que importa não é o tempo-resposta até a cena — é o **tempo até a retaguarda**. Isso
+reposiciona o CoPilot: a tecnologia não otimiza um trajeto urbano curto (tese de Avaré),
+ela **sustenta o paciente durante a travessia entre cidades**. É mais verdadeiro para
+Manduri, mais diferenciado, e conversa direto com "salvar vidas é segundo a segundo".
 
-⚠️ **Depende inteiramente de confirmar a inexistência de hospital no CNES.** Se houver
-retaguarda local, esse eixo cai por terra.
+⚠️ **Depende de confirmar a ausência de hospital no CNES.** Se houver retaguarda local,
+o eixo cai.
 
 ### Alerta de dignidade — não usar
-A busca retornou notícia de **acidente fatal com ambulância de Manduri a caminho de
-Avaré**, com três mortes. Isso **corrobora** a rota de transferência descrita acima,
-mas é episódio real com vítimas reais e **não pode ser dramatizado, reencenado nem
-aludido** no filme. Vale como confirmação de fluxo em documento interno — nada além
-disso. Aplicar a regra de dignidade do cânone sem exceção.
+Há registro de **acidente fatal com ambulância de Manduri a caminho de Avaré**, com três
+mortes. Corrobora a rota de transferência e serve como confirmação interna de fluxo —
+e **nada além disso**. Não pode ser dramatizado, reencenado nem aludido no filme.
 
-## Risco a verificar antes de qualquer peça pública
+## Formato decidido
 
-Uma manchete não verificada indica que a **Câmara de Ourinhos instaurou CPI para
-investigar supostas ilegalidades na gestão do SAMU** local. Registro aqui por dever de
-diligência, com três ressalvas:
+**Peça curta de 30–60s** (decisão de Victor), não o formato de 2:00 / 24 blocos de
+Avaré. Coerente com o porte de Manduri e com o fato de o ato da motolância ter caído.
 
-- ⚠️ **Não verificado.** Só manchete via resumo de busca; a página não pôde ser aberta.
-- Não foi possível apurar **objeto, período, alcance ou desfecho** — nem se envolve a
-  Samais, o operador anterior, a gestão municipal, ou nenhum dos três.
-- Manchete **não é imputação**. Nada aqui afirma irregularidade de quem quer que seja.
+## Risco reputacional a apurar antes de usar Ourinhos
 
-**Por que importa mesmo assim:** o filme de Manduri tenderia a usar Ourinhos como prova
-social ("a Samais já opera aqui do lado"). Se houver controvérsia pública em curso
-sobre aquele contrato, esse argumento pode se voltar contra a peça. **Apurar antes de
-ancorar qualquer narrativa em Ourinhos.** Se não for possível apurar, não usar Ourinhos
-como prova social — usar Avaré, que está concluído e sem ressalva conhecida.
+Manchete **não verificada** indica CPI na Câmara de Ourinhos sobre a gestão do SAMU
+local. Objeto, alcance e desfecho desconhecidos — e **manchete não é imputação**.
+Importa porque a peça tenderia a usar Ourinhos como prova social e como âncora de
+benchmark. **Apurar antes de ancorar narrativa ali**; na dúvida, usar Avaré, que está
+concluído e sem ressalva conhecida.
 
-## Economia de produção
+## ⚠️ Ressalva de confidencialidade — ação requerida de Victor
 
-Se a tese A ou B se confirmar, o reaproveitamento de Avaré é substancial: todos os
-blocos de CRU, regulação, TARM, médico regulador e telas CoPilot descrevem **a mesma
-central real** que atende Manduri. O que precisa ser produzido do zero é a camada de
-superfície — cartões-postais, vias, ambiência de cidade pequena e o trajeto de
-transferência. O handoff estima ~40% de economia; com tese A é plausível, porque o
-filme regional pode reusar o miolo inteiro e trocar só o Ato 1.
+O estudo-fonte (`samais-estudos`, branch `claude/manduri-dados`,
+`estudos-internos/avare-manduri-sp.md`) traz no cabeçalho:
 
-⚠️ Nenhum número de crédito foi validado nesta sessão — `get_cost: true` antes de
-qualquer lote, conforme cânone.
+> *"CONFIDENCIAL · USO INTERNO SAMAIS. Contém margem, bridge custo→preço e benchmark
+> — não circular fora da equipe."*
 
-## Verdict: **ATENÇÃO** — não é no-go, mas não é frente de SAMU municipal
+**O repositório `victorotaa/samais-estudos` está com visibilidade `public`.** O mesmo
+vale para `victorotaa/samais-os`. Ou seja, o arquivo marcado como confidencial —
+com bridge custo→preço, percentual de margem, rateio por município e leitura política
+nominal de gestores — **é legível por qualquer pessoa na internet**, inclusive pela
+AMVAPA.
 
-Não há elementos para GO comercial: sem edital, sem operador atual identificado, sem
-dimensionamento, e porte que não sustenta contrato autônomo. Também não é NO-GO: a
-posição regional é genuinamente boa e a adjacência com Ourinhos é real.
+Isso contraria diretamente a doutrina (`CLAUDE.md`: *"Confidencial: estruturação
+jurídico-tributária e veículos de remuneração não se registram em arquivo"*) e o §9 do
+handoff. **Não alterei visibilidade de repositório** — é decisão de Victor. Mas é o
+risco mais alto que esta rodada encontrou, e por isso **não repliquei nenhum número de
+preço, margem ou rateio** nesta página.
 
-**O que trava:** a tese (A/B/C) não está decidida. É decisão de Victor, não de agente —
-e ela determina se o filme é de um município ou de uma regional, o que muda roteiro,
-escopo, orçamento e o próprio sentido da peça.
+## Notas sobre os campos de `status.json`
+
+- **`score: 8`** é uma leitura preliminar (mesa aberta + cenário dimensionado +
+  benchmark validado), **não** o resultado da FASE 3.1 da skill
+  `samais-municipal-study`. Recalcular quando a varredura formal rodar.
+- **`valor_contratual_mensal: null` é deliberado**, não pendência. O valor existe e está
+  dimensionado no estudo; foi omitido aqui porque a negociação não está assinada e o
+  repositório é público (ver ressalva de confidencialidade acima). Preencher quando
+  Victor decidir sobre a visibilidade dos repositórios.
+
+## Verdict: **ATENÇÃO** — negociação real em curso, com risco de exposição
+
+Há mesa aberta (secretário de Avaré + prefeito de Manduri), cenário dimensionado e
+benchmark validado. Não é radar. O que mantém em ATENÇÃO e não em GO:
+
+- Protocolo de intenções não assinado; habilitação federal do novo consórcio não iniciada.
+- Reação da AMVAPA é risco vivo e o filme pode antecipá-la.
+- Canibalização: este cenário concorre com o Regional (cenário 3) e com o Arandu
+  (cenário 2) — **não prometer os três na mesma mesa**.
+- Confidencialidade exposta em repositório público (acima).
 
 ## Próximo passo tático
 
-1. **Briefing com Victor** — §1 do handoff, acrescido da pergunta que o handoff não
-   fazia: *Manduri é o alvo, ou é a vitrine da regional de Avaré?*
-2. **Validar em fonte primária** o que esta rodada só conseguiu por resumo de busca —
-   com prioridade para: ausência de hospital (CNES), composição/abrangência atual da
-   CRU de Avaré, e situação vigente do contrato de Ourinhos.
-3. Só então roteiro. Nada de geração de imagem ou vídeo antes de briefing + storyboard
-   aprovados — regra do cânone, mantida.
+1. **Roteiro (30–60s) + storyboard HTML** para aprovação de Victor — sem motolância,
+   sem menção a consórcio, eixo da transferência.
+2. Aguardar **coordenadas do Codex** (sinalizado por Victor) antes da produção de frames.
+3. Fechar as pendências de CNES (ausência de hospital, Pronto Municipal 24h) e a
+   **distância/tempo rodoviário Manduri→Avaré** — sem esse número o filme não tem seu
+   dado-âncora.
+4. Decidir sobre a visibilidade dos repositórios.

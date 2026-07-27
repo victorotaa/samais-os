@@ -5,109 +5,109 @@
 > vivem em [`interpretacao.md`](interpretacao.md) — nunca aqui.
 > Procedência de cada dado: ✅ verificado (fonte) · ⚠️ premissa a validar.
 
-> ⚠️ **Limitação de verificação desta rodada (ler antes de usar qualquer número).**
-> O levantamento foi feito em sessão remota cujo proxy de saída **bloqueia (HTTP 403)**
-> o acesso direto a `pt.wikipedia.org`, `saude.sp.gov.br`, `ourinhos.sp.gov.br`,
-> `cidades.ibge.gov.br` e portais de notícia regionais. Só foi possível ler **resumos
-> de busca**, não as páginas-fonte. Por isso **nenhum dado abaixo está marcado ✅**:
-> todos são ⚠️ até que alguém abra a fonte primária. **Nenhum número desta página
-> pode ir para o filme antes dessa validação** (Princípio da Realidade).
+> **Fonte-mãe.** Estudo `estudos-internos/avare-manduri-sp.md` no repo
+> `samais-estudos` (branch `claude/manduri-dados`) — "Avaré + Manduri, novo
+> consórcio SAMU, cenário 4". As procedências ✅ abaixo vêm de lá.
 
 ## Perfil do alvo
 
 | Campo | Valor | Procedência |
 |---|---|---|
-| Município | Manduri | ⚠️ |
-| UF | São Paulo (SP) | ⚠️ |
-| População | 10.122 hab (estimativa 2025); 9.871 hab (Censo 2022) | ⚠️ IBGE — confirmar em `cidades.ibge.gov.br` |
-| Área territorial | 229,046 km² (2025) | ⚠️ IBGE |
-| Densidade demográfica | 43,10 hab/km² (2022) | ⚠️ IBGE |
-| Composição administrativa | Sede + distrito de **São Berto** | ⚠️ |
-| Microrregião IBGE | Ourinhos | ⚠️ |
-| Mesorregião IBGE | Assis | ⚠️ |
+| Município | Manduri | ✅ |
+| UF | São Paulo (SP) | ✅ |
+| População (Censo 2022) | **9.871 hab** | ✅ IBGE |
+| População (estimativa 2025) | ~10.122 hab | ✅ IBGE |
+| Área · densidade | 229,05 km² · 43,1 hab/km² | ✅ IBGE |
+| PIB per capita (2023) | R$ 36.583,77 | ✅ IBGE |
+| Receita bruta municipal (2024) | R$ 66.035.439,52 | ✅ |
+| Composição administrativa | Sede + distrito de São Berto | ⚠️ |
+| Microrregião IBGE | Ourinhos (mesorregião Assis) | ⚠️ |
 | Serviço-alvo | SAMU 192 | — (definição interna) |
-| Operador atual do SAMU | **a levantar** | ⚠️ não identificado nesta rodada |
 
-## Regionalização de saúde — o ponto que decide o filme
+## Regionalização — os recortes não coincidem
 
-Há **duas regionalizações diferentes** incidindo sobre Manduri, e elas não coincidem.
-Confundir uma com a outra produz erro narrativo:
+Três recortes distintos incidem sobre Manduri. **Confundi-los produz erro narrativo**,
+porque cada um tem um número diferente de municípios:
 
-| Recorte | Manduri pertence a | Procedência |
-|---|---|---|
-| **IBGE** (microrregião/mesorregião) | Ourinhos / Assis | ⚠️ |
-| **Saúde SES-SP** (Região de Saúde) | **Avaré** | ⚠️ |
+| Recorte | Manduri pertence a | Nº municípios | Procedência |
+|---|---|---|---|
+| **IBGE** (microrregião) | Ourinhos | — | ⚠️ |
+| **AMVAPA** (consórcio público) | Vale do Paranapanema | **19** | ✅ |
+| **CRU Vale do Jurumirim** (regulação SAMU) | Base regional | **17** | ✅ |
+| **SES-SP** (Região de Saúde de Avaré) | Avaré | 11 | ⚠️ |
 
-**A regionalização que rege SAMU é a de saúde, não a do IBGE.**
+**A regionalização que rege SAMU é a da CRU, não a do IBGE.**
 
-### Região de Saúde de Avaré — composição citada
-Arandu, Avaré, Cerqueira César, Coronel Macedo, Itaí, Itaporanga, **Manduri**,
-Paranapanema, Piraju, Sarutaiá, Tejupá — **11 municípios**.
-⚠️ Lista extraída de resumo de documento da SES-SP (`saude.sp.gov.br`, PDF do CES);
-a página não pôde ser aberta. Validar composição **e vigência** (recortes de Região de
-Saúde mudam por deliberação da CIB).
+- **AMVAPA — 19 consorciados** ✅: Águas de Santa Bárbara, Avaré, Angatuba, Arandu,
+  Barão de Antonina, Cerqueira César, Coronel Macedo, Fartura, Iaras, Itaí, Itaporanga,
+  **Manduri**, Paranapanema, Piraju, Riversul, Sarutaiá, Taguaí, Taquarituba, Tejupá.
+  Fundada em 22/11/1999; consórcio público desde 29/01/2010; sede em Piraju. ✅
+- **CRU do Vale do Jurumirim cobre 17** — as 19 da AMVAPA menos Angatuba e Riversul. ✅
 
-### SAMU Regional com base em Avaré — composição citada
-Documento da Câmara Municipal de Avaré (semanário, **2010**) registra a instalação do
-SAMU Regional com sede administrativa e operacional em Avaré, referência para:
-Itaí, Coronel Macedo, Arandu, Cerqueira César, **Manduri**, Taguaí e Paranapanema.
-⚠️ **Fonte de 2010 — 16 anos.** Serve para estabelecer que Manduri historicamente
-orbita a CRU de Avaré; **não serve** para afirmar a composição de hoje.
-
-> ⚠️ **Divergência aberta a resolver.** O handoff de produção afirma que a CRU de Avaré
-> regula **~17 municípios / ~330 mil hab**. As duas listas acima têm **11** e **8**
-> municípios. Os três números são incompatíveis entre si. Antes de qualquer locução ou
-> letreiro citar abrangência da CRU, **fechar o número em fonte primária** (SES-SP /
-> DRS XVI Sorocaba / deliberação CIB vigente).
+> ✅ **Divergência do handoff resolvida.** O handoff citava "~17 municípios / ~330 mil
+> hab" para a CRU de Avaré; o número de 17 **está correto** e se refere à CRU do Vale
+> do Jurumirim. As listas de 11 (Região de Saúde SES-SP) e 8 (documento de 2010) são
+> **recortes diferentes**, não contradições. Usar **17** ao falar de regulação.
+> ⚠️ A população de ~330 mil hab da CRU permanece a confirmar.
 
 ## Rede de saúde instalada em Manduri
 
-Estabelecimentos identificados em busca ao CNES:
-
-| Estabelecimento | Tipo | Procedência |
+| Unidade | Observação | Procedência |
 |---|---|---|
-| Pronto Municipal | Policlínica | ⚠️ CNES — confirmar porte, horário e se faz retaguarda de urgência |
-| CS III Maria Inez Melicio | Centro de Saúde / UBS | ⚠️ CNES |
-| Posto de Saúde Olívio Nicoletti (São Berto) | Posto de saúde (distrito) | ⚠️ CNES |
-| Secretaria Municipal de Saúde de Manduri | Central de gestão em saúde | ⚠️ CNES |
+| **Pronto Municipal** | Urgência/emergência, atendimento domiciliar, laboratório clínico e diagnóstico por imagem. **Horário 24h a confirmar** | ⚠️ |
+| UBS Dr. Aldemar Holtz de Almeida | Atenção básica | ⚠️ |
+| CS III Maria Inez Melicio | Centro de saúde | ⚠️ |
+| Posto de Saúde Olívio Nicoletti (São Berto) | Posto no distrito | ⚠️ CNES |
+| Secretaria Municipal de Saúde | Parque das Abelhas | ⚠️ |
 
-**Não foi identificado hospital com internação no município.** ⚠️ Confirmar no CNES —
-se confirmado, é o fato estrutural mais importante da frente: todo caso grave em Manduri
-é necessariamente **transferência inter-municipal**, não resolução local.
+**Não há hospital com internação identificado** — casos graves dependem de referência
+externa. ⚠️ confirmar no CNES.
 
-## Contexto regional — Samais já opera na região
+> Este é **o fato estrutural da frente** e o eixo narrativo aprovado para o filme:
+> se confirmado, todo caso grave em Manduri é necessariamente **transferência
+> inter-municipal**, não resolução local.
 
-| Item | Valor | Procedência |
+## Escopo do serviço desenhado (cenário 4 — "USA + 5,2")
+
+| Item | Definição | Procedência |
 |---|---|---|
-| Contrato | SAMU 192 Ourinhos/SP — Samais Gestão em Saúde Ltda. | ⚠️ (corroborado internamente: `frentes/belem/fatos.md` já cita Ourinhos como atestado Samais) |
-| Modalidade inicial | Contrato emergencial, 180 dias | ⚠️ |
-| Vigência inicial | desde 31/12/2023 | ⚠️ |
-| Valor | R$ 5.718.721,62 (180 dias) = **R$ 953.120,27/mês** | ⚠️ confirmar no PNCP / portal da transparência de Ourinhos |
-| Custeio | Ourinhos + Salto Grande + recursos federais | ⚠️ |
-| Prorrogação | +180 dias, até 25/05/2025 | ⚠️ |
-| Licitação subsequente | Concorrência Eletrônica nº 01/2024 — Lei 14.133/2021, menor preço, valor estimado **R$ 11.550.094,20** | ⚠️ confirmar desfecho: quem venceu e vigência atual |
+| Par | Avaré (96.450) + Manduri (9.871) = **106.321 hab** | ✅ |
+| Frota | **2 USB 24/7** + reserva + **1 USA (UTI móvel)** operada pela Samais | ✅ estudo |
+| **Motolância** | **FORA DO ESCOPO** — retirada por decisão do CEO, jul/2026 | ✅ estudo |
+| Manduri recebe | Ponto de apoio + acesso à USA e à regulação. **Sem ambulância 24/7 dedicada** (9.871 hab não exigem pela norma) | ✅ estudo |
+| CRU | Permanece **regional** | ✅ estudo |
+| Contratante | Novo consórcio intermunicipal (protocolo → leis nas 2 câmaras → CNPJ/rateio → habilitação MS → Lei 14.133/2021) | ✅ estudo |
+| Equipe | ~50 CLT, piso CCT-SP | ✅ estudo |
+| Regra de ativos | USB e USA são do ente; Samais opera, mantém e reativa | ✅ estudo |
 
-⚠️ **Situação contratual de hoje (jul/2026) não verificada.** Todos os marcos acima
-terminam em 2024–2025. Confirmar se a Samais segue operando Ourinhos antes de usar esse
-fato em qualquer peça.
+> 🔴 **A motolância não entra no filme.** O cânone audiovisual herdado de Avaré tem um
+> ato inteiro dedicado à motolância furando o trânsito (Ato 4 / blocos B09–B11). Esse
+> ato **não pode ser reaproveitado**: a motolância foi retirada do escopo comercial.
+> Mostrá-la seria vender o que não está sendo ofertado. Ver `interpretacao.md`.
 
-### Outra regional, não confundir
-O **SAMU Regional de Ourinhos** (recorte distinto do de Avaré) é citado como cobrindo
-Bernardino de Campos, Canitar, Chavantes, Ipaussu, Timburi, Óleo, Ribeirão do Sul,
-Salto Grande, São Pedro do Turvo, Espírito Santo do Turvo e Santa Cruz do Rio Pardo.
-**Manduri não aparece nessa lista.** ⚠️
+## Benchmark de validação
 
-## Fontes a levantar (pendências factuais)
+| Âncora | Valor | Procedência |
+|---|---|---|
+| Ourinhos (Samais, 2023) | R$ 950k / 106 mil hab = **8,96/hab**; corrigido p/ 2026 (~+18,5%) ≈ **10,6/hab** | ✅ estudo |
 
-1. **IBGE** — população, área, PIB per capita, IDH-M (fonte primária).
-2. **CNES** — rede instalada, confirmação da ausência de hospital, frota de ambulâncias
-   do município.
-3. **SES-SP / DRS XVI Sorocaba** — composição e vigência da Região de Saúde de Avaré;
-   abrangência real da CRU (resolver a divergência 8 × 11 × 17).
-4. **Habilitação federal do SAMU** que cobre Manduri (portaria MS) e situação de
-   cofinanciamento tripartite.
-5. **Operador atual** do SAMU que atende Manduri e vigência do contrato.
-6. **DATASUS/SIM-SINAN** — óbitos por causas externas e tempo-resposta, se publicado.
-7. **PNCP / transparência Ourinhos** — desfecho da Concorrência 01/2024.
-8. **Malha viária** — rodovias que cortam Manduri e distância/tempo real até Avaré e
-   Ourinhos (define o *tempo de transferência*, número mais importante do filme).
+A população do par Avaré+Manduri (106.321) é praticamente idêntica à de Ourinhos
+(~106 mil), o que torna a comparação especialmente forte. ✅
+
+## Pendências factuais (do estudo + desta rodada)
+
+1. **CNES** — frota de ambulância própria de Manduri, leitos, tipo do Pronto Municipal
+   e **se é 24h**; confirmação da ausência de hospital.
+2. **SIOPS** — % e gasto em saúde per capita.
+3. **CAUC** · mortalidade por causas externas.
+4. **Rodovias** que cortam o município e **distância/tempo rodoviário até Avaré** —
+   é o número mais importante do filme (define o tempo de transferência).
+5. População total real da CRU do Vale do Jurumirim (~330 mil hab a confirmar).
+6. Habilitação federal do novo consórcio (trâmite MS).
+
+---
+
+> ⚠️ **Nota sobre esta sessão.** O proxy de saída bloqueia (403) IBGE, CNES, SES-SP e
+> `samais-estudos.vercel.app`. Os dados ✅ acima foram obtidos lendo o repositório
+> `samais-estudos` via git, não as fontes primárias — ou seja, herdam a procedência
+> registrada no estudo. As pendências acima seguem abertas.

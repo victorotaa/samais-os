@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manduri/SP — Storyboard v1 · Samais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04060C; --card:#0A0E18; --card-2:#0D1220;
+    --border:rgba(212,168,87,.14); --border-soft:rgba(255,255,255,.06);
+    --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+    --text:#EDEAE2; --text-2:#B0AEA5; --text-3:#9A968C;
+    --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
+    --f-display:'Syne',system-ui,sans-serif;
+    --f-body:'Inter',system-ui,sans-serif;
+    --f-mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);
+       line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(24px,5vw,64px) clamp(16px,4vw,40px)}
+  .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+          color:var(--gold);margin:0 0 12px}
+  h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,5.5vw,52px);
+     line-height:1.08;margin:0 0 16px;letter-spacing:-.02em}
+  h2{font-family:var(--f-display);font-weight:700;font-size:clamp(19px,2.6vw,26px);
+     margin:56px 0 6px;letter-spacing:-.01em}
+  h3{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0}
+  p{margin:0 0 14px;color:var(--text-2)}
+  .lede{font-size:clamp(15px,1.9vw,18px);color:var(--text-2);max-width:64ch}
+  .rule{height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent);
+        border:0;margin:32px 0}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
+  .meta li{font-family:var(--f-mono);font-size:12px;color:var(--text-2);
+           border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--card)}
+  .meta b{color:var(--gold);font-weight:500}
+
+  .panel{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;
+         padding:clamp(18px,3vw,28px);margin:20px 0}
+  .panel.warn{border-left:3px solid var(--amber)}
+  .panel.crit{border-left:3px solid var(--red)}
+  .panel.ok{border-left:3px solid var(--green)}
+  .panel h3{margin-bottom:10px}
+  .panel p:last-child{margin-bottom:0}
+
+  .locks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .locks li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--text-2)}
+  .locks .mk{font-family:var(--f-mono);font-size:13px;flex:0 0 auto;line-height:1.75}
+  .no .mk{color:var(--red)} .yes .mk{color:var(--green)}
+
+  .ato{margin-top:64px}
+  .ato-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;
+            padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .ato-head .n{font-family:var(--f-mono);font-size:12px;color:var(--gold);letter-spacing:.14em}
+  .ato-head .luz{font-family:var(--f-mono);font-size:12px;color:var(--text-3);margin-left:auto}
+
+  .blk{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;
+       padding:clamp(18px,3vw,26px);margin:18px 0}
+  .blk-top{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:18px}
+  .id{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--bg);
+      background:var(--gold);border-radius:6px;padding:3px 9px}
+  .tc{font-family:var(--f-mono);font-size:12.5px;color:var(--text-3)}
+  .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+       border:1px solid var(--border);border-radius:999px;padding:3px 10px;color:var(--text-3)}
+  .tag.reuse{color:var(--green);border-color:rgba(95,140,106,.4)}
+  .tag.new{color:var(--gold);border-color:var(--border)}
+  .tag.thesis{color:var(--red);border-color:rgba(194,13,47,.45)}
+  .blk-top .sp{margin-left:auto}
+
+  .frames{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  @media(max-width:640px){.frames{grid-template-columns:1fr}}
+  .fr{aspect-ratio:16/9;border:1px dashed var(--border);border-radius:9px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+      background:var(--card-2);color:var(--text-3)}
+  .fr span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+  .fr em{font-style:normal;font-family:var(--f-mono);font-size:10px;color:rgba(154,150,140,.5)}
+
+  .row{display:grid;grid-template-columns:88px 1fr;gap:12px;margin-bottom:12px;align-items:start}
+  @media(max-width:640px){.row{grid-template-columns:1fr;gap:4px}}
+  .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+       color:var(--gold-dim);padding-top:3px}
+  .val{font-size:14.5px;color:var(--text-2);margin:0}
+  .val.vo{color:var(--text);font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.45}
+  .val.note{font-size:13.5px;color:var(--text-3)}
+  .pending{font-family:var(--f-mono);font-size:13px;color:var(--amber);
+           border:1px solid rgba(221,141,12,.35);border-radius:5px;padding:1px 7px}
+  code{font-family:var(--f-mono);font-size:12.5px;color:var(--text);
+       background:var(--card-2);border:1px solid var(--border-soft);border-radius:5px;padding:2px 6px}
+  pre{font-family:var(--f-mono);font-size:12.5px;color:var(--text-2);background:var(--card-2);
+      border:1px solid var(--border-soft);border-radius:9px;padding:16px;overflow-x:auto;line-height:1.7}
+  .vo-full{font-family:var(--f-display);font-weight:600;font-size:clamp(16px,2.2vw,20px);
+           line-height:1.6;color:var(--text);border-left:2px solid var(--gold);
+           padding-left:20px;margin:0}
+  .vo-full span{display:block;margin-bottom:6px}
+  footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);
+         font-family:var(--f-mono);font-size:11.5px;color:var(--text-3);line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">Samais Gestão em Saúde · Storyboard v1 · rascunho para aprovação</p>
+  <h1>Manduri/SP<br>Filme institucional</h1>
+  <p class="lede">Eixo da <strong style="color:var(--text)">transferência</strong>: sem hospital
+  com internação, todo caso grave em Manduri atravessa para a retaguarda regional. A ambulância
+  não leva ao tratamento — ela é o tratamento.</p>
+
+  <ul class="meta">
+    <li>Duração <b>45s</b></li>
+    <li>Blocos <b>9 × 5s</b></li>
+    <li>Frames <b>27</b></li>
+    <li>População <b>9.871</b></li>
+    <li>Status <b>0 frames gerados</b></li>
+  </ul>
+
+  <hr class="rule">
+
+  <div class="panel crit">
+    <h3>Travas desta peça — diferem do cânone de Avaré</h3>
+    <ul class="locks">
+      <li class="no"><span class="mk">✕</span><span><strong>Sem motolância.</strong> Fora do escopo
+        comercial desde jul/2026. O Ato 4 de Avaré não é reaproveitável — mostrá-la seria vender
+        o que não está sendo ofertado.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem menção a consórcio</strong>, rateio
+        ou governança. O arranjo não está assinado e o filme é peça pública.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem ambulância 24/7 "de Manduri".</strong>
+        O município recebe ponto de apoio, acesso à USA e à regulação — não frota dedicada.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem alusão a acidente real.</strong>
+        Há caso fatal na rota. Regra de dignidade, sem exceção.</span></li>
+      <li class="yes"><span class="mk">✓</span><span><strong>Padrão FRIO</strong> — neutro, factual,
+        sem advocacy. Cidade pequena de verdade: ruas estreitas, sem feição de capital.</span></li>
+    </ul>
+  </div>
+
+  <div class="panel warn">
+    <h3>Dado-âncora pendente</h3>
+    <p>A peça depende de <strong style="color:var(--text)">um</strong> número que ainda não existe:
+    o tempo rodoviário de Manduri até a retaguarda em Avaré. Aparece como
+    <span class="pending">[TEMPO A CONFIRMAR]</span> até ser levantado.
+    <strong style="color:var(--text)">Não inventar, não estimar, não arredondar.</strong></p>
+    <p style="margin-top:10px">Liberado para uso: <code>9.871 habitantes</code> (IBGE, Censo 2022).
+    Proibidos: preço, cota, margem e abrangência da CRU — nenhum está confirmado para uso externo.</p>
+  </div>
+
+  <!-- ATO 1 -->
+  <section class="ato">
+    <div class="ato-head">
+      <span class="n">ATO 1</span>
+      <h2 style="margin:0">A cidade e o que ela não tem</h2>
+      <span class="luz">luz: golden hour</span>
+    </div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B01</span><span class="tc">0:00 – 0:05</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">abertura aérea</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Drone FPV desce sobre Manduri no fim da tarde. Telhados baixos, igreja, ruas curtas, cinturão verde imediato. A cidade acaba dentro do enquadramento — dá para ver onde ela termina.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val note">— (sem locução)</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Comunicar <em>pequenez</em> sem comunicar <em>abandono</em>. Cidade cuidada, viva, modesta.</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B02</span><span class="tc">0:05 – 0:10</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">cotidiano</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Rua de comércio ao entardecer. Gente saindo do trabalho, moto de entrega, alguém varrendo a calçada. Nenhuma urgência ainda.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Manduri tem nove mil oitocentos e setenta e uma pessoas."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Locução seca. Música mínima ou ausente até aqui.</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B03</span><span class="tc">0:10 – 0:15</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag thesis">trava de verificação</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Fachada do Pronto Municipal no fim do dia. Porta iluminada, discreta. Plano parado — o único plano parado do filme.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Tem pronto atendimento. Não tem hospital."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note"><strong style="color:var(--amber)">Depende de confirmar no CNES a ausência de internação.</strong> Se houver retaguarda local, o filme muda de eixo. Não produzir este bloco antes da confirmação.</p></div>
+    </article>
+  </section>
+
+  <!-- ATO 2 -->
+  <section class="ato">
+    <div class="ato-head">
+      <span class="n">ATO 2</span>
+      <h2 style="margin:0">A regulação</h2>
+      <span class="luz">luz: interior, tungstênio quente</span>
+    </div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B04</span><span class="tc">0:15 – 0:20</span>
+        <span class="tag reuse">reaproveitável de Avaré</span><span class="sp"></span><span class="tag">o chamado</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">CRU regional. TARM de headset, mão anotando, foco curto. Central brasileira real: sala compacta, poucas estações, paredes claras. Nunca "megacentro high-tech".</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Quando alguém liga 192, quem atende não está em Manduri."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">É a <strong style="color:var(--text)">mesma CRU real</strong> que atende Manduri — o reuso tem lastro, não é atalho. Azul/teal só como brilho de tela.</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B05</span><span class="tc">0:20 – 0:25</span>
+        <span class="tag reuse">reaproveitável de Avaré</span><span class="sp"></span><span class="tag">a decisão</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Médico regulador diante da tela do CoPilot. Interface real, dados se atualizando. Corte curto para o rosto: decisão, não contemplação.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Está na central regional. E a decisão começa ali."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Tela = <strong style="color:var(--text)">CoPilot real</strong>, nunca dashboard genérico.</p></div>
+    </article>
+  </section>
+
+  <!-- ATO 3 -->
+  <section class="ato">
+    <div class="ato-head">
+      <span class="n">ATO 3</span>
+      <h2 style="margin:0">A travessia</h2>
+      <span class="luz">luz: hora azul</span>
+    </div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B06</span><span class="tc">0:25 – 0:30</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">a saída</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">USB deixa o ponto de apoio e entra na rodovia. Vegetação, pista simples, placa de saída. Motion blur, câmera baixa, anamórfico.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"O caso grave não fica."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Regra de ouro: veículo em via com o marco <strong style="color:var(--text)">ao fundo/à distância</strong> — nunca dentro do cartão-postal. Anexar beauty shot da USB no ângulo desejado (a orientação da referência vaza para a cena).</p></div>
+    </article>
+
+    <article class="blk" style="border-color:rgba(194,13,47,.3)">
+      <div class="blk-top"><span class="id">B07</span><span class="tc">0:30 – 0:35</span>
+        <span class="tag thesis">bloco-tese</span><span class="sp"></span><span class="tag new">produção nova</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Interior em movimento. Equipe estabilizando o paciente, monitor com sinais, mãos firmes, luz da cabine varrendo. Máximo 2 socorristas. Sem sangue, sem gore.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"São <span class="pending">[TEMPO A CONFIRMAR]</span> até a retaguarda. Nesse trajeto, a ambulância não leva ao tratamento. Ela é o tratamento."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note"><strong style="color:var(--red)">Bloco mais importante do filme.</strong> É onde o eixo vive. Se um único bloco receber atenção extra de produção e QC fino, é este.</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B08</span><span class="tc">0:35 – 0:40</span>
+        <span class="tag reuse">reuso parcial</span><span class="sp"></span><span class="tag">a chegada</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Portas abrem na retaguarda em Avaré. Passagem de bastão: maca sai, equipe recebe, informação passa de mão em mão. Movimento coordenado, sem correria caótica.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Cada minuto do caminho é registrado. E cada minuto conta."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Fecha a tese-âncora Samais — "salvar vidas é segundo a segundo" — sem precisar dizê-la.</p></div>
+    </article>
+  </section>
+
+  <!-- ATO 4 -->
+  <section class="ato">
+    <div class="ato-head">
+      <span class="n">ATO 4</span>
+      <h2 style="margin:0">Assinatura</h2>
+      <span class="luz">luz: navy-black institucional</span>
+    </div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">B09</span><span class="tc">0:40 – 0:45</span>
+        <span class="tag new">pós-produção</span><span class="sp"></span><span class="tag">marca</span></div>
+      <div class="frames">
+        <div class="fr"><span>entrada</span><em>não gerado</em></div>
+        <div class="fr"><span>meio</span><em>não gerado</em></div>
+        <div class="fr"><span>saída</span><em>não gerado</em></div>
+      </div>
+      <div class="row"><span class="lbl">Visual</span><p class="val">Fade para o navy-black institucional. Logo Samais. Respiro.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Samais. Gestão em saúde."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note"><strong style="color:var(--red)">Logo e letreiro só na pós</strong>, resolução nativa, tipografia Syne. Nunca por IA ou upscaler — deforma letras.</p></div>
+    </article>
+  </section>
+
+  <hr class="rule" style="margin-top:64px">
+
+  <h2 style="margin-top:0">Locução corrida</h2>
+  <p style="font-family:var(--f-mono);font-size:12.5px;color:var(--text-3);margin-bottom:20px">
+    ~57 palavras · a ~2,6 palavras/s cabe em 45s com respiro · validar na gravação</p>
+  <p class="vo-full">
+    <span>Manduri tem nove mil oitocentos e setenta e uma pessoas.</span>
+    <span>Tem pronto atendimento. Não tem hospital.</span>
+    <span>Quando alguém liga 192, quem atende não está em Manduri.</span>
+    <span>Está na central regional. E a decisão começa ali.</span>
+    <span>O caso grave não fica.</span>
+    <span>São <span class="pending">[TEMPO A CONFIRMAR]</span> até a retaguarda.</span>
+    <span>Nesse trajeto, a ambulância não leva ao tratamento. Ela é o tratamento.</span>
+    <span>Cada minuto do caminho é registrado. E cada minuto conta.</span>
+    <span>Samais. Gestão em saúde.</span>
+  </p>
+
+  <h2>Cláusula de cinematografia</h2>
+  <p style="font-size:14px">Colar em <strong style="color:var(--text)">todo</strong> prompt de frame:</p>
+  <pre>flare anamórfico sutil na fonte de luz, POUCAS partículas de poeira
+flutuando na luz, haze/névoa atmosférica leve, profundidade de campo
+cinematográfica, micro-contraste rico</pre>
+
+  <h2>Cânone de uniforme</h2>
+  <p style="font-size:14px">Por extenso em todo prompt com pessoa em quadro:</p>
+  <pre>macacão navy #1C2D4A · faixas refletivas BRANCAS · friso/piping laranja
+Estrela da Vida vermelha #C20D2F · "SAMU 192" laranja #DD8D0C · bandeira do Brasil</pre>
+  <div class="panel crit" style="margin-top:14px">
+    <p style="margin:0;font-size:14px"><strong style="color:var(--text)">Nunca:</strong> farda branca ·
+    faixa amarelo hi-vis (erro recorrente) · faixa vermelha no socorrista · EMS americano/europeu.</p>
+  </div>
+
+  <h2>Reaproveitamento de Avaré</h2>
+  <div class="panel">
+    <p style="margin:0;font-size:14px"><strong style="color:var(--green)">Reaproveitáveis:</strong>
+    B04, B05 (mesma CRU real) · B08 parcial.<br>
+    <strong style="color:var(--gold)">Produção nova:</strong> B01, B02, B03, B06, B07, B09.</p>
+    <p style="margin:12px 0 0;font-size:14px">≈ <strong style="color:var(--text)">2,5 de 9 blocos (~28%)</strong>
+    — abaixo dos ~40% projetados no handoff, porque os blocos de motolância de Avaré não servem a esta peça.</p>
+  </div>
+
+  <h2>Pendências que travam a produção</h2>
+  <div class="panel warn">
+    <ol style="margin:0;padding-left:20px;color:var(--text-2);font-size:14.5px">
+      <li>CNES — ausência de hospital com internação (trava B03 e o eixo inteiro).</li>
+      <li>Tempo rodoviário Manduri → Avaré (trava B07, o bloco-tese).</li>
+      <li>Referências reais de locação de Manduri — cidade, Pronto Municipal, rodovia. Nunca inventar locação.</li>
+      <li>Coordenadas do Codex.</li>
+    </ol>
+  </div>
+
+  <footer>
+    Samais Gestão em Saúde · Storyboard Manduri/SP v1 · 2026-07-27<br>
+    Documento interno de aprovação. Nenhum frame ou clipe foi gerado.<br>
+    Geração só após aprovação de roteiro e storyboard — cânone de produção.
+  </footer>
+
+</div>
+</body>
+</html>

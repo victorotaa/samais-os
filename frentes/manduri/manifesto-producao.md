@@ -10,30 +10,29 @@
 
 ---
 
-## 🔴 Divergência a arbitrar por Victor — antes de produzir
+## ✅ Divergência arbitrada por Victor (2026-07-27)
 
-A direção do Codex e o roteiro aprovado descrevem **dois filmes diferentes**, e a
-diferença não é de detalhe:
+**A peça é um TEASER institucional cinematográfico de presença serena.**
+Não é ocorrência e não é peça explicativa.
 
-| | Roteiro aprovado (v1) | Direção Codex |
-|---|---|---|
-| Registro | Ocorrência: caso grave, travessia, estabilização | **Sem ocorrência.** Viatura circulando calmamente |
-| Sirene / giroflex | Implícitos na urgência | **Proibidos** |
-| Bloco-tese | B07 — interior em movimento, equipe estabilizando paciente | Não existe nesse registro |
-| Tese visual | "A ambulância é o tratamento" — mostrada | Teria de viver só na locução |
+| Definição | Valor |
+|---|---|
+| Registro | **Presença serena.** Viatura passa calmamente por Manduri |
+| Proibido | Paciente · acidente · sirene · giroflex |
+| Eixo da transferência | Existe **apenas em locução mínima**, sem dramatização visual |
 
-Victor aprovou o **eixo da transferência** em 2026-07-27. A direção do Codex é
-**presença institucional serena**. As duas são defensáveis, mas **B03, B07 e B08 do
-roteiro v1 não sobrevivem** como escritos ao registro "sem ocorrência": não há paciente,
-não há chegada, não há passagem de bastão.
+Os blocos de ocorrência do roteiro v1 (B03, B07, B08 — paciente, travessia,
+passagem de bastão) **estão fora**. O eixo sobrevive na narração, não na imagem.
 
-**Este manifesto foi construído na direção do Codex** (que detém a direção criativa),
-preservando a locução do eixo da transferência sobre imagem calma — a leitura mais
-íntegra das duas instruções: *a cidade tranquila é o antes; a narração diz o que
-acontece quando deixa de ser*.
+### Regra de câmera aprovada — dinamismo com elegância
 
-**Se Victor quiser a tese mostrada e não só narrada, este manifesto muda** — e o
-storyboard v1 volta a valer. Decisão dele.
+Movimento **fluido de gimbal/FPV**, nunca câmera nervosa:
+
+- **Tracking lateral baixo** acompanhando a USB
+- **Leve dolly / push-in**
+- **Parallax** de árvores e postes em primeiro plano
+
+❌ **Nunca:** câmera nervosa · velocidade de emergência · whip-pan · shake.
 
 ---
 
@@ -52,6 +51,16 @@ storyboard v1 volta a valer. Decisão dele.
 ```
 subtle anamorphic flare on the light source, FEW dust particles floating in the light,
 light atmospheric haze, cinematic depth of field, rich micro-contrast
+```
+
+### Cláusula de movimento — colar em TODO prompt de animação
+```
+Low cinematic tracking camera moves smoothly with the vehicle, subtle forward dolly
+and natural foreground-tree parallax, keeping the background stable and recognizable.
+Ordinary traffic speed, wheels rotate naturally, suspension remains grounded.
+All emergency lights and beacons stay OFF for the entire shot. Quiet teaser mood,
+realistic motion blur, no urgency, no siren, no camera shake, no architecture
+morphing, no vehicle deformation.
 ```
 
 ### Negativos globais — colar em TODO prompt
@@ -315,29 +324,73 @@ ato. Se M03 passar no QC, M01/M02/M04 são variações do mesmo problema resolvi
 
 ---
 
+## Piloto M03 — executado em 2026-07-27
+
+**Autorizado por Victor. Um clipe, exatamente como especificado.**
+
+| Item | Valor |
+|---|---|
+| Modelo | `kling3_0` · `mode: pro` · `duration: 5` · `aspect_ratio: 16:9` · `sound: off` |
+| `declined_preset_id` | aplicado |
+| Entradas | `start_image` + `end_image` — masters 2K aprovados (2048×1152) |
+| Saída | **1920×1080**, plano único (`multi_shots: false`) |
+| Custo | **8,75 créditos** — saldo 106,2 → **97,45**, exatamente o aprovado |
+| Lote restante | **não gerado** |
+
+Job ID e media IDs persistidos **fora do Git** (apontam para conta e storage privados).
+
+### ✅ Verificado por parâmetro
+Resolução 1920×1080 · 16:9 · 5s · `mode: pro` · áudio desligado · plano contínuo sem
+multi-shot · os dois masters 2K corretamente ligados aos papéis `start_image`/`end_image`
+(e **não** o `m03-start-v1.png` menor, descartado pelo Codex).
+
+> ℹ️ Confirmado na prática: **`pro` entrega 1920×1080**. A resolução vem do `mode` —
+> `kling3_0` não aceita parâmetro `resolution`, como registrado nas correções.
+
+### ⛔ QC visual NÃO executado nesta sessão
+
+Os itens visuais pedidos — **arquitetura, livery, luzes apagadas, rodas/contato,
+direção esquerda→direita, estabilidade da câmera, parallax e ausência de morphing** —
+exigem assistir ao clipe. **Não foi possível nesta sessão:**
+
+1. O proxy de saída **bloqueia (403)** o CDN do Higgsfield (`*.cloudfront.net`), então o
+   MP4 não pôde ser baixado.
+2. Não há **ffmpeg** no container para extrair frames.
+
+**Não declaro QC aprovado sem ter visto o clipe.** Rotas para fechar o QC:
+- **Codex/Victor assistem** pelo link do CDN (entregue no chat, fora do Git) — imediato
+  e sem custo; e o QC de imagem é responsabilidade do Codex na divisão acordada.
+- **`video_analysis_create`** do próprio Higgsfield (análise cena a cena server-side).
+  ⚠️ **Custo não documentado no schema** — não rodei para não gastar crédito sem aval.
+
 ## Estado do preflight MCP Higgsfield
 
 | Check | Resultado |
 |---|---|
 | Autenticação | ✅ OK — sem OAuth pendente |
 | Saldo | ✅ `106,2` créditos, plano `max` |
-| Workspace | ⚠️ `4ca9c370-…dedf35` (privado, owner) mas **`is_selected: false`** — nenhum workspace ativo. Rodar `select_workspace` antes do primeiro job |
+| Workspace | ✅ privado/owner **selecionado** (`is_selected: true`) antes da submissão |
 | Schemas | ✅ Lidos do catálogo ao vivo, não de memória |
 | `start_image` / `end_image` | ✅ Confirmados em `kling3_0`, `seedance_2_0`, `wan2_7`, `minimax_hailuo` |
-| Jobs submetidos | **0** |
-| Créditos consumidos | **0** |
+| Jobs submetidos | **1** (piloto M03, autorizado) |
+| Créditos consumidos | **8,75** — saldo **97,45** |
 
 ---
 
-## Travas antes de qualquer geração
+## Travas antes de liberar o lote restante
 
-1. ⛔ **Arbitrar a divergência** roteiro-aprovado × direção-Codex (topo desta página).
-2. ⛔ **Aprovação expressa de custo** por Victor.
-3. ⛔ **Selecionar o workspace** (`is_selected: false`).
-4. ⚠️ Referências reais de locação de Manduri — portal, Prefeitura/Rua Bahia, Igreja
-   Matriz/Praça Getúlio Vargas, Pronto Municipal, rodovia. **Nunca inventar locação.**
-5. ⚠️ Masters 2K do Codex anexados nesta sessão.
-6. ⚠️ CNES — confirmar o Pronto Municipal antes de M05.
+1. ⛔ **QC visual do piloto M03** — pendente (ver acima). Sem ele, nada do lote roda.
+2. ⛔ **Aprovação expressa de custo do lote** por Victor.
+3. ⚠️ Referências reais de locação — portal, Prefeitura/Rua Bahia, Pronto Municipal,
+   rodovia. Igreja Matriz ✅ tem master 2K. **Nunca inventar locação.**
+4. ⚠️ Masters 2K dos planos restantes (Codex).
+5. ⚠️ CNES — confirmar o Pronto Municipal antes de M05.
+6. ⚠️ Tempo rodoviário Manduri→Avaré — sem ele a locução de M06 não fecha.
+
+### Orçamento do lote restante
+
+6 clipes (M01, M02, M04, M05, M06 + 1 de M07) × 8,75 = **52,5 créditos**.
+Saldo atual **97,45** → folga de ~44,95 para retries. ✅ Cabe.
 
 **Rastreabilidade:** ao liberar o lote, persistir os job IDs em `kling_jobs.json`
 (fora do git — apontam para conta e storage privados, §9 do handoff). O MCP Higgsfield

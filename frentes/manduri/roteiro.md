@@ -4,8 +4,13 @@
 > A peça é um **TEASER institucional cinematográfico de presença serena**.
 > Não é ocorrência e não é peça explicativa.
 >
-> Formato: **45s** · 9 planos de 5s · master 16:9 2K · animação 1080p.
+> Formato: **39,5s** · 8 planos visuais + cartão final · master 16:9 2K · animação 1080p.
 > Shot list operativa: [`manifesto-producao.md`](manifesto-producao.md) (M01–M08).
+> Montagem: [`edl.md`](edl.md).
+>
+> ⚠️ **Duração revisada de 45s → 39,5s**: M07 deixou de ser 2 planos de 5s e passou a
+> ser **um clipe de 4,5s** (reuso de Avaré com montagem interna). Segue dentro da faixa
+> de teaser 30–60s.
 
 ## O que mudou da v1 para a v2
 
@@ -76,13 +81,17 @@ Proibido: preço, cota, margem, abrangência da CRU.
 | Plano | Tempo | Conteúdo |
 |---|---|---|
 | **M06** | 0:25–0:30 | Saída para a rodovia. USB se afastando, traseira para a câmera |
-| **M07** | 0:30–0:40 | CRU regional ♻️ — TARM e médico regulador, CoPilot real (2 planos de 5s) |
+| **M07** | 0:30–0:34,5 | CRU regional ♻️ — médico regulador (close) + plano geral da central. **4,5s**, reuso de Avaré |
+
+> **O TARM saiu da peça.** O clipe de atendimento telefônico de Avaré foi descartado por
+> exibir telefone fictício com DDD 11 e interface legível demais — ruído factual. A
+> regulação é representada só pelo regulador e pela central. Ver `edl.md`.
 
 ### ATO 3 — Assinatura
 
 | Plano | Tempo | Conteúdo |
 |---|---|---|
-| **M08** | 0:40–0:45 | Navy-black institucional. Logo Samais. **100% pós** |
+| **M08** | 0:34,5–0:39,5 | Navy-black `#04060C`, logo branco, fio dourado, "Gestão em Saúde". **100% pós**, só marca Samais |
 
 ---
 
@@ -94,7 +103,12 @@ Proibido: preço, cota, margem, abrangência da CRU.
 > *M07* — Quem regula esse tempo não está em Manduri. Está na central regional.
 > *M08* — Samais. Gestão em saúde.
 
-**~44 palavras** em 45s — bem abaixo do limite. É deliberado: teaser respira, não explica.
+> ⚠️ **A fala de M07 ficou apertada.** São 12 palavras (~4,6s) num plano que agora tem
+> **4,5s**. Ou ela sangra ~0,3s sobre o cross-dissolve de M08 (aceitável), ou encurta
+> para **"Quem regula esse tempo está na central regional."** (8 palavras, ~3,1s), que
+> cabe com folga e preserva o sentido. **Recomendo encurtar** — decisão de Victor.
+
+**~44 palavras** em 39,5s — deliberadamente abaixo do limite: teaser respira, não explica.
 A tese "a ambulância é o tratamento" **não é dita**. Fica implícita na sequência
 M05 → M06 → M07. Se Victor quiser explicitá-la, entra em M06 — mas custa o tom.
 

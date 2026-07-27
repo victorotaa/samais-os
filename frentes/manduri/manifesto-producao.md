@@ -235,28 +235,71 @@ cool ambient sky, warm tail lights. Roadside vegetation, no traffic.
 
 ---
 
-### M07 · CRU regional ♻️
+### M07 · CRU regional ♻️ — **ativo selecionado (QC Codex)**
 | Campo | Valor |
 |---|---|
-| **Duração** | 5s |
+| **Duração final** | **4,5s** (era 2 × 5s no roteiro v2) |
+| **Origem** | `B07a-1-2.mp4` — Avaré, bloco B07 (regulação/CoPilot) |
+| **Nome local** | `m07b-avare-copilot-b07a.mp4` |
 | **Locação real** | CRU regional — **a mesma central real que atende Manduri** |
-| **Ação** | TARM de headset; corte para médico regulador diante do **CoPilot real** |
-| **Enquadramento** | Plano fechado, foco curto |
 | **Luz** | Interior, tungstênio quente. Azul/teal **só** como brilho de tela |
-| **Continuidade** | ♻️ **Reaproveitável dos frames de Avaré** — mesma CRU, reuso com lastro |
-| **Refs** | Frames de Avaré já aprovados + telas CoPilot |
+| **Áudio de origem** | **descartado** — entram trilha licenciada e locução na pós |
+| **Função narrativa** | **Coordenação regional. Não urgência.** |
+
+> Drive file ID registrado **apenas em arquivo local, fora do Git** — identificador de
+> acesso, §9 do handoff.
+
+**Montagem interna:**
+
+| Trecho | Src | Dur | Conteúdo |
+|---|---|---|---|
+| M07a | `0,0 → 2,0` | 2,0 | Close do médico regulador, movimento corporal suave |
+| — | `2,0 → 2,5` | — | ❌ descartado |
+| M07b | `2,5 → 5,0` | 2,5 | Plano geral da central |
+
+O salto de 0,5s elimina a transição/movimento facial mais frágil do original.
+
+### ❌ Descartado para Manduri: `B04a-1-2.mp4` (TARM)
+
+Exibe **telefone fictício com DDD 11** e interface excessivamente legível — **ruído
+factual** numa peça sobre município do interior paulista.
+
+> **Consequência narrativa:** o teaser **não mostra o TARM**. A camada de atendimento
+> telefônico sai da peça; a regulação passa a ser representada apenas pelo médico
+> regulador e pelo plano geral da central, com a locução sustentando o resto.
 
 > Sala compacta, poucas estações, paredes claras. **Nunca** "megacentro high-tech" —
 > CRU brasileira real é simples. Tela = CoPilot real, nunca dashboard genérico.
 
 ---
 
-### M08 · Assinatura
+### M08 · Assinatura — **aprovado (Victor)**
 | Campo | Valor |
 |---|---|
 | **Duração** | 5s |
-| **Ação** | Fade para navy-black institucional. Logo Samais |
-| **Produção** | 🔴 **100% pós.** Não gerar por IA. Tipografia Syne, resolução nativa |
+| **Fundo** | `#04060C` |
+| **Logo** | **branco** — `samais-logo-white.svg` |
+| **Acento** | fio dourado `#D4A857`, 1px |
+| **Assinatura** | "Gestão em Saúde", Syne 600, `#EDEAE2`, tracking aberto |
+| **Marcas** | 🔴 **Somente Samais.** Sem SAMU, sem município, sem MS |
+| **Produção** | 🔴 **100% pós.** Nunca por IA ou upscaler |
+
+**Timing** (offset dentro dos 5s):
+
+| Offset | Evento |
+|---|---|
+| 0,0–0,5 | Cross-dissolve de M07b para o fundo |
+| 0,5–1,3 | Logo entra: fade + scale 98%→100%, ease-out |
+| 1,3–1,8 | Fio dourado cresce do centro para fora |
+| 1,8–2,4 | Assinatura entra em fade, sem movimento |
+| 2,4–4,3 | Repouso — locução final cai aqui |
+| 4,3–5,0 | Fade to black |
+
+Hierarquia: logo ~22% da largura, centro óptico levemente acima do meio → fio como
+separador → assinatura a ~25% do corpo do logo.
+
+> Logo branco e não dourado: sobre `#04060C` o dourado fecha contraste, e a doutrina
+> manda usar ouro com escassez (≤10% da superfície). O fio faz o acento.
 
 ---
 

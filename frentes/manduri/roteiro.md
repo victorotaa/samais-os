@@ -100,15 +100,15 @@ Proibido: preço, cota, margem, abrangência da CRU.
 > *M02* — Manduri tem nove mil oitocentos e setenta e uma pessoas.
 > *M05* — Tem pronto atendimento. Não tem hospital.
 > *M06* — O caso grave atravessa `[TEMPO A CONFIRMAR]` até a retaguarda.
-> *M07* — Quem regula esse tempo não está em Manduri. Está na central regional.
+> *M07* — **A regulação acontece na central regional.**
 > *M08* — Samais. Gestão em saúde.
 
-> ⚠️ **A fala de M07 ficou apertada.** São 12 palavras (~4,6s) num plano que agora tem
-> **4,5s**. Ou ela sangra ~0,3s sobre o cross-dissolve de M08 (aceitável), ou encurta
-> para **"Quem regula esse tempo está na central regional."** (8 palavras, ~3,1s), que
-> cabe com folga e preserva o sentido. **Recomendo encurtar** — decisão de Victor.
+> ✅ **Locução de M07 fechada por Victor.** Substitui *"Quem regula esse tempo não está
+> em Manduri. Está na central regional."* — mais clara e factual, e resolve o aperto de
+> tempo: **6 palavras (~2,3s) num plano de 4,5s**, deixando **~2,2s de pausa** antes da
+> assinatura.
 
-**~44 palavras** em 39,5s — deliberadamente abaixo do limite: teaser respira, não explica.
+**~34 palavras** em 39,5s — deliberadamente abaixo do limite: teaser respira, não explica.
 A tese "a ambulância é o tratamento" **não é dita**. Fica implícita na sequência
 M05 → M06 → M07. Se Victor quiser explicitá-la, entra em M06 — mas custa o tom.
 

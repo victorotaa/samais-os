@@ -85,14 +85,13 @@ como separador → descritor em `#EDEAE2`, tracking aberto, ~25% do corpo do log
 | 1 | `00:05.5` | M02 | "Manduri tem nove mil oitocentos e setenta e uma pessoas." |
 | 2 | `00:20.5` | M05 | "Tem pronto atendimento. Não tem hospital." |
 | 3 | `00:25.5` | M06 | "O caso grave atravessa `[TEMPO A CONFIRMAR]` até a retaguarda." |
-| 4 | `00:30.3` | M07 | "Quem regula esse tempo não está em Manduri. Está na central regional." |
+| 4 | `00:30.5` | M07 | **"A regulação acontece na central regional."** |
 | 5 | `00:36.9` | M08 | "Samais. Gestão em saúde." |
 
-> ⚠️ **A fala 4 não cabe confortavelmente em M07.** São 12 palavras (~4,6s a 2,6 pal/s)
-> num plano de **4,5s**. Duas saídas: deixar sangrar ~0,3s sobre o cross-dissolve de M08
-> (aceitável em montagem), ou encurtar para
-> **"Quem regula esse tempo está na central regional."** (8 palavras, ~3,1s), que cabe
-> com folga e mantém o sentido. **Recomendo encurtar** — decisão de Victor.
+> ✅ **Fala 4 fechada por Victor.** 6 palavras (~2,3s) entrando em `00:30.5` e saindo em
+> `~00:32.8`, dentro de um plano que vai até `00:34.5` — sobram **~1,7s de silêncio**
+> antes do cross-dissolve, e o repouso continua até a assinatura entrar em `00:36.9`.
+> Essa pausa é intencional: separa a afirmação factual da marca.
 
 ## Trilha e SFX
 
@@ -107,4 +106,7 @@ como separador → descritor em `#EDEAE2`, tracking aberto, ~25% do corpo do log
 | M03 | ✅ renderizado (v2) e aprovado |
 | M05, M06 | ⏳ pendentes de cota diária do provedor |
 | M07 | ✅ selecionado — reuso de Avaré, montagem definida |
-| M08 | 📐 especificado — produção na pós |
+| M08 | ✅ **materializado e validado em 2K** pelo Codex, com o logo oficial (path vetorial conferido) |
+
+> Artefatos de M08 (`.svg` + `.png` 2048×1152) e o logo ficam em `outputs/`, **fora do
+> Git** — já coberto pelo `.gitignore`. Paths registrados apenas no manifesto local.

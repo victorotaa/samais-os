@@ -384,6 +384,29 @@ the body keeps its orange and white livery. Calm lateral tracking with subtle do
 and parallax. No siren, no urgency.
 ```
 
+**Resultado — executado em 2026-07-27.**
+
+| Item | Valor |
+|---|---|
+| Parâmetros | `kling3_0` · `pro` · 5s · 16:9 · `sound: off` · `declined_preset_id` aplicado |
+| Saída | **1920×1080**, plano contínuo (`multi_shots: false`) |
+| Custo | **8,75** — saldo 97,45 → **88,70**, dentro do teto autorizado |
+| Lote restante | **não gerado** |
+
+**Consumo acumulado do piloto M03: 17,50 créditos** (v1 reprovado + v2), de um saldo
+inicial de 106,2. Restam **88,70**.
+
+⛔ **QC visual do v2 pendente com o Codex.** Continuo sem conseguir assistir: o proxy
+desta sessão nega o CDN do Higgsfield por política de egresso (403 no CONNECT) e não há
+ffmpeg no container. Verificado só por parâmetro. **Parada aqui, conforme instrução.**
+
+### Orçamento revisado do lote
+
+6 clipes restantes × 8,75 = **52,5**. Saldo **88,70** → folga de ~36 para retries.
+✅ Cabe — mas a folga já é ~1,5 retry menor do que antes do retrabalho do M03. Se cada
+plano precisar de um v2, o lote fica apertado: 6 × 2 × 8,75 = 105 > 88,70.
+**Aplicar a lição das lentes nos masters reduz esse risco na origem.**
+
 ## Estado do preflight MCP Higgsfield
 
 | Check | Resultado |

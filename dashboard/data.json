@@ -1,6 +1,6 @@
 {
-  "gerado_em": "2026-07-11",
-  "total_frentes": 5,
+  "gerado_em": "2026-07-27",
+  "total_frentes": 6,
   "pipeline_mensal": 8100000,
   "pipeline_anual": 97200000,
   "contratos_ativos": 0,
@@ -30,6 +30,21 @@
       "atualizado_em": "2026-07-11",
       "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study).",
       "_slug": "avare"
+    },
+    {
+      "frente": "Manduri",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "radar",
+      "score": 0,
+      "valor_contratual_mensal": null,
+      "populacao": 10122,
+      "operador_atual": null,
+      "verdict": null,
+      "gatilho": "Produção de filme institucional (handoff 2026-07-27). Alvo entra pelo eixo audiovisual, não por edital — sem gatilho licitatório identificado até agora.",
+      "atualizado_em": "2026-07-27",
+      "proximo_passo": "Obter briefing do filme com Victor (natureza do alvo, duração, escopo, números). Em paralelo: validar em fonte primária a composição atual da CRU de Avaré e o operador atual do SAMU que cobre Manduri.",
+      "_slug": "manduri"
     },
     {
       "frente": "Paraguai — SEME",

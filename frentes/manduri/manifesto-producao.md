@@ -407,6 +407,43 @@ ffmpeg no container. Verificado só por parâmetro. **Parada aqui, conforme inst
 plano precisar de um v2, o lote fica apertado: 6 × 2 × 8,75 = 105 > 88,70.
 **Aplicar a lição das lentes nos masters reduz esse risco na origem.**
 
+## Lote parcial — executado em 2026-07-27 (após QC estático aprovado)
+
+Autorizados **5 renders** (M01, M02, M04, M05, M06), teto 43,75. **3 entraram, 2 foram
+barrados pelo provedor.**
+
+| Plano | Status | Créditos |
+|---|---|---|
+| M01 · Portal da cidade | ✅ concluído · 1920×1080 | 8,75 |
+| M02 · Prefeitura / Rua Bahia | ✅ concluído · 1920×1080 | 8,75 |
+| M04 · Rua residencial | ✅ concluído · 1920×1080 | 8,75 |
+| M05 · Pronto Municipal | ❌ `403 grace_daily_limit_reached` | **0** |
+| M06 · Saída para a rodovia | ❌ `403 grace_daily_limit_reached` | **0** |
+
+**Saldo: 88,70 → 62,45** (3 × 8,75 = 26,25).
+
+### ⚠️ Limite diário do backend Kling — não é crédito
+
+M05 e M06 falharam com `403: grace_daily_limit_reached`, um **teto diário do provedor**.
+Tentei o M05 uma segunda vez para descartar transitório — falhou idêntico. Parei de
+tentar em vez de martelar o backend.
+
+**Os dois não foram cobrados** (o saldo bate exatamente com 3 renders), então seguem
+dentro da autorização de cinco, com 17,5 créditos ainda reservados. Basta reexecutar
+quando a cota diária virar — sem necessidade de nova aprovação de custo.
+
+### Conformidade da submissão
+
+10 masters localizados por nome · 10 verificados `reader/anyone` · pares start/end
+importados e conferidos · `get_cost` rodado 5× somando **exatamente 43,75** ·
+`multi_shots: false` e `declined_preset_id` aplicados · variantes não-2K ignoradas.
+
+### Download dos outputs — bloqueado
+
+Tentativa de baixar os 3 MP4: `http 000`, CONNECT recusado pelo proxy (403 no CDN do
+Higgsfield). Sem ffmpeg no container. **QC visual segue com o Codex**, conforme a
+divisão acordada.
+
 ## Estado do preflight MCP Higgsfield
 
 | Check | Resultado |

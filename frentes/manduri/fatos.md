@@ -94,14 +94,37 @@ externa. ⚠️ confirmar no CNES.
 A população do par Avaré+Manduri (106.321) é praticamente idêntica à de Ourinhos
 (~106 mil), o que torna a comparação especialmente forte. ✅
 
+## Rota Manduri → Avaré
+
+| Campo | Valor | Procedência |
+|---|---|---|
+| Distância rodoviária | **~44 – 46,9 km** | ⚠️ fontes rodoviárias (agregadores de rota) |
+| Tempo de percurso | **~45 – 52 min** | ⚠️ idem — condições normais de tráfego |
+
+> 🔴 **Isto é estimativa geográfica, NÃO tempo-resposta do SAMU.**
+>
+> A distinção não é semântica, é contratual. Um tempo de percurso de mapa mede o
+> deslocamento de um veículo qualquer entre dois pontos. **Tempo-resposta do SAMU** é
+> indicador assistencial — depende de regulação, disponibilidade de viatura, tempo de
+> despacho e estabilização em cena. Tratar um como o outro transforma medida de mapa em
+> **promessa operacional**.
+>
+> **Nenhum destes números pode ser enunciado em peça externa.** No filme, a formulação
+> autorizada é apenas: *"Avaré está a menos de uma hora por estrada"* — verdadeira em
+> qualquer ponto da faixa e não interpretável como SLA. Ver [`edl.md`](edl.md).
+
+⚠️ Números ainda **não confirmados em fonte primária** (DER-SP / malha oficial). Para uso
+interno de dimensionamento, levantar a rota oficial e as rodovias que servem o município.
+
 ## Pendências factuais (do estudo + desta rodada)
 
 1. **CNES** — frota de ambulância própria de Manduri, leitos, tipo do Pronto Municipal
    e **se é 24h**; confirmação da ausência de hospital.
 2. **SIOPS** — % e gasto em saúde per capita.
 3. **CAUC** · mortalidade por causas externas.
-4. **Rodovias** que cortam o município e **distância/tempo rodoviário até Avaré** —
-   é o número mais importante do filme (define o tempo de transferência).
+4. ~~Distância/tempo rodoviário até Avaré~~ — **levantado** (ver seção acima), mas
+   ⚠️ ainda a confirmar em fonte primária (DER-SP), e **as rodovias específicas** que
+   cortam o município seguem a levantar.
 5. População total real da CRU do Vale do Jurumirim (~330 mil hab a confirmar).
 6. Habilitação federal do novo consórcio (trâmite MS).
 

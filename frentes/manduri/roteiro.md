@@ -4,12 +4,12 @@
 > A peça é um **TEASER institucional cinematográfico de presença serena**.
 > Não é ocorrência e não é peça explicativa.
 >
-> Formato: **39,5s** · 8 planos visuais + cartão final · master 16:9 2K · animação 1080p.
+> Formato: **38,5s** · 8 planos visuais + cartão final · master 16:9 2K · animação 1080p.
 > Shot list operativa: [`manifesto-producao.md`](manifesto-producao.md) (M01–M08).
 > Montagem: [`edl.md`](edl.md).
 >
-> ⚠️ **Duração revisada de 45s → 39,5s**: M07 deixou de ser 2 planos de 5s e passou a
-> ser **um clipe de 4,5s** (reuso de Avaré com montagem interna). Segue dentro da faixa
+> ⚠️ **Duração revisada 45s → 39,5s → 38,5s.** M07 deixou de ser 2 planos de 5s, virou
+> um clipe de 4,5s e, no picture lock, foi reduzido a **3,5s**. Segue dentro da faixa
 > de teaser 30–60s.
 
 ## O que mudou da v1 para a v2
@@ -53,14 +53,20 @@ Dinamismo **com elegância**, não urgência:
 > anamórfico 35mm, o motion blur e a profundidade cinematográfica permanecem; a
 > agitação, não.
 
-## Dado-âncora — PENDENTE
+## Dado-âncora — RESOLVIDO com guardrail
 
-O único número que a locução carrega é o **tempo rodoviário de Manduri até a retaguarda
-em Avaré**, e ele ainda não existe. Aparece como `[TEMPO A CONFIRMAR]`.
-**Não inventar, não estimar, não arredondar.**
+O tempo rodoviário Manduri→Avaré foi levantado: **~44–46,9 km · ~45–52 min** em fontes
+rodoviárias. **Nenhum desses números entra no filme.**
 
-Liberado: **9.871 habitantes** (✅ IBGE, Censo 2022).
-Proibido: preço, cota, margem, abrangência da CRU.
+Tempo de percurso de mapa é **estimativa geográfica**; **tempo-resposta do SAMU** é
+indicador assistencial, que depende de regulação, disponibilidade de viatura e despacho.
+Enunciar "45 minutos até a retaguarda" converteria medida de mapa em **promessa
+operacional**. A peça diz apenas *"Avaré está a menos de uma hora por estrada"* —
+verdadeiro em toda a faixa e não interpretável como SLA.
+
+**Liberado:** 9.871 habitantes (✅ IBGE, Censo 2022) · a formulação segura acima.
+**Proibido:** os números de km/min em peça externa · preço, cota, margem, abrangência
+da CRU · qualquer leitura da frase como tempo de atendimento.
 
 ---
 
@@ -81,7 +87,7 @@ Proibido: preço, cota, margem, abrangência da CRU.
 | Plano | Tempo | Conteúdo |
 |---|---|---|
 | **M06** | 0:25–0:30 | Saída para a rodovia. USB se afastando, traseira para a câmera |
-| **M07** | 0:30–0:34,5 | CRU regional ♻️ — médico regulador (close) + plano geral da central. **4,5s**, reuso de Avaré |
+| **M07** | 0:30–0:33,5 | CRU regional ♻️ — médico regulador (close) + plano geral. **3,5s**, reuso de Avaré |
 
 > **O TARM saiu da peça.** O clipe de atendimento telefônico de Avaré foi descartado por
 > exibir telefone fictício com DDD 11 e interface legível demais — ruído factual. A
@@ -91,7 +97,7 @@ Proibido: preço, cota, margem, abrangência da CRU.
 
 | Plano | Tempo | Conteúdo |
 |---|---|---|
-| **M08** | 0:34,5–0:39,5 | Navy-black `#04060C`, logo branco, fio dourado, "Gestão em Saúde". **100% pós**, só marca Samais |
+| **M08** | 0:33,5–0:38,5 | Navy-black `#04060C`, logo branco, fio dourado, "Gestão em Saúde". **100% pós**, só marca Samais. ✅ materializado em 2K |
 
 ---
 
@@ -99,16 +105,22 @@ Proibido: preço, cota, margem, abrangência da CRU.
 
 > *M02* — Manduri tem nove mil oitocentos e setenta e uma pessoas.
 > *M05* — Tem pronto atendimento. Não tem hospital.
-> *M06* — O caso grave atravessa `[TEMPO A CONFIRMAR]` até a retaguarda.
+> *M06* — **Avaré está a menos de uma hora por estrada.**
 > *M07* — **A regulação acontece na central regional.**
 > *M08* — Samais. Gestão em saúde.
 
 > ✅ **Locução de M07 fechada por Victor.** Substitui *"Quem regula esse tempo não está
-> em Manduri. Está na central regional."* — mais clara e factual, e resolve o aperto de
-> tempo: **6 palavras (~2,3s) num plano de 4,5s**, deixando **~2,2s de pausa** antes da
-> assinatura.
+> em Manduri. Está na central regional."* — mais clara e factual. Com M07 em 3,5s, a
+> fala (~2,3s) deixa **~0,7s de silêncio** antes do cross-dissolve.
 
-**~34 palavras** em 39,5s — deliberadamente abaixo do limite: teaser respira, não explica.
+> 🔴 **Locução de M06 — guardrail de honestidade.** O `[TEMPO A CONFIRMAR]` foi
+> resolvido: a rota Manduri→Avaré aparece em fontes rodoviárias como **~44–46,9 km** e
+> **~45–52 min**. **Esses números não entram no filme.** A peça diz apenas
+> *"Avaré está a menos de uma hora por estrada"* — verdadeiro em qualquer ponto da
+> faixa, e que **não** pode ser lido como tempo-resposta do SAMU. Detalhe em
+> [`edl.md`](edl.md) e [`fatos.md`](fatos.md).
+
+**~35 palavras** em 38,5s — deliberadamente abaixo do limite: teaser respira, não explica.
 A tese "a ambulância é o tratamento" **não é dita**. Fica implícita na sequência
 M05 → M06 → M07. Se Victor quiser explicitá-la, entra em M06 — mas custa o tom.
 

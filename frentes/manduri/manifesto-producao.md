@@ -347,21 +347,42 @@ multi-shot · os dois masters 2K corretamente ligados aos papéis `start_image`/
 > ℹ️ Confirmado na prática: **`pro` entrega 1920×1080**. A resolução vem do `mode` —
 > `kling3_0` não aceita parâmetro `resolution`, como registrado nas correções.
 
-### ⛔ QC visual NÃO executado nesta sessão
+### QC visual do v1 — REPROVADO (por Victor)
 
-Os itens visuais pedidos — **arquitetura, livery, luzes apagadas, rodas/contato,
-direção esquerda→direita, estabilidade da câmera, parallax e ausência de morphing** —
-exigem assistir ao clipe. **Não foi possível nesta sessão:**
+| Item | Resultado |
+|---|---|
+| Igreja / arquitetura | ✅ estável e reconhecível |
+| Veículo / livery | ✅ |
+| Grounding (rodas/contato/suspensão) | ✅ |
+| Tracking / câmera | ✅ |
+| **Luzes de emergência** | ❌ **duas balizas/lentes superiores emissivas em 2,50s e 4,90s** |
 
-1. O proxy de saída **bloqueia (403)** o CDN do Higgsfield (`*.cloudfront.net`), então o
-   MP4 não pôde ser baixado.
-2. Não há **ffmpeg** no container para extrair frames.
+**Causa-raiz:** lentes translúcidas nos frames-guia foram interpretadas pelo modelo como
+**luz ativa**. O prompt já pedia luzes apagadas — não bastou, porque o sinal veio da
+imagem, não do texto.
 
-**Não declaro QC aprovado sem ter visto o clipe.** Rotas para fechar o QC:
-- **Codex/Victor assistem** pelo link do CDN (entregue no chat, fora do Git) — imediato
-  e sem custo; e o QC de imagem é responsabilidade do Codex na divisão acordada.
-- **`video_analysis_create`** do próprio Higgsfield (análise cena a cena server-side).
-  ⚠️ **Custo não documentado no schema** — não rodei para não gastar crédito sem aval.
+**Lição para o lote:** o texto não vence a imagem. Onde houver lente/baliza no
+frame-guia, ela precisa estar **fisicamente escura no próprio master** — não basta
+proibir no prompt. Vale para M01, M02, M04, M05 e M06.
+
+> ⚠️ Eu **não** pude fazer este QC nesta sessão: o proxy bloqueia (403) o CDN do
+> Higgsfield e não há ffmpeg no container, então não consegui assistir ao clipe. O QC
+> acima é do Victor/Codex. Mantida a divisão: QC de imagem é do Codex.
+
+### Retry v2 — autorizado (exatamente um, teto 8,75)
+
+Frames-guia corrigidos pelo Codex (`…-v2-lights-off-2k`, 2048×1152): lentes agora
+**plástico fumê escuro, sem emissão**, mantendo a carroceria laranja.
+
+Reforço aplicado ao prompt, além da base aprovada:
+
+```
+Every upper side lens and roof beacon stays physically dark and unpowered in every
+frame: zero emission, no glow, no flare, no flicker, no bright core, no halo, no
+reflection reading as light. The lenses are inert dark smoked plastic only, while
+the body keeps its orange and white livery. Calm lateral tracking with subtle dolly
+and parallax. No siren, no urgency.
+```
 
 ## Estado do preflight MCP Higgsfield
 

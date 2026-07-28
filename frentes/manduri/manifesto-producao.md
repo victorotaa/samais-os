@@ -1,4 +1,76 @@
-# Manduri/SP — Manifesto de produção (preflight, pré-geração)
+# Manduri/SP — Manifesto de produção
+
+> 🛑 **PROJETO PAUSADO por Victor em 2026-07-28.**
+> Motivo: **os clipes ficaram estáticos, sem ação e sem jogo de câmera — monótonos.**
+> Nada aqui é para reaproveitar como está. Leia o post-mortem abaixo antes de retomar.
+
+---
+
+## 🛑 Post-mortem — por que a peça ficou monótona
+
+Diagnóstico honesto, para não repetir. A causa não foi um erro pontual: foram **cinco
+decisões que se somaram**, e a maioria foi minha.
+
+### 1. O registro virou uma armadilha
+"Presença serena · sem ocorrência · sem paciente · sem sirene · sem giroflex · sem
+urgência". Cada trava removeu uma fonte de energia da cena, e **nada foi colocado no
+lugar**. Serenidade em cinema não é ausência de movimento — é **movimento controlado**
+(uma grua lenta, um dolly longo, um rack focus). Tiramos a agitação e entregamos
+inércia.
+
+### 2. Os prompts eram quase só proibição
+A cláusula global tinha ~12 negativas (`no siren, no urgency, no camera shake,
+no whip-pan, no vehicle deformation, no morphing…`) contra 1–2 instruções positivas de
+movimento. **Prompt majoritariamente proibitivo produz saída tímida** — o modelo
+minimiza risco, e minimizar risco é ficar parado.
+
+### 3. 🔴 A causa mecânica: frames-guia quase idênticos
+Esta é provavelmente a principal. `kling3_0` com `start_image` + `end_image`
+**interpola entre os dois**. Nossos masters eram "mesma cena, viatura deslocada um
+pouco" — mesma posição de câmera, mesmo enquadramento, mesma luz. Com origem e destino
+tão próximos, **não existe percurso para o modelo animar**: o resultado só pode ser uma
+deriva lenta.
+
+> **Regra para a próxima:** o par start/end precisa ter **diferença real de câmera** —
+> posição, altura, distância focal ou eixo. Se os dois frames são quase o mesmo quadro,
+> o clipe vai ser estático por construção, não importa o prompt.
+
+### 4. Cadência metronômica
+8 planos, **todos exatamente 5,0s**. Corte a cada 5s cria pulso mecânico. Montagem viva
+alterna: 1,5s · 4s · 2s · 7s. A EDL não tinha nenhuma variação rítmica.
+
+### 5. O QC empurrou na direção errada
+A cada rodada cortamos "o que lê como urgência" — M07 foi de 5s → 4,5s → 3,5s. Cada
+corte removeu justamente **o trecho mais vivo do material**. O QC estava calibrado para
+remover energia, não para qualificá-la.
+
+### O que fica de aproveitável
+
+| Item | Status |
+|---|---|
+| Frente, estudo, regionalização (`fatos.md`, `interpretacao.md`) | ✅ **válido** — independe do vídeo |
+| Guardrail de honestidade do M06 (rota ≠ tempo-resposta) | ✅ **válido e importante** |
+| Descarte do B04a (telefone fictício DDD 11) | ✅ válido |
+| Trava "sem motolância" (fora do escopo comercial) | ✅ válido |
+| Correções de parâmetros do Higgsfield e custos reais | ✅ válido |
+| Lição "o texto não vence a imagem" (balizas emissivas) | ✅ válido |
+| **Roteiro, EDL, registro visual, os 6 clipes** | ❌ **refazer** |
+
+**Custo da tentativa: 43,75 créditos.** Saldo 44,95.
+
+### Se retomar, começar por aqui
+1. **Redesenhar o par start/end** com deslocamento real de câmera entre os dois frames.
+2. **Reescrever os prompts em positivo** — descrever o movimento desejado, não a lista
+   do que evitar. Negativas só para o que já falhou (balizas acesas).
+3. **Variar a duração dos planos** na EDL antes de gerar qualquer coisa.
+4. **Redefinir o registro**: "sereno" precisa ganhar uma definição *ativa* — que
+   movimento específico expressa serenidade sem virar publicidade genérica.
+5. Reconsiderar se `start+end` é o modo certo, ou se um `start_image` só, com prompt de
+   movimento forte, dá mais vida.
+
+---
+
+## Manifesto de produção (preflight, pré-geração)
 
 > **PARADA DE PREFLIGHT.** Nenhum frame gerado, nenhum job submetido, **zero crédito
 > consumido**. Todos os custos abaixo vieram de `get_cost: true`, que retorna preço sem

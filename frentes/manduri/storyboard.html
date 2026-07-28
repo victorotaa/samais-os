@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manduri/SP — Storyboard v2 · Teaser · Samais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04060C; --card:#0A0E18; --card-2:#0D1220;
+    --border:rgba(212,168,87,.14); --border-soft:rgba(255,255,255,.06);
+    --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+    --text:#EDEAE2; --text-2:#B0AEA5; --text-3:#9A968C;
+    --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
+    --f-display:'Syne',system-ui,sans-serif;
+    --f-body:'Inter',system-ui,sans-serif;
+    --f-mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);
+       line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(24px,5vw,64px) clamp(16px,4vw,40px)}
+  .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+          color:var(--gold);margin:0 0 12px}
+  h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,5.5vw,52px);
+     line-height:1.08;margin:0 0 16px;letter-spacing:-.02em}
+  h2{font-family:var(--f-display);font-weight:700;font-size:clamp(19px,2.6vw,26px);
+     margin:56px 0 6px;letter-spacing:-.01em}
+  h3{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0}
+  p{margin:0 0 14px;color:var(--text-2)}
+  .lede{font-size:clamp(15px,1.9vw,18px);color:var(--text-2);max-width:64ch}
+  .rule{height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent);border:0;margin:32px 0}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
+  .meta li{font-family:var(--f-mono);font-size:12px;color:var(--text-2);
+           border:1px solid var(--border);border-radius:999px;padding:6px 14px;background:var(--card)}
+  .meta b{color:var(--gold);font-weight:500}
+  .panel{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;
+         padding:clamp(18px,3vw,28px);margin:20px 0}
+  .panel.warn{border-left:3px solid var(--amber)}
+  .panel.crit{border-left:3px solid var(--red)}
+  .panel.ok{border-left:3px solid var(--green)}
+  .panel h3{margin-bottom:10px}
+  .panel p:last-child{margin-bottom:0}
+  .locks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .locks li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--text-2)}
+  .locks .mk{font-family:var(--f-mono);font-size:13px;flex:0 0 auto;line-height:1.75}
+  .no .mk{color:var(--red)} .yes .mk{color:var(--green)}
+  .ato{margin-top:64px}
+  .ato-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;
+            padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .ato-head .n{font-family:var(--f-mono);font-size:12px;color:var(--gold);letter-spacing:.14em}
+  .ato-head .luz{font-family:var(--f-mono);font-size:12px;color:var(--text-3);margin-left:auto}
+  .blk{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;
+       padding:clamp(18px,3vw,26px);margin:18px 0}
+  .blk-top{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:18px}
+  .id{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--bg);
+      background:var(--gold);border-radius:6px;padding:3px 9px}
+  .tc{font-family:var(--f-mono);font-size:12.5px;color:var(--text-3)}
+  .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+       border:1px solid var(--border);border-radius:999px;padding:3px 10px;color:var(--text-3)}
+  .tag.reuse{color:var(--green);border-color:rgba(95,140,106,.4)}
+  .tag.new{color:var(--gold);border-color:var(--border)}
+  .tag.pilot{color:var(--red);border-color:rgba(194,13,47,.45)}
+  .blk-top .sp{margin-left:auto}
+  .frames{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+  @media(max-width:640px){.frames{grid-template-columns:1fr}}
+  .fr{aspect-ratio:16/9;border:1px dashed var(--border);border-radius:9px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+      background:var(--card-2);color:var(--text-3)}
+  .fr.done{border-style:solid;border-color:rgba(95,140,106,.45);color:var(--green)}
+  .fr span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+  .fr em{font-style:normal;font-family:var(--f-mono);font-size:10px;color:rgba(154,150,140,.5)}
+  .fr.done em{color:rgba(95,140,106,.7)}
+  .row{display:grid;grid-template-columns:96px 1fr;gap:12px;margin-bottom:12px;align-items:start}
+  @media(max-width:640px){.row{grid-template-columns:1fr;gap:4px}}
+  .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+       color:var(--gold-dim);padding-top:3px}
+  .val{font-size:14.5px;color:var(--text-2);margin:0}
+  .val.vo{color:var(--text);font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.45}
+  .val.note{font-size:13.5px;color:var(--text-3)}
+  .pending{font-family:var(--f-mono);font-size:13px;color:var(--amber);
+           border:1px solid rgba(221,141,12,.35);border-radius:5px;padding:1px 7px}
+  code{font-family:var(--f-mono);font-size:12.5px;color:var(--text);
+       background:var(--card-2);border:1px solid var(--border-soft);border-radius:5px;padding:2px 6px}
+  pre{font-family:var(--f-mono);font-size:12.5px;color:var(--text-2);background:var(--card-2);
+      border:1px solid var(--border-soft);border-radius:9px;padding:16px;overflow-x:auto;line-height:1.7}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+  th{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+  .vo-full{font-family:var(--f-display);font-weight:600;font-size:clamp(16px,2.2vw,20px);
+           line-height:1.6;color:var(--text);border-left:2px solid var(--gold);padding-left:20px;margin:0}
+  .vo-full span{display:block;margin-bottom:6px}
+  .vo-full i{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--gold-dim);
+             display:inline-block;width:44px}
+  footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);
+         font-family:var(--f-mono);font-size:11.5px;color:var(--text-3);line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">Samais Gestão em Saúde · Storyboard v2 · teaser institucional</p>
+  <h1>Manduri/SP<br>Teaser institucional</h1>
+  <p class="lede">Registro de <strong style="color:var(--text)">presença serena</strong>.
+  A viatura passa calmamente por Manduri — sem ocorrência, sem paciente, sem sirene e sem
+  giroflex. O eixo da transferência vive só na locução, nunca na imagem.</p>
+
+  <ul class="meta">
+    <li>Duração <b>38,5s</b></li>
+    <li>Planos <b>8 + cartão</b></li>
+    <li>Master <b>16:9 2K</b></li>
+    <li>Animação <b>1080p</b></li>
+    <li>População <b>9.871</b></li>
+  </ul>
+
+  <div class="panel warn" style="margin-top:24px">
+    <h3>Duração revisada: 45s → 39,5s → 38,5s</h3>
+    <p style="margin-bottom:0">M07 deixou de ser 2 planos de 5s, virou um clipe de 4,5s e, no
+    <strong style="color:var(--text)">picture lock</strong>, foi reduzido a
+    <strong style="color:var(--text)">3,5s</strong> — o trecho 2,0–3,5s do original lê como urgência.
+    Segue dentro da faixa de teaser (30–60s). Montagem completa em <code>edl.md</code>.</p>
+  </div>
+
+  <hr class="rule">
+
+  <div class="panel ok">
+    <h3>v2 — o que mudou</h3>
+    <p>A v1 era um filme de <strong style="color:var(--text)">ocorrência</strong> (caso grave,
+    travessia, estabilização, passagem de bastão). Victor arbitrou para
+    <strong style="color:var(--text)">presença serena</strong>.</p>
+    <table>
+      <tr><th>v1 — descartado</th><th>v2 — vigente</th></tr>
+      <tr><td>B03 · Pronto Municipal como "falta" dramática</td><td>M05 · equipe em rotina, sem paciente</td></tr>
+      <tr><td>B07 · interior, equipe estabilizando paciente</td><td><strong style="color:var(--red)">Removido</strong> — não há paciente na peça</td></tr>
+      <tr><td>B08 · chegada e passagem de bastão</td><td><strong style="color:var(--red)">Removido</strong> — não há chegada</td></tr>
+    </table>
+    <p style="margin-bottom:0">A cidade tranquila é o que se vê; a narração diz, sem dramatizar,
+    o que ela depende.</p>
+  </div>
+
+  <div class="panel crit">
+    <h3>Travas da peça</h3>
+    <ul class="locks">
+      <li class="no"><span class="mk">✕</span><span><strong>Sem ocorrência, paciente ou acidente.</strong> Registro de teaser.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem sirene e sem giroflex.</strong> Luzes de emergência apagadas o filme inteiro.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem motolância.</strong> Fora do escopo comercial desde jul/2026.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem menção a consórcio</strong>, rateio ou governança. Arranjo não assinado; filme é peça pública.</span></li>
+      <li class="no"><span class="mk">✕</span><span><strong>Sem alusão a acidente real.</strong> Há caso fatal na rota. Dignidade, sem exceção.</span></li>
+      <li class="yes"><span class="mk">✓</span><span><strong>Padrão FRIO</strong> · cidade pequena de verdade, sem feição de capital.</span></li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Linguagem de câmera — dinamismo com elegância</h3>
+    <p>Movimento fluido de gimbal/FPV: <strong style="color:var(--text)">tracking lateral baixo</strong>
+    acompanhando a USB, <strong style="color:var(--text)">leve dolly/push-in</strong> e
+    <strong style="color:var(--text)">parallax</strong> de árvores e postes em primeiro plano.</p>
+    <p style="margin-bottom:0"><strong style="color:var(--red)">Nunca:</strong> câmera nervosa ·
+    velocidade de emergência · whip-pan · shake. O DNA agitado de Avaré foi temperado — o
+    anamórfico, o motion blur e a profundidade permanecem; a agitação, não.</p>
+  </div>
+
+  <div class="panel ok">
+    <h3>Dado-âncora — resolvido com guardrail</h3>
+    <p>A rota Manduri→Avaré foi levantada: <strong style="color:var(--text)">~44–46,9 km · ~45–52 min</strong>
+    em fontes rodoviárias. <strong style="color:var(--red)">Nenhum desses números entra no filme.</strong></p>
+    <p style="margin-bottom:0">Tempo de percurso de mapa é <strong style="color:var(--text)">estimativa
+    geográfica</strong>, não <strong style="color:var(--text)">tempo-resposta do SAMU</strong> — que depende
+    de regulação, disponibilidade de viatura e despacho. Enunciar "45 minutos" viraria promessa operacional.
+    A peça diz apenas <em>"Avaré está a menos de uma hora por estrada"</em>: verdadeiro em toda a faixa,
+    e não interpretável como SLA. Liberado também: <code>9.871 habitantes</code> (IBGE, Censo 2022).</p>
+  </div>
+
+  <!-- ATO 1 -->
+  <section class="ato">
+    <div class="ato-head"><span class="n">ATO 1</span>
+      <h2 style="margin:0">A cidade</h2><span class="luz">luz: golden hour</span></div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">M01</span><span class="tc">0:00 – 0:05</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">portal da cidade</span></div>
+      <div class="frames"><div class="fr"><span>start</span><em>não gerado</em></div><div class="fr"><span>end</span><em>não gerado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB entra na cidade em velocidade normal de tráfego. Portal ao fundo.</p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Tracking lateral baixo, viatura cruzando da esquerda para a direita.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val note">—</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">M02</span><span class="tc">0:05 – 0:10</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">Prefeitura · Rua Bahia</span></div>
+      <div class="frames"><div class="fr"><span>start</span><em>não gerado</em></div><div class="fr"><span>end</span><em>não gerado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB passa em via próxima; Prefeitura <strong style="color:var(--text)">ao fundo, à distância</strong> — nunca dentro do cartão-postal.</p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Leve push-in.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Manduri tem nove mil oitocentos e setenta e uma pessoas."</p></div>
+    </article>
+
+    <article class="blk" style="border-color:rgba(194,13,47,.3)">
+      <div class="blk-top"><span class="id">M03</span><span class="tc">0:10 – 0:15</span>
+        <span class="tag pilot">piloto submetido</span><span class="sp"></span><span class="tag">Igreja Matriz · Praça Getúlio Vargas</span></div>
+      <div class="frames"><div class="fr done"><span>start</span><em>master 2K aprovado</em></div><div class="fr done"><span>end</span><em>master 2K aprovado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB atravessa a via que margeia a praça, calmamente. Igreja estável e reconhecível ao fundo.</p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Tracking lateral baixo + dolly sutil + parallax das árvores em primeiro plano.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val note">—</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">Plano-piloto: testa livery, regra de composição e luz do ato de uma vez. Se passar no QC, M01/M02/M04 são variações do mesmo problema resolvido.</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">M04</span><span class="tc">0:15 – 0:20</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">rua residencial</span></div>
+      <div class="frames"><div class="fr"><span>start</span><em>não gerado</em></div><div class="fr"><span>end</span><em>não gerado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB circulando — presença cotidiana. Casas baixas, muros, calçada.</p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Travelling lateral acompanhando.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val note">—</p></div>
+    </article>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">M05</span><span class="tc">0:20 – 0:25</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">Pronto Municipal</span></div>
+      <div class="frames"><div class="fr"><span>start</span><em>não gerado</em></div><div class="fr"><span>end</span><em>não gerado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB parada junto à unidade. Máx. 2 socorristas em movimento tranquilo — conversa, prancheta. <strong style="color:var(--text)">Sem maca, sem paciente, sem correria.</strong></p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Plano médio, quase estático. Respiro do ato.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Tem pronto atendimento. Não tem hospital."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note"><strong style="color:var(--amber)">Depende de confirmar no CNES.</strong> Único plano com pessoas no Ato 1 → uniforme por extenso obrigatório.</p></div>
+    </article>
+  </section>
+
+  <!-- ATO 2 -->
+  <section class="ato">
+    <div class="ato-head"><span class="n">ATO 2</span>
+      <h2 style="margin:0">A travessia</h2><span class="luz">luz: hora azul</span></div>
+
+    <article class="blk">
+      <div class="blk-top"><span class="id">M06</span><span class="tc">0:25 – 0:30</span>
+        <span class="tag new">produção nova</span><span class="sp"></span><span class="tag">saída para a rodovia</span></div>
+      <div class="frames"><div class="fr"><span>start</span><em>não gerado</em></div><div class="fr"><span>end</span><em>não gerado</em></div></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">USB deixa a cidade e entra na rodovia, em velocidade de estrada — ainda sem sirene.</p></div>
+      <div class="row"><span class="lbl">Câmera</span><p class="val">Plano aberto, câmera baixa. Viatura <strong style="color:var(--text)">se afastando, traseira para a câmera</strong>.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Avaré está a menos de uma hora por estrada."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">A troca de luz acontece <strong style="color:var(--text)">no corte</strong>, nunca dentro do plano. Ref traseira obrigatória — a orientação da referência vaza para a cena.<br><strong style="color:var(--red)">Guardrail:</strong> a rota aparece em fontes rodoviárias como ~44–46,9 km e ~45–52 min. <strong style="color:var(--text)">Esses números não entram no filme.</strong> A locução usa só a formulação segura, verdadeira em toda a faixa e que não pode ser lida como tempo-resposta do SAMU.</p></div>
+    </article>
+
+    <article class="blk" style="border-color:rgba(95,140,106,.35)">
+      <div class="blk-top"><span class="id">M07</span><span class="tc">0:30 – 0:33,5</span>
+        <span class="tag reuse">ativo selecionado · QC Codex</span><span class="sp"></span><span class="tag">CRU regional · 3,5s</span></div>
+      <div class="frames"><div class="fr done"><span>M07a · close regulador</span><em>src 0,0 → 2,0</em></div><div class="fr done"><span>M07b · plano geral</span><em>src 3,5 → 5,0</em></div></div>
+      <div class="row"><span class="lbl">Origem</span><p class="val">Reuso de Avaré, bloco <strong style="color:var(--text)">B07</strong> (regulação/CoPilot). Montagem interna com <strong style="color:var(--text)">descarte de 1,5s</strong> (src 2,0→3,5): o gesto e a boca do regulador leem como urgência e contradizem o registro sereno.</p></div>
+      <div class="row"><span class="lbl">Ação</span><p class="val">Close do médico regulador com movimento corporal suave → hard cut → plano geral da central.</p></div>
+      <div class="row"><span class="lbl">Função</span><p class="val"><strong style="color:var(--text)">Coordenação regional. Não urgência.</strong></p></div>
+      <div class="row"><span class="lbl">Áudio</span><p class="val note">Som original <strong style="color:var(--text)">descartado</strong> — entram trilha licenciada e locução na pós.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"A regulação acontece na central regional."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note">É a <strong style="color:var(--text)">mesma CRU real</strong> que atende Manduri — o reuso tem lastro.<br><strong style="color:var(--red)">O TARM saiu da peça:</strong> o clipe de atendimento telefônico foi descartado por exibir telefone fictício com DDD 11 e interface legível demais — ruído factual.<br><strong style="color:var(--green)">Locução fechada:</strong> 6 palavras (~2,3s) num plano de 4,5s, deixando ~1,7s de silêncio antes do cross-dissolve. A pausa é intencional — separa a afirmação factual da marca.</p></div>
+    </article>
+  </section>
+
+  <!-- ATO 3 -->
+  <section class="ato">
+    <div class="ato-head"><span class="n">ATO 3</span>
+      <h2 style="margin:0">Assinatura</h2><span class="luz">navy-black institucional</span></div>
+
+    <article class="blk" style="border-color:rgba(95,140,106,.35)">
+      <div class="blk-top"><span class="id">M08</span><span class="tc">0:33,5 – 0:38,5</span>
+        <span class="tag reuse">materializado 2K · aprovado</span><span class="sp"></span><span class="tag new">100% pós</span></div>
+      <div class="frames"><div class="fr"><span>cartão final</span><em>não gerar por IA</em></div><div class="fr"><span>especificado</span><em>produção na pós</em></div></div>
+      <div class="row"><span class="lbl">Composição</span><p class="val">Fundo <code>#04060C</code> · logo <strong style="color:var(--text)">branco</strong> (<code>samais-logo-white.svg</code>) · fio dourado <code>#D4A857</code> de 1px · assinatura "Gestão em Saúde" em Syne 600.</p></div>
+      <div class="row"><span class="lbl">Hierarquia</span><p class="val">Logo ~22% da largura, centro óptico levemente acima do meio → fio como separador → assinatura a ~25% do corpo do logo, <code>#EDEAE2</code>, tracking aberto.</p></div>
+      <div class="row"><span class="lbl">Timing</span><p class="val">0,0–0,5 cross-dissolve · 0,5–1,3 logo (fade + scale 98→100%) · 1,3–1,8 fio cresce do centro · 1,8–2,4 assinatura em fade · 2,4–4,3 repouso (locução) · 4,3–5,0 fade to black.</p></div>
+      <div class="row"><span class="lbl">Locução</span><p class="val vo">"Samais. Gestão em saúde."</p></div>
+      <div class="row"><span class="lbl">Nota</span><p class="val note"><strong style="color:var(--red)">Somente marca Samais</strong> — sem SAMU, sem município, sem MS. Marca de ente público em peça de prospecção sugere endosso inexistente.<br>Logo branco e não dourado: sobre <code>#04060C</code> o dourado fecha contraste, e a doutrina manda ouro escasso (≤10%). O fio faz o acento.<br><strong style="color:var(--red)">Logo e letreiro só na pós</strong>, resolução nativa. Nunca por IA ou upscaler.</p></div>
+    </article>
+  </section>
+
+  <hr class="rule" style="margin-top:64px">
+
+  <h2 style="margin-top:0">Locução — mínima</h2>
+  <p style="font-family:var(--f-mono);font-size:12.5px;color:var(--text-3);margin-bottom:20px">
+    ~35 palavras em 38,5s · deliberadamente abaixo do limite — teaser respira, não explica</p>
+  <p class="vo-full">
+    <span><i>M02</i> Manduri tem nove mil oitocentos e setenta e uma pessoas.</span>
+    <span><i>M05</i> Tem pronto atendimento. Não tem hospital.</span>
+    <span><i>M06</i> Avaré está a menos de uma hora por estrada.</span>
+    <span><i>M07</i> A regulação acontece na central regional.</span>
+    <span><i>M08</i> Samais. Gestão em saúde.</span>
+  </p>
+  <div class="panel" style="margin-top:18px">
+    <p style="margin:0;font-size:14px">A tese <em>"a ambulância é o tratamento"</em>
+    <strong style="color:var(--text)">não é dita</strong>. Fica implícita na sequência
+    M05 → M06 → M07. Explicitá-la custaria o tom do teaser.</p>
+  </div>
+
+  <h2>Cláusulas obrigatórias</h2>
+  <p style="font-size:14px">Cinematografia — em todo prompt de frame:</p>
+  <pre>subtle anamorphic flare on the light source, FEW dust particles floating in
+the light, light atmospheric haze, cinematic depth of field, rich micro-contrast</pre>
+  <p style="font-size:14px;margin-top:18px">Movimento — em todo prompt de animação:</p>
+  <pre>Low cinematic tracking camera moves smoothly with the vehicle, subtle forward
+dolly and natural foreground-tree parallax, keeping the background stable and
+recognizable. Ordinary traffic speed, wheels rotate naturally, suspension remains
+grounded. All emergency lights and beacons stay OFF for the entire shot. Quiet
+teaser mood, realistic motion blur, no urgency, no siren, no camera shake, no
+architecture morphing, no vehicle deformation.</pre>
+  <p style="font-size:14px;margin-top:18px">Uniforme — em todo prompt com pessoa:</p>
+  <pre>navy SAMU coverall #1C2D4A, WHITE reflective bands, orange side piping,
+red Star of Life, "SAMU 192" in orange, Brazilian flag patch</pre>
+  <div class="panel crit" style="margin-top:14px">
+    <p style="margin:0;font-size:14px"><strong style="color:var(--text)">Nunca:</strong> farda branca ·
+    faixa amarelo hi-vis (erro recorrente) · faixa vermelha no socorrista · EMS americano/europeu.</p>
+  </div>
+
+  <h2>Pendências</h2>
+  <div class="panel warn">
+    <ol style="margin:0;padding-left:20px;color:var(--text-2);font-size:14.5px">
+      <li>CNES — Pronto Municipal 24h e ausência de hospital (trava M05 e a locução).</li>
+      <li>Confirmar a rota em fonte primária (DER-SP) e as rodovias que cortam o município — a locução de M06 já está resolvida com guardrail.</li>
+      <li>Referências reais de locação — portal, Prefeitura/Rua Bahia, rodovia, Pronto Municipal.
+          Igreja Matriz ✅ já tem master 2K. Nunca inventar locação.</li>
+    </ol>
+  </div>
+
+  <footer>
+    Samais Gestão em Saúde · Storyboard Manduri/SP v2 · 2026-07-27<br>
+    Documento interno de aprovação. Lote restante não gerado.<br>
+    Geração do lote só após QC do piloto e aprovação de custo — cânone de produção.
+  </footer>
+
+</div>
+</body>
+</html>

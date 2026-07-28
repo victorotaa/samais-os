@@ -1,10 +1,25 @@
 {
-  "gerado_em": "2026-07-11",
-  "total_frentes": 5,
+  "gerado_em": "2026-07-28",
+  "total_frentes": 6,
   "pipeline_mensal": 8100000,
   "pipeline_anual": 97200000,
   "contratos_ativos": 0,
   "frentes": [
+    {
+      "frente": "Manduri",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "negociacao",
+      "score": 8,
+      "valor_contratual_mensal": null,
+      "populacao": 9871,
+      "operador_atual": "AMVAPA (CRU Vale do Jurumirim, 17 municípios)",
+      "verdict": "atencao",
+      "gatilho": "Reunião com secretário de saúde de Avaré e prefeito de Manduri. Cenário 4 do estudo avare-manduri-sp: Manduri no lugar de Arandu como parceira do novo consórcio com Avaré (106.321 hab).",
+      "atualizado_em": "2026-07-27",
+      "proximo_passo": "Produção do teaser PAUSADA em 2026-07-28 — clipes ficaram estáticos e monótonos; ver post-mortem em manifesto-producao.md antes de retomar. A frente comercial segue válida: confirmar CNES (ausência de hospital) e a rota em fonte primária (DER-SP).",
+      "_slug": "manduri"
+    },
     {
       "frente": "Belém",
       "uf": "PA",

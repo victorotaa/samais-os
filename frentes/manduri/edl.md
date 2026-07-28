@@ -21,8 +21,8 @@
 | 2 | **M02** Prefeitura | `00:05.0` | `00:10.0` | 5,0 | render | 0,0 | 5,0 |
 | 3 | **M03** Igreja Matriz | `00:10.0` | `00:15.0` | 5,0 | render (v2) | 0,0 | 5,0 |
 | 4 | **M04** Rua residencial | `00:15.0` | `00:20.0` | 5,0 | render | 0,0 | 5,0 |
-| 5 | **M05** Pronto Municipal | `00:20.0` | `00:25.0` | 5,0 | ⏳ pendente de cota | 0,0 | 5,0 |
-| 6 | **M06** Saída rodovia | `00:25.0` | `00:30.0` | 5,0 | ⏳ pendente de cota | 0,0 | 5,0 |
+| 5 | **M05** Pronto Municipal | `00:20.0` | `00:25.0` | 5,0 | render ✅ | 0,0 | 5,0 |
+| 6 | **M06** Saída rodovia | `00:25.0` | `00:30.0` | 5,0 | render ✅ | 0,0 | 5,0 |
 | 7 | **M07a** Regulador (close) | `00:30.0` | `00:32.0` | 2,0 | ♻️ Avaré | 0,0 | 2,0 |
 | 8 | **M07b** Central (geral) | `00:32.0` | `00:33.5` | 1,5 | ♻️ Avaré | **3,5** | 5,0 |
 | 9 | **M08** Assinatura | `00:33.5` | `00:38.5` | 5,0 | 100% pós | — | — |
@@ -123,7 +123,7 @@ indicador de serviço.
 | Plano | Situação |
 |---|---|
 | M01, M02, M03, M04 | ✅ renderizados e aprovados no QC |
-| M05, M06 | ⏳ pendentes de cota diária do provedor |
+| M05, M06 | ✅ renderizados na retomada de 00:05 UTC — ⏳ aguardando QC do Codex |
 | M07 | ✅ picture lock — 3,5s |
 | M08 | ✅ materializado em 2K e aprovado |
 
@@ -133,7 +133,10 @@ indicador de serviço.
 Contém **M01–M04, M07 e M08**.
 
 Confere com esta EDL: `20,0s (M01–M04) + 3,5s (M07) + 5,0s (M08) = 28,5s` ✅
-Faltam apenas M05 e M06 (10,0s) para fechar os 38,5s.
+
+**Todos os 6 clipes já existem.** Com M05 e M06 (10,0s) inseridos nos slots
+`00:20.0–00:30.0`, a peça fecha os **38,5s** — falta apenas o QC do Codex nos dois
+novos e a montagem final.
 
 > Arquivo de prévia, outputs e montador local ficam **fora do Git**.
 > Caminho canônico dos outputs: `outputs/higgsfield/manduri/` (já em `.gitignore`).

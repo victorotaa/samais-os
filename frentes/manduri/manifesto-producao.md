@@ -460,10 +460,16 @@ barrados pelo provedor.**
 | M01 · Portal da cidade | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
 | M02 · Prefeitura / Rua Bahia | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
 | M04 · Rua residencial | ✅ concluído · 1920×1080 | ✅ **APROVADO** | 8,75 |
-| M05 · Pronto Municipal | ❌ `403 grace_daily_limit_reached` | — | **0** |
-| M06 · Saída para a rodovia | ❌ `403 grace_daily_limit_reached` | — | **0** |
+| M05 · Pronto Municipal | ✅ concluído · 1920×1080 (2ª tentativa) | ⏳ pendente | 8,75 |
+| M06 · Saída para a rodovia | ✅ concluído · 1920×1080 (2ª tentativa) | ⏳ pendente | 8,75 |
 
-**Saldo: 88,70 → 62,45** (3 × 8,75 = 26,25).
+**Saldo: 88,70 → 62,45 → 44,95.** Total do lote: **5 × 8,75 = 43,75**, exatamente o teto
+autorizado. Nenhum crédito além do aprovado.
+
+> **Todos os 6 clipes do teaser estão gerados.** M05 e M06 entraram na retomada
+> automática de 00:05 UTC, depois que a cota diária do provedor virou. A primeira
+> tentativa (23:0x UTC) falhou sem cobrança, e os créditos ficaram reservados — por isso
+> o total fecha em 43,75 e não em 61,25.
 
 ### ✅ QC visual — M01, M02, M04 aprovados
 
@@ -488,20 +494,22 @@ Masters de saída (arquivos locais do Codex, fora do Git):
 `m01-portal-kling-pro-v1.mp4` · `m02-prefeitura-kling-pro-v1.mp4` ·
 `m04-rua-kling-pro-v1.mp4`.
 
-### ⚠️ Limite diário do backend Kling — não é crédito
+### ✅ Limite diário do backend Kling — resolvido pela retomada
 
-M05 e M06 falharam com `403: grace_daily_limit_reached`, um **teto diário do provedor**.
-Tentei o M05 uma segunda vez para descartar transitório — falhou idêntico. Parei de
-tentar em vez de martelar o backend.
+Na primeira tentativa (23:0x UTC), M05 e M06 falharam com `403:
+grace_daily_limit_reached` — **teto diário do provedor, não crédito**. Uma segunda
+tentativa imediata do M05 falhou idêntico, o que confirmou que não era transitório.
+Parei de tentar em vez de martelar o backend.
 
-**Os dois não foram cobrados** (o saldo bate exatamente com 3 renders), então seguem
-dentro da autorização de cinco, com 17,5 créditos ainda reservados. Basta reexecutar
-quando a cota diária virar — sem necessidade de nova aprovação de custo.
+**Nenhum dos dois foi cobrado** na falha, então os 17,5 créditos ficaram reservados.
 
-**Retomada armada:** tentativa automática única às **00:05 UTC (21:05 BRT)** de
-2026-07-27→28, reconfirmando saldo e custo antes de submeter. Se o limite repetir,
-**não insistir** — rearmar uma única tentativa para **03:05 UTC (00:05 BRT)**.
-Sem troca de modelo e sem nenhuma geração além de M05 e M06.
+Uma **retomada automática** foi armada para 00:05 UTC (21:05 BRT). Ela disparou,
+reconfirmou saldo (62,45) e custo (8,75 cada), reusou os media IDs já persistidos sem
+reimportar do Drive, e **os dois entraram** — a cota havia virado.
+
+> **Lição operacional:** `grace_daily_limit_reached` é teto diário de conta, não erro de
+> parâmetro nem falta de saldo. A resposta certa é **agendar a retomada**, não insistir.
+> Reexecutar no mesmo dia só queima tempo; o custo fica reservado até a submissão passar.
 
 ### Conformidade da submissão
 

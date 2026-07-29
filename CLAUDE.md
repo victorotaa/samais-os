@@ -57,6 +57,13 @@ Cada frente vive em `frentes/<slug>/`:
 Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência completa:
 `frentes/belem/`.
 
+## Ferramentas
+
+- `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
+  comprovante, fechamento mensal, PDF de reembolso, consolidação da equipe por JSON.
+  **Local-first** (IndexedDB no aparelho; nada em servidor). Schema:
+  `ferramentas/despesas/despesa.schema.json` — valores em **centavos**.
+
 ## Build do dashboard
 
 ```

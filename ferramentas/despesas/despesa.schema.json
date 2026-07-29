@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samais-os/ferramentas/despesas/despesa.schema.json",
+  "title": "Despesa — prestação de contas Samais",
+  "description": "Contrato de dados de um lançamento de despesa (viagem ou predial/sede). O app grava neste formato no dispositivo e exporta/importa por este schema — o que permite consolidar lançamentos de várias pessoas e, no futuro, ingerir no OS.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "data",
+    "tipo",
+    "categoria",
+    "descricao",
+    "valor_centavos",
+    "forma_pagamento",
+    "responsavel",
+    "reembolsavel",
+    "status",
+    "criado_em",
+    "atualizado_em"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID do lançamento. Chave de deduplicação na consolidação de exports.",
+      "minLength": 8
+    },
+    "data": {
+      "type": "string",
+      "description": "Data da despesa (AAAA-MM-DD). Define o mês de competência.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "tipo": {
+      "type": "string",
+      "description": "Frente de custo.",
+      "enum": ["viagem", "predial"]
+    },
+    "categoria": {
+      "type": "string",
+      "description": "Categoria dentro do tipo (ver lista no app).",
+      "minLength": 1
+    },
+    "descricao": {
+      "type": "string",
+      "description": "O que foi a despesa, em uma linha.",
+      "minLength": 1
+    },
+    "valor_centavos": {
+      "type": "integer",
+      "description": "Valor em CENTAVOS (inteiro) — evita erro de ponto flutuante em somatórios.",
+      "minimum": 0
+    },
+    "forma_pagamento": {
+      "type": "string",
+      "enum": [
+        "cartao-corporativo",
+        "cartao-pessoal",
+        "dinheiro",
+        "pix",
+        "boleto",
+        "transferencia"
+      ]
+    },
+    "responsavel": {
+      "type": "string",
+      "description": "Quem pagou — é quem recebe o reembolso.",
+      "minLength": 1
+    },
+    "reembolsavel": {
+      "type": "boolean",
+      "description": "Se entra no total a reembolsar (pagamento com recurso próprio)."
+    },
+    "status": {
+      "type": "string",
+      "description": "Situação do reembolso.",
+      "enum": ["pendente", "reembolsado"]
+    },
+    "fornecedor": {
+      "type": ["string", "null"],
+      "description": "Estabelecimento/fornecedor. Opcional."
+    },
+    "centro_custo": {
+      "type": ["string", "null"],
+      "description": "Obra, sede, município ou projeto ao qual a despesa se vincula. Opcional."
+    },
+    "observacao": {
+      "type": ["string", "null"],
+      "description": "Nota livre. Opcional."
+    },
+    "comprovante_id": {
+      "type": ["string", "null"],
+      "description": "Referência à imagem do comprovante (canhoto/nota) guardada no dispositivo. Opcional."
+    },
+    "criado_em": {
+      "type": "string",
+      "description": "Timestamp ISO de criação."
+    },
+    "atualizado_em": {
+      "type": "string",
+      "description": "Timestamp ISO da última edição. Vence o conflito na consolidação (mais recente ganha)."
+    }
+  }
+}

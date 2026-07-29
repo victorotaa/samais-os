@@ -1,10 +1,25 @@
 {
-  "gerado_em": "2026-07-11",
+  "gerado_em": "2026-07-23",
   "total_frentes": 5,
-  "pipeline_mensal": 8100000,
-  "pipeline_anual": 97200000,
+  "pipeline_mensal": 9100000,
+  "pipeline_anual": 109200000,
   "contratos_ativos": 0,
   "frentes": [
+    {
+      "frente": "Avaré",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "proposta",
+      "score": 8,
+      "valor_contratual_mensal": 1000000,
+      "populacao": 103335,
+      "operador_atual": "prefeitura",
+      "verdict": "go",
+      "gatilho": "Avaré decide sair da AMVAPA (regulação da CRU regional fora de padrão, óbitos documentados pela SMS); caminho = novo consórcio com Arandu para destravar repasses federais e assumir a própria USA/USBs",
+      "atualizado_em": "2026-07-23",
+      "proximo_passo": "Formalizar consórcio Avaré+Arandu (protocolo → leis nas 2 câmaras → CNPJ/rateio → habilitações no MS) e validar headcount em diligência antes da proposta formal",
+      "_slug": "avare"
+    },
     {
       "frente": "Belém",
       "uf": "PA",
@@ -19,17 +34,6 @@
       "atualizado_em": "2026-07-11",
       "proximo_passo": "Diligência de headcount real e confirmação da CCT-PA antes de fechar o dimensionamento (lição Taboão 148 vs 80)",
       "_slug": "belem"
-    },
-    {
-      "frente": "Avaré",
-      "uf": "SP",
-      "servico": "SAMU",
-      "estagio": "radar",
-      "score": 0,
-      "valor_contratual_mensal": null,
-      "atualizado_em": "2026-07-11",
-      "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study).",
-      "_slug": "avare"
     },
     {
       "frente": "Paraguai — SEME",

@@ -33,6 +33,75 @@ comercialmente estratégico.
 > A referência `composicao-preco.md` detalha a composição interna de cada linha e traz
 > os **textos prontos** para proposta. Consultar lá ao gerar um estudo.
 
+## ⚠️ Correção estrutural da tabela acima (lição Canoas, jul/2026)
+
+**A tabela lista todas as linhas como "% sobre CDO" — mas os tributos incidem sobre
+o FATURAMENTO (preço), não sobre o CDO.** Com isso, os 35% **não fecham**:
+
+```
+Preço = CDO × 1,35            → BDI disponível = 0,35 × CDO
+Tributos = 13,5% × preço      = 0,135 × 1,35 × CDO = 18,2% do CDO  (não 13,5%)
+Demais linhas (8+5+3+2+2,5)   = 20,5% do CDO
+Total consumido               = 38,7% do CDO  >  35% disponíveis
+→ REMUNERAÇÃO REAL = −2,8% do preço  (NEGATIVA, em qualquer estudo)
+```
+
+Os "4% de remuneração empresarial" da tabela só existem se os tributos fossem
+13,5% *do CDO* — o que não é o caso. **A tabela é uma peça de apresentação
+(decomposição defensável para o cliente), não um motor de cálculo.**
+
+### Regra operacional
+
+1. **Sempre calcular a remuneração residual explicitamente:**
+   `remuneração = preço − CDO − (tributos% × preço) − (demais linhas% × CDO)`
+2. **Se der menos que ~5% do preço, o BDI está errado** para aquela operação.
+3. **Pisos de BDI sobre o CDO** (com tributos 13,5% sobre faturamento):
+
+| Remuneração-alvo (% do preço) | BDI mínimo sobre CDO |
+|---|---|
+| 4% | **46,1%** |
+| 7% (padrão Canoas) | **51,6%** |
+| 10% | **57,5%** |
+
+> **Isso não infla preço.** O preço segue ancorado no teto de mercado (Métrica de
+> Ouro / benchmark). O BDI maior apenas **revela o custo verdadeiro** e impede
+> assinar contrato que opera no prejuízo. Se o preço de mercado não comportar o
+> BDI mínimo, o caminho é **enxugar escopo** — nunca aceitar remuneração negativa.
+
+## Anexo de composição de preço (3º artefato de todo estudo)
+
+Todo estudo passa a gerar, além do markdown interno e da página cliente-facing,
+um **anexo de memória financeira** — a peça que **valida a fórmula perante a
+diretoria**: composição rubrica a rubrica com a regra de cálculo explícita, ponte
+custo→preço até a **remuneração residual**, benchmark e tabela fato × premissa.
+
+- Local: `samais-estudos/anexos/<municipio-uf>-memoria-financeira.html`
+- Especificação: `samais-estudos/referencias/anexo-composicao-preco.md`
+- Referência viva: `anexos/canoas-rs-memoria-financeira.html`
+- ⚠️ **Nunca dentro de `site/`** — expõe BDI, remuneração e composição; o deploy
+  Vercel varre `site/` e publicaria o documento.
+
+Seções obrigatórias: (01) método + alerta do BDI · (02) serviço principal rubrica
+a rubrica + benchmark · (03) serviço secundário e seu piso de preço · (04)
+consolidado · (05) procedência e sensibilidade.
+
+## Varredura completa do termo de referência (lição Canoas)
+
+O edital é fonte do **escopo E do custo**. Ler só a matriz de pessoal e a frota é
+erro material — em Canoas isso omitiu **R$ 229 mil/mês**. Checklist obrigatório:
+
+- [ ] **Horas extras de capacitação / NEP** (Canoas: 400h médico, 600h enfermeiro,
+      600h técnico, 250h condutor, 150h motolância — todas obrigatórias)
+- [ ] **Seguros exigidos** (seguro total da frota, patrimonial, garantias)
+- [ ] **EPI, uniformes e crachás** especificados item a item
+- [ ] **Resíduos, esterilização, controle de pragas**
+- [ ] **Manutenção predial, de equipamentos médicos e de bens móveis**
+- [ ] **Imóvel por conta da contratada** (locação + adequação + mobiliário)
+- [ ] **Metas com desconto no repasse** (risco de receita, não só de custo)
+- [ ] Concessionárias, telefonia, TI/firewall, material de escritório
+
+Toda obrigação do termo que consome dinheiro **é rubrica de custo** e entra no CDO.
+
 ## Fórmula
 
 ```
@@ -49,6 +118,41 @@ Faturamento = CDO_indireto ÷ [1 − (Tributos% + Margem%)]
 
 Onde **Fator de Cobertura 24/7 = ~4,5** por posto (escala 12×36) — **nunca 2,2**
 (subdimensiona pela metade; erro histórico, lição Taboão 148 vs 80).
+
+## "USA + 5,2" — heurística de teto de mercado (Métrica de Ouro do CEO, jul/2026)
+
+Lente **complementar** ao gross-up acima (não o substitui), calibrada em SP e usada
+nos estudos de Avaré. Serve para ancorar rapidamente o preço de municípios/consórcios
+de médio porte e checar se o número "fecha com o prefeito":
+
+```
+Preço ≈ camada local + linha USA fixa
+  camada local = R$ 5,20 / habitante / mês   (USBs + motolância + gestão)
+  linha USA    ≈ R$ 457 mil / mês de preço   (UTI móvel operada 100% pela Samais)
+```
+
+- O preço assim obtido é **teto de mercado**: custos novos comem margem, **não sobem
+  o preço**. Serve de disciplina anti-inflação de proposta.
+- A **linha USA é fixa** (mesmo valor em qualquer cenário) e seu **repasse federal**
+  (~R$ 134k/mês, quando habilitada) **volta ao ente** como desconto de fato.
+- Ao diluir a USA fixa sobre mais população, o **R$/hab cai** com a escala — por isso
+  somar um município pequeno pode **baixar** o rateio do município-âncora.
+
+### Parâmetros calibrados SP (aplicados nos estudos de Avaré)
+
+| Parâmetro | Valor |
+|---|---|
+| Encargos sobre salário | **68,24%** (Grupo C já cobre rescisão/demissão — **não duplicar**) |
+| Fator de Cobertura | **4,5** (posto 24/7, 12×36) · **2,25** (posto 12h) |
+| Médico da USA | **Plantonista** (~R$ 125/h × 730,5h ≈ R$ 91,3 mil/posto 24/7) — **não** CLT integral |
+| Tributos s/ faturamento | **16,33%** (Lucro Presumido: PIS 0,65 + COFINS 3 + IRPJ 4,8 + CSLL 2,88 + ISS 5) |
+| Honorários advocatícios | **2%** do faturamento (externo/contingência, pedido do CEO) |
+| Indiretos | **10%** (7% overhead admin + 3% operacional) |
+
+> Coerência com o BDI canônico: os 35% de "Composição do Valor Contratual" continuam
+> valendo para a superfície externa; a heurística 5,2 é interna, para **ancorar o teto
+> e dimensionar rápido**. Nunca expor "5,2/hab" nem "margem" ao ente — apresentar
+> sempre valor global e fecho em R$/hab pós-cofinanciamento (padrão Sorriso).
 
 ## Como apresentar
 

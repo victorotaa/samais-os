@@ -1,0 +1,16 @@
+{
+  "name": "Samais · Prestação de Contas",
+  "short_name": "Samais Despesas",
+  "description": "Lançamento de despesas de viagem e sede, com comprovante e fechamento mensal.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#04060C",
+  "theme_color": "#04060C",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "./icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icone-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

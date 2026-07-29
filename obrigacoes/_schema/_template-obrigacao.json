@@ -1,0 +1,15 @@
+{
+  "titulo": "NOME DA OBRIGAÇÃO",
+  "tipo": "certidao",
+  "orgao": null,
+  "frente": "corporativo",
+  "vence_em": "AAAA-MM-DD",
+  "alerta_dias": 30,
+  "recorrencia": "por-validade",
+  "status": "vigente",
+  "responsavel": null,
+  "referencia": null,
+  "consequencia": "O que acontece se vencer, em uma linha.",
+  "observacao": null,
+  "atualizado_em": "AAAA-MM-DD"
+}

@@ -4,9 +4,18 @@
 > contrato, verdicts, pipeline). **Nunca** expor numa URL pública. Deploy só em
 > ambiente com controle de acesso (VPN / rede interna / autenticação).
 
-O dashboard é um site **estático** (`index.html` + `data.json`). `data.json` é
-**gerado** por `node scripts/build-dashboard.mjs` (varre `frentes/**/status.json`,
-valida contra o schema, falha se inválido). Sempre rode o build antes de servir.
+O que vai ao ar é o **bundle estático montado pelo build** — sempre rode
+`node scripts/build-dashboard.mjs` antes de servir/publicar:
+
+| No ar | O que é |
+|---|---|
+| `index.html` | **Home do OS** — índice das ferramentas, doutrina, inteligência e produtos |
+| `frentes.html` | Cockpit de frentes (pipeline comercial) |
+| `despesas/` | Prestação de contas — **cópia gerada** de `ferramentas/despesas/` |
+| `data.json` | Gerado de `frentes/**/status.json` (o build falha se algum for inválido) |
+
+**A camada confidencial não é publicada:** `frentes/**/interpretacao.md` e `doutrina/`
+ficam fora do bundle — o build só copia o que está declarado como ferramenta.
 
 ---
 

@@ -17,17 +17,18 @@ pessoal/meta de Ota), não um substituto.
 | `produtos/` | Referência (não cópia) aos produtos com deploy Vercel próprio: `samais-copilot`, `samais-pep`. |
 | `transversais/` | Áreas que cortam todas as frentes: operações, financeiro, marca, jurídico, tecnologia. |
 | `relatorios/` | Relatórios semanais (`AAAA-SS.md`) — vazio por ora. |
-| `dashboard/` | Cockpit estático dark-luxury que lê `data.json`. |
-| `scripts/` | `build-dashboard.mjs` — varre frentes, valida schema, gera `data.json`. |
-| `.claude/skills/` | Skills proprietárias Samais (brand-guidelines, municipal-study, video-gen). |
+| `dashboard/` | Pacote publicável: **home do OS** (`index.html`), cockpit de frentes (`frentes.html`) e as ferramentas montadas pelo build. |
+| `scripts/` | `build-dashboard.mjs` — valida as frentes, gera `data.json` e **monta o bundle** (copia `ferramentas/` para `dashboard/`). |
+| `ferramentas/` | Apps de uso interno. `despesas/` = prestação de contas (viagem + sede), local-first. |
+| `.claude/skills/` | Skills proprietárias Samais (brand-guidelines, municipal-study, samais-video, video-gen). |
 
 ## Como rodar o dashboard
 
 Requer Node (sem dependências externas).
 
 ```bash
-node scripts/build-dashboard.mjs   # gera dashboard/data.json (falha se algum status.json for inválido)
-npx serve dashboard                # abrir http://localhost:3000 — file:// bloqueia o fetch do data.json
+node scripts/build-dashboard.mjs   # valida as frentes, gera data.json e monta o bundle
+npx serve dashboard                # http://localhost:3000 — abre a HOME do OS
 ```
 
 O build **valida cada `frentes/**/status.json`** contra

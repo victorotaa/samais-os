@@ -1,12 +1,18 @@
 #!/usr/bin/env node
-// build-dashboard.mjs — varre frentes/**/status.json, valida contra o schema,
-// e emite dashboard/data.json. Node ESM, sem dependências externas
-// (validador de schema mínimo escrito à mão — cobre o subset usado no schema).
+// build-dashboard.mjs — monta o pacote publicável do Samais-OS:
+//   1. varre frentes/**/status.json, valida contra o schema e emite dashboard/data.json;
+//   2. copia as ferramentas (ferramentas/*) para dentro de dashboard/, para que a home,
+//      o cockpit e os apps sejam servidos pela MESMA URL.
+//
+// Node ESM, sem dependências externas (validador de schema mínimo escrito à mão).
 //
 // Uso:  node scripts/build-dashboard.mjs
 // Falha (exit 1) se qualquer status.json for inválido contra o schema.
+//
+// IMPORTANTE: só o que está em dashboard/ vai ao ar. A camada confidencial
+// (frentes/**/interpretacao.md, doutrina/) NUNCA é copiada para o bundle.
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, statSync, cpSync, rmSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
 
@@ -14,7 +20,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const FRENTES_DIR = join(ROOT, "frentes");
 const SCHEMA_PATH = join(FRENTES_DIR, "_schema", "status.schema.json");
-const OUT_PATH = join(ROOT, "dashboard", "data.json");
+const DASH_DIR = join(ROOT, "dashboard");
+const OUT_PATH = join(DASH_DIR, "data.json");
+
+// Ferramentas embarcadas no bundle: origem → destino dentro de dashboard/
+const FERRAMENTAS = [{ de: join(ROOT, "ferramentas", "despesas"), para: join(DASH_DIR, "despesas") }];
 
 // ---------- validador de JSON Schema (subset draft-07) ----------
 function validate(data, schema, path = "") {
@@ -133,3 +143,15 @@ const data = {
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
 console.log(`✓ ${frentes.length} frente(s) válida(s). dashboard/data.json gerado.`);
 console.log(`  Pipeline mensal (soma Cenário Base): R$ ${pipelineMensal.toLocaleString("pt-BR")}`);
+
+// ---------- monta as ferramentas dentro do bundle ----------
+for (const { de, para } of FERRAMENTAS) {
+  if (!existsSync(de)) {
+    console.error(`✖ Ferramenta ausente: ${relative(ROOT, de)}`);
+    process.exit(1);
+  }
+  rmSync(para, { recursive: true, force: true });
+  cpSync(de, para, { recursive: true });
+  console.log(`✓ ${relative(ROOT, de)} → ${relative(ROOT, para)}`);
+}
+console.log("✓ pacote publicável montado em dashboard/ (home + cockpit + ferramentas).");

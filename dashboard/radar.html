@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04060C">
+<title>Samais-OS · Radar de Licitações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060C; --card:#0A0E18; --card2:#0D1220;
+  --line:rgba(212,168,87,.14); --line-soft:rgba(255,255,255,.06);
+  --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+  --text:#EDEAE2; --t2:#B0AEA5; --t3:#9A968C;
+  --amber:#DD8D0C; --green:#5F8C6A;
+  --fd:'Syne',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1000px 520px at 84% -12%,rgba(212,168,87,.05),transparent 62%)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+.back{display:inline-block;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t3);padding:16px 0 0}
+.back:hover{color:var(--gold)}
+header{border-bottom:1px solid var(--line);padding:6px 0 26px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--t3);font-size:14px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 4px}
+.kpi{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line-soft);
+  border-radius:13px;padding:15px 16px}
+.kpi .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-family:var(--fd);font-weight:700;font-size:24px;margin-top:5px;color:var(--gold);
+  font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:12px;color:var(--t3);font-family:var(--fb);font-weight:400}
+
+.barra{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:22px 0 4px}
+select{background:var(--card);color:var(--text);border:1px solid var(--line-soft);border-radius:10px;
+  padding:9px 12px;font-family:var(--fm);font-size:12.5px;outline:none}
+select:focus{border-color:var(--gold-dim)}
+.janela{font-family:var(--fm);font-size:11px;color:var(--t3);margin-left:auto}
+
+.op{display:block;background:var(--card);border:1px solid var(--line-soft);border-left:3px solid var(--gold-dim);
+  border-radius:12px;padding:16px 18px;margin-bottom:10px;transition:border-color .16s,transform .16s}
+.op:hover{border-color:var(--line);border-left-color:var(--gold);transform:translateY(-1px)}
+.op.alto{border-left-color:var(--gold)}
+.op .top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.op .obj{font-size:15px;font-weight:500;color:var(--text);line-height:1.45}
+.op .sc{flex:0 0 auto;font-family:var(--fm);font-size:11px;color:var(--gold);border:1px solid var(--line);
+  border-radius:6px;padding:3px 9px;white-space:nowrap}
+.op .met{font-family:var(--fm);font-size:11px;color:var(--t3);margin-top:9px}
+.op .val{font-family:var(--fm);font-size:14px;color:var(--gold);margin-top:8px;font-variant-numeric:tabular-nums}
+.op .val small{color:var(--t3);font-size:11px}
+.op .termos{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:var(--fm);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;
+  border-radius:5px;border:1px solid var(--line-soft);color:var(--gold-dim)}
+.tag.aviso{color:var(--amber);border-color:rgba(221,141,12,.3)}
+.op .abre{font-family:var(--fm);font-size:10.5px;color:var(--t3);margin-top:10px}
+.op:hover .abre{color:var(--gold-dim)}
+
+.vazio{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:32px 26px;margin-top:26px}
+.vazio h3{font-family:var(--fd);font-weight:700;font-size:17px;margin:0 0 8px}
+.vazio p{color:var(--t3);font-size:14px;margin:0 0 12px;max-width:64ch}
+.vazio code{font-family:var(--fm);font-size:12.5px;color:var(--gold-dim);background:rgba(212,168,87,.07);
+  padding:2px 6px;border-radius:4px}
+.nota{margin-top:26px;padding:14px 16px;border:1px solid var(--line-soft);border-radius:12px;
+  background:rgba(10,14,24,.5);font-size:13px;color:var(--t3)}
+.nota b{color:var(--t2);font-weight:500}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:20px 0 46px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}.janela{margin-left:0}}
+</style>
+</head>
+<body>
+
+<div class="wrap"><a class="back" href="./index.html">← Samais-OS</a></div>
+<header><div class="wrap">
+  <div class="kicker">captação semanal · pncp</div>
+  <h1>Radar de Licitações</h1>
+  <div class="sub">Oportunidades publicadas que se enquadram com a Samais — varridas semana a semana.</div>
+  <div class="kpis" id="kpis"></div>
+</div></header>
+
+<main class="wrap">
+  <div class="barra" id="barra" hidden>
+    <select id="f-semana"></select>
+    <select id="f-uf"><option value="todas">Todas as UFs</option></select>
+    <select id="f-ord">
+      <option value="score">Maior relevância</option>
+      <option value="valor">Maior valor</option>
+      <option value="data">Mais recente</option>
+    </select>
+    <span class="janela" id="janela"></span>
+  </div>
+  <div id="lista"></div>
+  <div class="nota" id="nota" hidden></div>
+</main>
+
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
+  <span id="stamp"></span>
+</footer>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const dataBR = iso => { const p=(iso||'').slice(0,10).split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:(iso||'—'); };
+const BRL = v => v==null ? null : 'R$ ' + Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0});
+const BRLc = v => v==null ? null : v>=1e6 ? 'R$ ' + (v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' mi' : BRL(v);
+
+let RADAR=null, SEMANA=null, CACHE={};
+
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  document.getElementById('stamp').textContent = 'build de ' + d.gerado_em;
+  RADAR = d.radar;
+  if(!RADAR || !RADAR.total){ vazio(RADAR); return; }
+  CACHE[RADAR.semana] = RADAR.oportunidades;
+  SEMANA = RADAR.semana;
+  const sems = RADAR.semanas_disponiveis || [RADAR.semana];
+  document.getElementById('f-semana').innerHTML =
+    sems.slice().reverse().map(s=>`<option value="${s}"${s===SEMANA?' selected':''}>Semana ${s}</option>`).join('');
+  document.getElementById('barra').hidden = false;
+  document.getElementById('janela').textContent =
+    `janela ${dataBR(RADAR.janela?.de)} → ${dataBR(RADAR.janela?.ate)} · ${RADAR.varridos ?? '?'} contratações varridas`;
+  ['f-semana','f-uf','f-ord'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{
+    if(id==='f-semana') trocarSemana(e.target.value); else render();
+  }));
+  preencherUF(); render(); nota();
+}).catch(()=>{
+  document.getElementById('lista').innerHTML =
+    `<div class="vazio"><h3>Não consegui carregar os dados</h3>
+      <p>Rode <code>node scripts/build-dashboard.mjs</code> e sirva por HTTP.</p></div>`;
+});
+
+/** Semanas antigas ficam em radar/semanas/ — carregadas sob demanda. */
+function trocarSemana(s){
+  SEMANA = s;
+  if(CACHE[s]){ preencherUF(); render(); return; }
+  fetch(`../radar/semanas/${s}.json`).then(r=>r.ok?r.json():Promise.reject())
+    .then(p=>{ CACHE[s]=p.oportunidades||[]; preencherUF(); render(); })
+    .catch(()=>{ CACHE[s]=[]; render();
+      document.getElementById('lista').insertAdjacentHTML('afterbegin',
+        `<div class="nota">Semana <b>${esc(s)}</b> não está no pacote publicado — só a mais recente é embarcada. Consulte o arquivo no repositório.</div>`); });
+}
+function ops(){ return CACHE[SEMANA] || []; }
+
+function preencherUF(){
+  const ufs = [...new Set(ops().map(o=>o.uf).filter(u=>u&&u!=='--'))].sort();
+  const atual = document.getElementById('f-uf').value;
+  document.getElementById('f-uf').innerHTML = '<option value="todas">Todas as UFs</option>' +
+    ufs.map(u=>`<option value="${u}">${u}</option>`).join('');
+  if(ufs.includes(atual)) document.getElementById('f-uf').value = atual;
+}
+
+function render(){
+  const uf = document.getElementById('f-uf').value;
+  const ord = document.getElementById('f-ord').value;
+  let lista = ops().filter(o => uf==='todas' || o.uf===uf);
+  lista.sort((a,b) =>
+    ord==='valor' ? (b.valor_estimado||0)-(a.valor_estimado||0) :
+    ord==='data'  ? (b.publicado_em||'').localeCompare(a.publicado_em||'') :
+                    b.score-a.score || (b.valor_estimado||0)-(a.valor_estimado||0));
+
+  const total = lista.reduce((s,o)=>s+(o.valor_estimado||0),0);
+  const comValor = lista.filter(o=>o.valor_estimado!=null).length;
+  document.getElementById('kpis').innerHTML = [
+    ['Oportunidades', lista.length, ''],
+    ['Alta relevância', lista.filter(o=>o.score>=10).length, ''],
+    ['Valor somado', BRLc(total)||'—', comValor?`${comValor} com valor publicado`:''],
+    ['UFs', new Set(lista.map(o=>o.uf).filter(u=>u&&u!=='--')).size, '']
+  ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}${s?` <small>${s}</small>`:''}</div></div>`).join('');
+
+  if(!lista.length){
+    document.getElementById('lista').innerHTML =
+      `<div class="vazio"><h3>Nada nesta seleção</h3><p>Sem oportunidade nesta semana/UF.</p></div>`;
+    return;
+  }
+  document.getElementById('lista').innerHTML = lista.map(cartao).join('');
+}
+
+function cartao(o){
+  const local = [o.municipio, o.uf!=='--'?o.uf:null].filter(Boolean).join(' · ');
+  const met = [local, o.orgao, o.modalidade, `publicado ${dataBR(o.publicado_em)}`].filter(Boolean).map(esc).join('  ·  ');
+  return `<a class="op ${o.score>=10?'alto':''}" href="${esc(o.fonte_url)}" target="_blank" rel="noopener">
+    <div class="top">
+      <div class="obj">${esc(o.objeto)}</div>
+      <span class="sc">score ${o.score}</span>
+    </div>
+    <div class="met">${met}</div>
+    ${o.valor_estimado!=null ? `<div class="val">${BRL(o.valor_estimado)} <small>estimado (total)</small></div>` : ''}
+    ${o.abertura_proposta ? `<div class="met">abertura da proposta: ${dataBR(o.abertura_proposta)}</div>` : ''}
+    <div class="termos">
+      ${(o.termos_casados||[]).slice(0,6).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+      ${o.porte_a_revisar ? '<span class="tag aviso">porte a revisar</span>' : ''}
+    </div>
+    <div class="abre">Abrir no PNCP →</div>
+  </a>`;
+}
+
+function vazio(r){
+  document.getElementById('lista').innerHTML = `
+    <div class="vazio">
+      <h3>Radar ainda sem captação</h3>
+      <p>Nenhuma varredura registrada. O radar roda <b>semanalmente</b> pelo GitHub Actions
+         (segunda-feira de manhã) e grava o resultado em <code>radar/semanas/AAAA-SS.json</code>.</p>
+      <p>Para rodar agora, na sua máquina:</p>
+      <p><code>node scripts/radar-licitacoes.mjs</code> &nbsp;→&nbsp; <code>node scripts/build-dashboard.mjs</code></p>
+      <p style="margin-top:12px">O que conta como oportunidade está em <code>radar/filtros.json</code> —
+         editar lá muda o radar.</p>
+    </div>`;
+}
+
+function nota(){
+  const el = document.getElementById('nota');
+  el.innerHTML = `<b>Como ler:</b> o <b>score</b> soma os pesos dos termos que casaram com o objeto do edital
+    (núcleo 10 · adjacente 5 · contexto 2) — as etiquetas mostram exatamente quais casaram, então nada é caixa-preta.
+    Captação não é análise: o que interessar vira frente em <b>frentes/</b> e segue o protocolo de estudo municipal.`;
+  el.hidden = false;
+}
+</script>
+</body>
+</html>

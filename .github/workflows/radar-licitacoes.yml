@@ -1,0 +1,50 @@
+name: radar-licitacoes
+
+# Varre o PNCP semanalmente e commita as oportunidades que se enquadram com a Samais.
+# Segunda-feira, 09:10 UTC (~06:10 em Brasília) — o edital da semana já publicado.
+
+on:
+  schedule:
+    - cron: "10 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      dias:
+        description: "Tamanho da janela de varredura (dias)"
+        required: false
+        default: "7"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-licitacoes
+  cancel-in-progress: false
+
+jobs:
+  varrer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Varrer o PNCP
+        id: radar
+        run: node scripts/radar-licitacoes.mjs --dias "${{ inputs.dias || '7' }}"
+
+      - name: Regerar o pacote do dashboard
+        run: node scripts/build-dashboard.mjs
+
+      - name: Commitar a captação da semana
+        run: |
+          if [ -z "$(git status --porcelain radar/semanas dashboard/data.json)" ]; then
+            echo "Nada novo no radar — sem commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add radar/semanas dashboard/data.json
+          git commit -m "chore(radar): captação semanal do PNCP [skip ci]"
+          git push

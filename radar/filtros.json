@@ -1,0 +1,127 @@
+{
+  "_doc": "O que 'se enquadra com a Samais'. Editar aqui muda o radar — é a doutrina de prospecção como configuração. Pesos somam o score de relevância; o radar registra QUAIS termos casaram (explicável, não caixa-preta).",
+  "termos": {
+    "nucleo": {
+      "peso": 10,
+      "_doc": "Objeto que é exatamente o negócio da Samais.",
+      "lista": [
+        "samu",
+        "atendimento pré-hospitalar",
+        "pré-hospitalar",
+        "central de regulação",
+        "regulação de urgência",
+        "urgência e emergência",
+        "suporte básico de vida",
+        "suporte avançado de vida",
+        "motolância",
+        "unidade de pronto atendimento",
+        "upa 24h",
+        "upa 24 h"
+      ]
+    },
+    "adjacente": {
+      "peso": 5,
+      "_doc": "Serviços que a Samais opera ou pode operar.",
+      "lista": [
+        "ambulância",
+        "remoção de pacientes",
+        "transporte sanitário",
+        "gestão hospitalar",
+        "gerenciamento de unidade de saúde",
+        "operacionalização de serviços de saúde",
+        "mão de obra em saúde",
+        "profissionais de saúde",
+        "plantão médico",
+        "serviço médico"
+      ]
+    },
+    "contexto": {
+      "peso": 2,
+      "_doc": "Sinais fracos — sozinhos não qualificam, mas somam.",
+      "lista": [
+        "consórcio intermunicipal de saúde",
+        "secretaria municipal de saúde",
+        "secretaria de estado da saúde",
+        "hospital municipal",
+        "pronto socorro",
+        "frota de ambulâncias"
+      ]
+    }
+  },
+  "excluir": {
+    "_doc": "Ruído em três níveis de força — porque 'SAMU' aparecer no texto não faz de uma COMPRA DE MONITOR uma oportunidade de gestão.",
+    "absoluto": {
+      "_doc": "Casa em qualquer posição → descarta, mesmo com termo do núcleo. Não é o negócio, ponto.",
+      "lista": [
+        "obra de engenharia",
+        "pavimentação",
+        "reforma predial",
+        "coleta de resíduos",
+        "licença de software",
+        "gêneros alimentícios"
+      ]
+    },
+    "se_no_inicio": {
+      "_doc": "Se o OBJETO COMEÇA com isso, é compra de bem — descarta mesmo com núcleo. Objeto de edital declara a natureza no início; serviço de gestão nunca começa com 'Aquisição de'.",
+      "caracteres_inicio": 70,
+      "lista": [
+        "aquisição de",
+        "compra de",
+        "registro de preços",
+        "fornecimento de material",
+        "fornecimento de medicamento",
+        "locação de veículo"
+      ]
+    },
+    "condicional": {
+      "_doc": "Descarta apenas se NÃO houver termo do núcleo — assim 'Gestão do SAMU incluindo insumos' sobrevive.",
+      "lista": [
+        "material médico-hospitalar",
+        "material de consumo",
+        "medicamentos",
+        "órteses e próteses",
+        "oxigênio medicinal",
+        "equipamento hospitalar"
+      ]
+    }
+  },
+  "score_minimo": 5,
+  "_score_minimo_doc": "Abaixo disso a oportunidade não entra no radar. 5 = pelo menos um termo adjacente.",
+  "modalidades": {
+    "_doc": "Códigos de modalidade do PNCP consultados. Referência: Manual de APIs de Consulta do PNCP. A API exige o código na consulta, então o radar itera esta lista.",
+    "lista": [
+      {
+        "codigo": 6,
+        "nome": "Pregão Eletrônico"
+      },
+      {
+        "codigo": 4,
+        "nome": "Concorrência Eletrônica"
+      },
+      {
+        "codigo": 5,
+        "nome": "Concorrência Presencial"
+      },
+      {
+        "codigo": 8,
+        "nome": "Dispensa de Licitação"
+      },
+      {
+        "codigo": 9,
+        "nome": "Inexigibilidade"
+      },
+      {
+        "codigo": 12,
+        "nome": "Credenciamento"
+      }
+    ]
+  },
+  "ufs": {
+    "_doc": "UFs de interesse. Lista vazia = todas. Samais opera/prospecta SP, PA, PR, RN, MT — mantido aberto para não perder oportunidade.",
+    "lista": []
+  },
+  "valor_minimo_mensal_estimado": 300000,
+  "_valor_doc": "Referência de doutrina (benchmarks-samu): abaixo de R$ 300k/mês a operação pode não justificar a estrutura administrativa. O radar não descarta por valor — apenas SINALIZA 'porte a revisar'.",
+  "dias_janela": 7,
+  "_dias_janela_doc": "Tamanho da janela semanal de varredura (dias)."
+}

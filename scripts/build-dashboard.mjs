@@ -21,6 +21,7 @@ const ROOT = join(__dirname, "..");
 const FRENTES_DIR = join(ROOT, "frentes");
 const SCHEMA_PATH = join(FRENTES_DIR, "_schema", "status.schema.json");
 const OBRIG_DIR = join(ROOT, "obrigacoes");
+const RADAR_SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const OBRIG_SCHEMA_PATH = join(OBRIG_DIR, "_schema", "obrigacao.schema.json");
 const DASH_DIR = join(ROOT, "dashboard");
 const OUT_PATH = join(DASH_DIR, "data.json");
@@ -182,6 +183,29 @@ const resumoObrig = {
   atencao: ativas.filter((o) => o.criticidade === "atencao").length,
 };
 
+// ---------- radar de licitações: expõe a semana mais recente ----------
+let radar = null;
+if (existsSync(RADAR_SEMANAS_DIR)) {
+  const semanas = readdirSync(RADAR_SEMANAS_DIR).filter((f) => /^\d{4}-\d{2}\.json$/.test(f)).sort();
+  const ultima = semanas[semanas.length - 1];
+  if (ultima) {
+    try {
+      const pacote = JSON.parse(readFileSync(join(RADAR_SEMANAS_DIR, ultima), "utf8"));
+      radar = {
+        semana: pacote.semana,
+        janela: pacote.janela,
+        gerado_em: pacote.gerado_em,
+        varridos: pacote.varridos ?? null,
+        total: (pacote.oportunidades || []).length,
+        semanas_disponiveis: semanas.map((f) => f.replace(/\.json$/, "")),
+        oportunidades: pacote.oportunidades || [],
+      };
+    } catch (e) {
+      console.warn(`⚠ radar/semanas/${ultima} ilegível: ${e.message}`);
+    }
+  }
+}
+
 // ordenar por score desc, depois valor desc
 frentes.sort((a, b) => (b.score - a.score) || ((b.valor_contratual_mensal || 0) - (a.valor_contratual_mensal || 0)));
 
@@ -197,6 +221,7 @@ const data = {
   frentes,
   obrigacoes,
   resumo_obrigacoes: resumoObrig,
+  radar,
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
@@ -208,6 +233,11 @@ if (resumoObrig.total) {
     (alerta ? ` — ⚠ ${resumoObrig.vencidas} vencida(s), ${resumoObrig.criticas} crítica(s), ${resumoObrig.atencao} em atenção` : " — nenhuma crítica"));
 } else {
   console.log("• calendário de obrigações vazio (ver obrigacoes/README.md para o catálogo)");
+}
+if (radar) {
+  console.log(`✓ radar ${radar.semana}: ${radar.total} oportunidade(s) de ${radar.varridos ?? "?"} varrida(s)`);
+} else {
+  console.log("• radar de licitações sem captação ainda (rode: node scripts/radar-licitacoes.mjs)");
 }
 
 // ---------- monta as ferramentas dentro do bundle ----------

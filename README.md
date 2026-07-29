@@ -13,6 +13,8 @@ pessoal/meta de Ota), não um substituto.
 |---|---|
 | `doutrina/` | Fonte de verdade escrita: design system, precificação (BDI), padrão FRIO, cânone de vídeo, taxonomia de gestão. |
 | `frentes/` | Dados-como-arquivo: uma pasta por alvo (`status.json` + `fatos.md` + `interpretacao.md`). `belem/` é a semente completa. |
+| `obrigacoes/` | Calendário de prazos com consequência (certidões, vigências, garantias, editais). Criticidade derivada da data. |
+| `radar/` | Radar semanal de licitações do PNCP. `filtros.json` define o que se enquadra com a Samais. |
 | `inteligencia/` | Benchmarks SAMU, consórcios, checklist de editais. |
 | `produtos/` | Referência (não cópia) aos produtos com deploy Vercel próprio: `samais-copilot`, `samais-pep`. |
 | `transversais/` | Áreas que cortam todas as frentes: operações, financeiro, marca, jurídico, tecnologia. |
@@ -33,6 +35,17 @@ npx serve dashboard                # http://localhost:3000 — abre a HOME do OS
 
 O build **valida cada `frentes/**/status.json`** contra
 `frentes/_schema/status.schema.json` e falha (exit 1) se algum for inválido.
+
+## Radar de licitações
+
+```bash
+node scripts/radar-licitacoes.mjs --dias 30 --dry-run   # calibrar sem gravar
+node scripts/radar-licitacoes.mjs                        # gravar a semana
+node scripts/build-dashboard.mjs                         # publicar no dashboard
+```
+
+Roda sozinho toda segunda (`.github/workflows/radar-licitacoes.yml`). Detalhes e
+calibragem: [`radar/README.md`](radar/README.md).
 
 ## Adicionar uma frente
 

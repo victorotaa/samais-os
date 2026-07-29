@@ -57,6 +57,17 @@ Cada frente vive em `frentes/<slug>/`:
 Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência completa:
 `frentes/belem/`.
 
+## Domínios de dados (mesmo padrão: schema + arquivo + build + página)
+
+- **`frentes/`** — pipeline comercial (ver abaixo).
+- **`obrigacoes/`** — calendário de prazos com consequência (certidão, contrato, garantia,
+  edital, habilitação). Uma obrigação = um JSON validado; **a criticidade é derivada da
+  data**, nunca digitada. Catálogo do que registrar: `obrigacoes/README.md`.
+- **`radar/`** — captação semanal de licitações no PNCP. `radar/filtros.json` é a
+  **doutrina de prospecção como configuração** (núcleo 10 · adjacente 5 · contexto 2;
+  exclusão de ruído em 3 níveis). Roda por GitHub Actions toda segunda; histórico em
+  `radar/semanas/AAAA-SS.json`. Captação **não** é análise — o que interessar vira frente.
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
@@ -74,6 +85,8 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 **Só o que está em `dashboard/` vai ao ar.** O build monta o bundle:
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
+- `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
+- `dashboard/obrigacoes.html` — calendário de obrigações.
 - `dashboard/despesas/` — cópia de `ferramentas/despesas/` (**gerada**, fora do git).
 - `dashboard/data.json` — gerado das frentes.
 

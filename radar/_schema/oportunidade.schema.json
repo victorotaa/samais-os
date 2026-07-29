@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samais-os/radar/_schema/oportunidade.schema.json",
+  "title": "Oportunidade de licitação — radar semanal",
+  "description": "Uma contratação pública captada no PNCP que casou com os filtros da Samais. Gerada por scripts/radar-licitacoes.mjs; os campos são espelho do que o PNCP publica, mais o score e os termos que casaram (rastreável). Não é análise — é captação; a análise vira frente em frentes/.",
+  "type": "object",
+  "required": ["id", "objeto", "orgao", "uf", "modalidade", "publicado_em", "score", "termos_casados", "fonte_url"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Número de controle do PNCP (identificador único da contratação).",
+      "minLength": 3
+    },
+    "objeto": {
+      "type": "string",
+      "description": "Objeto da contratação, como publicado.",
+      "minLength": 3
+    },
+    "orgao": {
+      "type": "string",
+      "description": "Órgão/entidade contratante.",
+      "minLength": 2
+    },
+    "municipio": { "type": ["string", "null"], "description": "Município da unidade compradora." },
+    "uf": {
+      "type": "string",
+      "description": "UF da unidade compradora ('--' quando o PNCP não informa.)",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "modalidade": { "type": "string", "description": "Modalidade da contratação (nome legível)." },
+    "publicado_em": {
+      "type": "string",
+      "description": "Data de publicação no PNCP (AAAA-MM-DD).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "abertura_proposta": { "type": ["string", "null"], "description": "Data/hora de abertura das propostas, se publicada." },
+    "encerramento_proposta": { "type": ["string", "null"], "description": "Data/hora de encerramento, se publicada." },
+    "valor_estimado": { "type": ["number", "null"], "description": "Valor total estimado em R$, quando publicado.", "minimum": 0 },
+    "score": { "type": "integer", "description": "Relevância somada pelos pesos dos termos casados.", "minimum": 0 },
+    "termos_casados": {
+      "type": "array",
+      "description": "Quais termos dos filtros casaram — torna o score auditável.",
+      "items": { "type": "string" }
+    },
+    "porte_a_revisar": {
+      "type": "boolean",
+      "description": "true quando o valor estimado sugere porte abaixo da referência de doutrina (não descarta, sinaliza)."
+    },
+    "fonte_url": { "type": "string", "description": "Link para a contratação no PNCP." },
+    "captado_em": { "type": "string", "description": "Timestamp ISO da captação." }
+  }
+}

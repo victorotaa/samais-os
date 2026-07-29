@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04060C">
+<title>Samais-OS · Calendário de Obrigações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060C; --card:#0A0E18; --card2:#0D1220;
+  --line:rgba(212,168,87,.14); --line-soft:rgba(255,255,255,.06);
+  --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+  --text:#EDEAE2; --t2:#B0AEA5; --t3:#9A968C;
+  --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
+  --fd:'Syne',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1000px 520px at 84% -12%,rgba(212,168,87,.05),transparent 62%)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+
+.back{display:inline-block;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t3);padding:16px 0 0;transition:color .15s}
+.back:hover{color:var(--gold)}
+header{border-bottom:1px solid var(--line);padding:6px 0 26px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--t3);font-size:14px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 4px}
+.kpi{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line-soft);
+  border-radius:13px;padding:15px 16px}
+.kpi .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-family:var(--fd);font-weight:700;font-size:25px;margin-top:5px;font-variant-numeric:tabular-nums;color:var(--gold)}
+.kpi.venc .v{color:#E0879A} .kpi.crit .v{color:var(--amber)} .kpi.aten .v{color:#E6C98A}
+.kpi.zero .v{color:var(--t3)}
+
+.filtros{display:flex;gap:8px;overflow-x:auto;padding:22px 0 4px}
+select{flex:0 0 auto;background:var(--card);color:var(--text);border:1px solid var(--line-soft);
+  border-radius:10px;padding:9px 12px;font-family:var(--fm);font-size:12.5px;outline:none}
+select:focus{border-color:var(--gold-dim)}
+
+.grupo{margin-top:26px}
+.gh{display:flex;align-items:baseline;gap:10px;margin-bottom:11px}
+.gh h2{font-family:var(--fd);font-weight:700;font-size:15px;margin:0}
+.gh .c{font-family:var(--fm);font-size:11px;color:var(--t3)}
+.gh .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.dot.vencida{background:#C20D2F} .dot.critica{background:var(--amber)}
+.dot.atencao{background:#E6C98A} .dot.ok{background:var(--green)} .dot.arquivada{background:var(--t3)}
+
+.ob{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line-soft);
+  border-left:3px solid var(--line-soft);border-radius:12px;padding:14px 16px;margin-bottom:9px}
+.ob.vencida{border-left-color:#C20D2F} .ob.critica{border-left-color:var(--amber)}
+.ob.atencao{border-left-color:#E6C98A} .ob.ok{border-left-color:rgba(95,140,106,.5)}
+.ob.arquivada{opacity:.55}
+.ob .quando{flex:0 0 auto;width:132px}
+.ob .data{font-family:var(--fm);font-size:13px;color:var(--text);font-variant-numeric:tabular-nums}
+.ob .dias{font-family:var(--fm);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.ob.vencida .dias{color:#E0879A} .ob.critica .dias{color:var(--amber)}
+.ob.atencao .dias{color:#E6C98A} .ob.ok .dias{color:var(--t3)} .ob.arquivada .dias{color:var(--t3)}
+.ob .meio{flex:1;min-width:0}
+.ob .tit{font-family:var(--fd);font-weight:700;font-size:15.5px}
+.ob .met{font-family:var(--fm);font-size:11px;color:var(--t3);margin-top:4px}
+.ob .cons{font-size:13px;color:var(--t2);margin-top:7px;border-top:1px solid var(--line-soft);padding-top:7px}
+.ob .cons b{color:var(--text);font-weight:500}
+.ob .dir{flex:0 0 auto;text-align:right}
+.tag{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 8px;border-radius:5px;border:1px solid var(--line-soft);color:var(--t3)}
+
+.vazio{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:34px 26px;margin-top:26px}
+.vazio h3{font-family:var(--fd);font-weight:700;font-size:17px;margin:0 0 8px}
+.vazio p{color:var(--t3);font-size:14px;margin:0 0 14px;max-width:62ch}
+.vazio code{font-family:var(--fm);font-size:12.5px;color:var(--gold-dim);background:rgba(212,168,87,.07);
+  padding:2px 6px;border-radius:4px}
+.vazio ol{color:var(--t2);font-size:14px;margin:0;padding-left:20px}
+.vazio li{margin-bottom:6px}
+
+footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+@media(max-width:720px){
+  .kpis{grid-template-columns:repeat(2,1fr)} h1{font-size:26px}
+  .ob{flex-direction:column;gap:8px} .ob .quando{width:auto;display:flex;gap:10px;align-items:baseline}
+  .ob .dias{margin-top:0}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap"><a class="back" href="./index.html">← Samais-OS</a></div>
+<header><div class="wrap">
+  <div class="kicker">prazos com consequência</div>
+  <h1>Calendário de Obrigações</h1>
+  <div class="sub">Certidões, contratos, garantias e prazos de edital — o que vencer, cobra.</div>
+  <div class="kpis" id="kpis"></div>
+</div></header>
+
+<main class="wrap">
+  <div class="filtros" id="filtros" hidden>
+    <select id="f-crit">
+      <option value="ativas">Ativas (fora arquivadas)</option>
+      <option value="todas">Todas</option>
+      <option value="vencida">Vencidas</option>
+      <option value="critica">Críticas (≤ 7 dias)</option>
+      <option value="atencao">Em atenção</option>
+      <option value="ok">Vigentes</option>
+    </select>
+    <select id="f-tipo"><option value="todos">Todos os tipos</option></select>
+    <select id="f-frente"><option value="todas">Todas as frentes</option></select>
+  </div>
+  <div id="conteudo"></div>
+</main>
+
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
+  <span id="stamp"></span>
+</footer>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const dataBR = iso => { const p=(iso||'').split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:iso||''; };
+const TIPOS = {certidao:'Certidão',contrato:'Contrato',garantia:'Garantia',edital:'Edital',
+               habilitacao:'Habilitação',licenca:'Licença',tributo:'Tributo',outro:'Outro'};
+const GRUPOS = [
+  {k:'vencida', t:'Vencidas',   s:'já passou do prazo'},
+  {k:'critica', t:'Críticas',   s:'vencem em até 7 dias'},
+  {k:'atencao', t:'Em atenção', s:'dentro da janela de alerta'},
+  {k:'ok',      t:'Vigentes',   s:'sem urgência'},
+  {k:'arquivada', t:'Arquivadas', s:'fora dos alertas'}
+];
+const diasTexto = d => d < 0 ? `venceu há ${Math.abs(d)} dia${Math.abs(d)===1?'':'s'}`
+                  : d === 0 ? 'vence hoje'
+                  : `em ${d} dia${d===1?'':'s'}`;
+
+let OBRIG = [];
+
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  OBRIG = d.obrigacoes || [];
+  document.getElementById('stamp').textContent = 'dados de ' + d.gerado_em;
+  const r = d.resumo_obrigacoes || {total:0,vencidas:0,criticas:0,atencao:0};
+  document.getElementById('kpis').innerHTML = [
+    ['Vencidas', r.vencidas, 'venc'], ['Críticas', r.criticas, 'crit'],
+    ['Em atenção', r.atencao, 'aten'], ['No calendário', r.total, '']
+  ].map(([l,v,c])=>`<div class="kpi ${c} ${v?'':'zero'}"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  if(!OBRIG.length){ vazio(); return; }
+  document.getElementById('filtros').hidden = false;
+  const tipos = [...new Set(OBRIG.map(o=>o.tipo))].sort();
+  document.getElementById('f-tipo').innerHTML = '<option value="todos">Todos os tipos</option>' +
+    tipos.map(t=>`<option value="${t}">${TIPOS[t]||t}</option>`).join('');
+  const frentes = [...new Set(OBRIG.map(o=>o.frente).filter(Boolean))].sort();
+  document.getElementById('f-frente').innerHTML = '<option value="todas">Todas as frentes</option>' +
+    frentes.map(f=>`<option value="${esc(f)}">${esc(f)}</option>`).join('');
+  ['f-crit','f-tipo','f-frente'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+  render();
+}).catch(()=>{
+  document.getElementById('conteudo').innerHTML =
+    `<div class="vazio"><h3>Não consegui carregar os dados</h3>
+      <p>Rode <code>node scripts/build-dashboard.mjs</code> e sirva a pasta por HTTP
+      (<code>npx serve dashboard</code>) — abrir por <code>file://</code> bloqueia o fetch.</p></div>`;
+});
+
+function vazio(){
+  document.getElementById('conteudo').innerHTML = `
+    <div class="vazio">
+      <h3>Calendário ainda vazio</h3>
+      <p>Nenhuma obrigação registrada. Este calendário só protege contra o que estiver
+         escrito nele — e nenhuma data foi inventada (Princípio da Realidade).</p>
+      <ol>
+        <li>Copie <code>obrigacoes/_schema/_template-obrigacao.json</code> para <code>obrigacoes/&lt;slug&gt;.json</code></li>
+        <li>Preencha com a data <b>real</b> do documento em mãos</li>
+        <li>Rode <code>node scripts/build-dashboard.mjs</code></li>
+      </ol>
+      <p style="margin-top:14px">O catálogo do que vale registrar (CND, CNDT, FGTS, garantia,
+         vigência, prazo de edital, alvará, CAUC…) está em <code>obrigacoes/README.md</code>.</p>
+    </div>`;
+}
+
+function render(){
+  const fc = document.getElementById('f-crit').value;
+  const ft = document.getElementById('f-tipo').value;
+  const ff = document.getElementById('f-frente').value;
+  const lista = OBRIG.filter(o =>
+    (fc==='ativas' ? o.criticidade!=='arquivada' : fc==='todas' ? true : o.criticidade===fc) &&
+    (ft==='todos' || o.tipo===ft) &&
+    (ff==='todas' || o.frente===ff));
+
+  if(!lista.length){
+    document.getElementById('conteudo').innerHTML =
+      `<div class="vazio"><h3>Nada neste filtro</h3><p>Ajuste os filtros acima.</p></div>`;
+    return;
+  }
+  document.getElementById('conteudo').innerHTML = GRUPOS.map(g=>{
+    const itens = lista.filter(o=>o.criticidade===g.k);
+    if(!itens.length) return '';
+    return `<div class="grupo">
+      <div class="gh"><span class="dot ${g.k}"></span><h2>${g.t}</h2><span class="c">${itens.length} · ${g.s}</span></div>
+      ${itens.map(cartao).join('')}
+    </div>`;
+  }).join('');
+}
+
+function cartao(o){
+  const met = [TIPOS[o.tipo]||o.tipo, o.orgao, o.frente, o.referencia].filter(Boolean).map(esc).join(' · ');
+  return `<div class="ob ${o.criticidade}">
+    <div class="quando">
+      <div class="data">${dataBR(o.vence_em)}</div>
+      <div class="dias">${diasTexto(o.dias_restantes)}</div>
+    </div>
+    <div class="meio">
+      <div class="tit">${esc(o.titulo)}</div>
+      <div class="met">${met}</div>
+      ${o.consequencia?`<div class="cons"><b>Se vencer:</b> ${esc(o.consequencia)}</div>`:''}
+    </div>
+    <div class="dir">
+      <span class="tag">${esc(o.status)}</span>
+      ${o.responsavel?`<div class="met" style="margin-top:6px">${esc(o.responsavel)}</div>`:''}
+    </div>
+  </div>`;
+}
+</script>
+</body>
+</html>

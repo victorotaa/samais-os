@@ -39,6 +39,17 @@ h1 .d{color:var(--gold)}
 .strip .v{font-family:var(--fd);font-weight:700;font-size:22px;color:var(--gold);margin-top:5px;
   font-variant-numeric:tabular-nums}
 
+/* faixa de alerta de obrigações */
+.alerta{display:flex;align-items:center;gap:14px;margin:20px 0 0;padding:14px 18px;border-radius:13px;
+  background:rgba(221,141,12,.09);border:1px solid rgba(221,141,12,.32);text-decoration:none}
+.alerta.grave{background:rgba(194,13,47,.1);border-color:rgba(194,13,47,.35)}
+.alerta .pt{font-family:var(--fd);font-weight:800;font-size:20px;color:var(--amber);line-height:1}
+.alerta.grave .pt{color:#E0879A}
+.alerta .tx{flex:1;font-size:14px;color:var(--text)}
+.alerta .tx small{display:block;color:var(--t3);font-size:12.5px;margin-top:2px}
+.alerta .go{font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+.alerta:hover .go{color:var(--gold)}
+
 /* seções */
 section{padding:38px 0 0}
 .sh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px}
@@ -112,6 +123,7 @@ footer i{font-family:var(--fb);font-style:italic}
     <div><div class="l">Pipeline / mês</div><div class="v">—</div></div>
     <div><div class="l">Pipeline / ano</div><div class="v">—</div></div>
   </div>
+  <a class="alerta" id="alerta" href="./obrigacoes.html" hidden></a>
 </div></header>
 
 <main class="wrap">
@@ -132,6 +144,20 @@ footer i{font-family:var(--fb);font-style:italic}
         <h3>Prestação de Contas</h3>
         <p>Despesas de viagem e sede com foto do comprovante, fechamento do mês e PDF para reembolso.</p>
         <span class="mais">Lançar despesa</span>
+      </a>
+
+      <a class="card" href="./radar.html">
+        <span class="ico">◎</span>
+        <h3>Radar de Licitações</h3>
+        <p>Oportunidades publicadas no PNCP que se enquadram com a Samais — varridas semana a semana.</p>
+        <span class="mais">Ver a semana</span>
+      </a>
+
+      <a class="card" href="./obrigacoes.html">
+        <span class="ico">⌛</span>
+        <h3>Calendário de Obrigações</h3>
+        <p>Certidões, vigências, garantias e prazos de edital — com alerta antes do vencimento.</p>
+        <span class="mais">Ver prazos</span>
       </a>
 
       <a class="card" data-ext href="https://github.com/victorotaa/samais-estudos" target="_blank" rel="noopener">
@@ -196,14 +222,9 @@ footer i{font-family:var(--fb);font-style:italic}
     <div class="sh"><h2>Em construção</h2><span class="n">próximos domínios do OS</span></div>
     <div class="plan">
       <div class="pitem">
-        <div class="t">Calendário de Obrigações</div>
-        <div class="s">Vigência de contrato, renovação de CND, garantia, prazo de edital — com alerta de vencimento.</div>
-        <span class="w">próximo</span>
-      </div>
-      <div class="pitem">
         <div class="t">Operações — KPIs de contrato</div>
         <div class="s">Tempo-resposta, frota, SLA e ociosidade dos contratos ativos: a prova de entrega.</div>
-        <span class="w">planejado</span>
+        <span class="w">próximo</span>
       </div>
       <div class="pitem">
         <div class="t">Biblioteca de peças</div>
@@ -233,6 +254,21 @@ fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   const vals = [d.total_frentes, d.contratos_ativos, BRLmi(d.pipeline_mensal), BRLmi(d.pipeline_anual)];
   document.querySelectorAll('#strip .v').forEach((el,i)=>el.textContent = vals[i]);
   document.getElementById('stamp').textContent = 'dados de ' + d.gerado_em;
+
+  const ro = d.resumo_obrigacoes || {vencidas:0,criticas:0,atencao:0};
+  const urgente = ro.vencidas + ro.criticas;
+  if(urgente || ro.atencao){
+    const el = document.getElementById('alerta');
+    const partes = [];
+    if(ro.vencidas) partes.push(`${ro.vencidas} vencida(s)`);
+    if(ro.criticas) partes.push(`${ro.criticas} vence(m) em até 7 dias`);
+    if(ro.atencao)  partes.push(`${ro.atencao} em atenção`);
+    el.className = 'alerta' + (ro.vencidas ? ' grave' : '');
+    el.innerHTML = `<span class="pt">${urgente || ro.atencao}</span>
+      <span class="tx">Obrigações exigem ação<small>${partes.join(' · ')}</small></span>
+      <span class="go">Ver calendário →</span>`;
+    el.hidden = false;
+  }
 
   const ativas = (d.frentes||[])
     .filter(f => f.estagio !== 'arquivada' && f.proximo_passo)

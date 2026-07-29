@@ -65,5 +65,13 @@
       "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study). Referência histórica: lição de dimensionamento 148 vs 80.",
       "_slug": "taboao"
     }
-  ]
+  ],
+  "obrigacoes": [],
+  "resumo_obrigacoes": {
+    "total": 0,
+    "vencidas": 0,
+    "criticas": 0,
+    "atencao": 0
+  },
+  "radar": null
 }

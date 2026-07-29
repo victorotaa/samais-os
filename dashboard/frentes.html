@@ -20,7 +20,10 @@
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.6;
     -webkit-font-smoothing:antialiased;background-image:radial-gradient(1200px 600px at 80% -10%,rgba(212,168,87,.05),transparent 60%);}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-  header{border-bottom:1px solid var(--border);padding:40px 0 28px}
+  .back{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--text-3);padding:16px 0 0;text-decoration:none}
+  .back:hover{color:var(--gold)}
+  header{border-bottom:1px solid var(--border);padding:6px 0 28px}
   .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
   h1{font-family:var(--f-display);font-weight:800;font-size:34px;margin:10px 0 6px;letter-spacing:-.01em}
   .sub{color:var(--text-3);font-size:14px}
@@ -68,6 +71,7 @@
 </style>
 </head>
 <body>
+<div class="wrap"><a class="back" href="./index.html">← Samais-OS</a></div>
 <header><div class="wrap">
   <div class="kicker">Samais-OS · negócio como código</div>
   <h1>Cockpit de Frentes</h1>

@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samais-os/obrigacoes/_schema/obrigacao.schema.json",
+  "title": "Obrigação com prazo — Samais",
+  "description": "Uma obrigação datada cujo vencimento tem consequência: certidão, contrato, garantia, prazo de edital, habilitação, licença ou tributo. Validado no build (o build falha se inválido). O que importa aqui é a DATA — é dela que sai o alerta.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["titulo", "tipo", "vence_em", "status", "atualizado_em"],
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "Nome pelo qual a equipe reconhece a obrigação. Ex.: 'CND Federal (PGFN/SRF)'.",
+      "minLength": 2
+    },
+    "tipo": {
+      "type": "string",
+      "description": "Natureza da obrigação.",
+      "enum": [
+        "certidao",
+        "contrato",
+        "garantia",
+        "edital",
+        "habilitacao",
+        "licenca",
+        "tributo",
+        "outro"
+      ]
+    },
+    "orgao": {
+      "type": ["string", "null"],
+      "description": "Quem emite ou exige (PGFN/Receita Federal, TST, Caixa/FGTS, prefeitura, Ministério da Saúde...). Opcional."
+    },
+    "frente": {
+      "type": ["string", "null"],
+      "description": "Slug da frente a que se vincula (ex.: 'belem') ou 'corporativo' quando vale para a empresa toda. Opcional."
+    },
+    "vence_em": {
+      "type": "string",
+      "description": "Data de vencimento / prazo fatal (AAAA-MM-DD). É a data que dispara o alerta.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "alerta_dias": {
+      "type": "integer",
+      "description": "Quantos dias antes do vencimento a obrigação entra em ATENÇÃO. Default do build: 30.",
+      "minimum": 0,
+      "maximum": 365
+    },
+    "recorrencia": {
+      "type": "string",
+      "description": "Se e como se repete. 'por-validade' = renova conforme a validade do documento (ex.: CND, 180 dias).",
+      "enum": ["unica", "mensal", "trimestral", "semestral", "anual", "por-validade"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Situação declarada. 'arquivada' sai dos alertas.",
+      "enum": ["vigente", "a-renovar", "vencida", "arquivada"]
+    },
+    "responsavel": {
+      "type": ["string", "null"],
+      "description": "Quem responde por renovar. Opcional."
+    },
+    "referencia": {
+      "type": ["string", "null"],
+      "description": "Nº do documento, contrato, processo ou edital. Opcional."
+    },
+    "consequencia": {
+      "type": ["string", "null"],
+      "description": "O que acontece se vencer — em uma linha. Ex.: 'inabilitação em licitação'. Opcional, mas recomendado."
+    },
+    "observacao": {
+      "type": ["string", "null"],
+      "description": "Nota livre. Opcional."
+    },
+    "atualizado_em": {
+      "type": "string",
+      "description": "Data da última conferência desta obrigação (AAAA-MM-DD).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  }
+}

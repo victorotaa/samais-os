@@ -20,3 +20,6 @@ Thumbs.db
 # Mantemos ele versionado para que o dashboard abra direto no GitHub Pages / Vercel
 # sem passo de build. Se preferir tratá-lo como artefato, descomente a linha abaixo.
 # dashboard/data.json
+
+# Gerado pelo build (cópia das ferramentas dentro do bundle publicável)
+dashboard/despesas/

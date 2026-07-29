@@ -64,12 +64,20 @@ Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência co
   **Local-first** (IndexedDB no aparelho; nada em servidor). Schema:
   `ferramentas/despesas/despesa.schema.json` — valores em **centavos**.
 
-## Build do dashboard
+## Build e pacote publicável
 
 ```
-node scripts/build-dashboard.mjs      # varre frentes/**/status.json → valida → dashboard/data.json
-npx serve dashboard                    # abrir index.html por HTTP (file:// bloqueia o fetch)
+node scripts/build-dashboard.mjs      # valida frentes → data.json + copia ferramentas/ → dashboard/
+npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetch do data.json)
 ```
+
+**Só o que está em `dashboard/` vai ao ar.** O build monta o bundle:
+- `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
+- `dashboard/frentes.html` — cockpit de frentes (pipeline).
+- `dashboard/despesas/` — cópia de `ferramentas/despesas/` (**gerada**, fora do git).
+- `dashboard/data.json` — gerado das frentes.
+
+A camada confidencial (`frentes/**/interpretacao.md`, `doutrina/`) **nunca** entra no bundle.
 
 ## Skills proprietárias (canônicas aqui)
 

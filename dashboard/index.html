@@ -3,139 +3,252 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Samais-OS · Cockpit de Frentes</title>
+<meta name="theme-color" content="#04060C">
+<title>Samais-OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#04060C; --card:#0A0E18; --card-2:#0D1220;
-    --border:rgba(212,168,87,.14); --border-soft:rgba(255,255,255,.06);
-    --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
-    --text:#EDEAE2; --text-2:#B0AEA5; --text-3:#9A968C;
-    --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
-    --f-display:'Syne',system-ui,sans-serif; --f-body:'Inter',system-ui,sans-serif; --f-mono:'JetBrains Mono',monospace;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);line-height:1.6;
-    -webkit-font-smoothing:antialiased;background-image:radial-gradient(1200px 600px at 80% -10%,rgba(212,168,87,.05),transparent 60%);}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-  header{border-bottom:1px solid var(--border);padding:40px 0 28px}
-  .kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
-  h1{font-family:var(--f-display);font-weight:800;font-size:34px;margin:10px 0 6px;letter-spacing:-.01em}
-  .sub{color:var(--text-3);font-size:14px}
-  .sub b{color:var(--text-2);font-weight:500}
-  /* KPIs */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}
-  .kpi{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border-soft);border-radius:14px;padding:20px}
-  .kpi .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
-  .kpi .val{font-family:var(--f-display);font-weight:700;font-size:28px;margin-top:8px;color:var(--gold)}
-  .kpi .val small{font-size:14px;color:var(--text-2);font-weight:500}
-  /* Frentes */
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:36px 0 14px}
-  .sec-head h2{font-family:var(--f-display);font-weight:700;font-size:18px;margin:0}
-  .sec-head .note{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-  .fr{background:var(--card);border:1px solid var(--border-soft);border-radius:14px;padding:18px 18px 16px;transition:border-color .2s,transform .2s}
-  .fr:hover{border-color:var(--border);transform:translateY(-2px)}
-  .fr-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .fr-name{font-family:var(--f-display);font-weight:700;font-size:17px}
-  .fr-uf{font-family:var(--f-mono);font-size:11px;color:var(--text-3)}
-  .fr-serv{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--gold-dim);
-    border:1px solid var(--border);border-radius:999px;padding:2px 9px;margin-top:8px}
-  .fr-val{font-family:var(--f-mono);font-size:20px;color:var(--gold);margin:14px 0 2px}
-  .fr-val.na{color:var(--text-3);font-size:14px}
-  .fr-val small{font-size:11px;color:var(--text-3)}
-  .fr-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
-  .stage{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:6px;border:1px solid var(--border-soft)}
-  .stage[data-s="radar"]{color:var(--text-3)}
-  .stage[data-s="varredura"],.stage[data-s="estudo"]{color:var(--amber);border-color:rgba(221,141,12,.28)}
-  .stage[data-s="proposta"],.stage[data-s="negociacao"]{color:var(--gold);border-color:var(--border)}
-  .stage[data-s="contrato-ativo"]{color:var(--green);border-color:rgba(95,140,106,.35)}
-  .stage[data-s="arquivada"]{color:var(--text-3);opacity:.6}
-  /* gauge */
-  .gauge{display:flex;align-items:center;gap:8px}
-  .gauge .bar{width:64px;height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
-  .gauge .fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
-  .gauge .n{font-family:var(--f-mono);font-size:12px;color:var(--text-2)}
-  .verdict{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
-  .verdict[data-v="go"]{color:var(--green)} .verdict[data-v="atencao"]{color:var(--amber)} .verdict[data-v="no-go"]{color:var(--red)}
-  .next{color:var(--text-3);font-size:12.5px;margin-top:12px;border-top:1px solid var(--border-soft);padding-top:10px}
-  .next b{color:var(--text-2);font-weight:500}
-  footer{border-top:1px solid var(--border);margin-top:48px;padding:22px 0 44px;color:var(--text-3);font-family:var(--f-mono);font-size:11.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-  .err{background:rgba(194,13,47,.08);border:1px solid rgba(194,13,47,.3);border-radius:12px;padding:18px;color:#e79aa8;font-family:var(--f-mono);font-size:13px;margin:32px 0}
-  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:27px}}
+:root{
+  --bg:#04060C; --card:#0A0E18; --card2:#0D1220;
+  --line:rgba(212,168,87,.14); --line-soft:rgba(255,255,255,.06);
+  --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
+  --text:#EDEAE2; --t2:#B0AEA5; --t3:#9A968C;
+  --amber:#DD8D0C; --green:#5F8C6A;
+  --fd:'Syne',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1100px 560px at 82% -12%,rgba(212,168,87,.055),transparent 62%);}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+
+/* header */
+header{border-bottom:1px solid var(--line);padding:44px 0 30px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:40px;letter-spacing:-.015em;margin:12px 0 8px;line-height:1.05}
+h1 .d{color:var(--gold)}
+.tag{color:var(--t3);font-size:14.5px;font-style:italic}
+
+/* faixa de números */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);
+  border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;margin:26px 0 4px}
+.strip div{background:var(--card);padding:15px 16px}
+.strip .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--t3)}
+.strip .v{font-family:var(--fd);font-weight:700;font-size:22px;color:var(--gold);margin-top:5px;
+  font-variant-numeric:tabular-nums}
+
+/* seções */
+section{padding:38px 0 0}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px}
+.sh h2{font-family:var(--fd);font-weight:700;font-size:17px;margin:0}
+.sh .n{font-family:var(--fm);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+
+/* cards de ferramenta */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px}
+.card{display:block;background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line-soft);border-radius:15px;padding:20px;position:relative;
+  transition:border-color .18s,transform .18s}
+.card:hover{border-color:var(--line);transform:translateY(-2px)}
+.card .ico{font-size:22px;line-height:1;color:var(--gold);margin-bottom:13px;display:block}
+.card h3{font-family:var(--fd);font-weight:700;font-size:17.5px;margin:0 0 6px}
+.card p{color:var(--t3);font-size:13.5px;margin:0}
+.card .mais{font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold-dim);margin-top:14px;display:inline-block}
+.card .mais::after{content:' →'}
+.card[data-ext]:hover .mais{color:var(--gold)}
+.badge{position:absolute;top:16px;right:16px;font-family:var(--fm);font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3);border:1px solid var(--line-soft);border-radius:5px;padding:2px 7px}
+
+/* listas de documentos */
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:10px}
+.doc{display:flex;align-items:flex-start;gap:11px;background:var(--card);border:1px solid var(--line-soft);
+  border-radius:11px;padding:13px 15px;transition:border-color .16s}
+.doc:hover{border-color:var(--line)}
+.doc .b{font-family:var(--fm);font-size:11px;color:var(--gold-dim);margin-top:2px}
+.doc .t{display:block;font-weight:500;font-size:14.5px;line-height:1.35}
+.doc .s{display:block;color:var(--t3);font-size:12.5px;margin-top:2px;line-height:1.4}
+.doc.stub .t{color:var(--t3)}
+
+/* próximas ações */
+.acoes{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:6px 18px}
+.acao{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.acao:last-child{border-bottom:0}
+.acao .q{flex:0 0 auto;font-family:var(--fm);font-size:11px;color:var(--gold);
+  padding-top:2px;width:150px;line-height:1.35}
+.acao .txt{font-size:14px;color:var(--t2)}
+.acao .txt b{color:var(--text);font-weight:500}
+
+/* planejado */
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:10px}
+.pitem{border:1px dashed var(--line);border-radius:11px;padding:14px 15px;background:rgba(10,14,24,.4)}
+.pitem .t{font-weight:500;font-size:14.5px;color:var(--t2)}
+.pitem .s{color:var(--t3);font-size:12.5px;margin-top:2px}
+.pitem .w{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--amber);margin-top:9px;display:inline-block}
+
+footer{border-top:1px solid var(--line);margin-top:46px;padding:22px 0 48px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;
+  font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+footer i{font-family:var(--fb);font-style:italic}
+@media(max-width:720px){
+  h1{font-size:31px}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .acao{flex-direction:column;gap:4px}
+  .acao .q{width:auto}
+}
 </style>
 </head>
 <body>
+
 <header><div class="wrap">
-  <div class="kicker">Samais-OS · negócio como código</div>
-  <h1>Cockpit de Frentes</h1>
-  <div class="sub">Painel gerado por <b>scripts/build-dashboard.mjs</b> a partir de <b>frentes/**/status.json</b> · validado por schema.</div>
+  <div class="kicker">o negócio como código</div>
+  <h1>Samais<span class="d">-</span>OS</h1>
+  <div class="tag">Onde gestão se mede em vidas.</div>
+  <div class="strip" id="strip">
+    <div><div class="l">Frentes</div><div class="v">—</div></div>
+    <div><div class="l">Contratos ativos</div><div class="v">—</div></div>
+    <div><div class="l">Pipeline / mês</div><div class="v">—</div></div>
+    <div><div class="l">Pipeline / ano</div><div class="v">—</div></div>
+  </div>
 </div></header>
 
 <main class="wrap">
-  <div id="kpis" class="kpis"></div>
-  <div class="sec-head">
-    <h2>Frentes</h2>
-    <span class="note" id="ordnote">ordenadas por score</span>
-  </div>
-  <div id="grid" class="grid"></div>
-  <div id="error"></div>
+
+  <!-- ===================== FERRAMENTAS ===================== -->
+  <section>
+    <div class="sh"><h2>Ferramentas</h2><span class="n">o que você abre e usa</span></div>
+    <div class="grid">
+      <a class="card" href="./frentes.html">
+        <span class="ico">◈</span>
+        <h3>Cockpit de Frentes</h3>
+        <p>Pipeline comercial: score de atratividade, estágio, valor contratual e o próximo passo de cada alvo.</p>
+        <span class="mais">Abrir cockpit</span>
+      </a>
+
+      <a class="card" href="./despesas/">
+        <span class="ico">▤</span>
+        <h3>Prestação de Contas</h3>
+        <p>Despesas de viagem e sede com foto do comprovante, fechamento do mês e PDF para reembolso.</p>
+        <span class="mais">Lançar despesa</span>
+      </a>
+
+      <a class="card" data-ext href="https://github.com/victorotaa/samais-estudos" target="_blank" rel="noopener">
+        <span class="badge">externo</span>
+        <span class="ico">∑</span>
+        <h3>Estudos &amp; Precificação</h3>
+        <p>Fórmula Mestre de custo SAMU (9 blocos), parâmetros calibrados e os estudos por município.</p>
+        <span class="mais">Abrir repositório</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== PRÓXIMAS AÇÕES ===================== -->
+  <section id="secAcoes" hidden>
+    <div class="sh"><h2>Próximas ações</h2><span class="n">das frentes, por prioridade</span></div>
+    <div class="acoes" id="acoes"></div>
+  </section>
+
+  <!-- ===================== DOUTRINA ===================== -->
+  <section>
+    <div class="sh"><h2>Doutrina</h2><span class="n">ler antes de produzir qualquer peça</span></div>
+    <div class="docs">
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/precificacao.md" target="_blank" rel="noopener">
+        <span class="b">01</span><span><span class="t">Precificação</span><span class="s">BDI decomposto 35% · nunca “lucro”</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/design-system.md" target="_blank" rel="noopener">
+        <span class="b">02</span><span><span class="t">Design system</span><span class="s">dark-luxury · Syne / Inter / Mono</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/padrao-frio.md" target="_blank" rel="noopener">
+        <span class="b">03</span><span><span class="t">Padrão FRIO</span><span class="s">audiência externa: factual, sem advocacy</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/higgsfield-canon.md" target="_blank" rel="noopener">
+        <span class="b">04</span><span><span class="t">Cânone de vídeo</span><span class="s">Higgsfield + HyperFrames</span></span></a>
+      <a class="doc stub" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/taxonomia-gestao.md" target="_blank" rel="noopener">
+        <span class="b">05</span><span><span class="t">Taxonomia de gestão</span><span class="s">⚠️ stub — fonte pendente</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/transversais/tecnologia-jarvis/agente-embarcado.md" target="_blank" rel="noopener">
+        <span class="b">06</span><span><span class="t">Agente embarcado</span><span class="s">3 camadas de poder · implementação diferida</span></span></a>
+    </div>
+  </section>
+
+  <!-- ===================== INTELIGÊNCIA ===================== -->
+  <section>
+    <div class="sh"><h2>Inteligência</h2><span class="n">benchmarks e editais</span></div>
+    <div class="docs">
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/inteligencia/benchmarks-samu.md" target="_blank" rel="noopener">
+        <span class="b">↗</span><span><span class="t">Benchmarks SAMU</span><span class="s">custo USB/USA/motolância · KPIs · dimensionamento</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/inteligencia/editais/checklist-licitacao.md" target="_blank" rel="noopener">
+        <span class="b">↗</span><span><span class="t">Checklist de editais</span><span class="s">habilitação · cláusulas de risco · red flags</span></span></a>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUTOS ===================== -->
+  <section>
+    <div class="sh"><h2>Produtos</h2><span class="n">repositórios próprios, deploy próprio</span></div>
+    <div class="docs">
+      <a class="doc" href="https://github.com/victorotaa/samais-copilot" target="_blank" rel="noopener">
+        <span class="b">↗</span><span><span class="t">CoPilot OS</span><span class="s">IA de apoio à decisão do regulador médico</span></span></a>
+      <a class="doc" href="https://github.com/victorotaa/samais-pep" target="_blank" rel="noopener">
+        <span class="b">↗</span><span><span class="t">PEP OS</span><span class="s">prontuário eletrônico do paciente</span></span></a>
+    </div>
+  </section>
+
+  <!-- ===================== EM CONSTRUÇÃO ===================== -->
+  <section>
+    <div class="sh"><h2>Em construção</h2><span class="n">próximos domínios do OS</span></div>
+    <div class="plan">
+      <div class="pitem">
+        <div class="t">Calendário de Obrigações</div>
+        <div class="s">Vigência de contrato, renovação de CND, garantia, prazo de edital — com alerta de vencimento.</div>
+        <span class="w">próximo</span>
+      </div>
+      <div class="pitem">
+        <div class="t">Operações — KPIs de contrato</div>
+        <div class="s">Tempo-resposta, frota, SLA e ociosidade dos contratos ativos: a prova de entrega.</div>
+        <span class="w">planejado</span>
+      </div>
+      <div class="pitem">
+        <div class="t">Biblioteca de peças</div>
+        <div class="s">Índice dos dossiês, propostas e vídeos gerados — hoje espalhados fora do OS.</div>
+        <span class="w">planejado</span>
+      </div>
+      <div class="pitem">
+        <div class="t">RH e headcount</div>
+        <div class="s">Escalas e Fator de Cobertura 4,5 — alimenta diretamente a precificação.</div>
+        <span class="w">planejado</span>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<footer class="wrap" style="display:flex">
-  <span>samais · gestão + saúde</span>
-  <span id="genstamp"></span>
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; <i>uso interno</i></span>
+  <span id="stamp"></span>
 </footer>
 
 <script>
-const BRL = n => n==null ? null : "R$ " + Number(n).toLocaleString("pt-BR");
-const BRLc = n => n==null ? null : "R$ " + (Number(n)/1e6).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + " mi";
-const stageLabel = s => ({"radar":"radar","varredura":"varredura","estudo":"estudo","proposta":"proposta","negociacao":"negociação","contrato-ativo":"contrato ativo","arquivada":"arquivada"}[s]||s);
+const BRLmi = n => 'R$ ' + (n/1e6).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' mi';
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
-fetch("./data.json").then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-  .then(render)
-  .catch(e=>{
-    document.getElementById("error").innerHTML =
-      '<div class="err">Não consegui carregar <b>data.json</b> ('+e.message+').<br>'+
-      'Rode <b>node scripts/build-dashboard.mjs</b> e sirva a pasta por HTTP '+
-      '(ex.: <b>npx serve dashboard</b>) — abrir via file:// bloqueia o fetch.</div>';
-  });
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  const vals = [d.total_frentes, d.contratos_ativos, BRLmi(d.pipeline_mensal), BRLmi(d.pipeline_anual)];
+  document.querySelectorAll('#strip .v').forEach((el,i)=>el.textContent = vals[i]);
+  document.getElementById('stamp').textContent = 'dados de ' + d.gerado_em;
 
-function render(d){
-  const kpis=[
-    ["Frentes no radar", d.total_frentes],
-    ["Contratos ativos", d.contratos_ativos],
-    ["Pipeline mensal (base)", BRLc(d.pipeline_mensal)],
-    ["Pipeline anual (base)", BRLc(d.pipeline_anual)],
-  ];
-  document.getElementById("kpis").innerHTML = kpis.map(([l,v])=>
-    `<div class="kpi"><div class="lbl">${l}</div><div class="val">${v}</div></div>`).join("");
-
-  document.getElementById("grid").innerHTML = d.frentes.map(f=>{
-    const val = f.valor_contratual_mensal
-      ? `<div class="fr-val">${BRL(f.valor_contratual_mensal)}<small> /mês · Cenário Base</small></div>`
-      : `<div class="fr-val na">valor a dimensionar</div>`;
-    const verdict = f.verdict ? `<span class="verdict" data-v="${f.verdict}">${f.verdict.replace("-"," ")}</span>` : "";
-    return `<div class="fr">
-      <div class="fr-top">
-        <div class="fr-name">${f.frente}</div>
-        <div class="fr-uf">${f.uf}</div>
-      </div>
-      <span class="fr-serv">${f.servico}</span>
-      ${val}
-      <div class="fr-row">
-        <span class="stage" data-s="${f.estagio}">${stageLabel(f.estagio)}</span>
-        <span class="gauge"><span class="bar"><span class="fill" style="width:${(f.score/10*100).toFixed(0)}%"></span></span><span class="n">${f.score.toFixed(1)}</span></span>
-      </div>
-      ${verdict?`<div class="fr-row"><span></span>${verdict}</div>`:""}
-      <div class="next"><b>Próximo passo:</b> ${f.proximo_passo}</div>
-    </div>`;
-  }).join("");
-
-  document.getElementById("genstamp").textContent = "gerado em " + d.gerado_em;
-}
+  const ativas = (d.frentes||[])
+    .filter(f => f.estagio !== 'arquivada' && f.proximo_passo)
+    .sort((a,b)=> b.score - a.score)
+    .slice(0,4);
+  if(ativas.length){
+    document.getElementById('acoes').innerHTML = ativas.map(f=>`
+      <div class="acao">
+        <span class="q">${esc(f.frente)} · ${esc(f.uf)}</span>
+        <span class="txt"><b>${esc(f.estagio)}</b> — ${esc(f.proximo_passo)}</span>
+      </div>`).join('');
+    document.getElementById('secAcoes').hidden = false;
+  }
+}).catch(()=>{
+  document.getElementById('stamp').textContent = 'rode: node scripts/build-dashboard.mjs';
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   SAMAIS — IDENTIDADE VISUAL CANÔNICA
+   Dark liquid-glass · gold-on-black · institucional/diretoria.
+
+   ESTE ARQUIVO É A FONTE DE VERDADE dos tokens. Prosa deriva; token em
+   arquivo não. Toda superfície Samais importa ISTO em vez de redeclarar cores.
+
+   Origem: samais-estudos/css/samais.css (produção — estudos municipais) e
+   samais-rota/CLAUDE.md. Valores idênticos aos de produção, de propósito:
+   se divergirem, a produção ganha e este arquivo é corrigido.
+
+   O build copia este arquivo para dashboard/samais.css e
+   dashboard/despesas/samais.css — as páginas referenciam ./samais.css.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── Base ── */
+  --bg:#0A0A0A;            /* fundo */
+  --s1:#131313;            /* superfície 1 */
+  --s2:#1A1A1A;            /* superfície 2 */
+  --divider:#262626;       /* divisórias */
+
+  /* ── Ouro (escasso: ≤10% da superfície) ── */
+  --gold:#B8954E;
+  --gold-soft:#D4B373;
+  --gold-deep:#8E7238;
+
+  /* ── Semânticas (parcimônia) ── */
+  --green:#1E7A4B;         /* selo funcional: validado / verificado */
+  --green-deep:#003611;
+  --amber:#B8804E;         /* atenção */
+  --red:#A33044;           /* crítico */
+
+  /* ── Texto ── */
+  --text:#F4F1EA;
+  --text-2:#D9D2C5;
+  --muted:#9C9489;
+  --dim:#615C53;
+
+  /* ── Tipografia ── */
+  --display:'Syne','Arial Black','Helvetica Neue',system-ui,sans-serif;
+  --body:'Inter', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Material liquid glass ── */
+  --glass-bg:linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
+  --glass-border:1px solid rgba(255,255,255,.12);
+  --glass-blur:blur(22px) saturate(150%);
+  --glass-shadow:inset 0 1px 0 rgba(255,255,255,.16), inset 0 -1px 0 rgba(0,0,0,.22), 0 18px 50px rgba(0,0,0,.5);
+  --glass-radius:18px;
+
+  /* ── Compatibilidade ──────────────────────────────────────────────────
+     Aliases para páginas escritas antes da unificação. Camada de migração:
+     ao reescrever uma página, prefira os nomes canônicos acima. */
+  --card:var(--s1);
+  --card2:var(--s2);
+  --line:rgba(184,149,78,.20);
+  --line-soft:rgba(255,255,255,.09);
+  --gold-dim:rgba(184,149,78,.62);
+  --t2:var(--text-2);
+  --t3:var(--muted);
+  --fd:var(--display);
+  --fb:var(--body);
+  --fm:var(--mono);
+  --f-display:var(--display);
+  --f-body:var(--body);
+  --f-mono:var(--mono);
+  --border:var(--line);
+  --border-soft:var(--line-soft);
+  --card-2:var(--s2);
+  --text-3:var(--muted);
+  --r:12px;                /* raio padrão de componente */
+}
+
+/* ── Fundo e brilho ambiente (o que o vidro refrata) ─────────────────── */
+html{background:var(--bg);scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--body); font-weight:300; line-height:1.6;
+  letter-spacing:.005em; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(55% 45% at 82% 6%,  rgba(184,149,78,.13), transparent 62%),
+    radial-gradient(48% 42% at 8% 80%,  rgba(30,122,75,.07),  transparent 62%),
+    radial-gradient(42% 38% at 50% 52%, rgba(212,179,115,.05),transparent 72%);
+}
+
+/* ── Material liquid glass (aplicar em cards, painéis, tabelas) ──────── */
+.glass{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  border:var(--glass-border);
+  border-radius:var(--glass-radius);
+  box-shadow:var(--glass-shadow);
+}
+.glass-sutil{
+  background:linear-gradient(140deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  -webkit-backdrop-filter:blur(16px) saturate(135%);
+  backdrop-filter:blur(16px) saturate(135%);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+}
+/* Refração real (feDisplacementMap) é opcional e exige o <svg id="glassDistort">
+   na página — ver doutrina/design-system.md. Reservada a peças de apresentação
+   (estudos/dossiês); ferramentas de uso diário ficam no blur, que é universal. */
+@media (max-width:720px){
+  .glass{border-radius:12px;-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+
+
+/* ── MARCA ───────────────────────────────────────────────────────────────
+   Wordmark no desktop, monograma SA+ no mobile (doutrina samais-rota).
+   Se o SVG oficial do vault (Drive) estiver disponível, ele substitui isto:
+   troque o conteúdo de .marca por <img src="wordmark.svg" alt="Samais">.   */
+.marca{display:inline-flex;align-items:baseline;gap:.42em;text-decoration:none;line-height:1;white-space:nowrap}
+.marca .nome{
+  font-family:var(--display); font-weight:700; letter-spacing:-.015em;
+  font-size:var(--marca-tam,20px);
+  background:linear-gradient(96deg,var(--gold-deep) 0%,var(--gold) 38%,var(--gold-soft) 62%,var(--gold) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.marca .sep{color:var(--gold-deep);font-size:calc(var(--marca-tam,20px) * .8);font-weight:400}
+.marca .desc{
+  font-family:var(--mono); font-size:calc(var(--marca-tam,20px) * .40);
+  letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+  align-self:center; padding-top:.15em;
+}
+.marca .mono-sa{display:none}
+/* Monograma SA+ no mobile — a marca não some, colapsa. */
+@media (max-width:600px){
+  .marca .nome,.marca .sep,.marca .desc{display:none}
+  .marca .mono-sa{
+    display:inline-block; font-family:var(--display); font-weight:800;
+    font-size:calc(var(--marca-tam,20px) * 1.05); letter-spacing:-.02em;
+    background:linear-gradient(96deg,var(--gold-deep),var(--gold-soft));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+}
+
+/* ── Cabeçalho/rodapé de vidro (sticky) ─────────────────────────────── */
+.barra-vidro{
+  background:rgba(20,20,22,.42);
+  -webkit-backdrop-filter:blur(28px) saturate(175%);
+  backdrop-filter:blur(28px) saturate(175%);
+  border-color:rgba(255,255,255,.12);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 34px rgba(0,0,0,.34);
+}
+
+/* ── Barra fixa do topo (marca + navegação) ─────────────────────────── */
+.topbar{
+  position:sticky; top:0; z-index:100; display:flex; align-items:center;
+  justify-content:space-between; gap:16px;
+  padding:11px clamp(16px,4vw,26px); border-bottom:1px solid;
+}
+.topnav-links{display:flex;gap:clamp(12px,2vw,20px);align-items:center;min-width:0;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.topnav-links::-webkit-scrollbar{display:none}
+.topnav-links a{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .18s;
+  display:inline-flex;align-items:center;min-height:40px;padding:0 2px}
+.topnav-links a:hover{color:var(--gold-soft)}
+.topnav-links a[aria-current="page"]{color:var(--gold)}
+
+/* ── Tipografia base ─────────────────────────────────────────────────── */
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.02em;line-height:1.1;margin:0}
+h1{font-weight:700}
+h2,h3,h4{font-weight:600}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
+/* Eyebrow/kicker: mono em caps pequenas douradas */
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+/* Dados SEMPRE em mono, com dígitos alinhados */
+.dado{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ── Alvos de toque (mobile) ─────────────────────────────────────────
+   Controle que se toca com o dedo precisa de ~40px de altura. */
+@media (max-width:720px){
+  select,input:not([type="checkbox"]):not([type="file"]),button,.btn{min-height:44px}
+  .btn.sm{min-height:44px;padding-inline:16px}
+  input[type="checkbox"]{width:20px;height:20px}
+}
+
+/* ── [hidden] tem que ganhar ────────────────────────────────────────────
+   Um display:flex/grid de autor VENCE o display:none do atributo hidden —
+   o elemento "escondido" reaparece (e, com glass, como caixa vazia).
+   Esta regra fecha a porta para toda a família de componentes. */
+[hidden]{display:none !important}
+
+/* ── Acessibilidade ──────────────────────────────────────────────────── */
+:where(a,button,input,select,textarea):focus-visible{
+  outline:2px solid var(--gold-soft); outline-offset:2px;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}

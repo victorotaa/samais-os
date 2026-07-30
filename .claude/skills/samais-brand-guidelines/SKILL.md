@@ -20,36 +20,34 @@ proposta, teaser, estudo municipal, apresentação, branding saúde.
 
 ## Tokens de cor
 
-**Base (fundos):**
-- Fundo primário: `#04060C` (navy-black profundo) — variável CSS `--bg`
-- Fundo elevado/cards: `#0A0E18` a `#0D1220`
-- Bordas sutis: `rgba(212,168,87,.14)` ou `rgba(255,255,255,.06)`
+> **Não copie hex daqui para o código.** A fonte de verdade é
+> `samais-os/doutrina/samais.css` — importe-o. Estes valores existem para você
+> reconhecer a paleta, não para redigitá-la. Se divergirem, o CSS ganha.
 
-**Acento (autoridade):**
-- Dourado Samais: `#D4A857` — variável CSS `--gold` — títulos-chave,
-  números de destaque, linhas divisórias, ícones
-- Dourado atenuado: `rgba(212,168,87,.55)` para labels e kickers
+**Base:** fundo `#0A0A0A` · superfícies `#131313` / `#1A1A1A` · divisórias `#262626`
 
-**Texto:**
-- Primário sobre escuro: `#EDEAE2` (off-white quente)
-- Secundário: `#9A968C` a `#B0AEA5`
-- Nunca branco puro `#FFFFFF` em blocos longos de texto
+**Ouro (escasso, ≤10% da superfície):** `#B8954E` · soft `#D4B373` · deep `#8E7238`
 
-**Semânticas (usar com parcimônia):**
-- Alerta/risco: âmbar `#DD8D0C` (fundo `rgba(221,141,12,.12)`)
-- Crítico: `#C20D2F`
-- Positivo/validado: verde sóbrio `#5F8C6A`
+**Texto:** `#F4F1EA` · secundário `#D9D2C5` · muted `#9C9489` · dim `#615C53`
+
+**Semânticas (parcimônia):** verde `#1E7A4B` — **selo funcional** (validado/verificado),
+nunca decoração · âmbar `#B8804E` (atenção) · vermelho `#A33044` (crítico)
+
+**Material:** dark **liquid glass** — translúcido com `backdrop-filter:blur(22px)
+saturate(150%)`, borda `rgba(255,255,255,.12)`, brilho especular interno no topo, cantos
+18px, sobre brilho ambiente radial (ouro + verde) fixo no fundo.
 
 ## Tipografia
 
-- **Display/Títulos**: Syne (600–800) — headlines, números de seção,
-  dados de impacto. Fallback: Arial Black.
-- **Corpo**: Inter (400/500) — parágrafos, tabelas, UI. Fallback: Arial.
-- **Dados/Labels técnicos**: JetBrains Mono (400/500) — valores
-  monetários, métricas, códigos de lei, IDs, eixos de gráfico.
-  Fallback: Courier New.
-- Import padrão (HTML):
-  `https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap`
+- **Display:** Syne (600–800). Fallback **Arial Black** — nunca serifa.
+- **Corpo:** Inter **300** (o peso do padrão de produção).
+- **Dados/labels:** JetBrains Mono, com `tabular-nums`. Dado nunca em Syne.
+- Import: `https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap`
+
+## Marca
+
+Wordmark no desktop; **monograma `SA+` no mobile** (colapsa, não desaparece). Nunca a
+marca em fonte genérica. Componente `.marca` em `samais.css`.
 
 ## Regras de aplicação
 

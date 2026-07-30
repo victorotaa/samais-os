@@ -19,7 +19,8 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
 
 1. **`doutrina/`** — fonte de verdade escrita. Ler antes de produzir qualquer peça:
    - `taxonomia-gestao.md` — 3 categorias de gestão (⚠️ stub pendente de migração).
-   - `design-system.md` — dark-luxury · Syne/Inter/JetBrains Mono · `#04060C` / `#D4A857`.
+   - `design-system.md` + **`samais.css`** — dark liquid-glass · `#0A0A0A` / ouro `#B8954E`
+     · Syne / Inter 300 / JetBrains Mono. O CSS é a verdade; o .md explica.
    - `precificacao.md` — BDI decomposto 35%; **nunca "lucro"/"margem"**.
    - `padrao-frio.md` — audiência externa: neutro, factual, sem advocacy.
    - `higgsfield-canon.md` — cânone de vídeo (decisão fechada).
@@ -44,6 +45,10 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
 - **Confidencial:** estruturação jurídico-tributária e veículos de remuneração **não**
   se registram em arquivo — só em conversa.
 - **Vídeo:** binários (`*.mp4/*.mov/*.webm`) nunca entram no git (Drive/pasta local).
+- **Identidade visual:** **importe `doutrina/samais.css`** — é a fonte de verdade dos
+  tokens (dark liquid-glass · `#0A0A0A` · ouro `#B8954E` · Syne/Inter 300/JetBrains Mono).
+  **Nenhuma página redeclara cor**; se você está digitando um hex, provavelmente está
+  errado. Marca: wordmark no desktop, monograma `SA+` no mobile.
 
 ## Frentes (dados-como-arquivo)
 

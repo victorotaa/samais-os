@@ -3,35 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#04060C">
+<meta name="theme-color" content="#0A0A0A">
 <meta name="description" content="Prestação de contas Samais — despesas de viagem e sede.">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>Samais · Prestação de Contas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
 <style>
-:root{
-  --bg:#04060C; --card:#0A0E18; --card2:#0D1220;
-  --line:rgba(212,168,87,.14); --line-soft:rgba(255,255,255,.07);
-  --gold:#D4A857; --gold-dim:rgba(212,168,87,.55);
-  --text:#EDEAE2; --t2:#B0AEA5; --t3:#9A968C;
-  --amber:#DD8D0C; --red:#C20D2F; --green:#5F8C6A;
-  --fd:'Syne',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
-  --r:12px;
-}
+/* tokens: doutrina/samais.css (canônico) */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
   background:var(--bg); color:var(--text); font-family:var(--fb); line-height:1.55;
   -webkit-font-smoothing:antialiased; padding-bottom:84px;
-  background-image:radial-gradient(900px 500px at 85% -10%,rgba(212,168,87,.05),transparent 60%);
 }
 .wrap{max-width:900px;margin:0 auto;padding:0 16px}
 
 /* header */
 header{border-bottom:1px solid var(--line);padding:18px 0 14px;position:sticky;top:0;z-index:20;
-  background:rgba(4,6,12,.92);backdrop-filter:blur(12px)}
+  background:rgba(20,20,22,.42);-webkit-backdrop-filter:blur(28px) saturate(175%);
+  backdrop-filter:blur(28px) saturate(175%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 34px rgba(0,0,0,.34)}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .wordmark{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:.02em}
 .wordmark .d{color:var(--gold)}
@@ -40,7 +34,9 @@ header{border-bottom:1px solid var(--line);padding:18px 0 14px;position:sticky;t
 
 /* nav */
 nav{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;
-  background:rgba(10,14,24,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  background:rgba(20,20,22,.62);-webkit-backdrop-filter:blur(26px) saturate(170%);
+  backdrop-filter:blur(26px) saturate(170%);border-top:1px solid rgba(255,255,255,.12);
+  box-shadow:0 -8px 30px rgba(0,0,0,.4);
   padding-bottom:env(safe-area-inset-bottom)}
 nav button{flex:1;background:none;border:0;color:var(--t3);font-family:var(--fm);font-size:10.5px;
   letter-spacing:.1em;text-transform:uppercase;padding:13px 4px 12px;cursor:pointer;
@@ -68,19 +64,22 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
 .valor input{font-family:var(--fm);font-size:26px;font-weight:500;color:var(--gold);padding:14px}
 .check{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line-soft);
   border-radius:var(--r);padding:12px 14px}
-.check input{width:auto;flex:0 0 auto;accent-color:var(--gold)}
+.check input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--gold);cursor:pointer}
 .check span{font-size:14px;color:var(--t2)}
 
 /* botões */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
-  background:var(--gold);color:#1a1305;border:0;border-radius:var(--r);padding:15px;
+  background:linear-gradient(180deg,var(--gold-soft),var(--gold));color:#17120A;border:0;border-radius:var(--r);padding:15px;
   font-family:var(--fb);font-weight:600;font-size:15px;cursor:pointer}
 .btn:active{transform:translateY(1px)}
 .btn.ghost{background:transparent;color:var(--t2);border:1px solid var(--line-soft)}
 .btn.ghost:hover{border-color:var(--gold-dim);color:var(--text)}
 .btn.sm{width:auto;padding:9px 14px;font-size:13px}
 .btn.danger{background:transparent;color:#e0879a;border:1px solid rgba(194,13,47,.35)}
-.btns{display:flex;gap:10px;margin-top:6px}
+.btns{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+/* <label class="btn"> não herda o uppercase/mono do label de formulário */
+label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spacing:normal;
+  font-size:13px;color:var(--t2);margin:0}
 
 /* foto */
 .foto{border:1px dashed var(--line);border-radius:var(--r);padding:16px;text-align:center;background:var(--card)}
@@ -171,12 +170,23 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   .p-cmp img{max-width:100%;max-height:150mm;display:block}
   .p-foot{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#8a857a;text-align:center}
 }
+
+/* ── material liquid glass (doutrina/samais.css) ── */
+.kpi,.item,.bloco,.check,.foto,input,select,textarea{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+}
 </style>
 </head>
 <body>
 
 <header><div class="wrap brand">
-  <div class="wordmark">samais <span class="d">·</span> prestação de contas</div>
+  <a class="marca" href="../index.html" aria-label="Samais-OS">
+    <span class="nome">samais</span><span class="sep">·</span><span class="desc">prestação de contas</span>
+    <span class="mono-sa">SA+</span>
+  </a>
   <div class="who">responsável<br><b id="whoName">—</b></div>
 </div></header>
 
@@ -250,7 +260,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
       <label>Comprovante (canhoto, nota, recibo)</label>
       <div class="foto">
         <input id="f-foto" type="file" accept="image/*" capture="environment">
-        <label class="pick" for="f-foto">📷 Fotografar ou escolher imagem</label>
+        <label class="pick" for="f-foto">▣ Fotografar ou escolher imagem</label>
         <div class="hint" id="fotoHint">A imagem fica no seu aparelho e entra no PDF da prestação.</div>
         <img id="fotoPrev" alt="" hidden>
       </div>
@@ -330,7 +340,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
       <h3>Backup e consolidação</h3>
       <p style="font-size:13.5px;color:var(--t2);margin:0 0 14px">
         Exporte seus lançamentos em JSON. Para consolidar a equipe, cada pessoa exporta o
-        próprio arquivo e você importa todos aqui — a importação **soma** sem duplicar
+        próprio arquivo e você importa todos aqui — a importação <b>soma</b> sem duplicar
         (mesmo lançamento não entra duas vezes).
       </p>
       <div class="field">

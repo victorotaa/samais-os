@@ -23,6 +23,7 @@ const SCHEMA_PATH = join(FRENTES_DIR, "_schema", "status.schema.json");
 const OBRIG_DIR = join(ROOT, "obrigacoes");
 const RADAR_SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const OBRIG_SCHEMA_PATH = join(OBRIG_DIR, "_schema", "obrigacao.schema.json");
+const MERCADO_PATH = join(ROOT, "inteligencia", "mercado", "indice.json");
 const DASH_DIR = join(ROOT, "dashboard");
 const OUT_PATH = join(DASH_DIR, "data.json");
 
@@ -211,6 +212,28 @@ if (existsSync(RADAR_SEMANAS_DIR)) {
   }
 }
 
+// ---------- mercado: memória acumulada do radar (inteligencia/mercado/indice.json) ----------
+// Só dado público do PNCP, já captado — nada estimado. Gerado por scripts/indexar-mercado.mjs.
+let mercado = null;
+if (existsSync(MERCADO_PATH)) {
+  try {
+    const ix = JSON.parse(readFileSync(MERCADO_PATH, "utf8"));
+    mercado = {
+      gerado_em: ix.gerado_em,
+      aviso_valor: ix.aviso_valor,
+      total_certames: ix.total_certames,
+      semanas: ix.semanas,
+      por_uf: ix.por_uf,
+      por_modalidade: ix.por_modalidade,
+      municipios_recorrentes: ix.municipios_recorrentes,
+      faixa_valor_estimado: ix.faixa_valor_estimado,
+      certames: ix.certames,
+    };
+  } catch (e) {
+    console.warn(`⚠ ${relative(ROOT, MERCADO_PATH)} ilegível: ${e.message}`);
+  }
+}
+
 // ordenar por score desc, depois valor desc
 frentes.sort((a, b) => (b.score - a.score) || ((b.valor_contratual_mensal || 0) - (a.valor_contratual_mensal || 0)));
 
@@ -227,6 +250,7 @@ const data = {
   obrigacoes,
   resumo_obrigacoes: resumoObrig,
   radar,
+  mercado,
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
@@ -243,6 +267,13 @@ if (radar) {
   console.log(`✓ radar ${radar.semana}: ${radar.total} oportunidade(s) de ${radar.varridos ?? "?"} varrida(s)`);
 } else {
   console.log("• radar de licitações sem captação ainda (rode: node scripts/radar-licitacoes.mjs)");
+}
+if (mercado) {
+  const rec = mercado.municipios_recorrentes.length;
+  console.log(`✓ mercado: ${mercado.total_certames} certame(s) acumulado(s) em ${mercado.semanas.length} semana(s)` +
+    (rec ? ` — ${rec} município(s) recorrente(s)` : " — sem recorrência ainda"));
+} else {
+  console.log("• índice de mercado ausente (rode: node scripts/indexar-mercado.mjs)");
 }
 
 // ---------- monta as ferramentas dentro do bundle ----------

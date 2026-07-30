@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+<title>Samais-OS · Mercado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
+<style>
+/* tokens: doutrina/samais.css (canônico) */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+header{border-bottom:1px solid var(--line);padding:6px 0 26px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--t3);font-size:14px;max-width:70ch}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 4px}
+.kpi{border-radius:13px;padding:15px 16px}
+.kpi .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-family:var(--fd);font-weight:700;font-size:24px;margin-top:5px;color:var(--gold);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .v small{font-size:12px;color:var(--t3);font-family:var(--fb);font-weight:400;white-space:normal}
+
+section{padding:34px 0 0}
+.h2{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+  border-bottom:1px solid var(--line-soft);padding-bottom:10px;margin-bottom:18px}
+.h2 h2{font-family:var(--fd);font-weight:700;font-size:19px;margin:0}
+.h2 .eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--t3);flex:0 0 auto;padding-top:5px}
+.h2 p{margin:5px 0 0;color:var(--t3);font-size:13.5px;max-width:66ch}
+
+.bloco{border-radius:14px;padding:18px 20px}
+
+/* barras de composição — SVG/CSS puro, gold-on-black, sem chart-junk */
+.barras{display:flex;flex-direction:column;gap:9px}
+.linha{display:flex;align-items:center;gap:12px}
+.linha .rot{flex:0 0 92px;font-family:var(--fm);font-size:12px;color:var(--t2)}
+.linha .trilha{flex:1 1 auto;height:9px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden}
+/* display:block é obrigatório — largura/altura não se aplicam a span inline, e a barra
+   desaparece deixando só a trilha cinza (o defeito que a verificação no navegador pegou). */
+.linha .barra{display:block;height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));border-radius:5px}
+.linha .n{flex:0 0 auto;font-family:var(--fm);font-size:12px;color:var(--gold);
+  font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.linha .v{flex:0 0 auto;font-family:var(--fm);font-size:11px;color:var(--t3);
+  font-variant-numeric:tabular-nums;min-width:92px;text-align:right;white-space:nowrap}
+
+/* municípios recorrentes — o sinal mais forte do índice */
+.rec{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mun{border-radius:13px;padding:15px 17px;border-left:3px solid var(--gold)}
+.mun .nome{font-family:var(--fd);font-weight:700;font-size:16px}
+.mun .uf{font-family:var(--fm);font-size:11px;color:var(--t3);margin-left:6px}
+.mun .met{font-family:var(--fm);font-size:11.5px;color:var(--t3);margin-top:8px}
+.mun .val{font-family:var(--fm);font-size:15px;color:var(--gold);margin-top:6px;
+  font-variant-numeric:tabular-nums}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);
+  text-align:left;padding:0 10px 9px;font-weight:400;border-bottom:1px solid var(--line-soft)}
+th.num,td.num{text-align:right;font-family:var(--fm);font-variant-numeric:tabular-nums;white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.ouro{color:var(--gold)}
+.rolavel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.nota{margin-top:22px;padding:14px 16px;border-radius:12px;font-size:13px;color:var(--t3)}
+.nota b{color:var(--t2);font-weight:500}
+.nota code{font-family:var(--fm);font-size:12.5px;color:var(--gold-dim);background:rgba(212,168,87,.07);
+  padding:2px 6px;border-radius:4px}
+.vazio{border:1px dashed var(--line);border-radius:14px;padding:32px 26px;margin-top:26px}
+.vazio h3{font-family:var(--fd);font-weight:700;font-size:17px;margin:0 0 8px}
+.vazio p{color:var(--t3);font-size:14px;margin:0 0 12px;max-width:64ch}
+.vazio code{font-family:var(--fm);font-size:12.5px;color:var(--gold-dim)}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+
+@media(max-width:720px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:26px}
+  /* empilhado, o número da seção vem ANTES do título — senão o "01" sobra depois do texto */
+  .h2{flex-direction:column;gap:4px}
+  .h2 .eyebrow{padding-top:0;order:-1}
+  .linha .rot{flex-basis:64px}
+  .linha .v{display:none}
+}
+
+/* ── material liquid glass (doutrina/samais.css) ── */
+.kpi,.bloco,.mun,.nota,.vazio{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+}
+</style>
+</head>
+<body>
+
+<div class="topbar barra-vidro">
+  <a class="marca" href="./index.html" aria-label="Samais-OS">
+    <span class="nome">samais</span><span class="sep">·</span><span class="desc">OS</span>
+    <span class="mono-sa">SA+</span>
+  </a>
+  <nav class="topnav-links">
+    <a href="./index.html">Início</a>
+    <a href="./frentes.html">Frentes</a>
+    <a href="./radar.html">Radar</a>
+    <a href="./mercado.html" aria-current="page">Mercado</a>
+    <a href="./obrigacoes.html">Obrigações</a>
+    <a href="./despesas/">Despesas</a>
+  </nav>
+</div>
+
+<header><div class="wrap">
+  <div class="kicker">memória acumulada · pncp</div>
+  <h1>Mercado</h1>
+  <div class="sub">O que o radar já viu, somado. Uma semana é foto; o acumulado é padrão —
+    quem volta ao mercado, onde a demanda se concentra, que faixa de valor é publicada.</div>
+  <div class="kpis" id="kpis"></div>
+</div></header>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
+  <span id="stamp"></span>
+</footer>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const dataBR = iso => { const p=(iso||'').slice(0,10).split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:(iso||'—'); };
+const BRL = v => v==null ? '—' : 'R$ ' + Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0});
+const BRLc = v => v==null ? '—' : v>=1e6 ? 'R$ ' + (v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' mi'
+                 : v>=1e3 ? 'R$ ' + Math.round(v/1e3).toLocaleString('pt-BR') + ' mil' : BRL(v);
+
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  document.getElementById('stamp').textContent = 'build de ' + d.gerado_em;
+  const m = d.mercado;
+  if(!m || !m.total_certames){ vazio(); return; }
+  kpis(m);
+  document.getElementById('main').innerHTML =
+    secRecorrentes(m) + secUF(m) + secModalidade(m) + secFaixa(m) + secSemanas(m) + nota(m);
+}).catch(()=>{
+  document.getElementById('main').innerHTML =
+    `<div class="vazio"><h3>Não consegui carregar os dados</h3>
+      <p>Rode <code>node scripts/build-dashboard.mjs</code> e sirva por HTTP.</p></div>`;
+});
+
+function kpis(m){
+  const f = m.faixa_valor_estimado || {};
+  document.getElementById('kpis').innerHTML = [
+    ['Certames acumulados', m.total_certames, `${m.semanas.length} semana(s) de captação`],
+    ['UFs com demanda', m.por_uf.filter(u=>u.uf!=='(não informado)').length, ''],
+    ['Recorrentes', m.municipios_recorrentes.length, 'município(s) com ≥2 certames'],
+    ['Mediana do certame', BRLc(f.mediana), 'valor total, não mensal'],
+  ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}${s?` <small>${s}</small>`:''}</div></div>`).join('');
+}
+
+function cab(eyebrow, titulo, desc){
+  return `<div class="h2"><div><h2>${titulo}</h2>${desc?`<p>${desc}</p>`:''}</div>
+    <span class="eyebrow">${eyebrow}</span></div>`;
+}
+
+/** Recorrência é o sinal mais forte: quem publica de novo tem demanda real, não intenção. */
+function secRecorrentes(m){
+  const rec = m.municipios_recorrentes;
+  if(!rec.length){
+    return `<section>${cab('01','Quem volta ao mercado',
+      'Nenhuma recorrência ainda — precisa de mais de uma semana de captação para um município aparecer duas vezes.')}
+      <div class="bloco" style="color:var(--t3);font-size:13.5px">O radar roda toda segunda-feira. A recorrência
+      começa a aparecer a partir da segunda captação.</div></section>`;
+  }
+  return `<section>${cab('01','Quem volta ao mercado',
+    'Município que publica mais de um certame no recorte da Samais tem demanda que se repete — é onde o esforço de prospecção rende mais.')}
+    <div class="rec">${rec.slice(0,12).map(x=>`
+      <div class="mun">
+        <div><span class="nome">${esc(x.municipio)}</span><span class="uf">${esc(x.uf||'')}</span></div>
+        <div class="met">${x.certames} certames · score máx ${x.score_max}</div>
+        <div class="val">${BRLc(x.valor_total)}<span style="font-size:11px;color:var(--t3)"> somados</span></div>
+        <div class="met">último publicado em ${dataBR(x.ultimo)}</div>
+      </div>`).join('')}</div></section>`;
+}
+
+function barras(itens, chave, max){
+  return `<div class="barras">${itens.map(i=>`
+    <div class="linha">
+      <span class="rot">${esc(i[chave])}</span>
+      <span class="trilha"><span class="barra" style="width:${Math.max(2,(i.n/max)*100)}%"></span></span>
+      <span class="n">${i.n}</span>
+      <span class="v">${BRLc(i.valor_total)}</span>
+    </div>`).join('')}</div>`;
+}
+
+function secUF(m){
+  const l = m.por_uf.filter(u=>u.uf!=='(não informado)').slice(0,14);
+  const max = Math.max(...l.map(u=>u.n), 1);
+  return `<section>${cab('02','Onde a demanda está',
+    'Certames por UF. Concentração indica onde vale ter presença; ausência não é falta de demanda, é falta de publicação na janela captada.')}
+    <div class="bloco">${barras(l,'uf',max)}</div></section>`;
+}
+
+function secModalidade(m){
+  const l = m.por_modalidade.slice(0,10);
+  const max = Math.max(...l.map(u=>u.n), 1);
+  return `<section>${cab('03','Como o mercado contrata',
+    'A modalidade define o jogo: credenciamento e inexigibilidade têm porta de entrada diferente de pregão e concorrência.')}
+    <div class="bloco">${barras(l,'modalidade',max)}</div></section>`;
+}
+
+function secFaixa(m){
+  const f = m.faixa_valor_estimado || {};
+  if(!f.n_com_valor) return '';
+  const linhas = [
+    ['Mínimo', f.minimo], ['1º quartil', f.p25], ['Mediana', f.mediana],
+    ['3º quartil', f.p75], ['Máximo', f.maximo],
+  ];
+  return `<section>${cab('04','Faixa de valor publicada',
+    'Distribuição do valor estimado dos certames acumulados. <b>É o valor total do certame conforme o PNCP — a vigência inteira, às vezes plurianual. Não é mensal</b>, e só é comparável ao pipeline das frentes depois de dividido pela vigência.')}
+    <div class="bloco rolavel"><table>
+      <thead><tr><th>Posição na distribuição</th><th class="num">Valor total do certame</th></tr></thead>
+      <tbody>${linhas.map(([l,v])=>`<tr><td>${l}</td><td class="num ouro">${BRL(v)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    <div class="nota">Base: <b>${f.n_com_valor}</b> de ${m.total_certames} certames — os demais foram publicados
+      sem valor estimado. Escala explícita para não ler mediana como média de mercado.</div>
+  </section>`;
+}
+
+function secSemanas(m){
+  return `<section>${cab('05','Histórico de captação',
+    'Cada linha é uma varredura. <b>Revogados</b> = certames que os filtros de hoje reprovam e que por isso saíram da memória — recalibrar a doutrina vale para trás.')}
+    <div class="bloco rolavel"><table>
+      <thead><tr><th>Semana</th><th>Janela</th><th class="num">Varridos</th><th class="num">Captados</th><th class="num">Novos</th><th class="num">Revogados</th></tr></thead>
+      <tbody>${m.semanas.slice().reverse().map(s=>`<tr>
+        <td class="num" style="text-align:left">${esc(s.semana)}</td>
+        <td style="color:var(--t3)">${dataBR(s.janela?.de)} → ${dataBR(s.janela?.ate)}</td>
+        <td class="num" style="color:var(--t3)">${s.varridos??'—'}</td>
+        <td class="num ouro">${s.captados}</td>
+        <td class="num">${s.novos}</td>
+        <td class="num" style="color:var(--t3)">${s.revogados_pela_doutrina_atual??0}</td>
+      </tr>`).join('')}</tbody>
+    </table></div></section>`;
+}
+
+function nota(m){
+  return `<div class="nota"><b>Procedência:</b> 100% derivado de dado público do PNCP já captado
+    (<code>radar/semanas/*.json</code>) por <code>scripts/indexar-mercado.mjs</code>. Nada buscado na hora,
+    nada estimado, nada inventado — o índice só soma o que foi publicado.
+    <b>Os filtros atuais são reaplicados a todo o histórico</b> na indexação, então o que
+    <code>radar/filtros.json</code> passa a reprovar desaparece daqui.
+    Captação não é análise: o que interessar vira frente em <code>frentes/</code>.</div>`;
+}
+
+function vazio(){
+  document.getElementById('main').innerHTML = `
+    <div class="vazio">
+      <h3>Sem memória acumulada ainda</h3>
+      <p>O índice de mercado é derivado das semanas do radar. Rode, na ordem:</p>
+      <p><code>node scripts/radar-licitacoes.mjs</code> → <code>node scripts/indexar-mercado.mjs</code>
+         → <code>node scripts/build-dashboard.mjs</code></p>
+    </div>`;
+}
+</script>
+</body>
+</html>

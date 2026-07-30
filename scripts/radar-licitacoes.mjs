@@ -21,6 +21,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { carregarFiltros } from "./lib/filtro-radar.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -48,56 +49,9 @@ function semanaISO(data) {
   return `${d.getUTCFullYear()}-${String(semana).padStart(2, "0")}`;
 }
 
-// ---------- normalização de texto (acento-insensível) ----------
-const normalizar = (s) =>
-  String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-
-// ---------- filtros ----------
-const filtros = JSON.parse(readFileSync(FILTROS_PATH, "utf8"));
-// Dedupe por forma normalizada: "central de regulação" e "central de regulacao" são o
-// MESMO termo depois de normalizar — contá-las duas vezes infla o score. Vale entre grupos.
-const _jaVisto = new Set();
-// Casamento por PALAVRA INTEIRA. Sem isso, "samu" casa dentro de "SAMUEL" — e o radar
-// oferece show de rock como oportunidade de SAMU (aconteceu na primeira captação real).
-const escRegex = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const comoRegex = (norm) => new RegExp(`(^|[^a-z0-9])${escRegex(norm)}([^a-z0-9]|$)`);
-const grupos = Object.entries(filtros.termos).map(([nome, g]) => ({
-  nome,
-  peso: g.peso,
-  termos: g.lista
-    .map((t) => ({ original: t, norm: normalizar(t) }))
-    .filter((t) => (_jaVisto.has(t.norm) ? false : (_jaVisto.add(t.norm), true)))
-    .map((t) => ({ ...t, re: comoRegex(t.norm) })),
-}));
-const exAbsoluto   = (filtros.excluir?.absoluto?.lista || []).map(normalizar);
-const exInicio     = (filtros.excluir?.se_no_inicio?.lista || []).map(normalizar);
-const exInicioLen  = filtros.excluir?.se_no_inicio?.caracteres_inicio ?? 70;
-const exCondicional = (filtros.excluir?.condicional?.lista || []).map(normalizar);
+// ---------- filtros (doutrina compartilhada com o indexador de mercado) ----------
+const { filtros, pontuar } = carregarFiltros(FILTROS_PATH);
 const ufsAlvo = (filtros.ufs?.lista || []).map((u) => u.toUpperCase());
-
-/** Pontua um texto de objeto. Retorna {score, termos, temNucleo}. */
-function pontuar(texto) {
-  const t = normalizar(texto);
-  let score = 0;
-  const termos = [];
-  let temNucleo = false;
-  for (const g of grupos) {
-    for (const termo of g.termos) {
-      if (termo.re.test(t)) {
-        score += g.peso;
-        termos.push(termo.original);
-        if (g.nome === "nucleo") temNucleo = true;
-      }
-    }
-  }
-  const inicio = t.slice(0, exInicioLen);
-  const motivoDescarte =
-      exAbsoluto.find((e) => t.includes(e)) ? "absoluto"
-    : exInicio.find((e) => inicio.includes(e)) ? "compra-de-bem"
-    : exCondicional.find((e) => t.includes(e)) ? "condicional"
-    : null;
-  return { score, termos, temNucleo, motivoDescarte };
-}
 
 // ---------- PNCP ----------
 async function buscarPagina(modalidade, de, ate, pagina) {

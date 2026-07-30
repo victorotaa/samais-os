@@ -58,6 +58,13 @@ Cada frente vive em `frentes/<slug>/`:
   `valor_contratual_mensal`, `atualizado_em`, `proximo_passo` (+ opcionais).
 - `fatos.md` — camada FACTUAL (pública, citável).
 - `interpretacao.md` — camada de INTERPRETAÇÃO ESTRATÉGICA (interna, confidencial).
+- `bastidor.md` — **BASTIDOR POLÍTICO-INSTITUCIONAL** (interna, confidencial): quem decide
+  (prefeito, vice, secretário de saúde, presidente de consórcio, pregoeiro), quem
+  influencia fora do organograma, relações encontradas **com fonte**, porta de entrada
+  recomendada, riscos políticos e histórico de contato. É o que decide a abordagem — sem
+  isso a proposta boa morre na porta errada.
+  **LGPD:** mínimo necessário, finalidade declarada (prospecção B2G), canal institucional
+  antes do pessoal, sem dado sensível, sem boato (Princípio da Realidade).
 
 Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência completa:
 `frentes/belem/`.

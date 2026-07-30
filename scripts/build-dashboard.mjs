@@ -32,6 +32,11 @@ const ALERTA_PADRAO_DIAS = 30;
 // Ferramentas embarcadas no bundle: origem → destino dentro de dashboard/
 const FERRAMENTAS = [{ de: join(ROOT, "ferramentas", "despesas"), para: join(DASH_DIR, "despesas") }];
 
+// Identidade visual canônica: doutrina/samais.css é a FONTE DE VERDADE dos tokens.
+// O build a distribui para cada superfície do bundle — nenhuma página redeclara cores.
+const CSS_CANONICO = join(ROOT, "doutrina", "samais.css");
+const CSS_DESTINOS = [join(DASH_DIR, "samais.css"), join(DASH_DIR, "despesas", "samais.css")];
+
 // ---------- validador de JSON Schema (subset draft-07) ----------
 function validate(data, schema, path = "") {
   const errors = [];
@@ -250,4 +255,14 @@ for (const { de, para } of FERRAMENTAS) {
   cpSync(de, para, { recursive: true });
   console.log(`✓ ${relative(ROOT, de)} → ${relative(ROOT, para)}`);
 }
+// ---------- distribui a identidade visual canônica ----------
+if (!existsSync(CSS_CANONICO)) {
+  console.error(`✖ Identidade visual ausente: ${relative(ROOT, CSS_CANONICO)}`);
+  process.exit(1);
+}
+for (const destino of CSS_DESTINOS) {
+  cpSync(CSS_CANONICO, destino);
+  console.log(`✓ ${relative(ROOT, CSS_CANONICO)} → ${relative(ROOT, destino)}`);
+}
+
 console.log("✓ pacote publicável montado em dashboard/ (home + cockpit + ferramentas).");

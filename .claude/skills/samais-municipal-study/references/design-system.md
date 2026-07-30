@@ -1,6 +1,13 @@
 # Design System — Samais Dark Mode
 ## Referência canônica para estudos municipais Samais
 ## Paleta e componentes alinhados ao padrão de Sorriso/MT
+> ⛔ **PALETA LEGADO — SUBSTITUÍDA.** Os hex deste arquivo (`#060709`, `#C9A84C`,
+> Plus Jakarta Sans, cyan `#16a085`) são de uma geração anterior dos estudos e **não são
+> mais a identidade Samais**. A paleta canônica é `samais-os/doutrina/samais.css`
+> (fundo `#0A0A0A`, ouro `#B8954E`, corpo Inter 300, liquid glass).
+> Mantido apenas como referência histórica dos componentes de estudo. Ao produzir peça
+> nova, importe `samais.css`. Ver `doutrina/design-system.md` → "Por que a identidade derivava".
+
 
 ---
 

@@ -1,80 +1,94 @@
-# Design System — Samais (dark-luxury institucional)
+# Design System — Samais (dark liquid-glass · gold-on-black)
 
-> Fonte migrada de `samais-brand-guidelines/SKILL.md` + `samais-municipal-study/
-> references/design-system.md`. Estética dark-luxury editorial: profundidade,
-> sobriedade, autoridade técnica. Distinta da paleta operacional de campo do SAMU
-> (navy/vermelho/branco) — esta identidade é INSTITUCIONAL (dossiês, propostas,
-> apresentações a secretarias e investidores).
+> **Verdade única:** os tokens vivem em **[`samais.css`](samais.css)**, neste mesmo diretório.
+> Este documento explica; **o CSS decide**. Se os dois divergirem, o CSS ganha.
 
-## Tokens canônicos (institucional / dashboard)
+## Por que a identidade derivava (o problema que isto resolve)
 
-```css
-:root {
-  /* Backgrounds */
-  --bg:        #04060C;  /* navy-black profundo */
-  --card:      #0A0E18;  /* superfície elevada (até #0D1220) */
-  --border:    rgba(212,168,87,.14);
-  --border-soft: rgba(255,255,255,.06);
+Havia **três paletas "canônicas"** vivas ao mesmo tempo, e nenhuma declarada vencedora.
+Cada peça nova herdava o arquivo que quem produziu leu primeiro:
 
-  /* Ouro — acento de autoridade (escasso: ≤10% da superfície) */
-  --gold:      #D4A857;
-  --gold-dim:  rgba(212,168,87,.55);
+| Fonte | Fundo | Ouro | Corpo | Status |
+|---|---|---|---|---|
+| `samais-rota` + `samais-estudos/css/samais.css` | `#0A0A0A` | `#B8954E` | Inter 300 | ✅ **CANÔNICA** (produção) |
+| `samais-os/doutrina/design-system.md` (versão antiga) | `#04060C` | `#D4A857` | Inter 400 | ⛔ substituída |
+| `samais-municipal-study/references/design-system.md` | `#060709` | `#C9A84C` | Plus Jakarta Sans | ⛔ legado dos estudos |
 
-  /* Texto */
-  --text:      #EDEAE2;  /* off-white quente — nunca #FFF puro em bloco longo */
-  --text-2:    #B0AEA5;
-  --text-3:    #9A968C;
+Não era descuido — era **conflito de especificação**. A lição: *doutrina em prosa deriva;
+token em arquivo não.* Por isso a paleta agora é **código**, distribuído pelo build.
 
-  /* Semânticas (parcimônia) */
-  --amber:     #DD8D0C;  /* alerta/risco */
-  --red:       #C20D2F;  /* crítico */
-  --green:     #5F8C6A;  /* positivo/validado */
+## Precedência (quando houver dúvida)
 
-  /* Tipografia */
-  --f-display: 'Syne', system-ui, sans-serif;      /* 600–800 */
-  --f-body:    'Inter', system-ui, sans-serif;      /* 400/500 */
-  --f-mono:    'JetBrains Mono', monospace;          /* 400/500 */
-}
+1. **`doutrina/samais.css`** — os tokens. Fonte de verdade.
+2. **A produção** (`samais-estudos/css/samais.css`) — se divergir do item 1, a produção
+   está certa e o item 1 é corrigido para bater.
+3. Este documento e as skills — explicam, não decidem.
+
+## Tokens
+
+```
+Base        --bg #0A0A0A · --s1 #131313 · --s2 #1A1A1A · --divider #262626
+Ouro        --gold #B8954E · --gold-soft #D4B373 · --gold-deep #8E7238
+Semântica   --green #1E7A4B (validado) · --amber #B8804E · --red #A33044
+Texto       --text #F4F1EA · --text-2 #D9D2C5 · --muted #9C9489 · --dim #615C53
+Tipografia  --display Syne · --body Inter 300 · --mono JetBrains Mono
 ```
 
-Import de fontes:
+**Ouro é escasso: ≤10% da superfície.** Se tudo é dourado, nada é. Uso: número-chave,
+uma divisória, ícone de seção. O verde é **selo funcional** (validado/verificado) — nunca
+decoração.
+
+**Dados sempre em JetBrains Mono**, com `font-variant-numeric: tabular-nums` (classe
+`.dado`). Nunca dado em Syne.
+
+## Como usar (não redeclare cores)
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
 ```
 
-> **Variante de estudo municipal (skill `samais-municipal-study`):** os HTMLs de
-> estudo usam uma paleta próxima porém distinta — `--bg #060709`, `--gold #C9A84C`,
-> corpo em **Plus Jakarta Sans**, com cyan institucional `#16a085`. É intencional
-> (legado do padrão Sorriso/MT). Ao gerar um estudo, seguir a referência da skill;
-> para dashboard/peças institucionais novas, seguir os tokens canônicos acima.
-> <!-- TODO: diretoria decidir se unifica as duas paletas numa só. -->
+Depois use os tokens. **Nenhuma página deve ter um `:root` com cores** — se você está
+escrevendo um hex, provavelmente está errado. O build (`scripts/build-dashboard.mjs`)
+copia `samais.css` para cada superfície do bundle.
 
-## Tipografia — regras
+Componentes prontos: `.glass` e `.glass-sutil` (material), `.marca` (wordmark/monograma),
+`.topbar` + `.barra-vidro` (barra fixa), `.eyebrow`, `.dado`, `.mono`.
 
-1. **Hierarquia:** kicker em caps pequenas douradas → título Syne grande → corpo
-   Inter com line-height ≥1.6.
-2. **Dados sempre em JetBrains Mono** — R$, %, BDI, populações, frotas, IDs, códigos
-   de lei. Nunca dados em Syne.
-3. **Dourado é escasso:** ≤10% da superfície. Se tudo é dourado, nada é. Uso:
-   números-chave, uma linha divisória, ícones de seção.
+## Liquid glass (o material)
+
+Superfície translúcida com `backdrop-filter: blur(22px) saturate(150%)`, borda
+`rgba(255,255,255,.12)`, **brilho especular interno no topo** (`inset 0 1px 0
+rgba(255,255,255,.16)`), sombra profunda e cantos 18px. Sobre um **brilho ambiente
+radial** fixo no fundo (ouro + verde) — é isso que o vidro tem para refratar; sem ele o
+efeito não aparece.
+
+**Refração real** (`feDisplacementMap` via `url(#glassDistort)`) é opcional, exige um
+`<svg>` inline na página e só funciona em Chromium. Reservada a **peças de apresentação**
+(estudos, dossiês). **Ferramentas de uso diário ficam no blur**, que é universal e não
+custa performance no celular.
+
+## Marca
+
+Wordmark no desktop, **monograma `SA+` no mobile** (colapsa, não desaparece) — componente
+`.marca`. A marca **nunca** em fonte genérica; o fallback do display é Arial Black, não
+serifa. Se o SVG oficial do vault (Drive) estiver disponível, ele substitui o componente.
 
 ## Regras de aplicação
 
-- **Audiência EXTERNA:** aplicar **padrão FRIO** (ver `padrao-frio.md`) — a identidade
-  visual permanece, mas sem linguagem persuasiva e sem expor metodologia proprietária.
-- **Separação de camadas:** camada FACTUAL (edital, lei, dados) visualmente distinta da
-  camada de INTERPRETAÇÃO ESTRATÉGICA (ex.: blocos com borda âmbar). Nunca fundir.
-- **Precificação:** sempre BDI decomposto em tabela mono; nunca "lucro"/"taxa de
-  administração" (ver `precificacao.md`).
+- **Audiência EXTERNA:** aplicar **padrão FRIO** ([`padrao-frio.md`](padrao-frio.md)) — a
+  identidade permanece, a linguagem persuasiva sai.
+- **Camadas:** FACTUAL visualmente distinta da INTERPRETAÇÃO ESTRATÉGICA. Nunca fundir.
+- **Precificação:** BDI decomposto em tabela mono; nunca "lucro" ([`precificacao.md`](precificacao.md)).
 - **Cenários:** Mínimo / Base / Amplo, nesta ordem; Base com badge "★ RECOMENDADO".
-- **Gráficos:** SVG/CSS puro ou Chart.js/Recharts com fundo transparente, grid
-  `rgba(255,255,255,.05)`, série principal em ouro, secundárias em cinza-quente,
-  labels em Mono.
+- **Mobile:** alvo de toque ≥44px; conteúdo largo (tabela, gráfico) rola no **próprio**
+  container, nunca o `body`; número não quebra linha (`white-space:nowrap`).
+- **`[hidden]` tem que ganhar:** um `display:flex` de autor vence o `hidden` e o elemento
+  reaparece — `samais.css` já força `[hidden]{display:none!important}`.
 
 ## O que NUNCA fazer
 
-- Misturar a paleta institucional com a operacional SAMU (vermelho vivo) na mesma peça.
-- Brasões municipais em peças de vídeo/institucionais.
-- Gradientes coloridos, neon, glassmorphism genérico de template.
-- Emojis em documentos institucionais.
+- Redeclarar cor em página (use os tokens).
+- Misturar a paleta institucional com a operacional do SAMU (vermelho vivo).
+- Brasão municipal em peça de vídeo/institucional.
+- Gradiente colorido, neon, glassmorphism genérico de template.
+- Emoji em documento institucional (use glifo tipográfico).

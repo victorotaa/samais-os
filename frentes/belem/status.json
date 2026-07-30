@@ -5,11 +5,10 @@
   "estagio": "contratado",
   "score": 7.5,
   "valor_contratual_mensal": 8100000,
-  "implantacao_em": "2026-09-28",
   "populacao": 1303403,
   "operador_atual": "prefeitura",
   "verdict": "go",
   "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
   "atualizado_em": "2026-07-30",
-  "proximo_passo": "FECHADO. Implantação prevista para ~28/09/2026 (janela de ~60 dias declarada em 30/07/2026). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base."
+  "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, SEM data contratual confirmada — por isso nenhuma data está registrada). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base."
 }

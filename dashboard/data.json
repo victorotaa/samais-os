@@ -8,27 +8,27 @@
   "fechado_mensal": 8100000,
   "implantacoes": [
     {
-      "frente": "Canoas",
-      "uf": "RS",
-      "slug": "canoas",
-      "implantacao_em": "2026-08-29",
-      "dias_restantes": 30,
-      "valor_contratual_mensal": null
-    },
-    {
       "frente": "Belém",
       "uf": "PA",
       "slug": "belem",
-      "implantacao_em": "2026-09-28",
-      "dias_restantes": 60,
+      "implantacao_em": null,
+      "dias_restantes": null,
       "valor_contratual_mensal": 8100000
+    },
+    {
+      "frente": "Canoas",
+      "uf": "RS",
+      "slug": "canoas",
+      "implantacao_em": null,
+      "dias_restantes": null,
+      "valor_contratual_mensal": null
     },
     {
       "frente": "Taboão da Serra",
       "uf": "SP",
       "slug": "taboao",
-      "implantacao_em": "2026-09-28",
-      "dias_restantes": 60,
+      "implantacao_em": null,
+      "dias_restantes": null,
       "valor_contratual_mensal": null
     }
   ],
@@ -40,13 +40,12 @@
       "estagio": "contratado",
       "score": 7.5,
       "valor_contratual_mensal": 8100000,
-      "implantacao_em": "2026-09-28",
       "populacao": 1303403,
       "operador_atual": "prefeitura",
       "verdict": "go",
       "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
       "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para ~28/09/2026 (janela de ~60 dias declarada em 30/07/2026). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
+      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, SEM data contratual confirmada — por isso nenhuma data está registrada). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
       "_slug": "belem"
     },
     {
@@ -70,11 +69,10 @@
       "estagio": "contratado",
       "score": 0,
       "valor_contratual_mensal": null,
-      "implantacao_em": "2026-08-29",
       "operador_atual": null,
       "verdict": "go",
       "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO — a implantação MAIS PRÓXIMA das três (~29/08/2026, janela de 30 dias declarada em 30/07/2026). A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
+      "proximo_passo": "FECHADO — pela janela declarada (~30 dias em 30/07/2026) é a implantação MAIS PRÓXIMA das três, mas a data ainda não está confirmada e por isso não é registrada. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
       "_slug": "canoas"
     },
     {
@@ -107,11 +105,10 @@
       "estagio": "contratado",
       "score": 0,
       "valor_contratual_mensal": null,
-      "implantacao_em": "2026-09-28",
       "operador_atual": null,
       "verdict": "go",
       "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para ~28/09/2026 (janela de ~60 dias declarada em 30/07/2026). A levantar: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
+      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, sem data contratual confirmada). A levantar: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
       "_slug": "taboao"
     },
     {

@@ -51,18 +51,35 @@
   "excluir": {
     "_doc": "Ruído em três níveis de força — porque 'SAMU' aparecer no texto não faz de uma COMPRA DE MONITOR uma oportunidade de gestão.",
     "absoluto": {
-      "_doc": "Casa em qualquer posição → descarta, mesmo com termo do núcleo. Não é o negócio, ponto.",
+      "_doc": "Casa em qualquer posição (palavra inteira) → descarta, mesmo com termo do núcleo. Inclui o ruído que a 1ª captação real trouxe: peças/manutenção/seguro de veículo e eventos.",
       "lista": [
         "obra de engenharia",
         "pavimentação",
         "reforma predial",
         "coleta de resíduos",
         "licença de software",
-        "gêneros alimentícios"
+        "gêneros alimentícios",
+        "pecas para",
+        "peças para",
+        "pecas e acessorios",
+        "peças e acessórios",
+        "manutencao do veiculo",
+        "manutenção do veículo",
+        "manutencao de veiculos",
+        "manutenção de veículos",
+        "recuperacao de veiculo",
+        "recuperação de veículo",
+        "seguro para o",
+        "apolice de seguro",
+        "apólice de seguro",
+        "show",
+        "banda",
+        "evento festivo",
+        "festividade"
       ]
     },
     "se_no_inicio": {
-      "_doc": "Se o OBJETO COMEÇA com isso, é compra de bem — descarta mesmo com núcleo. Objeto de edital declara a natureza no início; serviço de gestão nunca começa com 'Aquisição de'.",
+      "_doc": "Se o OBJETO COMEÇA com isso, não é contratação de serviço de gestão — é compra de bem ou lançamento contábil (empenho/despesa). Descarta mesmo com núcleo.",
       "caracteres_inicio": 70,
       "lista": [
         "aquisição de",
@@ -70,7 +87,20 @@
         "registro de preços",
         "fornecimento de material",
         "fornecimento de medicamento",
-        "locação de veículo"
+        "locação de veículo",
+        "vr. ref",
+        "vr ref",
+        "valor referente",
+        "o valor que se empenha",
+        "despesa proveniente",
+        "despesa com",
+        "pagamento de",
+        "empenho",
+        "contribuicao financeira",
+        "contribuição financeira",
+        "reembolso",
+        "reforco de empenho",
+        "reforço de empenho"
       ]
     },
     "condicional": {

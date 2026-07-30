@@ -69,6 +69,31 @@ Cada frente vive em `frentes/<slug>/`:
 Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência completa:
 `frentes/belem/`.
 
+## Central de inteligência (o que o OS é)
+
+O Samais-OS é a **central de inteligência** da empresa: onde a informação entra, acumula e
+é consultada. Três regras sustentam isso — violar qualquer uma devolve o OS à condição de
+pasta de arquivos.
+
+1. **Captação tem que acumular.** Uma varredura solta é foto, não inteligência. Todo domínio
+   de captação precisa de uma camada derivada que some o histórico (`radar/` → `inteligencia/mercado/`).
+   Se um dado só existe na última rodada, ele não está no OS — está de passagem.
+2. **Derivação re-aplica a doutrina atual ao passado.** Regra nova vale para trás. O critério
+   de prospecção vive em um único módulo (`scripts/lib/filtro-radar.mjs`) usado tanto na
+   captação quanto na memória; recalibrar `radar/filtros.json` limpa o histórico na próxima
+   indexação, sem varrer a fonte de novo.
+3. **Duas camadas, fronteira física.** O que pode ser citado e o que não pode nunca moram no
+   mesmo arquivo:
+
+| Camada | Onde | Vai ao ar? |
+|---|---|---|
+| **Citável** — fato público com fonte, mercado (PNCP), benchmarks | `fatos.md`, `inteligencia/mercado/`, `radar/` | sim |
+| **Confidencial** — leitura estratégica, bastidor político, contatos | `interpretacao.md`, `bastidor.md`, `doutrina/` | **nunca** |
+
+⚠️ **A camada citável hoje está em URL pública** (`samais-os-dashboard.vercel.app`). Enquanto
+não houver controle de acesso, **nada confidencial entra no bundle** — e ao criar uma página
+nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi copiado.
+
 ## Domínios de dados (mesmo padrão: schema + arquivo + build + página)
 
 - **`frentes/`** — pipeline comercial (ver abaixo).
@@ -79,6 +104,12 @@ Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência co
   **doutrina de prospecção como configuração** (núcleo 10 · adjacente 5 · contexto 2;
   exclusão de ruído em 3 níveis). Roda por GitHub Actions toda segunda; histórico em
   `radar/semanas/AAAA-SS.json`. Captação **não** é análise — o que interessar vira frente.
+- **`inteligencia/mercado/`** — **memória acumulada** do radar (`indice.json`, derivado —
+  nunca editar à mão). Responde o que uma semana não responde: recorrência por município
+  (sinal mais forte), concentração por UF, faixa de valor publicada. Gerado por
+  `scripts/indexar-mercado.mjs`; ver `inteligencia/mercado/README.md`.
+  ⚠️ `valor_estimado` do PNCP é o **total do certame** (vigência inteira, às vezes plurianual),
+  **nunca mensal** — comparar direto com `valor_contratual_mensal` infla o mercado em 12× ou mais.
 
 ## Ferramentas
 
@@ -89,8 +120,12 @@ Modelo em branco: `frentes/_schema/_template-frente/`. Semente de referência co
 
 ## Build e pacote publicável
 
+Ordem completa (o build é o último passo, sempre):
+
 ```
-node scripts/build-dashboard.mjs      # valida frentes → data.json + copia ferramentas/ → dashboard/
+node scripts/radar-licitacoes.mjs     # captação da semana no PNCP (roda por Actions toda segunda)
+node scripts/indexar-mercado.mjs      # acumula na memória de mercado, re-aplicando os filtros atuais
+node scripts/build-dashboard.mjs      # valida frentes/obrigações → data.json + monta o bundle
 npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetch do data.json)
 ```
 
@@ -98,11 +133,13 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
+- `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.
 - `dashboard/despesas/` — cópia de `ferramentas/despesas/` (**gerada**, fora do git).
 - `dashboard/data.json` — gerado das frentes.
 
-A camada confidencial (`frentes/**/interpretacao.md`, `doutrina/`) **nunca** entra no bundle.
+A camada confidencial (`frentes/**/interpretacao.md`, `frentes/**/bastidor.md`, `doutrina/`)
+**nunca** entra no bundle.
 
 ## Skills proprietárias (canônicas aqui)
 

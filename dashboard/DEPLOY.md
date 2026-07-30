@@ -14,7 +14,7 @@ O que vai ao ar é o **bundle estático montado pelo build** — sempre rode
 | `despesas/` | Prestação de contas — **cópia gerada** de `ferramentas/despesas/` |
 | `data.json` | Gerado de `frentes/**/status.json` (o build falha se algum for inválido) |
 
-**A camada confidencial não é publicada:** `frentes/**/interpretacao.md` e `doutrina/`
+**A camada confidencial não é publicada:** `frentes/**/interpretacao.md`, `frentes/**/bastidor.md` e `doutrina/`
 ficam fora do bundle — o build só copia o que está declarado como ferramenta.
 
 ---

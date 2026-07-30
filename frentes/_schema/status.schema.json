@@ -68,7 +68,7 @@
     },
     "implantacao_em": {
       "type": ["string", "null"],
-      "description": "Data PREVISTA de início da implantação (AAAA-MM-DD). Obrigatória na prática quando estagio='contratado' — é o prazo que organiza contratação de equipe, frota e habilitação. Se a previsão veio como janela ('~60 dias'), registrar a data derivada e declarar a origem em proximo_passo: previsão não é fato.",
+      "description": "Data CONFIRMADA de início da implantação (AAAA-MM-DD) — o prazo que organiza contratação de equipe, frota e habilitação. Preencher SÓ com data contratual confirmada. Janela declarada verbalmente ('~60 dias') NÃO vira data aqui: deriva um número que parece fato e não é. Nesse caso, deixar ausente e descrever a janela em proximo_passo — o cockpit mostra a frente como 'previsão a confirmar', que é a verdade.",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     },
     "populacao": {

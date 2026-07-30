@@ -364,12 +364,14 @@ fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
 function renderImplantacoes(lista){
   if(!lista.length) return;
   const el = document.getElementById('implanta');
+  // Sem data confirmada não se inventa data nem se some com a frente: a contagem regressiva
+  // simplesmente não aparece, e o item diz o que é.
   const itens = lista.map(i=>`
     <span class="it">
-      <span class="d">${i.dias_restantes}<small> d</small></span>
-      <span class="nm">${esc(i.frente)}<small>${esc(i.uf)} · ${dataBR(i.implantacao_em)}</small></span>
+      ${i.dias_restantes!=null ? `<span class="d">${i.dias_restantes}<small> d</small></span>` : ''}
+      <span class="nm">${esc(i.frente)}<small>${esc(i.uf)} · ${i.implantacao_em ? dataBR(i.implantacao_em) : 'previsão a confirmar'}</small></span>
     </span>`).join('<span class="sep2">|</span>');
-  el.innerHTML = `<span class="tt">Implantações contratadas — previsão</span>${itens}
+  el.innerHTML = `<span class="tt">Contratadas, aguardando implantação</span>${itens}
     <span class="go">Ver frentes →</span>`;
   el.hidden = false;
 }

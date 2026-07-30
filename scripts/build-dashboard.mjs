@@ -273,16 +273,23 @@ const ativos = frentes.filter((f) => f.estagio === "contrato-ativo");
 // OS reportar receita que ainda não entrou; ignorar esconderia o compromisso já assumido.
 const contratados = frentes.filter((f) => f.estagio === "contratado");
 const fechadoMensal = [...ativos, ...contratados].reduce((s, f) => s + (f.valor_contratual_mensal || 0), 0);
-// implantação mais próxima primeiro — é o prazo que organiza equipe, frota e habilitação
+// Toda frente contratada entra aqui, TENHA OU NÃO data confirmada: "fechado e aguardando
+// implantação" é fato; a data é que pode não estar fechada. Quem tem data vai primeiro e
+// com contagem regressiva; quem não tem aparece como previsão a confirmar, nunca com data
+// inventada para preencher a coluna.
 const implantacoes = contratados
-  .filter((f) => f.implantacao_em)
   .map((f) => ({
     frente: f.frente, uf: f.uf, slug: f._slug,
-    implantacao_em: f.implantacao_em,
-    dias_restantes: diasEntre(f.implantacao_em, hojeISO),
+    implantacao_em: f.implantacao_em ?? null,
+    dias_restantes: f.implantacao_em ? diasEntre(f.implantacao_em, hojeISO) : null,
     valor_contratual_mensal: f.valor_contratual_mensal ?? null,
   }))
-  .sort((a, b) => a.dias_restantes - b.dias_restantes);
+  .sort((a, b) => {
+    if (a.dias_restantes == null && b.dias_restantes == null) return a.frente.localeCompare(b.frente, "pt-BR");
+    if (a.dias_restantes == null) return 1;
+    if (b.dias_restantes == null) return -1;
+    return a.dias_restantes - b.dias_restantes;
+  });
 
 const data = {
   gerado_em: new Date().toISOString().slice(0, 10),
@@ -308,7 +315,8 @@ if (contratados.length || ativos.length) {
   console.log(`  Fechado: ${contratados.length} contratado(s) + ${ativos.length} em operação` +
     ` — R$ ${fechadoMensal.toLocaleString("pt-BR")}/mês`);
   for (const i of implantacoes) {
-    console.log(`   ↳ ${i.frente}/${i.uf}: implanta em ${i.implantacao_em} (${i.dias_restantes} dia(s))`);
+    console.log(`   ↳ ${i.frente}/${i.uf}: ` +
+      (i.implantacao_em ? `implanta em ${i.implantacao_em} (${i.dias_restantes} dia(s))` : "implantação sem data confirmada"));
   }
 }
 if (resumoObrig.total) {

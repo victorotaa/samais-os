@@ -13,7 +13,9 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
 - **`ArchBrand`** = outra marca. **Nada de ArchBrand entra aqui.**
 - **Produtos com deploy Vercel ativo** (`samais-copilot`, `samais-pep`) **NÃO são
   absorvidos** — continuam repos próprios e deployáveis. Aqui entram só como
-  referência (`produtos/`).
+  referência (`produtos/`). **Decisão de 30/07/2026: a unificação é na propriedade
+  (organização GitHub `samais`), não no código — monorepo foi avaliado e recusado.**
+  Motivos e passos: `transversais/tecnologia-jarvis/organizacao-github.md`.
 
 ## Como ler este repo (ordem)
 

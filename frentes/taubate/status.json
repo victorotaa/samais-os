@@ -1,0 +1,13 @@
+{
+  "frente": "Taubaté",
+  "uf": "SP",
+  "servico": "SAMU",
+  "estagio": "proposta",
+  "score": 0,
+  "valor_contratual_mensal": null,
+  "operador_atual": null,
+  "verdict": "atencao",
+  "gatilho": "Proposta antiga da Samais, sem desfecho",
+  "atualizado_em": "2026-07-30",
+  "proximo_passo": "STAND-BY por decisão interna. Não está morta (por isso não arquivada) e não está andando. A retomar: recuperar a proposta original, checar se o valor ainda fecha com os parâmetros atuais (BDI 35%, FC 4,5) e identificar o que travou. ⚠️ Serviço=SAMU é premissa a validar."
+}

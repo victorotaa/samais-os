@@ -32,6 +32,28 @@ h1 .d{color:var(--gold)}
 .strip .v{font-family:var(--fd);font-weight:700;font-size:22px;color:var(--gold);margin-top:5px;
   font-variant-numeric:tabular-nums;white-space:nowrap}
 
+/* faixa de implantações contratadas — contagem regressiva do que já foi assinado */
+.implanta{display:flex;align-items:center;gap:16px;margin:20px 0 0;padding:15px 18px;border-radius:13px;
+  background:rgba(30,122,75,.1);border:1px solid rgba(30,122,75,.34);text-decoration:none;flex-wrap:wrap}
+.implanta .tt{font-family:var(--fm);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--t3);flex:0 0 100%}
+.implanta .it{display:flex;align-items:baseline;gap:8px}
+.implanta .d{font-family:var(--fd);font-weight:800;font-size:21px;color:var(--gold);line-height:1;
+  font-variant-numeric:tabular-nums}
+.implanta .d small{font-family:var(--fb);font-weight:400;font-size:11px;color:var(--t3)}
+.implanta .nm{font-size:14px;color:var(--text)}
+.implanta .nm small{display:block;font-size:11.5px;color:var(--t3);font-family:var(--fm)}
+.implanta .sep2{color:var(--dim)}
+.implanta .go{font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold-dim);margin-left:auto}
+.implanta:hover .go{color:var(--gold)}
+@media(max-width:720px){
+  .implanta{gap:12px}
+  .implanta .it{flex:0 0 100%}
+  .implanta .sep2{display:none}
+  .implanta .go{margin-left:0}
+}
+
 /* faixa de alerta de obrigações */
 .alerta{display:flex;align-items:center;gap:14px;margin:20px 0 0;padding:14px 18px;border-radius:13px;
   background:rgba(221,141,12,.09);border:1px solid rgba(221,141,12,.32);text-decoration:none}
@@ -159,10 +181,11 @@ footer i{font-family:var(--fb);font-style:italic}
   <div class="tag">Onde gestão se mede em vidas.</div>
   <div class="strip" id="strip">
     <div><div class="l">Frentes</div><div class="v">—</div></div>
-    <div><div class="l">Contratos ativos</div><div class="v">—</div></div>
+    <div><div class="l">Fechado</div><div class="v">—</div></div>
+    <div><div class="l">Fechado / mês</div><div class="v">—</div></div>
     <div><div class="l">Pipeline / mês</div><div class="v">—</div></div>
-    <div><div class="l">Pipeline / ano</div><div class="v">—</div></div>
   </div>
+  <a class="implanta" id="implanta" href="./frentes.html" hidden></a>
   <a class="alerta" id="alerta" href="./obrigacoes.html" hidden></a>
 </div></header>
 
@@ -194,14 +217,14 @@ footer i{font-family:var(--fb);font-style:italic}
       </a>
 
       <a class="card" href="./mercado.html">
-        <span class="ico">◫</span>
+        <span class="ico">▥</span>
         <h3>Mercado</h3>
         <p>A memória do radar somada: quem volta ao mercado, onde a demanda se concentra, que faixa de valor é publicada.</p>
         <span class="mais">Ver o acumulado</span>
       </a>
 
       <a class="card" href="./obrigacoes.html">
-        <span class="ico">⌛</span>
+        <span class="ico">◷</span>
         <h3>Calendário de Obrigações</h3>
         <p>Certidões, vigências, garantias e prazos de edital — com alerta antes do vencimento.</p>
         <span class="mais">Ver prazos</span>
@@ -290,12 +313,18 @@ footer i{font-family:var(--fb);font-style:italic}
 
 <script>
 const BRLmi = n => 'R$ ' + (n/1e6).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' mi';
+const dataBR = iso => { const p=(iso||'').slice(0,10).split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:(iso||'—'); };
 const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
-  const vals = [d.total_frentes, d.contratos_ativos, BRLmi(d.pipeline_mensal), BRLmi(d.pipeline_anual)];
+  // "Fechado" soma contratado (assinado, implantando) + contrato-ativo (operando) — são
+  // compromissos assumidos. Pipeline continua sendo o total, inclusive o que não fechou.
+  const fechado = (d.contratados||0) + (d.contratos_ativos||0);
+  const vals = [d.total_frentes, fechado, BRLmi(d.fechado_mensal||0), BRLmi(d.pipeline_mensal)];
   document.querySelectorAll('#strip .v').forEach((el,i)=>el.textContent = vals[i]);
   document.getElementById('stamp').textContent = 'dados de ' + d.gerado_em;
+
+  renderImplantacoes(d.implantacoes || []);
 
   const ro = d.resumo_obrigacoes || {vencidas:0,criticas:0,atencao:0};
   const urgente = ro.vencidas + ro.criticas;
@@ -329,6 +358,21 @@ fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
 }).catch(()=>{
   document.getElementById('stamp').textContent = 'rode: node scripts/build-dashboard.mjs';
 });
+
+// Implantações contratadas: o que já foi assinado e ainda não está rodando. É o prazo que
+// organiza contratação de equipe, frota e habilitação — mais próxima primeiro.
+function renderImplantacoes(lista){
+  if(!lista.length) return;
+  const el = document.getElementById('implanta');
+  const itens = lista.map(i=>`
+    <span class="it">
+      <span class="d">${i.dias_restantes}<small> d</small></span>
+      <span class="nm">${esc(i.frente)}<small>${esc(i.uf)} · ${dataBR(i.implantacao_em)}</small></span>
+    </span>`).join('<span class="sep2">|</span>');
+  el.innerHTML = `<span class="tt">Implantações contratadas — previsão</span>${itens}
+    <span class="go">Ver frentes →</span>`;
+  el.hidden = false;
+}
 
 // Produtos vêm de produtos/<slug>/produto.json (validado no build). Link sem procedência
 // verificada NÃO é apresentado como link — vira pendência visível.

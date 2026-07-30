@@ -33,13 +33,14 @@
     },
     "estagio": {
       "type": "string",
-      "description": "Estágio no funil de prospecção Samais.",
+      "description": "Estágio no funil de prospecção Samais. 'contratado' = fechado, implantação ainda não iniciada (use com implantacao_em); 'contrato-ativo' = operação rodando. Confundir os dois faz o OS reportar receita que ainda não entrou.",
       "enum": [
         "radar",
         "varredura",
         "estudo",
         "proposta",
         "negociacao",
+        "contratado",
         "contrato-ativo",
         "arquivada"
       ]
@@ -64,6 +65,11 @@
       "type": "string",
       "description": "Próxima ação tática concreta.",
       "minLength": 1
+    },
+    "implantacao_em": {
+      "type": ["string", "null"],
+      "description": "Data PREVISTA de início da implantação (AAAA-MM-DD). Obrigatória na prática quando estagio='contratado' — é o prazo que organiza contratação de equipe, frota e habilitação. Se a previsão veio como janela ('~60 dias'), registrar a data derivada e declarar a origem em proximo_passo: previsão não é fato.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     },
     "populacao": {
       "type": ["integer", "null"],

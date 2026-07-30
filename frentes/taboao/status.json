@@ -2,9 +2,12 @@
   "frente": "Taboão da Serra",
   "uf": "SP",
   "servico": "SAMU",
-  "estagio": "radar",
+  "estagio": "contratado",
   "score": 0,
   "valor_contratual_mensal": null,
-  "atualizado_em": "2026-07-11",
-  "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study). Referência histórica: lição de dimensionamento 148 vs 80."
+  "implantacao_em": "2026-09-28",
+  "operador_atual": null,
+  "verdict": "go",
+  "atualizado_em": "2026-07-30",
+  "proximo_passo": "FECHADO. Implantação prevista em ~60 dias contados de 30/07/2026 — data derivada da janela declarada, confirmar a data contratual. A levantar: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2."
 }

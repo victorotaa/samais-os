@@ -269,6 +269,20 @@ frentes.sort((a, b) => (b.score - a.score) || ((b.valor_contratual_mensal || 0) 
 
 const pipelineMensal = frentes.reduce((s, f) => s + (f.valor_contratual_mensal || 0), 0);
 const ativos = frentes.filter((f) => f.estagio === "contrato-ativo");
+// "contratado" = fechado, implantação ainda não iniciada. Somar com contrato-ativo faria o
+// OS reportar receita que ainda não entrou; ignorar esconderia o compromisso já assumido.
+const contratados = frentes.filter((f) => f.estagio === "contratado");
+const fechadoMensal = [...ativos, ...contratados].reduce((s, f) => s + (f.valor_contratual_mensal || 0), 0);
+// implantação mais próxima primeiro — é o prazo que organiza equipe, frota e habilitação
+const implantacoes = contratados
+  .filter((f) => f.implantacao_em)
+  .map((f) => ({
+    frente: f.frente, uf: f.uf, slug: f._slug,
+    implantacao_em: f.implantacao_em,
+    dias_restantes: diasEntre(f.implantacao_em, hojeISO),
+    valor_contratual_mensal: f.valor_contratual_mensal ?? null,
+  }))
+  .sort((a, b) => a.dias_restantes - b.dias_restantes);
 
 const data = {
   gerado_em: new Date().toISOString().slice(0, 10),
@@ -276,6 +290,9 @@ const data = {
   pipeline_mensal: pipelineMensal,
   pipeline_anual: pipelineMensal * 12,
   contratos_ativos: ativos.length,
+  contratados: contratados.length,
+  fechado_mensal: fechadoMensal,
+  implantacoes,
   frentes,
   obrigacoes,
   resumo_obrigacoes: resumoObrig,
@@ -287,6 +304,13 @@ const data = {
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
 console.log(`✓ ${frentes.length} frente(s) válida(s). dashboard/data.json gerado.`);
 console.log(`  Pipeline mensal (soma Cenário Base): R$ ${pipelineMensal.toLocaleString("pt-BR")}`);
+if (contratados.length || ativos.length) {
+  console.log(`  Fechado: ${contratados.length} contratado(s) + ${ativos.length} em operação` +
+    ` — R$ ${fechadoMensal.toLocaleString("pt-BR")}/mês`);
+  for (const i of implantacoes) {
+    console.log(`   ↳ ${i.frente}/${i.uf}: implanta em ${i.implantacao_em} (${i.dias_restantes} dia(s))`);
+  }
+}
 if (resumoObrig.total) {
   const alerta = resumoObrig.vencidas + resumoObrig.criticas;
   console.log(`✓ ${resumoObrig.total} obrigação(ões) no calendário` +

@@ -24,6 +24,8 @@ const OBRIG_DIR = join(ROOT, "obrigacoes");
 const RADAR_SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const OBRIG_SCHEMA_PATH = join(OBRIG_DIR, "_schema", "obrigacao.schema.json");
 const MERCADO_PATH = join(ROOT, "inteligencia", "mercado", "indice.json");
+const PRODUTOS_DIR = join(ROOT, "produtos");
+const PRODUTO_SCHEMA_PATH = join(PRODUTOS_DIR, "_schema", "produto.schema.json");
 const DASH_DIR = join(ROOT, "dashboard");
 const OUT_PATH = join(DASH_DIR, "data.json");
 
@@ -172,6 +174,34 @@ if (existsSync(OBRIG_SCHEMA_PATH)) {
   }
 }
 
+// ---------- produtos (como se acessa cada um: LP, sistema, documento) ----------
+const produtos = [];
+if (existsSync(PRODUTO_SCHEMA_PATH)) {
+  const prodSchema = JSON.parse(readFileSync(PRODUTO_SCHEMA_PATH, "utf8"));
+  for (const entry of readdirSync(PRODUTOS_DIR).sort()) {
+    if (entry.startsWith("_")) continue;
+    const full = join(PRODUTOS_DIR, entry, "produto.json");
+    if (!existsSync(full)) continue;
+    const rel = relative(ROOT, full);
+    let json;
+    try {
+      json = JSON.parse(readFileSync(full, "utf8"));
+    } catch (e) {
+      allErrors.push(`${rel}: JSON inválido — ${e.message}`);
+      continue;
+    }
+    const errs = validate(json, prodSchema);
+    if (errs.length) {
+      allErrors.push(...errs.map((e) => `${rel} → ${e}`));
+      continue;
+    }
+    produtos.push({ ...json, _slug: entry });
+  }
+  // o que dá para abrir agora vem primeiro; pendência de URL não fica no topo da home
+  const verificados = (p) => p.links.filter((l) => l.url && l.procedencia === "verificado").length;
+  produtos.sort((a, b) => verificados(b) - verificados(a) || a.produto.localeCompare(b.produto, "pt-BR"));
+}
+
 if (allErrors.length) {
   console.error("\n✖ Build falhou — arquivo(s) inválido(s):\n");
   for (const e of allErrors) console.error("  • " + e);
@@ -251,6 +281,7 @@ const data = {
   resumo_obrigacoes: resumoObrig,
   radar,
   mercado,
+  produtos,
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
@@ -274,6 +305,12 @@ if (mercado) {
     (rec ? ` — ${rec} município(s) recorrente(s)` : " — sem recorrência ainda"));
 } else {
   console.log("• índice de mercado ausente (rode: node scripts/indexar-mercado.mjs)");
+}
+if (produtos.length) {
+  const links = produtos.flatMap((p) => p.links);
+  const aConfirmar = links.filter((l) => l.procedencia === "a-confirmar").length;
+  console.log(`✓ ${produtos.length} produto(s) — ${links.length - aConfirmar} link(s) verificado(s)` +
+    (aConfirmar ? `, ⚠ ${aConfirmar} a confirmar` : ""));
 }
 
 // ---------- monta as ferramentas dentro do bundle ----------

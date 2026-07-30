@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Produto Samais (referência no OS)",
+  "description": "Um produto = um JSON. Registra COMO SE ACESSA (LP, sistema, documento) além do repositório. Produtos com deploy próprio não são absorvidos pelo samais-os — aqui fica o vínculo. Princípio da Realidade: URL sem fonte é 'a-confirmar', nunca apresentada como verificada.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["produto", "resumo", "repo", "estagio", "links", "atualizado_em"],
+  "properties": {
+    "produto": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Nome como se fala dele."
+    },
+    "resumo": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Uma linha: o que é. Padrão FRIO — factual, sem advocacy."
+    },
+    "repo": {
+      "type": "string",
+      "pattern": "^https://github\\.com/",
+      "description": "Repositório real. É onde se trabalha o produto."
+    },
+    "estagio": {
+      "type": "string",
+      "enum": ["documento", "prototipo", "demo", "piloto", "producao"],
+      "description": "Maturidade real, não aspiracional."
+    },
+    "links": {
+      "type": "array",
+      "description": "Como se acessa. Vazio é válido (produto sem superfície pública).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tipo", "rotulo", "procedencia"],
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": ["sistema", "lp", "documento", "api"],
+            "description": "sistema = o app; lp = página de venda; documento = peça institucional."
+          },
+          "rotulo": { "type": "string", "minLength": 2 },
+          "url": {
+            "type": ["string", "null"],
+            "description": "null = existe mas a URL não foi levantada. Nunca inventar."
+          },
+          "procedencia": {
+            "type": "string",
+            "enum": ["verificado", "a-confirmar"],
+            "description": "verificado exige fonte. Sem fonte é a-confirmar — e a superfície mostra isso."
+          },
+          "fonte": {
+            "type": "string",
+            "description": "Onde a URL está registrada. Obrigatório na prática quando procedencia=verificado."
+          }
+        }
+      }
+    },
+    "papel_no_os": {
+      "type": "string",
+      "description": "Por que este produto importa para a operação/proposta."
+    },
+    "atualizado_em": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  }
+}

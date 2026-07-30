@@ -1,0 +1,17 @@
+{
+  "produto": "PEP OS",
+  "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão. Rev1 com store em memória — sandbox, não produção.",
+  "repo": "https://github.com/victorotaa/samais-pep",
+  "estagio": "prototipo",
+  "links": [
+    {
+      "tipo": "sistema",
+      "rotulo": "Sandbox público",
+      "url": null,
+      "procedencia": "a-confirmar",
+      "fonte": "samais-pep/README.md documenta o procedimento de deploy (Root Directory = apps/web) e diz que a URL sai no padrão samais-pep-*.vercel.app, mas NÃO registra a URL final. A levantar no painel da Vercel."
+    }
+  ],
+  "papel_no_os": "Camada de registro clínico do ecossistema. O sandbox é efêmero (store em memória ressuscita o seed a cada cold start) — serve para demonstração, não para dado real.",
+  "atualizado_em": "2026-07-30"
+}

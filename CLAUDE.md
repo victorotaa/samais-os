@@ -111,6 +111,13 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   ⚠️ `valor_estimado` do PNCP é o **total do certame** (vigência inteira, às vezes plurianual),
   **nunca mensal** — comparar direto com `valor_contratual_mensal` infla o mercado em 12× ou mais.
 
+- **`produtos/`** — como se **acessa** cada produto, não só onde está o código. Um produto =
+  um `produto.json` validado contra `produtos/_schema/produto.schema.json`, com links
+  tipados (`sistema` · `lp` · `documento` · `api`). Cada link carrega `procedencia`:
+  `verificado` **exige `fonte`** (onde a URL está registrada); sem fonte é `a-confirmar` e a
+  home mostra como pendência tracejada — **nunca como link que funciona**. URL não se
+  adivinha (Princípio da Realidade aplicado a infraestrutura).
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do

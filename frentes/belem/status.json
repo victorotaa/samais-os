@@ -2,13 +2,14 @@
   "frente": "Belém",
   "uf": "PA",
   "servico": "SAMU",
-  "estagio": "estudo",
+  "estagio": "contratado",
   "score": 7.5,
   "valor_contratual_mensal": 8100000,
+  "implantacao_em": "2026-09-28",
   "populacao": 1303403,
   "operador_atual": "prefeitura",
-  "verdict": "atencao",
-  "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos em calibração com a diretoria",
-  "atualizado_em": "2026-07-11",
-  "proximo_passo": "Diligência de headcount real e confirmação da CCT-PA antes de fechar o dimensionamento (lição Taboão 148 vs 80)"
+  "verdict": "go",
+  "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
+  "atualizado_em": "2026-07-30",
+  "proximo_passo": "FECHADO. Implantação prevista em ~60 dias contados de 30/07/2026 — data derivada da janela declarada, ⚠️ confirmar a data contratual. Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base."
 }

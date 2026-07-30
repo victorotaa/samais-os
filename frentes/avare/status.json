@@ -1,10 +1,13 @@
 {
-  "frente": "Avaré",
+  "frente": "Avaré + Manduri",
   "uf": "SP",
   "servico": "SAMU",
-  "estagio": "radar",
+  "estagio": "negociacao",
   "score": 0,
   "valor_contratual_mensal": null,
-  "atualizado_em": "2026-07-11",
-  "proximo_passo": "Iniciar varredura (FASE 2 da skill samais-municipal-study)."
+  "operador_atual": null,
+  "verdict": "go",
+  "gatilho": "Estudo de município produzido (samais-estudos: avare-manduri-sp)",
+  "atualizado_em": "2026-07-30",
+  "proximo_passo": "NEGOCIAÇÃO AVANÇADA — a mais adiantada das frentes não fechadas. Fechar o valor contratual mensal com base no estudo já produzido e definir a data de implantação. Estudo: samais-estudos/estudos (avare-manduri-sp)."
 }

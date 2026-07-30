@@ -1,0 +1,217 @@
+{
+  "semana": "2026-31",
+  "janela": {
+    "de": "2026-06-30",
+    "ate": "2026-07-30"
+  },
+  "gerado_em": "2026-07-30",
+  "varridos": 1650,
+  "descartados": {
+    "ruido": 578,
+    "score": 1062,
+    "uf": 0,
+    "duplicadas": 0
+  },
+  "modalidades": [
+    "Dispensa de Licitação (1000)"
+  ],
+  "falhas": [
+    "Pregão Eletrônico: HTTP 500 em modalidade 6 pág 4",
+    "Concorrência Eletrônica: HTTP 422 em modalidade 4 pág 4",
+    "Concorrência Presencial: The operation was aborted due to timeout",
+    "Inexigibilidade: HTTP 429 em modalidade 9 pág 7",
+    "Credenciamento: HTTP 429 em modalidade 12 pág 1"
+  ],
+  "oportunidades": [
+    {
+      "id": "27167444000172-1-000105/2026",
+      "objeto": "Contratação do show com SAMUEL ROSA, a ser realizado no dia 06 seis de setembro de 2026 domingo, no Parque de Exposições e Eventos, Santa TeresaESO Show é uma das atrações do evento Primavera Teresense  6 Edição.",
+      "orgao": "MUNICIPIO DE SANTA TERESA",
+      "municipio": "Santa Teresa",
+      "uf": "ES",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 443750,
+      "modalidade": "Inexigibilidade",
+      "score": 10,
+      "termos_casados": [
+        "samu"
+      ],
+      "porte_a_revisar": false,
+      "fonte_url": "https://pncp.gov.br/app/editais/27167444000172-1-000105%2F2026",
+      "captado_em": "2026-07-30T10:36:05.824Z"
+    },
+    {
+      "id": "18260505000150-1-000099/2026",
+      "objeto": "Vr. ref. Contribuição financeira paga pelo Município de Prata/MG ao Consórcio Público Intermunicipal de Saúde da Rede de Urgência e Emergência da Macrorregião do Triângulo do Norte - CISTRI, destinada à manutenção e funcionamento deste último, aderindo assim às formalidades já constitudas e aprovadas pelos municípios fundadores do CISTRI e suas posteriores alterações.",
+      "orgao": "MUNICIPIO DE PRATA",
+      "municipio": "Prata",
+      "uf": "MG",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 187057.2,
+      "modalidade": "Dispensa de Licitação",
+      "score": 10,
+      "termos_casados": [
+        "urgência e emergência"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/18260505000150-1-000099%2F2026",
+      "captado_em": "2026-07-30T10:36:05.822Z"
+    },
+    {
+      "id": "82892290000190-1-000056/2026",
+      "objeto": "Contratação de empresa de engenharia especializada em fornecimento de materiais e mão de obra para execução da reforma da edificação da Base Descentralizada do SAMU 192 do Município de Antônio Carlos/SC",
+      "orgao": "MUNICIPIO DE ANTONIO CARLOS",
+      "municipio": "Antônio Carlos",
+      "uf": "SC",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": "2026-07-01T07:30:00",
+      "encerramento_proposta": "2026-07-16T08:59:00",
+      "valor_estimado": 171433.04,
+      "modalidade": "Concorrência Eletrônica",
+      "score": 10,
+      "termos_casados": [
+        "samu"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/82892290000190-1-000056%2F2026",
+      "captado_em": "2026-07-30T10:36:05.807Z"
+    },
+    {
+      "id": "11152150000137-1-000089/2026",
+      "objeto": "DESPESA PROVENIENTE PARA CONTRATAÇÃO DE PRESTAÇÃO DE SERVIÇOS DE INTERNET PARA O SERVIÇO DE ATENDIMENTO MÓVEL DE URGÊNCIA (SAMU).",
+      "orgao": "FUNDO MUNICIPAL DE SAUDE - GOIAS",
+      "municipio": "Goiás",
+      "uf": "GO",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 244.83,
+      "modalidade": "Dispensa de Licitação",
+      "score": 10,
+      "termos_casados": [
+        "samu"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/11152150000137-1-000089%2F2026",
+      "captado_em": "2026-07-30T10:36:05.813Z"
+    },
+    {
+      "id": "00394502000144-1-000137/2027",
+      "objeto": "Contratação de serviços de habilitação e reabilitação de saúde para os pacientes do Programa de Atendimento Especial (PAE) da Diretoria de Assistência Social da Marinha (DASM), por meio de clínicas e/ou profissionais de saúde autônomos, nas modalidades: ambulatorial e atendimento domiciliar (a ser prestado na residência do paciente quando este estiver impossibilitado temporariamente ou deﬁnitivamente de comparecimento às terapias). ",
+      "orgao": "COMANDO DA MARINHA",
+      "municipio": "Natal",
+      "uf": "RN",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 2868445,
+      "modalidade": "Inexigibilidade",
+      "score": 5,
+      "termos_casados": [
+        "profissionais de saúde"
+      ],
+      "porte_a_revisar": false,
+      "fonte_url": "https://pncp.gov.br/app/editais/00394502000144-1-000137%2F2027",
+      "captado_em": "2026-07-30T10:36:05.824Z"
+    },
+    {
+      "id": "05272451000100-1-000013/2026",
+      "objeto": "CONTRATAÇÃO DE EMPRESA ESPECIALIZADA PARA PRESTAÇÃO DE SERVIÇOS DE TRANSFORMAÇÃO E ADAPTAÇÃO DE UM VEÍCULO TIPO FURGÃO (AMBULÂNCIA EXISTENTE, REFERÊNCIA MB SPRINTER 417 CDI 10,5 M3) EM UNIDADE MÓVEL DE ESTERILIZAÇÃO DE CÃES E GATOS (CASTRAMÓVEL), VISANDO ATENDER AS NECESSIDADES DO CENTRO DE BEM-ESTAR ANIMAL (CEBEA) NO MUNICÍPIO DE IÇARA.",
+      "orgao": "FUNDACAO MUNICIPAL DO MEIO AMBIENTE",
+      "municipio": "Içara",
+      "uf": "SC",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 29800,
+      "modalidade": "Dispensa de Licitação",
+      "score": 5,
+      "termos_casados": [
+        "ambulância"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/05272451000100-1-000013%2F2026",
+      "captado_em": "2026-07-30T10:36:05.819Z"
+    },
+    {
+      "id": "01814099000128-1-000187/2026",
+      "objeto": "O VALOR QUE SE EMPENHA E REFERENTE DESPESA COM SEGURO PARA O CITROEN NOVO JUMPY FURGAO CARGO 1.5 TURBO - 4 PASS (AMBULÂNCIAS), PLACAS SDO9A35 E SDH9E22",
+      "orgao": "FUNDO MUNICIPAL DE SAUDE",
+      "municipio": "Goiatuba",
+      "uf": "GO",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 14003.52,
+      "modalidade": "Dispensa de Licitação",
+      "score": 5,
+      "termos_casados": [
+        "ambulância"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/01814099000128-1-000187%2F2026",
+      "captado_em": "2026-07-30T10:36:05.819Z"
+    },
+    {
+      "id": "87482535000124-1-001094/2026",
+      "objeto": "Pecas para manutencao do veiculo Ambulancia JBT7C43.",
+      "orgao": "MUNICIPIO DE DOM PEDRITO",
+      "municipio": "Dom Pedrito",
+      "uf": "RS",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 910,
+      "modalidade": "Dispensa de Licitação",
+      "score": 5,
+      "termos_casados": [
+        "ambulância"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/87482535000124-1-001094%2F2026",
+      "captado_em": "2026-07-30T10:36:05.814Z"
+    },
+    {
+      "id": "92871466000180-1-000581/2026",
+      "objeto": "Despesa visando contratacao de empresa especializada para a execucao de servicos de manutencao corretiva da ambulancia pertencente aos Bombeiros Voluntarios de Picada Cafe placa JBU 5D76  incluindo fornecimento de pecas  materiais e mao de obra necessarios a realizacao dos servicos. Justificativa da despesa  A manutencao da ambulancia e necessaria para garantir a seguranca  a confiabilidade e a disponibilidade do veiculo utilizado no atendimento de ocorrencias e no transporte de pacientes. Os servicos visam restabelecer as condicoes adequadas de funcionamento e conservacao do veiculo  assegurando a continuidade dos servicos prestados a comunidade.",
+      "orgao": "MUNICIPIO DE PICADA CAFE",
+      "municipio": "Picada Café",
+      "uf": "RS",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 798,
+      "modalidade": "Dispensa de Licitação",
+      "score": 5,
+      "termos_casados": [
+        "ambulância"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/92871466000180-1-000581%2F2026",
+      "captado_em": "2026-07-30T10:36:05.818Z"
+    },
+    {
+      "id": "87482535000124-1-001093/2026",
+      "objeto": "Mao de obra para manutencao do veiculo Ambulancia JBT7C43.",
+      "orgao": "MUNICIPIO DE DOM PEDRITO",
+      "municipio": "Dom Pedrito",
+      "uf": "RS",
+      "publicado_em": "2026-06-30",
+      "abertura_proposta": null,
+      "encerramento_proposta": null,
+      "valor_estimado": 600,
+      "modalidade": "Dispensa de Licitação",
+      "score": 5,
+      "termos_casados": [
+        "ambulância"
+      ],
+      "porte_a_revisar": true,
+      "fonte_url": "https://pncp.gov.br/app/editais/87482535000124-1-001093%2F2026",
+      "captado_em": "2026-07-30T10:36:05.812Z"
+    }
+  ]
+}

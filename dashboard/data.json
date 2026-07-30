@@ -1907,5 +1907,75 @@
         ]
       }
     ]
-  }
+  },
+  "produtos": [
+    {
+      "produto": "CoPilot OS",
+      "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria. Protótipo navegável, dados mockados.",
+      "repo": "https://github.com/victorotaa/samais-copilot",
+      "estagio": "prototipo",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Demo do sistema",
+          "url": "https://samais-copilot-demo.vercel.app",
+          "procedencia": "verificado",
+          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"Produção = branch main → samais-copilot-demo.vercel.app\""
+        },
+        {
+          "tipo": "lp",
+          "rotulo": "Landing page",
+          "url": "https://samais-copilot-demo.vercel.app/lp/",
+          "procedencia": "verificado",
+          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"LP servida em /lp/ no mesmo deploy\" (pasta lp/ com vercel.json próprio)"
+        }
+      ],
+      "papel_no_os": "Principal diferencial competitivo. Entra nos estudos/propostas como Parte V (skill samais-municipal-study) e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
+      "atualizado_em": "2026-07-30",
+      "_slug": "samu-copilot-os"
+    },
+    {
+      "produto": "PEP OS",
+      "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão. Rev1 com store em memória — sandbox, não produção.",
+      "repo": "https://github.com/victorotaa/samais-pep",
+      "estagio": "prototipo",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Sandbox público",
+          "url": null,
+          "procedencia": "a-confirmar",
+          "fonte": "samais-pep/README.md documenta o procedimento de deploy (Root Directory = apps/web) e diz que a URL sai no padrão samais-pep-*.vercel.app, mas NÃO registra a URL final. A levantar no painel da Vercel."
+        }
+      ],
+      "papel_no_os": "Camada de registro clínico do ecossistema. O sandbox é efêmero (store em memória ressuscita o seed a cada cold start) — serve para demonstração, não para dado real.",
+      "atualizado_em": "2026-07-30",
+      "_slug": "pep-os"
+    },
+    {
+      "produto": "ROTA — Transporte Sanitário",
+      "resumo": "Frente de transporte sanitário da Samais. Hoje existe como peça institucional (tese de investimento e master plan); o módulo de sistema não foi commitado.",
+      "repo": "https://github.com/victorotaa/samais-rota",
+      "estagio": "documento",
+      "links": [
+        {
+          "tipo": "documento",
+          "rotulo": "Tese de Investimento",
+          "url": null,
+          "procedencia": "a-confirmar",
+          "fonte": "samais-rota/index.html (título: \"Transporte Sanitário — Samais · Tese de Investimento\"). CLAUDE.md do repo manda publicar por `npx vercel --prod --scope samais`, mas a URL de produção não está registrada em lugar nenhum."
+        },
+        {
+          "tipo": "documento",
+          "rotulo": "Master Plan ROTA",
+          "url": null,
+          "procedencia": "a-confirmar",
+          "fonte": "samais-copilot/master-plan-rota/ tem vercel.json próprio com name \"samais-master-plan-rota\" — deploy separado. URL final não registrada."
+        }
+      ],
+      "papel_no_os": "Frente de negócio com material de investidor pronto. ⚠️ ATENÇÃO: samais-copilot/docs/00-analise-atual.md registra que \"o módulo MASTER_ROTA no App.tsx não chegou\" — ou seja, nos repositórios existe o documento institucional, não um sistema ROTA. Se existe sistema rodando, está fora dos 6 repositórios conectados.",
+      "atualizado_em": "2026-07-30",
+      "_slug": "rota"
+    }
+  ]
 }

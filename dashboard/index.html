@@ -75,6 +75,24 @@ section{padding:38px 0 0}
 .doc .s{display:block;color:var(--t3);font-size:12.5px;margin-top:2px;line-height:1.4}
 .doc.stub .t{color:var(--t3)}
 
+/* produtos — o cartão traz COMO SE ACESSA (LP, sistema, documento), não só o repo */
+.prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.prod{background:var(--card);border:1px solid var(--line-soft);border-radius:13px;padding:16px 17px}
+.prod .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.prod .nm{font-family:var(--fd);font-weight:700;font-size:16.5px}
+.prod .est{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t3);border:1px solid var(--line-soft);border-radius:5px;padding:2px 7px;flex:0 0 auto}
+.prod .rs{color:var(--t3);font-size:12.5px;margin-top:7px;line-height:1.45}
+.prod .lks{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.lk{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:11px;
+  border:1px solid var(--line-soft);border-radius:8px;padding:7px 10px;color:var(--t2);
+  min-height:34px;transition:border-color .16s,color .16s}
+a.lk:hover{border-color:var(--gold-dim);color:var(--gold)}
+.lk .ic{color:var(--gold-dim)}
+.lk.pend{border-style:dashed;color:var(--t3);cursor:default}
+.lk.pend .ic{color:var(--amber)}
+@media(max-width:600px){.lk{min-height:44px}}
+
 /* próximas ações */
 .acoes{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:6px 18px}
 .acao{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line-soft)}
@@ -238,12 +256,7 @@ footer i{font-family:var(--fb);font-style:italic}
   <!-- ===================== PRODUTOS ===================== -->
   <section>
     <div class="sh"><h2>Produtos</h2><span class="n">repositórios próprios, deploy próprio</span></div>
-    <div class="docs">
-      <a class="doc" href="https://github.com/victorotaa/samais-copilot" target="_blank" rel="noopener">
-        <span class="b">↗</span><span><span class="t">CoPilot OS</span><span class="s">IA de apoio à decisão do regulador médico</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-pep" target="_blank" rel="noopener">
-        <span class="b">↗</span><span><span class="t">PEP OS</span><span class="s">prontuário eletrônico do paciente</span></span></a>
-    </div>
+    <div class="prods" id="prods"></div>
   </section>
 
   <!-- ===================== EM CONSTRUÇÃO ===================== -->
@@ -311,9 +324,33 @@ fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
       </div>`).join('');
     document.getElementById('secAcoes').hidden = false;
   }
+
+  renderProdutos(d.produtos || []);
 }).catch(()=>{
   document.getElementById('stamp').textContent = 'rode: node scripts/build-dashboard.mjs';
 });
+
+// Produtos vêm de produtos/<slug>/produto.json (validado no build). Link sem procedência
+// verificada NÃO é apresentado como link — vira pendência visível.
+function renderProdutos(prods){
+  const ICO = { sistema:'▶', lp:'◇', documento:'▤', api:'⌗' };
+  const EST = { documento:'documento', prototipo:'protótipo', demo:'demo', piloto:'piloto', producao:'produção' };
+  document.getElementById('prods').innerHTML = prods.map(p=>{
+    const links = (p.links||[]).map(l=>{
+      const ic = `<span class="ic">${ICO[l.tipo]||'↗'}</span>`;
+      if(l.url && l.procedencia === 'verificado')
+        return `<a class="lk" href="${esc(l.url)}" target="_blank" rel="noopener" title="${esc(l.fonte||'')}">${ic}${esc(l.rotulo)}</a>`;
+      return `<span class="lk pend" title="${esc(l.fonte||'')}">${ic}${esc(l.rotulo)} · a confirmar</span>`;
+    }).join('');
+    return `<div class="prod">
+      <div class="top"><span class="nm">${esc(p.produto)}</span><span class="est">${EST[p.estagio]||esc(p.estagio)}</span></div>
+      <div class="rs">${esc(p.resumo)}</div>
+      <div class="lks">${links}
+        <a class="lk" href="${esc(p.repo)}" target="_blank" rel="noopener"><span class="ic">↗</span>Repositório</a>
+      </div>
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>

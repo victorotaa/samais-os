@@ -1,0 +1,24 @@
+{
+  "produto": "CoPilot OS",
+  "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria. Protótipo navegável, dados mockados.",
+  "repo": "https://github.com/victorotaa/samais-copilot",
+  "estagio": "prototipo",
+  "links": [
+    {
+      "tipo": "sistema",
+      "rotulo": "Demo do sistema",
+      "url": "https://samais-copilot-demo.vercel.app",
+      "procedencia": "verificado",
+      "fonte": "samais-copilot/docs/08-handoff-dev.md — \"Produção = branch main → samais-copilot-demo.vercel.app\""
+    },
+    {
+      "tipo": "lp",
+      "rotulo": "Landing page",
+      "url": "https://samais-copilot-demo.vercel.app/lp/",
+      "procedencia": "verificado",
+      "fonte": "samais-copilot/docs/08-handoff-dev.md — \"LP servida em /lp/ no mesmo deploy\" (pasta lp/ com vercel.json próprio)"
+    }
+  ],
+  "papel_no_os": "Principal diferencial competitivo. Entra nos estudos/propostas como Parte V (skill samais-municipal-study) e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
+  "atualizado_em": "2026-07-30"
+}

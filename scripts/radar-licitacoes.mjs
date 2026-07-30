@@ -57,12 +57,17 @@ const filtros = JSON.parse(readFileSync(FILTROS_PATH, "utf8"));
 // Dedupe por forma normalizada: "central de regulação" e "central de regulacao" são o
 // MESMO termo depois de normalizar — contá-las duas vezes infla o score. Vale entre grupos.
 const _jaVisto = new Set();
+// Casamento por PALAVRA INTEIRA. Sem isso, "samu" casa dentro de "SAMUEL" — e o radar
+// oferece show de rock como oportunidade de SAMU (aconteceu na primeira captação real).
+const escRegex = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const comoRegex = (norm) => new RegExp(`(^|[^a-z0-9])${escRegex(norm)}([^a-z0-9]|$)`);
 const grupos = Object.entries(filtros.termos).map(([nome, g]) => ({
   nome,
   peso: g.peso,
   termos: g.lista
     .map((t) => ({ original: t, norm: normalizar(t) }))
-    .filter((t) => (_jaVisto.has(t.norm) ? false : (_jaVisto.add(t.norm), true))),
+    .filter((t) => (_jaVisto.has(t.norm) ? false : (_jaVisto.add(t.norm), true)))
+    .map((t) => ({ ...t, re: comoRegex(t.norm) })),
 }));
 const exAbsoluto   = (filtros.excluir?.absoluto?.lista || []).map(normalizar);
 const exInicio     = (filtros.excluir?.se_no_inicio?.lista || []).map(normalizar);
@@ -78,7 +83,7 @@ function pontuar(texto) {
   let temNucleo = false;
   for (const g of grupos) {
     for (const termo of g.termos) {
-      if (t.includes(termo.norm)) {
+      if (termo.re.test(t)) {
         score += g.peso;
         termos.push(termo.original);
         if (g.nome === "nucleo") temNucleo = true;

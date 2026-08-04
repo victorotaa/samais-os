@@ -12,8 +12,8 @@
       "nota": "Em negociação; possível via emergencial."
     },
     "headcount-fc": {
-      "estado": "pendente",
-      "nota": "⚠️ Se vier por emergência, o prazo entre decisão e dia 1 é curto: o dimensionamento tem que estar PRONTO antes da chamada."
+      "estado": "em-andamento",
+      "nota": "Não se parte do zero: população (~106 mil) é praticamente idêntica à de Avaré+Manduri, cujo estudo fecha em ~R$ 1,0 mi/mês (R$ 9,50/hab). Serve de referência para resposta rápida, a calibrar com o histórico real de atendimentos."
     },
     "cct": {
       "estado": "pendente",
@@ -26,6 +26,10 @@
     "ordem-servico": {
       "estado": "pendente",
       "nota": "Depende da via de contratação."
+    },
+    "benchmark": {
+      "estado": "concluido",
+      "nota": "Régua histórica do próprio contrato Samais em Ourinhos: R$ 159 mil/viatura/mês — o valor mais alto da tabela de referência do mercado."
     }
   }
 }

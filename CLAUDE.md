@@ -70,6 +70,11 @@ Cada frente vive em `frentes/<slug>/`:
 - `status.json` — **valida contra `frentes/_schema/status.schema.json`** (o build falha
   se inválido). Campos: `frente`, `uf`, `servico`, `estagio` (enum), `score` 0–10,
   `valor_contratual_mensal`, `atualizado_em`, `proximo_passo` (+ opcionais).
+  ⚠️ **`valor_contratual_mensal` sai do ESTUDO, não de estimativa** — o repo `samais-estudos`
+  (branch `main`) tem o estudo de cada município em `estudos-internos/*.md` (memória de
+  cálculo) e `estudos/*.html` (peça). Cite o arquivo em `gatilho`. Quando o estudo tiver mais
+  de um cenário, registre o **que está em negociação** e declare o outro em `proximo_passo`
+  — foi o caso de Avaré (com base R$ 1,44 mi × sem base R$ 1,01 mi).
 - `fatos.md` — camada FACTUAL (pública, citável).
 - `interpretacao.md` — camada de INTERPRETAÇÃO ESTRATÉGICA (interna, confidencial).
 - `bastidor.md` — **BASTIDOR POLÍTICO-INSTITUCIONAL** (interna, confidencial): quem decide

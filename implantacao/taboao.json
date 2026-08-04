@@ -20,12 +20,16 @@
       "nota": "CCT-SP a confirmar."
     },
     "valor-mensal": {
-      "estado": "pendente",
-      "nota": "A levantar."
+      "estado": "em-andamento",
+      "nota": "Estudo: R$ 1,8 mi/mês de referência, contra custo atual estimado de R$ 2,1–2,3 mi/mês. Cofinanciamento federal ~R$ 900 mil/mês. Conferir o contratado."
     },
     "ordem-servico": {
       "estado": "pendente",
       "nota": "Iminente, sem data confirmada."
+    },
+    "historico-atendimentos": {
+      "estado": "concluido",
+      "nota": "676 atendimentos/mês registrados no estudo."
     }
   }
 }

@@ -8,8 +8,8 @@
       "nota": "Frente reportada como FECHADA em 30/07/2026."
     },
     "postos-viaturas": {
-      "estado": "pendente",
-      "nota": "Expansão de frota anunciada (20 USB) — confirmar o que entra no escopo."
+      "estado": "em-andamento",
+      "nota": "Estudo dimensiona 20 USB + 4 USA + 4 moto + 1 ambulancha (29 unidades). Confirmar o que entrou no contrato."
     },
     "headcount-fc": {
       "estado": "pendente",
@@ -20,12 +20,16 @@
       "nota": "CCT-PA a fechar."
     },
     "valor-mensal": {
-      "estado": "pendente",
-      "nota": "Conferir se o contratado bate com os R$ 8,1 mi/mês do Cenário Base."
+      "estado": "em-andamento",
+      "nota": "Estudo fecha em ~R$ 8,1 mi/mês (FC 4,5, 20 USB, BDI 35%) e bate com o alvo verbal do CEO (R$ 7,9 mi). Falta conferir contra o valor efetivamente contratado."
     },
     "ordem-servico": {
       "estado": "pendente",
       "nota": "Sem data contratual confirmada."
+    },
+    "benchmark": {
+      "estado": "concluido",
+      "nota": "R$ 280k/viatura/mês — acima da régua de mercado (Ourinhos R$ 159k, CIMSAMU R$ 94k, FAHECE R$ 93k). Justificado pelo porte e escopo; documentar a diferença."
     }
   }
 }

@@ -8,20 +8,20 @@
       "nota": "Frente reportada como FECHADA em 30/07/2026."
     },
     "postos-viaturas": {
-      "estado": "pendente",
-      "nota": "A levantar — frente entrou por atualização verbal, sem estudo no OS."
+      "estado": "em-andamento",
+      "nota": "Estudo dimensiona ~80 CLT no SAMU. Confirmar postos e viaturas."
     },
     "headcount-fc": {
       "estado": "pendente",
       "nota": "A levantar."
     },
     "cct": {
-      "estado": "pendente",
-      "nota": "CCT aplicável no RS a levantar."
+      "estado": "em-andamento",
+      "nota": "Estudo assume contratação privada, Lucro Presumido 15,33% com ISS Canoas 4%. Confirmar CCT-RS e pisos."
     },
     "valor-mensal": {
-      "estado": "pendente",
-      "nota": "A levantar."
+      "estado": "em-andamento",
+      "nota": "Estudo: R$ 2.048.134/mês no SAMU (remuneração 7,2%). ⚠️ Se o CAPS entrou no contrato, são R$ 4.453.196 integrados — confirmar escopo antes de tudo."
     },
     "ordem-servico": {
       "estado": "pendente",

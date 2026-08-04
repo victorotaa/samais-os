@@ -1,11 +1,11 @@
 {
   "gerado_em": "2026-08-04",
   "total_frentes": 8,
-  "pipeline_mensal": 8100000,
-  "pipeline_anual": 97200000,
+  "pipeline_mensal": 12958134,
+  "pipeline_anual": 155497608,
   "contratos_ativos": 0,
   "contratados": 3,
-  "fechado_mensal": 8100000,
+  "fechado_mensal": 11948134,
   "implantacoes": [
     {
       "frente": "Belém",
@@ -21,7 +21,7 @@
       "slug": "canoas",
       "implantacao_em": null,
       "dias_restantes": null,
-      "valor_contratual_mensal": null
+      "valor_contratual_mensal": 2048134
     },
     {
       "frente": "Taboão da Serra",
@@ -29,7 +29,7 @@
       "slug": "taboao",
       "implantacao_em": null,
       "dias_restantes": null,
-      "valor_contratual_mensal": null
+      "valor_contratual_mensal": 1800000
     }
   ],
   "frentes": [
@@ -48,6 +48,21 @@
       "_slug": "ourinhos"
     },
     {
+      "frente": "Canoas",
+      "uf": "RS",
+      "servico": "SAMU",
+      "estagio": "contratado",
+      "score": 8,
+      "valor_contratual_mensal": 2048134,
+      "operador_atual": null,
+      "verdict": "go",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. Valor do ESTUDO: R$ 2.048.134/mês no SAMU (CDO 1.316.755, remuneração 7,2%, ~80 CLT, R$ 5,89/hab). ⚠️ ESCOPO A CONFIRMAR: o estudo também precifica a Rede CAPS em R$ 2.405.061 — integrado dá R$ 4.453.196/mês. Se o contrato fechado inclui o CAPS, o pipeline aqui está subdimensionado pela metade. ⚠️ Espaço de desconto estreito (~4%): piso a 4% de remuneração é R$ 1.966.890; abaixo de R$ 1.873.969 é equilíbrio zero — nunca contratar.",
+      "populacao": 347657,
+      "gatilho": "Estudo produzido: estudos-internos/canoas-rs.md (samais-estudos (main, 03/08/2026))",
+      "_slug": "canoas"
+    },
+    {
       "frente": "Belém",
       "uf": "PA",
       "servico": "SAMU",
@@ -63,31 +78,34 @@
       "_slug": "belem"
     },
     {
+      "frente": "Taboão da Serra",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "contratado",
+      "score": 7.5,
+      "valor_contratual_mensal": 1800000,
+      "operador_atual": null,
+      "verdict": "go",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO e IMINENTE. Valor de referência do estudo: R$ 1,8 mi/mês, substituindo custo atual estimado em R$ 2,1–2,3 mi/mês; cofinanciamento federal de ~R$ 900 mil/mês reduz a contrapartida municipal. ⚠️ É aqui que nasceu a lição 148 vs 80 — confirmar headcount com Fator de Cobertura 4,5, nunca 2,2. ⚠️ População 273 mil é aproximada do estudo (a precisar pelo IBGE).",
+      "populacao": 273000,
+      "gatilho": "Estudo produzido: estudos/taboao-da-serra-sp.html (samais-estudos (main, 03/08/2026))",
+      "_slug": "taboao"
+    },
+    {
       "frente": "Avaré + Manduri",
       "uf": "SP",
       "servico": "SAMU",
       "estagio": "negociacao",
-      "score": 7,
-      "valor_contratual_mensal": null,
+      "score": 7.5,
+      "valor_contratual_mensal": 1010000,
       "operador_atual": null,
       "verdict": "go",
-      "gatilho": "Estudo de município produzido (samais-estudos: avare-manduri-sp)",
+      "gatilho": "Estudo produzido em 2 cenários: estudos-internos/avare-manduri-sp.md e avare-manduri-base-sp.md (samais-estudos (main, 03/08/2026))",
       "atualizado_em": "2026-08-04",
-      "proximo_passo": "NEGOCIAÇÃO DIRETA. Cenário em discussão: Avaré + Manduri POSSIVELMENTE SEM base descentralizada em Manduri, por custo — a confirmar. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: refazer a cobertura antes de fechar preço, para não assumir SLA que a configuração não entrega.",
+      "proximo_passo": "NEGOCIAÇÃO DIRETA. Registrado o cenário SEM base descentralizada em Manduri, que é o em discussão por custo: R$ 1.009.869/mês (R$ 9,50/hab, R$ 12,1 mi/ano), líquido do repasse federal da USA ~R$ 876 mil. O cenário COM base custa R$ 1.443.524/mês — diferença de R$ 434 mil/mês. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: validar a cobertura antes de assinar SLA. ⚠️ Espaço de desconto ~17% (folga maior que a de Canoas, por causa do Lean Sizing).",
+      "populacao": 106321,
       "_slug": "avare"
-    },
-    {
-      "frente": "Canoas",
-      "uf": "RS",
-      "servico": "SAMU",
-      "estagio": "contratado",
-      "score": 0,
-      "valor_contratual_mensal": null,
-      "operador_atual": null,
-      "verdict": "go",
-      "atualizado_em": "2026-08-04",
-      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
-      "_slug": "canoas"
     },
     {
       "frente": "Paraguai — SEME",
@@ -111,19 +129,6 @@
       "atualizado_em": "2026-07-11",
       "proximo_passo": "Mapear escopo estadual (Secretaria de Saúde Pública do RN) e gatilho de oportunidade.",
       "_slug": "sesap-rn"
-    },
-    {
-      "frente": "Taboão da Serra",
-      "uf": "SP",
-      "servico": "SAMU",
-      "estagio": "contratado",
-      "score": 0,
-      "valor_contratual_mensal": null,
-      "operador_atual": null,
-      "verdict": "go",
-      "atualizado_em": "2026-08-04",
-      "proximo_passo": "FECHADO e IMINENTE. A levantar antes do dia 1: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
-      "_slug": "taboao"
     },
     {
       "frente": "Taubaté",
@@ -2087,8 +2092,8 @@
     "roteiro_versao": "2026-08-04b",
     "frentes": [
       {
-        "frente": "belem",
-        "titulo": "Belém/PA",
+        "frente": "canoas",
+        "titulo": "Canoas/RS",
         "situacao": "preparacao",
         "responsavel": null,
         "atualizado_em": "2026-08-04",
@@ -2180,29 +2185,29 @@
                 "id": "postos-viaturas",
                 "nome": "Nº de postos, viaturas (USB/USA) e bases",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "Expansão de frota anunciada (20 USB) — confirmar o que entra no escopo."
+                "estado": "em-andamento",
+                "nota": "Estudo dimensiona ~80 CLT no SAMU. Confirmar postos e viaturas."
               },
               {
                 "id": "headcount-fc",
                 "nome": "Headcount com Fator de Cobertura 4,5",
                 "critico": true,
                 "estado": "pendente",
-                "nota": "⚠️ Diligência de headcount real com FC 4,5. É a maior frente do pipeline: erro aqui é caro."
+                "nota": "A levantar."
               },
               {
                 "id": "cct",
                 "nome": "CCT aplicável e pisos vigentes na UF",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "CCT-PA a fechar."
+                "estado": "em-andamento",
+                "nota": "Estudo assume contratação privada, Lucro Presumido 15,33% com ISS Canoas 4%. Confirmar CCT-RS e pisos."
               },
               {
                 "id": "valor-mensal",
                 "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "Conferir se o contratado bate com os R$ 8,1 mi/mês do Cenário Base."
+                "estado": "em-andamento",
+                "nota": "Estudo: R$ 2.048.134/mês no SAMU (remuneração 7,2%). ⚠️ Se o CAPS entrou no contrato, são R$ 4.453.196 integrados — confirmar escopo antes de tudo."
               },
               {
                 "id": "benchmark",
@@ -2573,14 +2578,14 @@
         ]
       },
       {
-        "frente": "canoas",
-        "titulo": "Canoas/RS",
+        "frente": "belem",
+        "titulo": "Belém/PA",
         "situacao": "preparacao",
         "responsavel": null,
         "atualizado_em": "2026-08-04",
-        "prontidao": 2,
-        "prontidao_critica": 2,
-        "criticos_pendentes": 47,
+        "prontidao": 4,
+        "prontidao_critica": 4,
+        "criticos_pendentes": 46,
         "bloqueados": 0,
         "blocos": [
           {
@@ -2666,41 +2671,41 @@
                 "id": "postos-viaturas",
                 "nome": "Nº de postos, viaturas (USB/USA) e bases",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "A levantar — frente entrou por atualização verbal, sem estudo no OS."
+                "estado": "em-andamento",
+                "nota": "Estudo dimensiona 20 USB + 4 USA + 4 moto + 1 ambulancha (29 unidades). Confirmar o que entrou no contrato."
               },
               {
                 "id": "headcount-fc",
                 "nome": "Headcount com Fator de Cobertura 4,5",
                 "critico": true,
                 "estado": "pendente",
-                "nota": "A levantar."
+                "nota": "⚠️ Diligência de headcount real com FC 4,5. É a maior frente do pipeline: erro aqui é caro."
               },
               {
                 "id": "cct",
                 "nome": "CCT aplicável e pisos vigentes na UF",
                 "critico": true,
                 "estado": "pendente",
-                "nota": "CCT aplicável no RS a levantar."
+                "nota": "CCT-PA a fechar."
               },
               {
                 "id": "valor-mensal",
                 "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "A levantar."
+                "estado": "em-andamento",
+                "nota": "Estudo fecha em ~R$ 8,1 mi/mês (FC 4,5, 20 USB, BDI 35%) e bate com o alvo verbal do CEO (R$ 7,9 mi). Falta conferir contra o valor efetivamente contratado."
               },
               {
                 "id": "benchmark",
                 "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
                 "critico": true,
-                "estado": "pendente",
-                "nota": null
+                "estado": "concluido",
+                "nota": "R$ 280k/viatura/mês — acima da régua de mercado (Ourinhos R$ 159k, CIMSAMU R$ 94k, FAHECE R$ 93k). Justificado pelo porte e escopo; documentar a diferença."
               }
             ],
             "total": 6,
-            "concluidos": 0,
-            "prontidao": 0,
+            "concluidos": 1,
+            "prontidao": 17,
             "bloqueados": 0
           },
           {
@@ -3064,9 +3069,9 @@
         "situacao": "preparacao",
         "responsavel": null,
         "atualizado_em": "2026-08-04",
-        "prontidao": 2,
-        "prontidao_critica": 2,
-        "criticos_pendentes": 47,
+        "prontidao": 4,
+        "prontidao_critica": 4,
+        "criticos_pendentes": 46,
         "bloqueados": 0,
         "blocos": [
           {
@@ -3159,8 +3164,8 @@
                 "id": "headcount-fc",
                 "nome": "Headcount com Fator de Cobertura 4,5",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "⚠️ Se vier por emergência, o prazo entre decisão e dia 1 é curto: o dimensionamento tem que estar PRONTO antes da chamada."
+                "estado": "em-andamento",
+                "nota": "Não se parte do zero: população (~106 mil) é praticamente idêntica à de Avaré+Manduri, cujo estudo fecha em ~R$ 1,0 mi/mês (R$ 9,50/hab). Serve de referência para resposta rápida, a calibrar com o histórico real de atendimentos."
               },
               {
                 "id": "cct",
@@ -3180,13 +3185,13 @@
                 "id": "benchmark",
                 "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
                 "critico": true,
-                "estado": "pendente",
-                "nota": null
+                "estado": "concluido",
+                "nota": "Régua histórica do próprio contrato Samais em Ourinhos: R$ 159 mil/viatura/mês — o valor mais alto da tabela de referência do mercado."
               }
             ],
             "total": 6,
-            "concluidos": 0,
-            "prontidao": 0,
+            "concluidos": 1,
+            "prontidao": 17,
             "bloqueados": 0
           },
           {
@@ -3550,9 +3555,9 @@
         "situacao": "preparacao",
         "responsavel": null,
         "atualizado_em": "2026-08-04",
-        "prontidao": 2,
-        "prontidao_critica": 2,
-        "criticos_pendentes": 47,
+        "prontidao": 4,
+        "prontidao_critica": 4,
+        "criticos_pendentes": 46,
         "bloqueados": 0,
         "blocos": [
           {
@@ -3631,8 +3636,8 @@
                 "id": "historico-atendimentos",
                 "nome": "Histórico de atendimentos do município",
                 "critico": true,
-                "estado": "pendente",
-                "nota": null
+                "estado": "concluido",
+                "nota": "676 atendimentos/mês registrados no estudo."
               },
               {
                 "id": "postos-viaturas",
@@ -3659,8 +3664,8 @@
                 "id": "valor-mensal",
                 "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
                 "critico": true,
-                "estado": "pendente",
-                "nota": "A levantar."
+                "estado": "em-andamento",
+                "nota": "Estudo: R$ 1,8 mi/mês de referência, contra custo atual estimado de R$ 2,1–2,3 mi/mês. Cofinanciamento federal ~R$ 900 mil/mês. Conferir o contratado."
               },
               {
                 "id": "benchmark",
@@ -3671,8 +3676,8 @@
               }
             ],
             "total": 6,
-            "concluidos": 0,
-            "prontidao": 0,
+            "concluidos": 1,
+            "prontidao": 17,
             "bloqueados": 0
           },
           {

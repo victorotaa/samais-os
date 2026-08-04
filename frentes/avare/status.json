@@ -3,11 +3,12 @@
   "uf": "SP",
   "servico": "SAMU",
   "estagio": "negociacao",
-  "score": 7.0,
-  "valor_contratual_mensal": null,
+  "score": 7.5,
+  "valor_contratual_mensal": 1010000,
   "operador_atual": null,
   "verdict": "go",
-  "gatilho": "Estudo de município produzido (samais-estudos: avare-manduri-sp)",
+  "gatilho": "Estudo produzido em 2 cenários: estudos-internos/avare-manduri-sp.md e avare-manduri-base-sp.md (samais-estudos (main, 03/08/2026))",
   "atualizado_em": "2026-08-04",
-  "proximo_passo": "NEGOCIAÇÃO DIRETA. Cenário em discussão: Avaré + Manduri POSSIVELMENTE SEM base descentralizada em Manduri, por custo — a confirmar. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: refazer a cobertura antes de fechar preço, para não assumir SLA que a configuração não entrega."
+  "proximo_passo": "NEGOCIAÇÃO DIRETA. Registrado o cenário SEM base descentralizada em Manduri, que é o em discussão por custo: R$ 1.009.869/mês (R$ 9,50/hab, R$ 12,1 mi/ano), líquido do repasse federal da USA ~R$ 876 mil. O cenário COM base custa R$ 1.443.524/mês — diferença de R$ 434 mil/mês. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: validar a cobertura antes de assinar SLA. ⚠️ Espaço de desconto ~17% (folga maior que a de Canoas, por causa do Lean Sizing).",
+  "populacao": 106321
 }

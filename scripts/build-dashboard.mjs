@@ -24,6 +24,9 @@ const OBRIG_DIR = join(ROOT, "obrigacoes");
 const RADAR_SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const OBRIG_SCHEMA_PATH = join(OBRIG_DIR, "_schema", "obrigacao.schema.json");
 const MERCADO_PATH = join(ROOT, "inteligencia", "mercado", "indice.json");
+const IMPL_DIR = join(ROOT, "implantacao");
+const IMPL_SCHEMA_PATH = join(IMPL_DIR, "_schema", "implantacao.schema.json");
+const ROTEIRO_PATH = join(IMPL_DIR, "_schema", "roteiro-padrao.json");
 const PRODUTOS_DIR = join(ROOT, "produtos");
 const PRODUTO_SCHEMA_PATH = join(PRODUTOS_DIR, "_schema", "produto.schema.json");
 const DASH_DIR = join(ROOT, "dashboard");
@@ -186,6 +189,76 @@ if (existsSync(OBRIG_SCHEMA_PATH)) {
   }
 }
 
+// ---------- implantação (o que falta para cada frente contratada partir) ----------
+// O roteiro é ÚNICO (roteiro-padrao.json); cada frente guarda só o estado de cada item.
+// A prontidão é DERIVADA aqui — nunca digitada, pelo mesmo motivo da criticidade das
+// obrigações: número que alguém digita é número que envelhece sem avisar.
+let implantacao = null;
+if (existsSync(ROTEIRO_PATH) && existsSync(IMPL_SCHEMA_PATH)) {
+  const roteiro = JSON.parse(readFileSync(ROTEIRO_PATH, "utf8"));
+  const implSchema = JSON.parse(readFileSync(IMPL_SCHEMA_PATH, "utf8"));
+  const slugsValidos = new Set(frentes.map((f) => f._slug));
+  const idsValidos = new Set(roteiro.blocos.flatMap((b) => b.itens.map((i) => i.id)));
+
+  const arquivos = readdirSync(IMPL_DIR).filter((f) => f.endsWith(".json") && !f.startsWith("_")).sort();
+  const porFrente = [];
+
+  for (const arq of arquivos) {
+    const full = join(IMPL_DIR, arq);
+    const rel = relative(ROOT, full);
+    let json;
+    try { json = JSON.parse(readFileSync(full, "utf8")); }
+    catch (e) { allErrors.push(`${rel}: JSON inválido — ${e.message}`); continue; }
+
+    const errs = validate(json, implSchema);
+    if (errs.length) { allErrors.push(...errs.map((e) => `${rel} → ${e}`)); continue; }
+
+    // Integridade referencial: implantação órfã (frente que não existe) é dado morto.
+    if (!slugsValidos.has(json.frente)) {
+      allErrors.push(`${rel}: frente "${json.frente}" não existe em frentes/`);
+      continue;
+    }
+    // Item de estado que não existe no roteiro = erro de digitação silencioso.
+    for (const id of Object.keys(json.estados)) {
+      if (!idsValidos.has(id)) allErrors.push(`${rel}: item "${id}" não existe no roteiro padrão`);
+    }
+
+    const frenteObj = frentes.find((f) => f._slug === json.frente);
+    const blocos = roteiro.blocos.map((b) => {
+      const itens = b.itens.map((i) => {
+        const st = json.estados[i.id]?.estado ?? "pendente";
+        return { ...i, critico: !!(i.critico || b.critico), estado: st, nota: json.estados[i.id]?.nota ?? null };
+      });
+      const contam = itens.filter((i) => i.estado !== "nao-se-aplica");
+      const feitos = contam.filter((i) => i.estado === "concluido").length;
+      return {
+        id: b.id, nome: b.nome, critico: !!b.critico, itens,
+        total: contam.length, concluidos: feitos,
+        prontidao: contam.length ? Math.round((feitos / contam.length) * 100) : 100,
+        bloqueados: itens.filter((i) => i.estado === "bloqueado").length,
+      };
+    });
+    const todos = blocos.flatMap((b) => b.itens).filter((i) => i.estado !== "nao-se-aplica");
+    const criticos = todos.filter((i) => i.critico);
+    porFrente.push({
+      frente: json.frente,
+      titulo: frenteObj ? `${frenteObj.frente}/${frenteObj.uf}` : json.frente,
+      situacao: json.situacao,
+      responsavel: json.responsavel ?? null,
+      atualizado_em: json.atualizado_em,
+      prontidao: todos.length ? Math.round((todos.filter((i) => i.estado === "concluido").length / todos.length) * 100) : 0,
+      prontidao_critica: criticos.length ? Math.round((criticos.filter((i) => i.estado === "concluido").length / criticos.length) * 100) : 100,
+      criticos_pendentes: criticos.filter((i) => i.estado !== "concluido").length,
+      bloqueados: todos.filter((i) => i.estado === "bloqueado").length,
+      blocos,
+    });
+  }
+
+  // menos pronto primeiro: é onde o risco mora
+  porFrente.sort((a, b) => a.prontidao_critica - b.prontidao_critica || a.titulo.localeCompare(b.titulo, "pt-BR"));
+  implantacao = { roteiro_versao: roteiro.versao, frentes: porFrente };
+}
+
 // ---------- produtos (como se acessa cada um: LP, sistema, documento) ----------
 const produtos = [];
 if (existsSync(PRODUTO_SCHEMA_PATH)) {
@@ -322,6 +395,7 @@ const data = {
   radar,
   mercado,
   produtos,
+  implantacao,
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
@@ -353,6 +427,15 @@ if (mercado) {
     (rec ? ` — ${rec} município(s) recorrente(s)` : " — sem recorrência ainda"));
 } else {
   console.log("• índice de mercado ausente (rode: node scripts/indexar-mercado.mjs)");
+}
+if (implantacao) {
+  const f = implantacao.frentes;
+  const crit = f.reduce((s2, x) => s2 + x.criticos_pendentes, 0);
+  console.log(`✓ implantação: ${f.length} frente(s) em partida — ${crit} item(ns) crítico(s) pendente(s)`);
+  for (const x of f) {
+    console.log(`   ↳ ${x.titulo}: ${x.prontidao_critica}% do crítico pronto` +
+      (x.bloqueados ? ` · ⚠ ${x.bloqueados} bloqueado(s)` : ""));
+  }
 }
 if (produtos.length) {
   const links = produtos.flatMap((p) => p.links);

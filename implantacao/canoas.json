@@ -1,0 +1,31 @@
+{
+  "frente": "canoas",
+  "situacao": "preparacao",
+  "atualizado_em": "2026-08-04",
+  "estados": {
+    "assinatura": {
+      "estado": "concluido",
+      "nota": "Frente reportada como FECHADA em 30/07/2026."
+    },
+    "postos-viaturas": {
+      "estado": "pendente",
+      "nota": "A levantar — frente entrou por atualização verbal, sem estudo no OS."
+    },
+    "headcount-fc": {
+      "estado": "pendente",
+      "nota": "A levantar."
+    },
+    "cct": {
+      "estado": "pendente",
+      "nota": "CCT aplicável no RS a levantar."
+    },
+    "valor-mensal": {
+      "estado": "pendente",
+      "nota": "A levantar."
+    },
+    "ordem-servico": {
+      "estado": "pendente",
+      "nota": "Sem data contratual confirmada."
+    }
+  }
+}

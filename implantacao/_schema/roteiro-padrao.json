@@ -1,0 +1,322 @@
+{
+  "_doc": "COMO A SAMAIS ASSUME UMA OPERAÇÃO — roteiro padrão de implantação, como configuração. Vive em um arquivo só: cada frente guarda apenas o ESTADO de cada item (implantacao/<slug>.json), nunca uma cópia da lista. Melhorar o roteiro melhora todas as implantações de uma vez; é o mesmo princípio do filtro do radar.",
+  "_procedencia": "Derivado de doutrina existente: inteligencia/editais/checklist-licitacao.md (habilitação), Regras Operacionais Samais R1–R2 da Fórmula Mestre (frota do ente, equipe própria CLT no piso), doutrina/precificacao.md (BDI 35%, FC 4,5) e produtos/ (sistemas a plugar). Nada inventado.",
+  "versao": "2026-08-04b",
+  "blocos": [
+    {
+      "id": "habilitacao",
+      "nome": "Habilitação e idoneidade",
+      "critico": true,
+      "_doc": "Idoneidade no sentido técnico: sem documento válido a empresa sai do jogo antes de qualquer proposta ser lida. Cada item aqui tem validade — o vencimento vira obrigação em obrigacoes/.",
+      "itens": [
+        {
+          "id": "cnd-federal",
+          "nome": "CND Federal (PGFN + SRF)",
+          "critico": true
+        },
+        {
+          "id": "cnd-estadual",
+          "nome": "CND Estadual da UF do contrato",
+          "critico": true
+        },
+        {
+          "id": "cnd-municipal",
+          "nome": "CND do município contratante",
+          "critico": true
+        },
+        {
+          "id": "crf-fgts",
+          "nome": "CRF — regularidade do FGTS",
+          "critico": true
+        },
+        {
+          "id": "cndt",
+          "nome": "CNDT — débitos trabalhistas",
+          "critico": true
+        },
+        {
+          "id": "falencia",
+          "nome": "Certidão negativa de falência"
+        },
+        {
+          "id": "balanco",
+          "nome": "Balanço com índices de liquidez (LG/LC/SG ≥ 1,0)"
+        },
+        {
+          "id": "atestado",
+          "nome": "Atestado de capacidade técnica compatível com o porte",
+          "critico": true
+        }
+      ]
+    },
+    {
+      "id": "dimensionamento",
+      "nome": "Dimensionamento e preço",
+      "critico": true,
+      "_doc": "É onde a operação é ganha ou perdida no papel. Fator de Cobertura 4,5 por posto (12×36) — nunca 2,2: subdimensiona pela metade (lição Taboão 148 vs 80).",
+      "itens": [
+        {
+          "id": "historico-atendimentos",
+          "nome": "Histórico de atendimentos do município"
+        },
+        {
+          "id": "postos-viaturas",
+          "nome": "Nº de postos, viaturas (USB/USA) e bases",
+          "critico": true
+        },
+        {
+          "id": "headcount-fc",
+          "nome": "Headcount com Fator de Cobertura 4,5",
+          "critico": true
+        },
+        {
+          "id": "cct",
+          "nome": "CCT aplicável e pisos vigentes na UF",
+          "critico": true
+        },
+        {
+          "id": "valor-mensal",
+          "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+          "critico": true
+        },
+        {
+          "id": "benchmark",
+          "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)"
+        }
+      ]
+    },
+    {
+      "id": "equipe",
+      "nome": "Equipe",
+      "critico": true,
+      "_doc": "Regra R2: equipe própria, inclusive médicos, CLT no piso da CCT. É o item de maior prazo — contratar não é instantâneo, e é o que trava a data de partida.",
+      "itens": [
+        {
+          "id": "medicos-reguladores",
+          "nome": "Médicos reguladores (CRM + RQE em APH)",
+          "critico": true
+        },
+        {
+          "id": "enfermeiros",
+          "nome": "Enfermeiros (COREN)",
+          "critico": true
+        },
+        {
+          "id": "tecnicos",
+          "nome": "Técnicos de enfermagem (COREN)",
+          "critico": true
+        },
+        {
+          "id": "condutores",
+          "nome": "Condutores socorristas (CNH categoria + curso)",
+          "critico": true
+        },
+        {
+          "id": "tarm-radio",
+          "nome": "TARM e rádio-operadores"
+        },
+        {
+          "id": "coordenacao",
+          "nome": "Coordenação local da operação",
+          "critico": true
+        },
+        {
+          "id": "treinamento",
+          "nome": "Treinamento BLS/ACLS e integração"
+        }
+      ]
+    },
+    {
+      "id": "frota-base",
+      "nome": "Frota e base",
+      "_doc": "Regra R1: a frota é do ente — a Samais não compra. Responde por manutenção e por recolocar em operação as viaturas paradas. Bases e CRU também são do ente.",
+      "itens": [
+        {
+          "id": "inventario-frota",
+          "nome": "Inventário da frota recebida (estado, idade, CRLV)",
+          "critico": true
+        },
+        {
+          "id": "reativacao",
+          "nome": "Plano de reativação das viaturas paradas"
+        },
+        {
+          "id": "manutencao",
+          "nome": "Contrato/fluxo de manutenção"
+        },
+        {
+          "id": "base-cru",
+          "nome": "Base(s) e Central de Regulação disponíveis"
+        },
+        {
+          "id": "cnes",
+          "nome": "Registro no CNES dos estabelecimentos",
+          "critico": true
+        },
+        {
+          "id": "alvara",
+          "nome": "Alvará sanitário"
+        }
+      ]
+    },
+    {
+      "id": "sistemas",
+      "nome": "Sistemas Samais plugados",
+      "_doc": "O diferencial só conta se estiver rodando no dia 1. É aqui que PEP OS, CoPilot OS e Rota-OS saem de protótipo e viram operação — inclui os registros e trâmites de base de dados.",
+      "itens": [
+        {
+          "id": "pep",
+          "nome": "PEP OS — prontuário rodando com base persistente",
+          "critico": true
+        },
+        {
+          "id": "copilot",
+          "nome": "CoPilot OS — apoio à regulação"
+        },
+        {
+          "id": "rota",
+          "nome": "Rota-OS — transporte sanitário (se no escopo)"
+        },
+        {
+          "id": "base-dados",
+          "nome": "Base de dados provisionada (persistência real, backup, retenção)",
+          "critico": true
+        },
+        {
+          "id": "lgpd",
+          "nome": "Trâmites de LGPD: encarregado, base legal, contrato de tratamento",
+          "critico": true
+        },
+        {
+          "id": "integracao-ente",
+          "nome": "Integração/relatórios exigidos pelo ente"
+        }
+      ]
+    },
+    {
+      "id": "suprimentos",
+      "nome": "Suprimentos e insumos",
+      "critico": true,
+      "_doc": "A Samais responde pelo abastecimento da operação. Diferente da frota (que é do ente), insumo é custo recorrente NOSSO e entra no CDO — logo, negociação de compra é alavanca direta de resultado. Viatura parada por falta de insumo é falha de SLA com causa evitável.",
+      "itens": [
+        {
+          "id": "lista-insumos",
+          "nome": "Lista de insumos por tipo de viatura (USB/USA) e por base",
+          "critico": true
+        },
+        {
+          "id": "medicamentos",
+          "nome": "Medicamentos, incluindo controlados (receituário, escrituração, VISA)",
+          "critico": true
+        },
+        {
+          "id": "material-medico",
+          "nome": "Material médico-hospitalar e descartáveis",
+          "critico": true
+        },
+        {
+          "id": "oxigenio",
+          "nome": "Oxigênio medicinal — contrato de fornecimento e troca de cilindros",
+          "critico": true
+        },
+        {
+          "id": "epi-uniforme",
+          "nome": "EPI e uniformes da equipe",
+          "critico": true
+        },
+        {
+          "id": "fornecedores",
+          "nome": "Fornecedores homologados na praça, com cotação comparada",
+          "critico": true
+        },
+        {
+          "id": "estoque-minimo",
+          "nome": "Estoque mínimo e ponto de reposição definidos por item"
+        },
+        {
+          "id": "logistica",
+          "nome": "Logística de reposição nas bases (quem repõe, com que frequência)"
+        },
+        {
+          "id": "residuos",
+          "nome": "Descarte de resíduos de serviço de saúde (RSS) contratado"
+        }
+      ]
+    },
+    {
+      "id": "qualidade-nep",
+      "nome": "Qualidade, NEP e desempenho",
+      "critico": true,
+      "_doc": "O que o ente mede e cobra. NEP (Núcleo de Educação Permanente) costuma ser exigência contratual em SAMU — ⚠️ formato e carga horária variam por edital, confirmar no contrato de cada frente. Meta não medida é meta não cumprida: sem indicador instrumentado, glosa e renovação viram discussão de versão.",
+      "itens": [
+        {
+          "id": "nep",
+          "nome": "NEP constituído — responsável técnico e plano de educação permanente",
+          "critico": true
+        },
+        {
+          "id": "cronograma-capacitacao",
+          "nome": "Cronograma de capacitação da equipe (carga horária conforme contrato)"
+        },
+        {
+          "id": "protocolos",
+          "nome": "Protocolos clínicos e POPs assinados pelo responsável técnico",
+          "critico": true
+        },
+        {
+          "id": "metas-contratuais",
+          "nome": "Metas de desempenho contratuais explícitas (tempo-resposta, disponibilidade de frota, absenteísmo)",
+          "critico": true
+        },
+        {
+          "id": "instrumentacao",
+          "nome": "Como cada meta é MEDIDA (fonte do dado, quem apura, com que frequência)",
+          "critico": true
+        },
+        {
+          "id": "relatorio-ente",
+          "nome": "Relatório periódico ao ente no formato exigido"
+        },
+        {
+          "id": "eventos-adversos",
+          "nome": "Fluxo de eventos adversos e ouvidoria"
+        }
+      ]
+    },
+    {
+      "id": "contrato",
+      "nome": "Contrato e partida",
+      "critico": true,
+      "itens": [
+        {
+          "id": "assinatura",
+          "nome": "Contrato assinado",
+          "critico": true
+        },
+        {
+          "id": "garantia",
+          "nome": "Garantia contratual prestada",
+          "critico": true
+        },
+        {
+          "id": "ordem-servico",
+          "nome": "Ordem de serviço / data de início definida",
+          "critico": true
+        },
+        {
+          "id": "capital-giro",
+          "nome": "Capital de giro para o ciclo até o 1º pagamento",
+          "critico": true
+        },
+        {
+          "id": "transicao",
+          "nome": "Plano de transição com o operador anterior"
+        },
+        {
+          "id": "indicadores",
+          "nome": "Indicadores e SLA acordados com o ente"
+        }
+      ]
+    }
+  ]
+}

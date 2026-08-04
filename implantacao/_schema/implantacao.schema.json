@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Estado de implantação de uma frente contratada",
+  "description": "Guarda APENAS o estado de cada item do roteiro padrão (implantacao/_schema/roteiro-padrao.json). O roteiro em si não se copia — melhorar o roteiro melhora todas as frentes de uma vez. O prontidão (%) é DERIVADO pelo build, nunca digitado.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["frente", "situacao", "atualizado_em", "estados"],
+  "properties": {
+    "frente": {
+      "type": "string",
+      "description": "Slug da frente — precisa existir em frentes/<slug>/. O build falha se não casar."
+    },
+    "situacao": {
+      "type": "string",
+      "enum": ["preparacao", "em-implantacao", "operando", "suspensa"],
+      "description": "preparacao = fechado mas sem ordem de serviço; em-implantacao = partida em curso; operando = dia 1 passou."
+    },
+    "responsavel": {
+      "type": ["string", "null"],
+      "description": "Quem responde pela partida desta frente. Opcional."
+    },
+    "atualizado_em": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "estados": {
+      "type": "object",
+      "description": "Mapa item_id → estado. Item ausente conta como pendente — não precisa listar o que não começou.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["estado"],
+        "properties": {
+          "estado": {
+            "type": "string",
+            "enum": ["pendente", "em-andamento", "concluido", "bloqueado", "nao-se-aplica"],
+            "description": "bloqueado exige nota dizendo o que trava — bloqueio sem causa registrada não é informação."
+          },
+          "nota": { "type": "string" }
+        }
+      }
+    }
+  }
+}

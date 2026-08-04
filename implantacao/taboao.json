@@ -1,0 +1,31 @@
+{
+  "frente": "taboao",
+  "situacao": "preparacao",
+  "atualizado_em": "2026-08-04",
+  "estados": {
+    "assinatura": {
+      "estado": "concluido",
+      "nota": "Frente reportada como FECHADA; partida iminente."
+    },
+    "postos-viaturas": {
+      "estado": "pendente",
+      "nota": "A levantar."
+    },
+    "headcount-fc": {
+      "estado": "pendente",
+      "nota": "⚠️ É a frente da lição 148 vs 80 — FC 4,5, nunca 2,2."
+    },
+    "cct": {
+      "estado": "pendente",
+      "nota": "CCT-SP a confirmar."
+    },
+    "valor-mensal": {
+      "estado": "pendente",
+      "nota": "A levantar."
+    },
+    "ordem-servico": {
+      "estado": "pendente",
+      "nota": "Iminente, sem data confirmada."
+    }
+  }
+}

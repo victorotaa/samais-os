@@ -132,6 +132,16 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   home mostra como pendência tracejada — **nunca como link que funciona**. URL não se
   adivinha (Princípio da Realidade aplicado a infraestrutura).
 
+- **`implantacao/`** — **o que falta para cada frente contratada PARTIR**. Vender é o começo;
+  entregar é o negócio. O roteiro é **único** (`_schema/roteiro-padrao.json`: habilitação ·
+  dimensionamento · equipe · frota/base · sistemas · **suprimentos** · **qualidade e NEP** ·
+  contrato); cada frente guarda só o **estado** de cada item — nunca uma cópia da lista.
+  Melhorar o roteiro melhora todas as implantações de uma vez. **Prontidão é derivada**,
+  nunca digitada; item sem registro conta como pendente (o OS não presume feito).
+  A página soma as partidas simultâneas e mostra o que nenhuma frente isolada mostra:
+  quando várias correm juntas, a restrição do negócio deixa de ser vender e passa a ser
+  **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
@@ -153,6 +163,7 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 **Só o que está em `dashboard/` vai ao ar.** O build monta o bundle:
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
+- `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.

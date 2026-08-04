@@ -1,6 +1,6 @@
 // Service worker — casca offline. Os DADOS ficam no IndexedDB (nunca aqui, nunca em rede).
-const CACHE = 'samais-despesas-v1';
-const ATIVOS = ['./', './index.html', './manifest.webmanifest', './icone.svg', './icone-maskable.svg'];
+const CACHE = 'samais-despesas-v2';
+const ATIVOS = ['./', './index.html', './manifest.webmanifest', './marca-icone.svg', './marca-icone-maskable.svg', './marca-icone-180.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ATIVOS)).then(() => self.skipWaiting()));

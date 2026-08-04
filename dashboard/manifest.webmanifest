@@ -1,0 +1,26 @@
+{
+  "_doc": "Manifesto do Samais-OS como app instalável. Fica na doutrina porque a marca é doutrina; o build distribui para dashboard/. Ícones e cores vêm de samais.css / marca-icone.svg — nada redeclarado à mão.",
+  "name": "Samais-OS",
+  "short_name": "Samais-OS",
+  "description": "Central de acessos e informações da Samais Gestão em Saúde: frentes, radar de licitações, mercado, obrigações e prestação de contas.",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "./marca-icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./marca-icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./marca-icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./marca-icone-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Frentes", "url": "./frentes.html" },
+    { "name": "Radar de licitações", "url": "./radar.html" },
+    { "name": "Prestação de contas", "url": "./despesas/" }
+  ]
+}

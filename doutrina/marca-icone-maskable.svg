@@ -1,0 +1,16 @@
+<!-- Variante maskable: o Android recorta o ícone em formas variadas (círculo, squircle),
+     então o conteúdo fica dentro da zona segura (~80% central) e o fundo sangra até a borda.
+     Mesmos tokens de doutrina/samais.css. Distribuído pelo build. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="ouroM" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8E7238"/>
+      <stop offset=".5" stop-color="#B8954E"/>
+      <stop offset="1" stop-color="#D4B373"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#0A0A0A"/>
+  <text x="256" y="304" font-family="Syne, 'Arial Black', Helvetica, sans-serif" font-weight="800"
+        font-size="150" fill="url(#ouroM)" text-anchor="middle" letter-spacing="-6">SA+</text>
+  <rect x="176" y="340" width="160" height="7" rx="3.5" fill="#B8954E" fill-opacity=".5"/>
+</svg>

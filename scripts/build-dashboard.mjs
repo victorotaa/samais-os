@@ -40,6 +40,15 @@ const FERRAMENTAS = [{ de: join(ROOT, "ferramentas", "despesas"), para: join(DAS
 const CSS_CANONICO = join(ROOT, "doutrina", "samais.css");
 const CSS_DESTINOS = [join(DASH_DIR, "samais.css"), join(DASH_DIR, "despesas", "samais.css")];
 
+// A marca também é doutrina: o ícone de app vive em doutrina/ e é distribuído daqui, para
+// que nenhuma superfície mantenha a sua própria versão (foi assim que a ferramenta de
+// despesas acabou com um ícone na paleta antiga, #04060C/#D4A857).
+const MARCA_ASSETS = [
+  "marca-icone.svg", "marca-icone-maskable.svg",
+  "marca-icone-180.png", "marca-icone-192.png", "marca-icone-512.png",
+];
+const MANIFESTO_OS = join(ROOT, "doutrina", "manifest-os.webmanifest");
+
 // ---------- validador de JSON Schema (subset draft-07) ----------
 function validate(data, schema, path = "") {
   const errors = [];
@@ -363,6 +372,27 @@ if (!existsSync(CSS_CANONICO)) {
 for (const destino of CSS_DESTINOS) {
   cpSync(CSS_CANONICO, destino);
   console.log(`✓ ${relative(ROOT, CSS_CANONICO)} → ${relative(ROOT, destino)}`);
+}
+
+// ---------- distribui a marca (ícones de app) e o manifesto ----------
+let assetsFaltando = 0;
+for (const arq of MARCA_ASSETS) {
+  const de = join(ROOT, "doutrina", arq);
+  if (!existsSync(de)) {
+    console.warn(`⚠ ${relative(ROOT, de)} ausente — rode: node scripts/gerar-icones.mjs`);
+    assetsFaltando++;
+    continue;
+  }
+  for (const dir of [DASH_DIR, join(DASH_DIR, "despesas")]) cpSync(de, join(dir, arq));
+}
+if (!assetsFaltando) console.log(`✓ marca (${MARCA_ASSETS.length} arquivos) → dashboard/ e dashboard/despesas/`);
+
+if (existsSync(MANIFESTO_OS)) {
+  cpSync(MANIFESTO_OS, join(DASH_DIR, "manifest.webmanifest"));
+  console.log("✓ doutrina/manifest-os.webmanifest → dashboard/manifest.webmanifest");
+} else {
+  console.error("✖ manifesto do OS ausente: doutrina/manifest-os.webmanifest");
+  process.exit(1);
 }
 
 console.log("✓ pacote publicável montado em dashboard/ (home + cockpit + ferramentas).");

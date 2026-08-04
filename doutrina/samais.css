@@ -103,40 +103,74 @@ body::before{
   border:1px solid rgba(255,255,255,.10);
   border-radius:14px;
 }
-/* Refração real (feDisplacementMap) é opcional e exige o <svg id="glassDistort">
-   na página — ver doutrina/design-system.md. Reservada a peças de apresentação
-   (estudos/dossiês); ferramentas de uso diário ficam no blur, que é universal. */
+/* O material recorta o que passa por baixo — sem isso, conteúdo largo vaza pela
+   borda arredondada e o vidro deixa de parecer uma superfície. */
+.glass{overflow:hidden}
+
+/* ── REFRAÇÃO (o que separa liquid glass de "card borrado") ──────────────
+   backdrop-filter com url(#glassDistort) distorce o fundo atrás do vidro, como
+   vidro real. Exige o <svg> do filtro na página — use o snippet de
+   doutrina/glass-filter.html, que o build distribui. Chromium aplica; os demais
+   ignoram a url() e ficam no blur, então degrada sozinho.
+   Padrão instaurado nos estudos e no ROTA — agora é o padrão do OS.          */
+.glass, .barra-vidro{
+  backdrop-filter:var(--glass-blur) url(#glassDistort);
+}
+/* Conteúdo largo (tabela, gráfico) precisa rolar DENTRO do vidro: o overflow:hidden
+   do material clipa as colunas da direita no celular se não houver este escape. */
+.glass .rolavel, .rolavel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
 @media (max-width:720px){
-  .glass{border-radius:12px;-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+  /* Sem refração no celular: custa GPU e o ganho visual não se vê em 390px.
+     A declaração sem url() é o fallback — mantém o vidro, tira o cálculo caro. */
+  .glass, .barra-vidro{
+    border-radius:12px;
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    backdrop-filter:blur(16px) saturate(140%);
+  }
+}
+@media (prefers-reduced-transparency: reduce){
+  /* Quem pediu menos transparência recebe superfície opaca, não vidro. */
+  .glass,.glass-sutil,.barra-vidro{
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1);
+  }
 }
 
 
 /* ── MARCA ───────────────────────────────────────────────────────────────
-   Wordmark no desktop, monograma SA+ no mobile (doutrina samais-rota).
-   Se o SVG oficial do vault (Drive) estiver disponível, ele substitui isto:
-   troque o conteúdo de .marca por <img src="wordmark.svg" alt="Samais">.   */
-.marca{display:inline-flex;align-items:baseline;gap:.42em;text-decoration:none;line-height:1;white-space:nowrap}
+   A marca é ARQUIVO OFICIAL, não tipografia imitando a marca. Os SVGs vêm da
+   pasta canônica do Drive (Desenho: Victor Ota) e vivem em doutrina/marca/;
+   o build os distribui para cada superfície, ao lado deste CSS — por isso as
+   url() relativas funcionam tanto em dashboard/ quanto em dashboard/despesas/.
+
+   Desktop: wordmark dourado completo. Mobile: monograma SA+ (a marca não some,
+   colapsa). NUNCA escrever "Samais" em fonte genérica — é o erro que o
+   samais-rota proíbe explicitamente.                                        */
+/* --marca-tam = ALTURA do wordmark. 26px é o mínimo em que o traço fino do
+   logotipo oficial ainda tem presença numa barra escura. */
+.marca{--marca-tam:26px;display:inline-flex;align-items:center;gap:.55em;text-decoration:none;line-height:1;white-space:nowrap}
 .marca .nome{
-  font-family:var(--display); font-weight:700; letter-spacing:-.015em;
-  font-size:var(--marca-tam,20px);
-  background:linear-gradient(96deg,var(--gold-deep) 0%,var(--gold) 38%,var(--gold-soft) 62%,var(--gold) 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  display:block;
+  height:var(--marca-tam,26px);
+  width:calc(var(--marca-tam,26px) * 3.385);   /* viewBox 595.3 × 175.9 */
+  background:url(./samais-logo-gold.svg) no-repeat left center / contain;
+  text-indent:-9999px; overflow:hidden;         /* o texto fica p/ leitor de tela */
 }
-.marca .sep{color:var(--gold-deep);font-size:calc(var(--marca-tam,20px) * .8);font-weight:400}
+.marca .sep{color:var(--gold-deep);font-size:calc(var(--marca-tam,26px) * .7);font-weight:400}
 .marca .desc{
-  font-family:var(--mono); font-size:calc(var(--marca-tam,20px) * .40);
+  font-family:var(--mono); font-size:calc(var(--marca-tam,26px) * .40);
   letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
-  align-self:center; padding-top:.15em;
 }
 .marca .mono-sa{display:none}
 /* Monograma SA+ no mobile — a marca não some, colapsa. */
 @media (max-width:600px){
   .marca .nome,.marca .sep,.marca .desc{display:none}
   .marca .mono-sa{
-    display:inline-block; font-family:var(--display); font-weight:800;
-    font-size:calc(var(--marca-tam,20px) * 1.05); letter-spacing:-.02em;
-    background:linear-gradient(96deg,var(--gold-deep),var(--gold-soft));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
+    display:block;
+    height:calc(var(--marca-tam,26px) * 1.15);
+    width:calc(var(--marca-tam,26px) * 1.15 * 1.541);  /* viewBox 271 × 175.9 */
+    background:url(./samais-monograma-gold.svg) no-repeat center / contain;
+    text-indent:-9999px; overflow:hidden;
   }
 }
 

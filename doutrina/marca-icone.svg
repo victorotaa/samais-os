@@ -1,16 +1,15 @@
-<!-- Ícone canônico da marca Samais — usado como ícone de app (PWA), favicon e
-     apple-touch-icon. Tokens de doutrina/samais.css: fundo #0A0A0A, ouro #B8954E→#D4B373,
-     display Syne. Monograma SA+, que é a marca no mobile (a marca não some, colapsa).
-     Distribuído pelo build para cada superfície do bundle — não duplicar à mão. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<!-- Ícone de app / favicon do Samais-OS.
+     O DESENHO é o monograma SA+ oficial (doutrina/marca/samais-monograma-gold.svg,
+     autoria Victor Ota) — path copiado sem alteração. Aqui ele só ganha o fundo
+     preto institucional e o enquadramento quadrado exigido por PWA/iOS.
+     Ouro matte #B8954E chapado, como no arquivo oficial: nada de gradiente
+     inventado sobre a marca. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"
+     role="img" aria-label="Samais-OS">
+  <title>Samais-OS</title>
   <defs>
-    <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#8E7238"/>
-      <stop offset=".5" stop-color="#B8954E"/>
-      <stop offset="1" stop-color="#D4B373"/>
-    </linearGradient>
-    <radialGradient id="brilho" cx=".5" cy=".18" r=".85">
-      <stop offset="0" stop-color="#B8954E" stop-opacity=".16"/>
+    <radialGradient id="brilho" cx=".5" cy=".16" r=".85">
+      <stop offset="0" stop-color="#B8954E" stop-opacity=".15"/>
       <stop offset="1" stop-color="#B8954E" stop-opacity="0"/>
     </radialGradient>
   </defs>
@@ -18,7 +17,7 @@
   <rect width="512" height="512" rx="112" fill="url(#brilho)"/>
   <rect x="6" y="6" width="500" height="500" rx="108" fill="none"
         stroke="#FFFFFF" stroke-opacity=".12" stroke-width="3"/>
-  <text x="256" y="322" font-family="Syne, 'Arial Black', Helvetica, sans-serif" font-weight="800"
-        font-size="196" fill="url(#ouro)" text-anchor="middle" letter-spacing="-8">SA+</text>
-  <rect x="146" y="368" width="220" height="8" rx="4" fill="#B8954E" fill-opacity=".5"/>
+  <g transform="translate(9.5,106.3) scale(1.819)">
+    <path fill="#B8954E" d="M44.8,106.6l4.9-4.9c6.3,3.6,18.1,8.8,33.7,8.8s25.4-3.2,25.4-11.1-14.2-9.6-24.3-9.8c-16.2-.2-35.3-2.8-35.3-14.1s17.3-16.3,32.6-16.3,27,3.2,34,6.5l-4.4,4.9c-6.7-3.1-17.1-6-28.8-6s-22.8,1.7-22.8,9.6,17,7.7,24.7,7.9c15.9.2,35.3,3.2,35.3,16.9s-20.1,17.1-35.8,17.1-31.5-5.3-39.3-9.4ZM168.7,60.7h-13.1l25,33.6h-42.3c-3.2,0-6.3,1.5-8.2,4.1l-11.7,15.8h7.5l7.9-10.7c1.9-2.6,5-4.1,8.2-4.1h42.2l10.8,14.8h13.1l-39.5-53.6ZM226.2,60.7h-10.4v-10.4h-10v10.4h-10.4v10h10.4v10.4h10v-10.4h10.4v-10Z"/>
+  </g>
 </svg>

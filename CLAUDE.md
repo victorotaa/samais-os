@@ -26,6 +26,10 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
    - `precificacao.md` — BDI decomposto 35%; **nunca "lucro"/"margem"**.
    - `padrao-frio.md` — audiência externa: neutro, factual, sem advocacy.
    - `higgsfield-canon.md` — cânone de vídeo (decisão fechada).
+   - `doutrina-de-negocios.md` — **famiglia · palavra · idoneidade**, papéis (André = CEO,
+     Ota = Consigliere) e como orientá-lo: leitura e recomendação, não menu de opções.
+   - `marca/` — **logotipos oficiais** (Drive, autoria Victor Ota). Wordmark no desktop,
+     monograma SA+ no mobile. **Nunca escrever "Samais" em fonte genérica.**
 2. **`inteligencia/`** — benchmarks SAMU, consórcios, editais.
 3. **`frentes/`** — dados-como-arquivo (uma pasta por alvo). Ver "Frentes" abaixo.
 4. **`transversais/tecnologia-jarvis/agente-embarcado.md`** — arquitetura do agente
@@ -50,7 +54,15 @@ repo **irmão** do `jarvis-os` (o OS pessoal/meta de Ota), **não** um substitut
 - **Identidade visual:** **importe `doutrina/samais.css`** — é a fonte de verdade dos
   tokens (dark liquid-glass · `#0A0A0A` · ouro `#B8954E` · Syne/Inter 300/JetBrains Mono).
   **Nenhuma página redeclara cor**; se você está digitando um hex, provavelmente está
-  errado. Marca: wordmark no desktop, monograma `SA+` no mobile.
+  errado. Marca: wordmark no desktop, monograma `SA+` no mobile — sempre os **SVGs oficiais**
+  de `doutrina/marca/`, distribuídos pelo build; nunca tipografia imitando a marca.
+  **Liquid glass canônico** (padrão dos estudos e do ROTA): blur 22px + saturate 150% +
+  **refração** `url(#glassDistort)`, borda `rgba(255,255,255,.12)`, brilho especular interno,
+  cantos 18px, sobre o brilho ambiente radial. O filtro vem de `doutrina/glass-filter.html`.
+  No mobile a refração sai (custo de GPU), o vidro fica.
+- **Dentro do Samais-OS só entra funcionalidade que se abre.** Nada de link para o GitHub
+  nas superfícies publicadas — nem visível, nem no `data.json` (o build remove `repo` dos
+  produtos). Se não há funcionalidade, **omita** e proponha o que caberia no lugar.
 
 ## Frentes (dados-como-arquivo)
 
@@ -120,6 +132,16 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   home mostra como pendência tracejada — **nunca como link que funciona**. URL não se
   adivinha (Princípio da Realidade aplicado a infraestrutura).
 
+- **`implantacao/`** — **o que falta para cada frente contratada PARTIR**. Vender é o começo;
+  entregar é o negócio. O roteiro é **único** (`_schema/roteiro-padrao.json`: habilitação ·
+  dimensionamento · equipe · frota/base · sistemas · **suprimentos** · **qualidade e NEP** ·
+  contrato); cada frente guarda só o **estado** de cada item — nunca uma cópia da lista.
+  Melhorar o roteiro melhora todas as implantações de uma vez. **Prontidão é derivada**,
+  nunca digitada; item sem registro conta como pendente (o OS não presume feito).
+  A página soma as partidas simultâneas e mostra o que nenhuma frente isolada mostra:
+  quando várias correm juntas, a restrição do negócio deixa de ser vender e passa a ser
+  **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
@@ -141,6 +163,7 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 **Só o que está em `dashboard/` vai ao ar.** O build monta o bundle:
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
+- `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.
@@ -148,7 +171,12 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/data.json` — gerado das frentes.
 
 A camada confidencial (`frentes/**/interpretacao.md`, `frentes/**/bastidor.md`, `doutrina/`)
-**nunca** entra no bundle.
+**nunca** entra no bundle — e o build **falha** se algum termo proibido aparecer em
+`dashboard/` (guarda automática no fim de `build-dashboard.mjs`).
+
+⚠️ **`status.json` É camada citável**: ele vira `data.json`, que vai à URL pública. Bastidor
+político, leitura de gestão anterior e nome de contato **não entram** em `proximo_passo`.
+O que é sensível vive em `bastidor.md` e `interpretacao.md`, que não são publicados.
 
 ## Skills proprietárias (canônicas aqui)
 

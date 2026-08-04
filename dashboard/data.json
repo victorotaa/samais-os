@@ -1,6 +1,6 @@
 {
   "gerado_em": "2026-08-04",
-  "total_frentes": 7,
+  "total_frentes": 8,
   "pipeline_mensal": 8100000,
   "pipeline_anual": 97200000,
   "contratos_ativos": 0,
@@ -34,6 +34,20 @@
   ],
   "frentes": [
     {
+      "frente": "Ourinhos",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "negociacao",
+      "score": 8.5,
+      "valor_contratual_mensal": null,
+      "operador_atual": null,
+      "verdict": "go",
+      "gatilho": "Retomada de operação em município onde a Samais já atuou",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "Preparar capacidade de partida rápida: a contratação pode se dar por via emergencial, com prazo curto entre decisão e início. Levantar dimensionamento (FC 4,5), CCT-SP e habilitação para resposta imediata.",
+      "_slug": "ourinhos"
+    },
+    {
       "frente": "Belém",
       "uf": "PA",
       "servico": "SAMU",
@@ -44,8 +58,8 @@
       "operador_atual": "prefeitura",
       "verdict": "go",
       "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, SEM data contratual confirmada — por isso nenhuma data está registrada). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO — junto com Canoas, é a implantação mais próxima. Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
       "_slug": "belem"
     },
     {
@@ -53,13 +67,13 @@
       "uf": "SP",
       "servico": "SAMU",
       "estagio": "negociacao",
-      "score": 0,
+      "score": 7,
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
       "gatilho": "Estudo de município produzido (samais-estudos: avare-manduri-sp)",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "NEGOCIAÇÃO AVANÇADA — a mais adiantada das frentes não fechadas. Fechar o valor contratual mensal com base no estudo já produzido e definir a data de implantação. Estudo: samais-estudos/estudos (avare-manduri-sp).",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "NEGOCIAÇÃO DIRETA. Cenário em discussão: Avaré + Manduri POSSIVELMENTE SEM base descentralizada em Manduri, por custo — a confirmar. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: refazer a cobertura antes de fechar preço, para não assumir SLA que a configuração não entrega.",
       "_slug": "avare"
     },
     {
@@ -71,8 +85,8 @@
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO — pela janela declarada (~30 dias em 30/07/2026) é a implantação MAIS PRÓXIMA das três, mas a data ainda não está confirmada e por isso não é registrada. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
       "_slug": "canoas"
     },
     {
@@ -107,8 +121,8 @@
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, sem data contratual confirmada). A levantar: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO e IMINENTE. A levantar antes do dia 1: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
       "_slug": "taboao"
     },
     {
@@ -1971,71 +1985,2051 @@
   "produtos": [
     {
       "produto": "CoPilot OS",
-      "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria. Protótipo navegável, dados mockados.",
-      "repo": "https://github.com/victorotaa/samais-copilot",
+      "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria.",
       "estagio": "prototipo",
       "links": [
         {
           "tipo": "sistema",
-          "rotulo": "Demo do sistema",
-          "url": "https://samais-copilot-demo.vercel.app",
+          "rotulo": "Abrir o sistema",
+          "url": "https://samais-copilot-demo.vercel.app/",
           "procedencia": "verificado",
-          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"Produção = branch main → samais-copilot-demo.vercel.app\""
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         },
         {
           "tipo": "lp",
           "rotulo": "Landing page",
           "url": "https://samais-copilot-demo.vercel.app/lp/",
           "procedencia": "verificado",
-          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"LP servida em /lp/ no mesmo deploy\" (pasta lp/ com vercel.json próprio)"
+          "fonte": "samais-copilot/docs/08-handoff-dev.md — LP servida em /lp/ no mesmo deploy."
         }
       ],
-      "papel_no_os": "Principal diferencial competitivo. Entra nos estudos/propostas como Parte V (skill samais-municipal-study) e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
-      "atualizado_em": "2026-07-30",
+      "papel_no_os": "Principal diferencial competitivo. Entra nos estudos e propostas e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
+      "atualizado_em": "2026-08-04",
       "_slug": "samu-copilot-os"
     },
     {
-      "produto": "PEP OS",
-      "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão. Rev1 com store em memória — sandbox, não produção.",
-      "repo": "https://github.com/victorotaa/samais-pep",
+      "produto": "ROTA — Transporte Sanitário",
+      "resumo": "Frente de transporte sanitário: sistema de operação e a tese de investimento institucional.",
       "estagio": "prototipo",
       "links": [
         {
           "tipo": "sistema",
-          "rotulo": "Sandbox público",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-pep/README.md documenta o procedimento de deploy (Root Directory = apps/web) e diz que a URL sai no padrão samais-pep-*.vercel.app, mas NÃO registra a URL final. A levantar no painel da Vercel."
+          "rotulo": "Rota-OS",
+          "url": "https://samais-rota.vercel.app/rota-app.html",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        },
+        {
+          "tipo": "documento",
+          "rotulo": "Tese de Investimento",
+          "url": "https://samais-rota.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         }
       ],
-      "papel_no_os": "Camada de registro clínico do ecossistema. O sandbox é efêmero (store em memória ressuscita o seed a cada cold start) — serve para demonstração, não para dado real.",
-      "atualizado_em": "2026-07-30",
-      "_slug": "pep-os"
+      "papel_no_os": "Frente de negócio com sistema próprio e material de investidor pronto.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "rota"
     },
     {
-      "produto": "ROTA — Transporte Sanitário",
-      "resumo": "Frente de transporte sanitário da Samais. Hoje existe como peça institucional (tese de investimento e master plan); o módulo de sistema não foi commitado.",
-      "repo": "https://github.com/victorotaa/samais-rota",
+      "produto": "CRAU — SAMU Animal",
+      "resumo": "Centro de resgate e atendimento a urgências animais. Projeto de frente em stand-by.",
       "estagio": "documento",
       "links": [
         {
           "tipo": "documento",
-          "rotulo": "Tese de Investimento",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-rota/index.html (título: \"Transporte Sanitário — Samais · Tese de Investimento\"). CLAUDE.md do repo manda publicar por `npx vercel --prod --scope samais`, mas a URL de produção não está registrada em lugar nenhum."
-        },
-        {
-          "tipo": "documento",
-          "rotulo": "Master Plan ROTA",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-copilot/master-plan-rota/ tem vercel.json próprio com name \"samais-master-plan-rota\" — deploy separado. URL final não registrada."
+          "rotulo": "Abrir o projeto",
+          "url": "https://samais-crau.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         }
       ],
-      "papel_no_os": "Frente de negócio com material de investidor pronto. ⚠️ ATENÇÃO: samais-copilot/docs/00-analise-atual.md registra que \"o módulo MASTER_ROTA no App.tsx não chegou\" — ou seja, nos repositórios existe o documento institucional, não um sistema ROTA. Se existe sistema rodando, está fora dos 6 repositórios conectados.",
-      "atualizado_em": "2026-07-30",
-      "_slug": "rota"
+      "papel_no_os": "Frente em STAND-BY por decisão interna. Não arquivada: extensão de serviço com peça pronta, a reativar quando houver janela.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "crau"
+    },
+    {
+      "produto": "PEP OS",
+      "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão.",
+      "estagio": "prototipo",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Abrir o sistema",
+          "url": "https://samais-pep-web.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        }
+      ],
+      "papel_no_os": "Camada de registro clínico do ecossistema.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "pep-os"
+    },
+    {
+      "produto": "Radar de Licitações (web)",
+      "resumo": "Aplicação própria de radar de licitações, com deploy independente.",
+      "estagio": "producao",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Abrir o radar",
+          "url": "https://samais-radar.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        }
+      ],
+      "papel_no_os": "⚠️ CONVIVE com o radar interno do OS (captação PNCP → radar/semanas + página Radar). São duas superfícies para o mesmo assunto — a definir qual é a canônica; enquanto isso, ambas ficam visíveis.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "radar-web"
     }
-  ]
+  ],
+  "implantacao": {
+    "roteiro_versao": "2026-08-04b",
+    "frentes": [
+      {
+        "frente": "belem",
+        "titulo": "Belém/PA",
+        "situacao": "preparacao",
+        "responsavel": null,
+        "atualizado_em": "2026-08-04",
+        "prontidao": 2,
+        "prontidao_critica": 2,
+        "criticos_pendentes": 47,
+        "bloqueados": 0,
+        "blocos": [
+          {
+            "id": "habilitacao",
+            "nome": "Habilitação e idoneidade",
+            "critico": true,
+            "itens": [
+              {
+                "id": "cnd-federal",
+                "nome": "CND Federal (PGFN + SRF)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-estadual",
+                "nome": "CND Estadual da UF do contrato",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-municipal",
+                "nome": "CND do município contratante",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "crf-fgts",
+                "nome": "CRF — regularidade do FGTS",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cndt",
+                "nome": "CNDT — débitos trabalhistas",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "falencia",
+                "nome": "Certidão negativa de falência",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "balanco",
+                "nome": "Balanço com índices de liquidez (LG/LC/SG ≥ 1,0)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "atestado",
+                "nome": "Atestado de capacidade técnica compatível com o porte",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 8,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "dimensionamento",
+            "nome": "Dimensionamento e preço",
+            "critico": true,
+            "itens": [
+              {
+                "id": "historico-atendimentos",
+                "nome": "Histórico de atendimentos do município",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "postos-viaturas",
+                "nome": "Nº de postos, viaturas (USB/USA) e bases",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Expansão de frota anunciada (20 USB) — confirmar o que entra no escopo."
+              },
+              {
+                "id": "headcount-fc",
+                "nome": "Headcount com Fator de Cobertura 4,5",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "⚠️ Diligência de headcount real com FC 4,5. É a maior frente do pipeline: erro aqui é caro."
+              },
+              {
+                "id": "cct",
+                "nome": "CCT aplicável e pisos vigentes na UF",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "CCT-PA a fechar."
+              },
+              {
+                "id": "valor-mensal",
+                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Conferir se o contratado bate com os R$ 8,1 mi/mês do Cenário Base."
+              },
+              {
+                "id": "benchmark",
+                "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "equipe",
+            "nome": "Equipe",
+            "critico": true,
+            "itens": [
+              {
+                "id": "medicos-reguladores",
+                "nome": "Médicos reguladores (CRM + RQE em APH)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "enfermeiros",
+                "nome": "Enfermeiros (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tecnicos",
+                "nome": "Técnicos de enfermagem (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "condutores",
+                "nome": "Condutores socorristas (CNH categoria + curso)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tarm-radio",
+                "nome": "TARM e rádio-operadores",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "coordenacao",
+                "nome": "Coordenação local da operação",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "treinamento",
+                "nome": "Treinamento BLS/ACLS e integração",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "frota-base",
+            "nome": "Frota e base",
+            "critico": false,
+            "itens": [
+              {
+                "id": "inventario-frota",
+                "nome": "Inventário da frota recebida (estado, idade, CRLV)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "reativacao",
+                "nome": "Plano de reativação das viaturas paradas",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "manutencao",
+                "nome": "Contrato/fluxo de manutenção",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-cru",
+                "nome": "Base(s) e Central de Regulação disponíveis",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnes",
+                "nome": "Registro no CNES dos estabelecimentos",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "alvara",
+                "nome": "Alvará sanitário",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "sistemas",
+            "nome": "Sistemas Samais plugados",
+            "critico": false,
+            "itens": [
+              {
+                "id": "pep",
+                "nome": "PEP OS — prontuário rodando com base persistente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "copilot",
+                "nome": "CoPilot OS — apoio à regulação",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "rota",
+                "nome": "Rota-OS — transporte sanitário (se no escopo)",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-dados",
+                "nome": "Base de dados provisionada (persistência real, backup, retenção)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "lgpd",
+                "nome": "Trâmites de LGPD: encarregado, base legal, contrato de tratamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "integracao-ente",
+                "nome": "Integração/relatórios exigidos pelo ente",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "suprimentos",
+            "nome": "Suprimentos e insumos",
+            "critico": true,
+            "itens": [
+              {
+                "id": "lista-insumos",
+                "nome": "Lista de insumos por tipo de viatura (USB/USA) e por base",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "medicamentos",
+                "nome": "Medicamentos, incluindo controlados (receituário, escrituração, VISA)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "material-medico",
+                "nome": "Material médico-hospitalar e descartáveis",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "oxigenio",
+                "nome": "Oxigênio medicinal — contrato de fornecimento e troca de cilindros",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "epi-uniforme",
+                "nome": "EPI e uniformes da equipe",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "fornecedores",
+                "nome": "Fornecedores homologados na praça, com cotação comparada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "estoque-minimo",
+                "nome": "Estoque mínimo e ponto de reposição definidos por item",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "logistica",
+                "nome": "Logística de reposição nas bases (quem repõe, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "residuos",
+                "nome": "Descarte de resíduos de serviço de saúde (RSS) contratado",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 9,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "qualidade-nep",
+            "nome": "Qualidade, NEP e desempenho",
+            "critico": true,
+            "itens": [
+              {
+                "id": "nep",
+                "nome": "NEP constituído — responsável técnico e plano de educação permanente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cronograma-capacitacao",
+                "nome": "Cronograma de capacitação da equipe (carga horária conforme contrato)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "protocolos",
+                "nome": "Protocolos clínicos e POPs assinados pelo responsável técnico",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "metas-contratuais",
+                "nome": "Metas de desempenho contratuais explícitas (tempo-resposta, disponibilidade de frota, absenteísmo)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "instrumentacao",
+                "nome": "Como cada meta é MEDIDA (fonte do dado, quem apura, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "relatorio-ente",
+                "nome": "Relatório periódico ao ente no formato exigido",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "eventos-adversos",
+                "nome": "Fluxo de eventos adversos e ouvidoria",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "contrato",
+            "nome": "Contrato e partida",
+            "critico": true,
+            "itens": [
+              {
+                "id": "assinatura",
+                "nome": "Contrato assinado",
+                "critico": true,
+                "estado": "concluido",
+                "nota": "Frente reportada como FECHADA em 30/07/2026."
+              },
+              {
+                "id": "garantia",
+                "nome": "Garantia contratual prestada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "ordem-servico",
+                "nome": "Ordem de serviço / data de início definida",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Sem data contratual confirmada."
+              },
+              {
+                "id": "capital-giro",
+                "nome": "Capital de giro para o ciclo até o 1º pagamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "transicao",
+                "nome": "Plano de transição com o operador anterior",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "indicadores",
+                "nome": "Indicadores e SLA acordados com o ente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 1,
+            "prontidao": 17,
+            "bloqueados": 0
+          }
+        ]
+      },
+      {
+        "frente": "canoas",
+        "titulo": "Canoas/RS",
+        "situacao": "preparacao",
+        "responsavel": null,
+        "atualizado_em": "2026-08-04",
+        "prontidao": 2,
+        "prontidao_critica": 2,
+        "criticos_pendentes": 47,
+        "bloqueados": 0,
+        "blocos": [
+          {
+            "id": "habilitacao",
+            "nome": "Habilitação e idoneidade",
+            "critico": true,
+            "itens": [
+              {
+                "id": "cnd-federal",
+                "nome": "CND Federal (PGFN + SRF)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-estadual",
+                "nome": "CND Estadual da UF do contrato",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-municipal",
+                "nome": "CND do município contratante",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "crf-fgts",
+                "nome": "CRF — regularidade do FGTS",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cndt",
+                "nome": "CNDT — débitos trabalhistas",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "falencia",
+                "nome": "Certidão negativa de falência",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "balanco",
+                "nome": "Balanço com índices de liquidez (LG/LC/SG ≥ 1,0)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "atestado",
+                "nome": "Atestado de capacidade técnica compatível com o porte",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 8,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "dimensionamento",
+            "nome": "Dimensionamento e preço",
+            "critico": true,
+            "itens": [
+              {
+                "id": "historico-atendimentos",
+                "nome": "Histórico de atendimentos do município",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "postos-viaturas",
+                "nome": "Nº de postos, viaturas (USB/USA) e bases",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "A levantar — frente entrou por atualização verbal, sem estudo no OS."
+              },
+              {
+                "id": "headcount-fc",
+                "nome": "Headcount com Fator de Cobertura 4,5",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "A levantar."
+              },
+              {
+                "id": "cct",
+                "nome": "CCT aplicável e pisos vigentes na UF",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "CCT aplicável no RS a levantar."
+              },
+              {
+                "id": "valor-mensal",
+                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "A levantar."
+              },
+              {
+                "id": "benchmark",
+                "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "equipe",
+            "nome": "Equipe",
+            "critico": true,
+            "itens": [
+              {
+                "id": "medicos-reguladores",
+                "nome": "Médicos reguladores (CRM + RQE em APH)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "enfermeiros",
+                "nome": "Enfermeiros (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tecnicos",
+                "nome": "Técnicos de enfermagem (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "condutores",
+                "nome": "Condutores socorristas (CNH categoria + curso)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tarm-radio",
+                "nome": "TARM e rádio-operadores",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "coordenacao",
+                "nome": "Coordenação local da operação",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "treinamento",
+                "nome": "Treinamento BLS/ACLS e integração",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "frota-base",
+            "nome": "Frota e base",
+            "critico": false,
+            "itens": [
+              {
+                "id": "inventario-frota",
+                "nome": "Inventário da frota recebida (estado, idade, CRLV)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "reativacao",
+                "nome": "Plano de reativação das viaturas paradas",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "manutencao",
+                "nome": "Contrato/fluxo de manutenção",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-cru",
+                "nome": "Base(s) e Central de Regulação disponíveis",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnes",
+                "nome": "Registro no CNES dos estabelecimentos",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "alvara",
+                "nome": "Alvará sanitário",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "sistemas",
+            "nome": "Sistemas Samais plugados",
+            "critico": false,
+            "itens": [
+              {
+                "id": "pep",
+                "nome": "PEP OS — prontuário rodando com base persistente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "copilot",
+                "nome": "CoPilot OS — apoio à regulação",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "rota",
+                "nome": "Rota-OS — transporte sanitário (se no escopo)",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-dados",
+                "nome": "Base de dados provisionada (persistência real, backup, retenção)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "lgpd",
+                "nome": "Trâmites de LGPD: encarregado, base legal, contrato de tratamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "integracao-ente",
+                "nome": "Integração/relatórios exigidos pelo ente",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "suprimentos",
+            "nome": "Suprimentos e insumos",
+            "critico": true,
+            "itens": [
+              {
+                "id": "lista-insumos",
+                "nome": "Lista de insumos por tipo de viatura (USB/USA) e por base",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "medicamentos",
+                "nome": "Medicamentos, incluindo controlados (receituário, escrituração, VISA)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "material-medico",
+                "nome": "Material médico-hospitalar e descartáveis",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "oxigenio",
+                "nome": "Oxigênio medicinal — contrato de fornecimento e troca de cilindros",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "epi-uniforme",
+                "nome": "EPI e uniformes da equipe",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "fornecedores",
+                "nome": "Fornecedores homologados na praça, com cotação comparada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "estoque-minimo",
+                "nome": "Estoque mínimo e ponto de reposição definidos por item",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "logistica",
+                "nome": "Logística de reposição nas bases (quem repõe, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "residuos",
+                "nome": "Descarte de resíduos de serviço de saúde (RSS) contratado",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 9,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "qualidade-nep",
+            "nome": "Qualidade, NEP e desempenho",
+            "critico": true,
+            "itens": [
+              {
+                "id": "nep",
+                "nome": "NEP constituído — responsável técnico e plano de educação permanente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cronograma-capacitacao",
+                "nome": "Cronograma de capacitação da equipe (carga horária conforme contrato)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "protocolos",
+                "nome": "Protocolos clínicos e POPs assinados pelo responsável técnico",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "metas-contratuais",
+                "nome": "Metas de desempenho contratuais explícitas (tempo-resposta, disponibilidade de frota, absenteísmo)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "instrumentacao",
+                "nome": "Como cada meta é MEDIDA (fonte do dado, quem apura, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "relatorio-ente",
+                "nome": "Relatório periódico ao ente no formato exigido",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "eventos-adversos",
+                "nome": "Fluxo de eventos adversos e ouvidoria",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "contrato",
+            "nome": "Contrato e partida",
+            "critico": true,
+            "itens": [
+              {
+                "id": "assinatura",
+                "nome": "Contrato assinado",
+                "critico": true,
+                "estado": "concluido",
+                "nota": "Frente reportada como FECHADA em 30/07/2026."
+              },
+              {
+                "id": "garantia",
+                "nome": "Garantia contratual prestada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "ordem-servico",
+                "nome": "Ordem de serviço / data de início definida",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Sem data contratual confirmada."
+              },
+              {
+                "id": "capital-giro",
+                "nome": "Capital de giro para o ciclo até o 1º pagamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "transicao",
+                "nome": "Plano de transição com o operador anterior",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "indicadores",
+                "nome": "Indicadores e SLA acordados com o ente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 1,
+            "prontidao": 17,
+            "bloqueados": 0
+          }
+        ]
+      },
+      {
+        "frente": "ourinhos",
+        "titulo": "Ourinhos/SP",
+        "situacao": "preparacao",
+        "responsavel": null,
+        "atualizado_em": "2026-08-04",
+        "prontidao": 2,
+        "prontidao_critica": 2,
+        "criticos_pendentes": 47,
+        "bloqueados": 0,
+        "blocos": [
+          {
+            "id": "habilitacao",
+            "nome": "Habilitação e idoneidade",
+            "critico": true,
+            "itens": [
+              {
+                "id": "cnd-federal",
+                "nome": "CND Federal (PGFN + SRF)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-estadual",
+                "nome": "CND Estadual da UF do contrato",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-municipal",
+                "nome": "CND do município contratante",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "crf-fgts",
+                "nome": "CRF — regularidade do FGTS",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cndt",
+                "nome": "CNDT — débitos trabalhistas",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "falencia",
+                "nome": "Certidão negativa de falência",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "balanco",
+                "nome": "Balanço com índices de liquidez (LG/LC/SG ≥ 1,0)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "atestado",
+                "nome": "Atestado de capacidade técnica compatível com o porte",
+                "critico": true,
+                "estado": "concluido",
+                "nota": "A Samais já operou no município — atestado disponível para verificação formal."
+              }
+            ],
+            "total": 8,
+            "concluidos": 1,
+            "prontidao": 13,
+            "bloqueados": 0
+          },
+          {
+            "id": "dimensionamento",
+            "nome": "Dimensionamento e preço",
+            "critico": true,
+            "itens": [
+              {
+                "id": "historico-atendimentos",
+                "nome": "Histórico de atendimentos do município",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "postos-viaturas",
+                "nome": "Nº de postos, viaturas (USB/USA) e bases",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "headcount-fc",
+                "nome": "Headcount com Fator de Cobertura 4,5",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "⚠️ Se vier por emergência, o prazo entre decisão e dia 1 é curto: o dimensionamento tem que estar PRONTO antes da chamada."
+              },
+              {
+                "id": "cct",
+                "nome": "CCT aplicável e pisos vigentes na UF",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "CCT-SP."
+              },
+              {
+                "id": "valor-mensal",
+                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "benchmark",
+                "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "equipe",
+            "nome": "Equipe",
+            "critico": true,
+            "itens": [
+              {
+                "id": "medicos-reguladores",
+                "nome": "Médicos reguladores (CRM + RQE em APH)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "enfermeiros",
+                "nome": "Enfermeiros (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tecnicos",
+                "nome": "Técnicos de enfermagem (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "condutores",
+                "nome": "Condutores socorristas (CNH categoria + curso)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tarm-radio",
+                "nome": "TARM e rádio-operadores",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "coordenacao",
+                "nome": "Coordenação local da operação",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "treinamento",
+                "nome": "Treinamento BLS/ACLS e integração",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "frota-base",
+            "nome": "Frota e base",
+            "critico": false,
+            "itens": [
+              {
+                "id": "inventario-frota",
+                "nome": "Inventário da frota recebida (estado, idade, CRLV)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Levantar estado real da frota — relato de degradação do serviço."
+              },
+              {
+                "id": "reativacao",
+                "nome": "Plano de reativação das viaturas paradas",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "manutencao",
+                "nome": "Contrato/fluxo de manutenção",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-cru",
+                "nome": "Base(s) e Central de Regulação disponíveis",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnes",
+                "nome": "Registro no CNES dos estabelecimentos",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "alvara",
+                "nome": "Alvará sanitário",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "sistemas",
+            "nome": "Sistemas Samais plugados",
+            "critico": false,
+            "itens": [
+              {
+                "id": "pep",
+                "nome": "PEP OS — prontuário rodando com base persistente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "copilot",
+                "nome": "CoPilot OS — apoio à regulação",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "rota",
+                "nome": "Rota-OS — transporte sanitário (se no escopo)",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-dados",
+                "nome": "Base de dados provisionada (persistência real, backup, retenção)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "lgpd",
+                "nome": "Trâmites de LGPD: encarregado, base legal, contrato de tratamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "integracao-ente",
+                "nome": "Integração/relatórios exigidos pelo ente",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "suprimentos",
+            "nome": "Suprimentos e insumos",
+            "critico": true,
+            "itens": [
+              {
+                "id": "lista-insumos",
+                "nome": "Lista de insumos por tipo de viatura (USB/USA) e por base",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "medicamentos",
+                "nome": "Medicamentos, incluindo controlados (receituário, escrituração, VISA)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "material-medico",
+                "nome": "Material médico-hospitalar e descartáveis",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "oxigenio",
+                "nome": "Oxigênio medicinal — contrato de fornecimento e troca de cilindros",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "epi-uniforme",
+                "nome": "EPI e uniformes da equipe",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "fornecedores",
+                "nome": "Fornecedores homologados na praça, com cotação comparada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "estoque-minimo",
+                "nome": "Estoque mínimo e ponto de reposição definidos por item",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "logistica",
+                "nome": "Logística de reposição nas bases (quem repõe, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "residuos",
+                "nome": "Descarte de resíduos de serviço de saúde (RSS) contratado",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 9,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "qualidade-nep",
+            "nome": "Qualidade, NEP e desempenho",
+            "critico": true,
+            "itens": [
+              {
+                "id": "nep",
+                "nome": "NEP constituído — responsável técnico e plano de educação permanente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cronograma-capacitacao",
+                "nome": "Cronograma de capacitação da equipe (carga horária conforme contrato)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "protocolos",
+                "nome": "Protocolos clínicos e POPs assinados pelo responsável técnico",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "metas-contratuais",
+                "nome": "Metas de desempenho contratuais explícitas (tempo-resposta, disponibilidade de frota, absenteísmo)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "instrumentacao",
+                "nome": "Como cada meta é MEDIDA (fonte do dado, quem apura, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "relatorio-ente",
+                "nome": "Relatório periódico ao ente no formato exigido",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "eventos-adversos",
+                "nome": "Fluxo de eventos adversos e ouvidoria",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "contrato",
+            "nome": "Contrato e partida",
+            "critico": true,
+            "itens": [
+              {
+                "id": "assinatura",
+                "nome": "Contrato assinado",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Em negociação; possível via emergencial."
+              },
+              {
+                "id": "garantia",
+                "nome": "Garantia contratual prestada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "ordem-servico",
+                "nome": "Ordem de serviço / data de início definida",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Depende da via de contratação."
+              },
+              {
+                "id": "capital-giro",
+                "nome": "Capital de giro para o ciclo até o 1º pagamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "transicao",
+                "nome": "Plano de transição com o operador anterior",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "indicadores",
+                "nome": "Indicadores e SLA acordados com o ente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          }
+        ]
+      },
+      {
+        "frente": "taboao",
+        "titulo": "Taboão da Serra/SP",
+        "situacao": "preparacao",
+        "responsavel": null,
+        "atualizado_em": "2026-08-04",
+        "prontidao": 2,
+        "prontidao_critica": 2,
+        "criticos_pendentes": 47,
+        "bloqueados": 0,
+        "blocos": [
+          {
+            "id": "habilitacao",
+            "nome": "Habilitação e idoneidade",
+            "critico": true,
+            "itens": [
+              {
+                "id": "cnd-federal",
+                "nome": "CND Federal (PGFN + SRF)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-estadual",
+                "nome": "CND Estadual da UF do contrato",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnd-municipal",
+                "nome": "CND do município contratante",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "crf-fgts",
+                "nome": "CRF — regularidade do FGTS",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cndt",
+                "nome": "CNDT — débitos trabalhistas",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "falencia",
+                "nome": "Certidão negativa de falência",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "balanco",
+                "nome": "Balanço com índices de liquidez (LG/LC/SG ≥ 1,0)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "atestado",
+                "nome": "Atestado de capacidade técnica compatível com o porte",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 8,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "dimensionamento",
+            "nome": "Dimensionamento e preço",
+            "critico": true,
+            "itens": [
+              {
+                "id": "historico-atendimentos",
+                "nome": "Histórico de atendimentos do município",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "postos-viaturas",
+                "nome": "Nº de postos, viaturas (USB/USA) e bases",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "A levantar."
+              },
+              {
+                "id": "headcount-fc",
+                "nome": "Headcount com Fator de Cobertura 4,5",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "⚠️ É a frente da lição 148 vs 80 — FC 4,5, nunca 2,2."
+              },
+              {
+                "id": "cct",
+                "nome": "CCT aplicável e pisos vigentes na UF",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "CCT-SP a confirmar."
+              },
+              {
+                "id": "valor-mensal",
+                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "A levantar."
+              },
+              {
+                "id": "benchmark",
+                "nome": "Validação por benchmark (custo/viatura/mês, peso da folha 55–70%)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "equipe",
+            "nome": "Equipe",
+            "critico": true,
+            "itens": [
+              {
+                "id": "medicos-reguladores",
+                "nome": "Médicos reguladores (CRM + RQE em APH)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "enfermeiros",
+                "nome": "Enfermeiros (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tecnicos",
+                "nome": "Técnicos de enfermagem (COREN)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "condutores",
+                "nome": "Condutores socorristas (CNH categoria + curso)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "tarm-radio",
+                "nome": "TARM e rádio-operadores",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "coordenacao",
+                "nome": "Coordenação local da operação",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "treinamento",
+                "nome": "Treinamento BLS/ACLS e integração",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "frota-base",
+            "nome": "Frota e base",
+            "critico": false,
+            "itens": [
+              {
+                "id": "inventario-frota",
+                "nome": "Inventário da frota recebida (estado, idade, CRLV)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "reativacao",
+                "nome": "Plano de reativação das viaturas paradas",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "manutencao",
+                "nome": "Contrato/fluxo de manutenção",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-cru",
+                "nome": "Base(s) e Central de Regulação disponíveis",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cnes",
+                "nome": "Registro no CNES dos estabelecimentos",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "alvara",
+                "nome": "Alvará sanitário",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "sistemas",
+            "nome": "Sistemas Samais plugados",
+            "critico": false,
+            "itens": [
+              {
+                "id": "pep",
+                "nome": "PEP OS — prontuário rodando com base persistente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "copilot",
+                "nome": "CoPilot OS — apoio à regulação",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "rota",
+                "nome": "Rota-OS — transporte sanitário (se no escopo)",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "base-dados",
+                "nome": "Base de dados provisionada (persistência real, backup, retenção)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "lgpd",
+                "nome": "Trâmites de LGPD: encarregado, base legal, contrato de tratamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "integracao-ente",
+                "nome": "Integração/relatórios exigidos pelo ente",
+                "critico": false,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "suprimentos",
+            "nome": "Suprimentos e insumos",
+            "critico": true,
+            "itens": [
+              {
+                "id": "lista-insumos",
+                "nome": "Lista de insumos por tipo de viatura (USB/USA) e por base",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "medicamentos",
+                "nome": "Medicamentos, incluindo controlados (receituário, escrituração, VISA)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "material-medico",
+                "nome": "Material médico-hospitalar e descartáveis",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "oxigenio",
+                "nome": "Oxigênio medicinal — contrato de fornecimento e troca de cilindros",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "epi-uniforme",
+                "nome": "EPI e uniformes da equipe",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "fornecedores",
+                "nome": "Fornecedores homologados na praça, com cotação comparada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "estoque-minimo",
+                "nome": "Estoque mínimo e ponto de reposição definidos por item",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "logistica",
+                "nome": "Logística de reposição nas bases (quem repõe, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "residuos",
+                "nome": "Descarte de resíduos de serviço de saúde (RSS) contratado",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 9,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "qualidade-nep",
+            "nome": "Qualidade, NEP e desempenho",
+            "critico": true,
+            "itens": [
+              {
+                "id": "nep",
+                "nome": "NEP constituído — responsável técnico e plano de educação permanente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "cronograma-capacitacao",
+                "nome": "Cronograma de capacitação da equipe (carga horária conforme contrato)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "protocolos",
+                "nome": "Protocolos clínicos e POPs assinados pelo responsável técnico",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "metas-contratuais",
+                "nome": "Metas de desempenho contratuais explícitas (tempo-resposta, disponibilidade de frota, absenteísmo)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "instrumentacao",
+                "nome": "Como cada meta é MEDIDA (fonte do dado, quem apura, com que frequência)",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "relatorio-ente",
+                "nome": "Relatório periódico ao ente no formato exigido",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "eventos-adversos",
+                "nome": "Fluxo de eventos adversos e ouvidoria",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 7,
+            "concluidos": 0,
+            "prontidao": 0,
+            "bloqueados": 0
+          },
+          {
+            "id": "contrato",
+            "nome": "Contrato e partida",
+            "critico": true,
+            "itens": [
+              {
+                "id": "assinatura",
+                "nome": "Contrato assinado",
+                "critico": true,
+                "estado": "concluido",
+                "nota": "Frente reportada como FECHADA; partida iminente."
+              },
+              {
+                "id": "garantia",
+                "nome": "Garantia contratual prestada",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "ordem-servico",
+                "nome": "Ordem de serviço / data de início definida",
+                "critico": true,
+                "estado": "pendente",
+                "nota": "Iminente, sem data confirmada."
+              },
+              {
+                "id": "capital-giro",
+                "nome": "Capital de giro para o ciclo até o 1º pagamento",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "transicao",
+                "nome": "Plano de transição com o operador anterior",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              },
+              {
+                "id": "indicadores",
+                "nome": "Indicadores e SLA acordados com o ente",
+                "critico": true,
+                "estado": "pendente",
+                "nota": null
+              }
+            ],
+            "total": 6,
+            "concluidos": 1,
+            "prontidao": 17,
+            "bloqueados": 0
+          }
+        ]
+      }
+    ]
+  }
 }

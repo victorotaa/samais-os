@@ -1,0 +1,13 @@
+{
+  "frente": "Ourinhos",
+  "uf": "SP",
+  "servico": "SAMU",
+  "estagio": "negociacao",
+  "score": 8.5,
+  "valor_contratual_mensal": null,
+  "operador_atual": null,
+  "verdict": "go",
+  "gatilho": "Retomada de operação em município onde a Samais já atuou",
+  "atualizado_em": "2026-08-04",
+  "proximo_passo": "Preparar capacidade de partida rápida: a contratação pode se dar por via emergencial, com prazo curto entre decisão e início. Levantar dimensionamento (FC 4,5), CCT-SP e habilitação para resposta imediata."
+}

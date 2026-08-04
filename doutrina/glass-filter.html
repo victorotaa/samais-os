@@ -1,0 +1,14 @@
+<!-- Filtro de refração do liquid glass — snippet canônico.
+     Cole logo após <body> em qualquer superfície que use .glass ou .barra-vidro.
+     Sem ele, o url(#glassDistort) do samais.css não resolve e o vidro cai no blur
+     (degrada sozinho, não quebra). O build distribui este arquivo para o bundle.
+     Valores idênticos aos dos estudos e do ROTA — não recalibrar por gosto. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false"
+     style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%"
+          color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>

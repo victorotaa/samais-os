@@ -1,24 +1,24 @@
 {
   "produto": "ROTA — Transporte Sanitário",
-  "resumo": "Frente de transporte sanitário da Samais. Hoje existe como peça institucional (tese de investimento e master plan); o módulo de sistema não foi commitado.",
+  "resumo": "Frente de transporte sanitário: sistema de operação e a tese de investimento institucional.",
   "repo": "https://github.com/victorotaa/samais-rota",
-  "estagio": "documento",
+  "estagio": "prototipo",
   "links": [
     {
-      "tipo": "documento",
-      "rotulo": "Tese de Investimento",
-      "url": null,
-      "procedencia": "a-confirmar",
-      "fonte": "samais-rota/index.html (título: \"Transporte Sanitário — Samais · Tese de Investimento\"). CLAUDE.md do repo manda publicar por `npx vercel --prod --scope samais`, mas a URL de produção não está registrada em lugar nenhum."
+      "tipo": "sistema",
+      "rotulo": "Rota-OS",
+      "url": "https://samais-rota.vercel.app/rota-app.html",
+      "procedencia": "verificado",
+      "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
     },
     {
       "tipo": "documento",
-      "rotulo": "Master Plan ROTA",
-      "url": null,
-      "procedencia": "a-confirmar",
-      "fonte": "samais-copilot/master-plan-rota/ tem vercel.json próprio com name \"samais-master-plan-rota\" — deploy separado. URL final não registrada."
+      "rotulo": "Tese de Investimento",
+      "url": "https://samais-rota.vercel.app/",
+      "procedencia": "verificado",
+      "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
     }
   ],
-  "papel_no_os": "Frente de negócio com material de investidor pronto. ⚠️ ATENÇÃO: samais-copilot/docs/00-analise-atual.md registra que \"o módulo MASTER_ROTA no App.tsx não chegou\" — ou seja, nos repositórios existe o documento institucional, não um sistema ROTA. Se existe sistema rodando, está fora dos 6 repositórios conectados.",
-  "atualizado_em": "2026-07-30"
+  "papel_no_os": "Frente de negócio com sistema próprio e material de investidor pronto.",
+  "atualizado_em": "2026-08-04"
 }

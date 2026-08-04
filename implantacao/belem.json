@@ -1,0 +1,31 @@
+{
+  "frente": "belem",
+  "situacao": "preparacao",
+  "atualizado_em": "2026-08-04",
+  "estados": {
+    "assinatura": {
+      "estado": "concluido",
+      "nota": "Frente reportada como FECHADA em 30/07/2026."
+    },
+    "postos-viaturas": {
+      "estado": "pendente",
+      "nota": "Expansão de frota anunciada (20 USB) — confirmar o que entra no escopo."
+    },
+    "headcount-fc": {
+      "estado": "pendente",
+      "nota": "⚠️ Diligência de headcount real com FC 4,5. É a maior frente do pipeline: erro aqui é caro."
+    },
+    "cct": {
+      "estado": "pendente",
+      "nota": "CCT-PA a fechar."
+    },
+    "valor-mensal": {
+      "estado": "pendente",
+      "nota": "Conferir se o contratado bate com os R$ 8,1 mi/mês do Cenário Base."
+    },
+    "ordem-servico": {
+      "estado": "pendente",
+      "nota": "Sem data contratual confirmada."
+    }
+  }
+}

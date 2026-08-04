@@ -1,0 +1,31 @@
+{
+  "frente": "ourinhos",
+  "situacao": "preparacao",
+  "atualizado_em": "2026-08-04",
+  "estados": {
+    "atestado": {
+      "estado": "concluido",
+      "nota": "A Samais já operou no município — atestado disponível para verificação formal."
+    },
+    "assinatura": {
+      "estado": "pendente",
+      "nota": "Em negociação; possível via emergencial."
+    },
+    "headcount-fc": {
+      "estado": "pendente",
+      "nota": "⚠️ Se vier por emergência, o prazo entre decisão e dia 1 é curto: o dimensionamento tem que estar PRONTO antes da chamada."
+    },
+    "cct": {
+      "estado": "pendente",
+      "nota": "CCT-SP."
+    },
+    "inventario-frota": {
+      "estado": "pendente",
+      "nota": "Levantar estado real da frota — relato de degradação do serviço."
+    },
+    "ordem-servico": {
+      "estado": "pendente",
+      "nota": "Depende da via de contratação."
+    }
+  }
+}

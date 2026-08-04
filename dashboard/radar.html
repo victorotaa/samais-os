@@ -75,16 +75,42 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding:20px 0 46px;disp
   justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
 @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}.janela{margin-left:0}}
 
-/* ── material liquid glass (doutrina/samais.css) ── */
+/* ── material liquid glass (doutrina/samais.css) ──
+   Recipe canônica, idêntica à dos estudos e do ROTA. A REFRAÇÃO (url(#glassDistort))
+   é o que separa liquid glass de "card borrado": distorce o fundo atrás do vidro.
+   Chromium aplica; os demais ignoram a url() e ficam no blur — degrada sozinho. */
 .kpi,.op,.nota,.vazio{
   background:var(--glass-bg);
-  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur) url(#glassDistort);
   border:var(--glass-border);
   box-shadow:var(--glass-shadow);
+  overflow:hidden;
 }
+@media(max-width:720px){
+  /* sem refração no celular: custa GPU e não se vê a 390px */
+  .kpi,.op,.nota,.vazio{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .kpi,.op,.nota,.vazio{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+}
+/* escape do material: conteúdo largo (tabela, gráfico) rola DENTRO do vidro em vez de
+   ser clipado pelo overflow:hidden. Precisa vir DEPOIS do material para vencer. */
+.rolavel{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 </style>
 </head>
 <body>
+
+<!-- refração do liquid glass · doutrina/glass-filter.html -->
+<svg width="0" height="0" aria-hidden="true" focusable="false"
+     style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%"
+          color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 
 <div class="topbar barra-vidro">
   <a class="marca" href="./index.html" aria-label="Samais-OS">

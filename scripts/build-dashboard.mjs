@@ -47,6 +47,9 @@ const MARCA_ASSETS = [
   "marca-icone.svg", "marca-icone-maskable.svg",
   "marca-icone-180.png", "marca-icone-192.png", "marca-icone-512.png",
 ];
+// Logotipos oficiais (Drive → doutrina/marca/) que o samais.css referencia por url()
+// relativa. Precisam ficar AO LADO do CSS em cada superfície, senão a marca some.
+const MARCA_OFICIAL = ["samais-logo-gold.svg", "samais-monograma-gold.svg"];
 const MANIFESTO_OS = join(ROOT, "doutrina", "manifest-os.webmanifest");
 
 // ---------- validador de JSON Schema (subset draft-07) ----------
@@ -204,7 +207,11 @@ if (existsSync(PRODUTO_SCHEMA_PATH)) {
       allErrors.push(...errs.map((e) => `${rel} → ${e}`));
       continue;
     }
-    produtos.push({ ...json, _slug: entry });
+    // `repo` fica NO ARQUIVO (é dado interno útil) mas NÃO vai ao bundle: dentro do
+    // Samais-OS só entra funcionalidade que se abre, não endereço de código-fonte.
+    // Sem este descarte o link vazaria pelo data.json mesmo sem aparecer na tela.
+    const { repo, ...publicavel } = json;
+    produtos.push({ ...publicavel, _slug: entry });
   }
   // o que dá para abrir agora vem primeiro; pendência de URL não fica no topo da home
   const verificados = (p) => p.links.filter((l) => l.url && l.procedencia === "verificado").length;
@@ -385,7 +392,18 @@ for (const arq of MARCA_ASSETS) {
   }
   for (const dir of [DASH_DIR, join(DASH_DIR, "despesas")]) cpSync(de, join(dir, arq));
 }
-if (!assetsFaltando) console.log(`✓ marca (${MARCA_ASSETS.length} arquivos) → dashboard/ e dashboard/despesas/`);
+for (const arq of MARCA_OFICIAL) {
+  const de = join(ROOT, "doutrina", "marca", arq);
+  if (!existsSync(de)) {
+    console.error(`✖ logotipo oficial ausente: ${relative(ROOT, de)} — a marca não renderiza sem ele.`);
+    process.exit(1);
+  }
+  for (const dir of [DASH_DIR, join(DASH_DIR, "despesas")]) cpSync(de, join(dir, arq));
+}
+if (!assetsFaltando) {
+  console.log(`✓ marca (${MARCA_ASSETS.length + MARCA_OFICIAL.length} arquivos, logotipos oficiais incluídos)` +
+    " → dashboard/ e dashboard/despesas/");
+}
 
 if (existsSync(MANIFESTO_OS)) {
   cpSync(MANIFESTO_OS, join(DASH_DIR, "manifest.webmanifest"));
@@ -394,5 +412,29 @@ if (existsSync(MANIFESTO_OS)) {
   console.error("✖ manifesto do OS ausente: doutrina/manifest-os.webmanifest");
   process.exit(1);
 }
+
+// ---------- guarda final: nada confidencial pode ter entrado no bundle ----------
+// O build monta o bundle; esta checagem prova que montou só o previsto. Barato de rodar,
+// e é a diferença entre "acho que não vazou" e "o build falha se vazar".
+const PROIBIDO = [/bastidor/i, /interpretacao/i, /interpretação/i, /github\.com/i];
+const vazamentos = [];
+(function varrer(dir) {
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) { varrer(full); continue; }
+    if (!/\.(html|json|css|md|webmanifest|js)$/.test(entry)) continue;
+    const texto = readFileSync(full, "utf8");
+    for (const re of PROIBIDO) {
+      if (re.test(texto)) vazamentos.push(`${relative(ROOT, full)} contém /${re.source}/`);
+    }
+  }
+})(DASH_DIR);
+if (vazamentos.length) {
+  console.error("\n✖ Build falhou — conteúdo proibido no pacote publicável:\n");
+  for (const v of vazamentos) console.error("  • " + v);
+  console.error("\nO bundle vai a URL pública. Remova antes de publicar.\n");
+  process.exit(1);
+}
+console.log("✓ guarda de confidencialidade: nenhum termo proibido no bundle.");
 
 console.log("✓ pacote publicável montado em dashboard/ (home + cockpit + ferramentas).");

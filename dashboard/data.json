@@ -1,6 +1,6 @@
 {
   "gerado_em": "2026-08-04",
-  "total_frentes": 7,
+  "total_frentes": 8,
   "pipeline_mensal": 8100000,
   "pipeline_anual": 97200000,
   "contratos_ativos": 0,
@@ -34,6 +34,20 @@
   ],
   "frentes": [
     {
+      "frente": "Ourinhos",
+      "uf": "SP",
+      "servico": "SAMU",
+      "estagio": "negociacao",
+      "score": 8.5,
+      "valor_contratual_mensal": null,
+      "operador_atual": null,
+      "verdict": "go",
+      "gatilho": "Retomada de operação em município onde a Samais já atuou",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "Preparar capacidade de partida rápida: a contratação pode se dar por via emergencial, com prazo curto entre decisão e início. Levantar dimensionamento (FC 4,5), CCT-SP e habilitação para resposta imediata.",
+      "_slug": "ourinhos"
+    },
+    {
       "frente": "Belém",
       "uf": "PA",
       "servico": "SAMU",
@@ -44,8 +58,8 @@
       "operador_atual": "prefeitura",
       "verdict": "go",
       "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, SEM data contratual confirmada — por isso nenhuma data está registrada). Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO — junto com Canoas, é a implantação mais próxima. Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
       "_slug": "belem"
     },
     {
@@ -53,13 +67,13 @@
       "uf": "SP",
       "servico": "SAMU",
       "estagio": "negociacao",
-      "score": 0,
+      "score": 7,
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
       "gatilho": "Estudo de município produzido (samais-estudos: avare-manduri-sp)",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "NEGOCIAÇÃO AVANÇADA — a mais adiantada das frentes não fechadas. Fechar o valor contratual mensal com base no estudo já produzido e definir a data de implantação. Estudo: samais-estudos/estudos (avare-manduri-sp).",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "NEGOCIAÇÃO DIRETA. Cenário em discussão: Avaré + Manduri POSSIVELMENTE SEM base descentralizada em Manduri, por custo — a confirmar. ⚠️ Sem base em Manduri o tempo-resposta na ponta muda: refazer a cobertura antes de fechar preço, para não assumir SLA que a configuração não entrega.",
       "_slug": "avare"
     },
     {
@@ -71,8 +85,8 @@
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO — pela janela declarada (~30 dias em 30/07/2026) é a implantação MAIS PRÓXIMA das três, mas a data ainda não está confirmada e por isso não é registrada. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. A levantar antes do dia 1: valor contratual mensal, escopo/serviço confirmado, nº de postos e viaturas, CCT aplicável no RS, população IBGE. ⚠️ UF=RS e serviço=SAMU são premissas a validar — a frente entrou por atualização verbal, sem estudo no OS.",
       "_slug": "canoas"
     },
     {
@@ -107,8 +121,8 @@
       "valor_contratual_mensal": null,
       "operador_atual": null,
       "verdict": "go",
-      "atualizado_em": "2026-07-30",
-      "proximo_passo": "FECHADO. Implantação prevista para daqui a ~60 dias (janela declarada verbalmente em 30/07/2026, sem data contratual confirmada). A levantar: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
+      "atualizado_em": "2026-08-04",
+      "proximo_passo": "FECHADO e IMINENTE. A levantar antes do dia 1: valor contratual mensal, nº de postos/viaturas, população IBGE. ⚠️ É aqui que nasceu a lição 148 vs 80 — o dimensionamento tem que sair com Fator de Cobertura 4,5, nunca 2,2.",
       "_slug": "taboao"
     },
     {
@@ -1971,71 +1985,102 @@
   "produtos": [
     {
       "produto": "CoPilot OS",
-      "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria. Protótipo navegável, dados mockados.",
-      "repo": "https://github.com/victorotaa/samais-copilot",
+      "resumo": "IA de apoio à decisão do regulador médico: triagem por linguagem natural, regulação e auditoria.",
       "estagio": "prototipo",
       "links": [
         {
           "tipo": "sistema",
-          "rotulo": "Demo do sistema",
-          "url": "https://samais-copilot-demo.vercel.app",
+          "rotulo": "Abrir o sistema",
+          "url": "https://samais-copilot-demo.vercel.app/",
           "procedencia": "verificado",
-          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"Produção = branch main → samais-copilot-demo.vercel.app\""
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         },
         {
           "tipo": "lp",
           "rotulo": "Landing page",
           "url": "https://samais-copilot-demo.vercel.app/lp/",
           "procedencia": "verificado",
-          "fonte": "samais-copilot/docs/08-handoff-dev.md — \"LP servida em /lp/ no mesmo deploy\" (pasta lp/ com vercel.json próprio)"
+          "fonte": "samais-copilot/docs/08-handoff-dev.md — LP servida em /lp/ no mesmo deploy."
         }
       ],
-      "papel_no_os": "Principal diferencial competitivo. Entra nos estudos/propostas como Parte V (skill samais-municipal-study) e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
-      "atualizado_em": "2026-07-30",
+      "papel_no_os": "Principal diferencial competitivo. Entra nos estudos e propostas e sustenta a linha \"Tecnologia, sistemas e inovação operacional (5,0%)\" da Composição do Valor Contratual.",
+      "atualizado_em": "2026-08-04",
       "_slug": "samu-copilot-os"
     },
     {
-      "produto": "PEP OS",
-      "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão. Rev1 com store em memória — sandbox, não produção.",
-      "repo": "https://github.com/victorotaa/samais-pep",
+      "produto": "ROTA — Transporte Sanitário",
+      "resumo": "Frente de transporte sanitário: sistema de operação e a tese de investimento institucional.",
       "estagio": "prototipo",
       "links": [
         {
           "tipo": "sistema",
-          "rotulo": "Sandbox público",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-pep/README.md documenta o procedimento de deploy (Root Directory = apps/web) e diz que a URL sai no padrão samais-pep-*.vercel.app, mas NÃO registra a URL final. A levantar no painel da Vercel."
+          "rotulo": "Rota-OS",
+          "url": "https://samais-rota.vercel.app/rota-app.html",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        },
+        {
+          "tipo": "documento",
+          "rotulo": "Tese de Investimento",
+          "url": "https://samais-rota.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         }
       ],
-      "papel_no_os": "Camada de registro clínico do ecossistema. O sandbox é efêmero (store em memória ressuscita o seed a cada cold start) — serve para demonstração, não para dado real.",
-      "atualizado_em": "2026-07-30",
-      "_slug": "pep-os"
+      "papel_no_os": "Frente de negócio com sistema próprio e material de investidor pronto.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "rota"
     },
     {
-      "produto": "ROTA — Transporte Sanitário",
-      "resumo": "Frente de transporte sanitário da Samais. Hoje existe como peça institucional (tese de investimento e master plan); o módulo de sistema não foi commitado.",
-      "repo": "https://github.com/victorotaa/samais-rota",
+      "produto": "CRAU — SAMU Animal",
+      "resumo": "Centro de resgate e atendimento a urgências animais. Projeto de frente em stand-by.",
       "estagio": "documento",
       "links": [
         {
           "tipo": "documento",
-          "rotulo": "Tese de Investimento",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-rota/index.html (título: \"Transporte Sanitário — Samais · Tese de Investimento\"). CLAUDE.md do repo manda publicar por `npx vercel --prod --scope samais`, mas a URL de produção não está registrada em lugar nenhum."
-        },
-        {
-          "tipo": "documento",
-          "rotulo": "Master Plan ROTA",
-          "url": null,
-          "procedencia": "a-confirmar",
-          "fonte": "samais-copilot/master-plan-rota/ tem vercel.json próprio com name \"samais-master-plan-rota\" — deploy separado. URL final não registrada."
+          "rotulo": "Abrir o projeto",
+          "url": "https://samais-crau.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
         }
       ],
-      "papel_no_os": "Frente de negócio com material de investidor pronto. ⚠️ ATENÇÃO: samais-copilot/docs/00-analise-atual.md registra que \"o módulo MASTER_ROTA no App.tsx não chegou\" — ou seja, nos repositórios existe o documento institucional, não um sistema ROTA. Se existe sistema rodando, está fora dos 6 repositórios conectados.",
-      "atualizado_em": "2026-07-30",
-      "_slug": "rota"
+      "papel_no_os": "Frente em STAND-BY por decisão interna. Não arquivada: extensão de serviço com peça pronta, a reativar quando houver janela.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "crau"
+    },
+    {
+      "produto": "PEP OS",
+      "resumo": "Prontuário eletrônico do paciente com módulos de SAMU, UPA, hospital e cidadão.",
+      "estagio": "prototipo",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Abrir o sistema",
+          "url": "https://samais-pep-web.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        }
+      ],
+      "papel_no_os": "Camada de registro clínico do ecossistema.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "pep-os"
+    },
+    {
+      "produto": "Radar de Licitações (web)",
+      "resumo": "Aplicação própria de radar de licitações, com deploy independente.",
+      "estagio": "producao",
+      "links": [
+        {
+          "tipo": "sistema",
+          "rotulo": "Abrir o radar",
+          "url": "https://samais-radar.vercel.app/",
+          "procedencia": "verificado",
+          "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+        }
+      ],
+      "papel_no_os": "⚠️ CONVIVE com o radar interno do OS (captação PNCP → radar/semanas + página Radar). São duas superfícies para o mesmo assunto — a definir qual é a canônica; enquanto isso, ambas ficam visíveis.",
+      "atualizado_em": "2026-08-04",
+      "_slug": "radar-web"
     }
   ]
 }

@@ -156,16 +156,42 @@ footer i{font-family:var(--fb);font-style:italic}
   .acao .q{width:auto}
 }
 
-/* ── material liquid glass (doutrina/samais.css) ── */
+/* ── material liquid glass (doutrina/samais.css) ──
+   Recipe canônica, idêntica à dos estudos e do ROTA. A REFRAÇÃO (url(#glassDistort))
+   é o que separa liquid glass de "card borrado": distorce o fundo atrás do vidro.
+   Chromium aplica; os demais ignoram a url() e ficam no blur — degrada sozinho. */
 .kpi,.card,.doc,.acoes,.alerta{
   background:var(--glass-bg);
-  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur) url(#glassDistort);
   border:var(--glass-border);
   box-shadow:var(--glass-shadow);
+  overflow:hidden;
 }
+@media(max-width:720px){
+  /* sem refração no celular: custa GPU e não se vê a 390px */
+  .kpi,.card,.doc,.acoes,.alerta{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .kpi,.card,.doc,.acoes,.alerta{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+}
+/* escape do material: conteúdo largo (tabela, gráfico) rola DENTRO do vidro em vez de
+   ser clipado pelo overflow:hidden. Precisa vir DEPOIS do material para vencer. */
+.rolavel{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 </style>
 </head>
 <body>
+
+<!-- refração do liquid glass · doutrina/glass-filter.html -->
+<svg width="0" height="0" aria-hidden="true" focusable="false"
+     style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%"
+          color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 
 <div class="topbar barra-vidro">
   <a class="marca" href="./index.html" aria-label="Samais-OS">
@@ -237,12 +263,12 @@ footer i{font-family:var(--fb);font-style:italic}
         <span class="mais">Ver prazos</span>
       </a>
 
-      <a class="card" data-ext href="https://github.com/victorotaa/samais-estudos" target="_blank" rel="noopener">
+      <a class="card" data-ext href="https://samais-estudos.vercel.app/" target="_blank" rel="noopener">
         <span class="badge">externo</span>
         <span class="ico">∑</span>
         <h3>Estudos &amp; Precificação</h3>
-        <p>Fórmula Mestre de custo SAMU (9 blocos), parâmetros calibrados e os estudos por município.</p>
-        <span class="mais">Abrir repositório</span>
+        <p>Todos os estudos de município, com valores contratuais e cenários Mínimo / Base / Amplo.</p>
+        <span class="mais">Abrir os estudos</span>
       </a>
     </div>
   </section>
@@ -259,35 +285,7 @@ footer i{font-family:var(--fb);font-style:italic}
     <div class="acoes" id="acoes"></div>
   </section>
 
-  <!-- ===================== DOUTRINA ===================== -->
-  <section>
-    <div class="sh"><h2>Doutrina</h2><span class="n">ler antes de produzir qualquer peça</span></div>
-    <div class="docs">
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/precificacao.md" target="_blank" rel="noopener">
-        <span class="b">01</span><span><span class="t">Precificação</span><span class="s">BDI decomposto 35% · nunca “lucro”</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/design-system.md" target="_blank" rel="noopener">
-        <span class="b">02</span><span><span class="t">Design system</span><span class="s">dark-luxury · Syne / Inter / Mono</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/padrao-frio.md" target="_blank" rel="noopener">
-        <span class="b">03</span><span><span class="t">Padrão FRIO</span><span class="s">audiência externa: factual, sem advocacy</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/higgsfield-canon.md" target="_blank" rel="noopener">
-        <span class="b">04</span><span><span class="t">Cânone de vídeo</span><span class="s">Higgsfield + HyperFrames</span></span></a>
-      <a class="doc stub" href="https://github.com/victorotaa/samais-os/blob/main/doutrina/taxonomia-gestao.md" target="_blank" rel="noopener">
-        <span class="b">05</span><span><span class="t">Taxonomia de gestão</span><span class="s">⚠️ stub — fonte pendente</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/transversais/tecnologia-jarvis/agente-embarcado.md" target="_blank" rel="noopener">
-        <span class="b">06</span><span><span class="t">Agente embarcado</span><span class="s">3 camadas de poder · implementação diferida</span></span></a>
-    </div>
-  </section>
 
-  <!-- ===================== INTELIGÊNCIA ===================== -->
-  <section>
-    <div class="sh"><h2>Inteligência</h2><span class="n">benchmarks e editais</span></div>
-    <div class="docs">
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/inteligencia/benchmarks-samu.md" target="_blank" rel="noopener">
-        <span class="b">↗</span><span><span class="t">Benchmarks SAMU</span><span class="s">custo USB/USA/motolância · KPIs · dimensionamento</span></span></a>
-      <a class="doc" href="https://github.com/victorotaa/samais-os/blob/main/inteligencia/editais/checklist-licitacao.md" target="_blank" rel="noopener">
-        <span class="b">↗</span><span><span class="t">Checklist de editais</span><span class="s">habilitação · cláusulas de risco · red flags</span></span></a>
-    </div>
-  </section>
 
 
   <!-- ===================== EM CONSTRUÇÃO ===================== -->
@@ -399,9 +397,7 @@ function renderProdutos(prods){
     return `<div class="prod">
       <div class="top"><span class="nm">${esc(p.produto)}</span><span class="est">${EST[p.estagio]||esc(p.estagio)}</span></div>
       <div class="rs">${esc(p.resumo)}</div>
-      <div class="lks">${links}
-        <a class="lk" href="${esc(p.repo)}" target="_blank" rel="noopener"><span class="ic">↗</span>Repositório</a>
-      </div>
+      <div class="lks">${links}</div>
     </div>`;
   }).join('');
 }

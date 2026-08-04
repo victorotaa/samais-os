@@ -1,0 +1,17 @@
+{
+  "produto": "Radar de Licitações (web)",
+  "resumo": "Aplicação própria de radar de licitações, com deploy independente.",
+  "repo": "https://github.com/victorotaa/samais-os",
+  "estagio": "producao",
+  "links": [
+    {
+      "tipo": "sistema",
+      "rotulo": "Abrir o radar",
+      "url": "https://samais-radar.vercel.app/",
+      "procedencia": "verificado",
+      "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+    }
+  ],
+  "papel_no_os": "⚠️ CONVIVE com o radar interno do OS (captação PNCP → radar/semanas + página Radar). São duas superfícies para o mesmo assunto — a definir qual é a canônica; enquanto isso, ambas ficam visíveis.",
+  "atualizado_em": "2026-08-04"
+}

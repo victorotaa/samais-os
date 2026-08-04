@@ -1,0 +1,17 @@
+{
+  "produto": "CRAU — SAMU Animal",
+  "resumo": "Centro de resgate e atendimento a urgências animais. Projeto de frente em stand-by.",
+  "repo": "https://github.com/victorotaa/samais-os",
+  "estagio": "documento",
+  "links": [
+    {
+      "tipo": "documento",
+      "rotulo": "Abrir o projeto",
+      "url": "https://samais-crau.vercel.app/",
+      "procedencia": "verificado",
+      "fonte": "URLs informadas pelo Ota em 04/08/2026 (deploys próprios na Vercel do time samais)."
+    }
+  ],
+  "papel_no_os": "Frente em STAND-BY por decisão interna. Não arquivada: extensão de serviço com peça pronta, a reativar quando houver janela.",
+  "atualizado_em": "2026-08-04"
+}

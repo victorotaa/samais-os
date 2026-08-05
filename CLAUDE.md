@@ -147,6 +147,16 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   quando várias correm juntas, a restrição do negócio deixa de ser vender e passa a ser
   **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
 
+- **`briefings/`** — **o que se pergunta ao ente antes de calcular**. O questionário é
+  **único** (`_schema/questionario-padrao.json`); cada briefing guarda só as respostas,
+  referenciando a pergunta por id — o build recusa resposta a pergunta inexistente.
+  Cada pergunta declara **`porque`** (o que alimenta na Fórmula Mestre) e **`sensibilidade`**
+  (`publico` · `interno` · `restrito`). ⚠️ **O bundle é público:** só `publico` leva o texto;
+  `interno` vira "respondido · uso interno"; **`restrito` some inteiro — nem o enunciado**,
+  porque mostrar "passivo trabalhista: respondido" ao lado de um município nomeado já é
+  informação. A completude conta **todas** as perguntas, inclusive as ocultas.
+  Semente: `briefings/avare-sp.json` (o levantamento mais bem respondido que a Samais teve).
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
@@ -169,6 +179,7 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
 - `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
+- `dashboard/briefings.html` — levantamentos aplicados, com a fronteira de sensibilidade.
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.

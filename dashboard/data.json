@@ -4036,5 +4036,693 @@
         ]
       }
     ]
+  },
+  "briefings": {
+    "questionario_versao": "2026-08-04",
+    "total_perguntas": 50,
+    "coletados": [
+      {
+        "slug": "avare-sp",
+        "alvo": "Avaré",
+        "uf": "SP",
+        "aplicado_em": "2026-05-21",
+        "frente": "avare",
+        "tem_respondente": true,
+        "reservados": 2,
+        "total": 50,
+        "respondidas": 35,
+        "completude": 70,
+        "completude_essencial": 76,
+        "essenciais_pendentes": 11,
+        "blocos": [
+          {
+            "id": "geral",
+            "nome": "Dados gerais do serviço",
+            "perguntas": [
+              {
+                "id": "populacao",
+                "pergunta": "População coberta pelo SAMU e municípios atendidos",
+                "porque": "Base da métrica de ouro (R$ 5,20/hab/mês) e do per capita exibido no estudo.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Base descentralizada atende ~96.450 hab (IBGE). A Central de Regulação, sediada em Avaré e gerenciada pelo consórcio AMVAPA — onde também fica a USA —, cobre 17 municípios, 312.109 hab.",
+                "nota": null
+              },
+              {
+                "id": "modelo-gestao",
+                "pergunta": "Modelo atual de gestão (execução direta · consórcio · OSS/terceirizada · misto)",
+                "porque": "Define o Cenário A e o caminho de precificação.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "MISTO: a base descentralizada é gerenciada pelo município; a Central de Regulação e a USA são do consórcio AMVAPA.",
+                "nota": null
+              },
+              {
+                "id": "central-regulacao",
+                "pergunta": "Existe Central de Regulação própria? Se não, qual é usada e sob qual rateio?",
+                "porque": "CRU é o item de custo fixo mais pesado depois da folha; rateio muda quem paga o quê.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Não há central própria. Usa a CRU SAMU 192 Regional Vale do Jurumirim, administrada pelo consórcio AMVAPA.",
+                "nota": null
+              },
+              {
+                "id": "habilitacoes",
+                "pergunta": "Habilitações vigentes no Ministério da Saúde (Portaria GM/MS 1.010/2012 e atualizações), com nº e vigência",
+                "porque": "Habilitação é o que destrava o repasse federal — e repasse abate o preço para o município.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Central de Regulação SAMU 192 Qualificada — habilitada. PT GM 1844 de 24/07/2017 (vigência indeterminada) e PT GM/MS 10.850 de 13/04/2026 (04/2026–04/2029).",
+                "nota": null
+              },
+              {
+                "id": "responsaveis-tecnicos",
+                "pergunta": "Quem são os responsáveis técnicos (RT médico e RT de enfermagem) e qual o vínculo?",
+                "porque": "RT é exigência legal e custo fixo; sem RT definido a operação não parte.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "interno",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 5,
+            "respondidas": 4,
+            "completude": 80
+          },
+          {
+            "id": "frota",
+            "nome": "Frota e bases",
+            "perguntas": [
+              {
+                "id": "frota-inventario",
+                "pergunta": "Frota em operação: tipo (USB/USA/motolância/ambulancha/VIR), quantidade, base, ano/modelo e situação (operante/parada)",
+                "porque": "Regra R1: a frota é do ente e a Samais reativa as paradas — viatura parada é escopo de custo, não detalhe.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "3 USB na base de Avaré: 2012 Peugeot Boxer (PARADA), 2015 Renault Master (PARADA), 2024 Renault Master (operante). Ou seja, 2 de 3 viaturas paradas.",
+                "nota": null
+              },
+              {
+                "id": "bases-equipe",
+                "pergunta": "Quantas bases descentralizadas existem e qual a equipe lotada em cada uma?",
+                "porque": "Postos por base × Fator de Cobertura 4,5 = headcount. É o cálculo central.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "1 base (Bravo-01, 1 USB). Equipe: 1 enfermeiro, 5 técnicos de enfermagem, 6 condutores socorristas, 2 auxiliares de serviços gerais, 1 técnica auxiliar de RM, 1 coordenador de base.",
+                "nota": null
+              },
+              {
+                "id": "bases-imovel",
+                "pergunta": "As bases são próprias, cedidas ou locadas? Quem custeia água, energia, IPTU e manutenção predial?",
+                "porque": "Lição Canoas: quando o imóvel fica por conta da contratada, é rubrica de custo que o edital esconde na entrelinha.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Imóvel próprio, custeado pela Prefeitura Municipal (água, energia, IPTU, manutenção).",
+                "nota": null
+              },
+              {
+                "id": "veiculos-disponibilizados",
+                "pergunta": "Há veículos do município/consórcio que seriam disponibilizados em eventual contratação? Quais?",
+                "porque": "Define se há CAPEX de locação (exceção na doutrina) ou se a frota vem do ente.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Não.",
+                "nota": null
+              },
+              {
+                "id": "km-mensal",
+                "pergunta": "Quilometragem mensal média por viatura",
+                "porque": "Combustível e manutenção realistas saem de km rodado, não de estimativa. Sem isso a rubrica vira chute.",
+                "essencial": false,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "equipamentos-embarcados",
+                "pergunta": "Estado e idade dos equipamentos embarcados (monitor, ventilador, DEA, maca, bomba de infusão) — de quem é a responsabilidade de reposição?",
+                "porque": "CAPEX escondido: equipamento no fim da vida vira custo no primeiro ano se a responsabilidade for da contratada.",
+                "essencial": false,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 6,
+            "respondidas": 4,
+            "completude": 67
+          },
+          {
+            "id": "rh",
+            "nome": "Recursos humanos",
+            "perguntas": [
+              {
+                "id": "quadro-atual",
+                "pergunta": "Quadro funcional por categoria: quantidade, vínculo (CLT/estatutário/cedido/RPA) e carga horária semanal",
+                "porque": "Cenário A real e ponto de partida do dimensionamento. Vínculo importa: estatutário custa mais que CLT no piso.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "pisos-cct",
+                "pergunta": "Pisos salariais praticados por categoria e qual CCT/sindicato de referência",
+                "porque": "Entrada direta do bloco de pessoal. Errar a CCT erra o estudo inteiro.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "cedidos",
+                "pergunta": "Há servidores municipais cedidos ou em comissão atuando no serviço? Quantos e em quais funções?",
+                "porque": "Custo invisível do Cenário A — o maior deles costuma ser médico cedido. Fator de referência: declarado × 1,38 ≈ real.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "rotatividade",
+                "pergunta": "Há rotatividade ou dificuldade de fixação (em especial de médicos)? Qual a estratégia atual de cobertura de plantões?",
+                "porque": "Rotatividade alta muda o custo de contratação e o risco de descontinuidade na partida.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "absenteismo",
+                "pergunta": "Taxa de absenteísmo, afastamentos e passivo de férias do quadro atual",
+                "porque": "Alimenta o Fator de Cobertura. FC 4,5 é o headcount físico; absenteísmo alto exige folga adicional que ninguém orça.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "interno",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "adicionais",
+                "pergunta": "Adicionais praticados: insalubridade, periculosidade, noturno, sobreaviso — percentual e base de cálculo",
+                "porque": "Em APH esses adicionais são regra, não exceção, e mudam a folha materialmente. Omiti-los subdimensiona o CDO.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "interno",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "beneficios",
+                "pergunta": "Benefícios previstos na CCT: vale-transporte, alimentação, plano de saúde, seguro de vida — valores e periodicidade",
+                "porque": "Linha de custo recorrente que raramente aparece no edital e sempre aparece na folha.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "interno",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "horas-capacitacao",
+                "pergunta": "Há carga horária OBRIGATÓRIA e REMUNERADA de capacitação/NEP por categoria? Quantas horas/mês ou horas/ano?",
+                "porque": "LIÇÃO CANOAS: 400h médico + 600h enfermeiro + 600h técnico + 250h condutor = R$ 229 mil/mês que quase ficaram de fora. É a pergunta que mais dinheiro salvou.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": "Treinamentos mensais via NEP. ⚠️ Carga horária obrigatória e remunerada NÃO quantificada.",
+                "nota": "Pergunta acrescentada depois deste levantamento. É a lição Canoas: sem a carga horária não dá para orçar."
+              }
+            ],
+            "reservados": 1,
+            "total": 9,
+            "respondidas": 6,
+            "completude": 67
+          },
+          {
+            "id": "demanda",
+            "nome": "Demanda operacional",
+            "perguntas": [
+              {
+                "id": "volume-atendimentos",
+                "pergunta": "Volume mensal médio de atendimentos nos últimos 12 meses, com mínimo, máximo e série histórica",
+                "porque": "Dimensionamento e validação de porte. Série histórica revela sazonalidade que a média esconde.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "USB Avaré: média de 152 atendimentos/mês. Mínimo 131, máximo 168 (pico no mês 4).",
+                "nota": null
+              },
+              {
+                "id": "chamadas-192",
+                "pergunta": "Chamadas recebidas no 192 (não só ocorrências despachadas): total mensal e taxa de trote/orientação",
+                "porque": "Dimensiona TARM e rádio-operador, que respondem por chamada recebida — não por viatura despachada.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "tempo-resposta",
+                "pergunta": "Tempo-resposta médio e indicadores de qualidade hoje monitorados",
+                "porque": "Linha de base para a meta contratual. Sem base, qualquer meta é chute — e vira glosa.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": "Não informado.",
+                "nota": null
+              },
+              {
+                "id": "classificacao",
+                "pergunta": "Demanda por classificação (clínica, traumática, obstétrica, psiquiátrica, transferências) em número ou percentual",
+                "porque": "Perfil define mix de USB/USA e insumo consumido.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Clínico 1.385 · trauma 540 · obstétrico 38 · psiquiátrico 124 (no período consolidado).",
+                "nota": null
+              },
+              {
+                "id": "demanda-reprimida",
+                "pergunta": "Existe demanda reprimida ou horários/áreas com cobertura insuficiente identificada?",
+                "porque": "É onde mora a proposta de valor — e o risco de assumir SLA que a configuração atual não entrega.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Sim: há horários em que a USB está empenhada ou inoperante durante o descanso intrajornada da equipe.",
+                "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento com Fator de Cobertura correto."
+              },
+              {
+                "id": "sazonalidade",
+                "pergunta": "Distribuição da demanda por hora do dia e por dia da semana",
+                "porque": "Habilita o Lean Sizing: um posto deliberadamente de 12h no pico (FC 2,25) é legítimo e barato — mas só se o pico for conhecido.",
+                "essencial": false,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 6,
+            "respondidas": 4,
+            "completude": 67
+          },
+          {
+            "id": "insumos",
+            "nome": "Insumos, manutenção e logística",
+            "perguntas": [
+              {
+                "id": "suprimento",
+                "pergunta": "Como é feito hoje o suprimento de medicamentos, material médico-hospitalar e insumos (compra direta, almoxarifado central, contrato)?",
+                "porque": "Se hoje sai do almoxarifado central, o custo está ESCONDIDO em outra pasta — e passa a ser nosso na contratação.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Almoxarifado Central da Saúde.",
+                "nota": "Custo hoje ESCONDIDO em outra pasta; migra para a contratada."
+              },
+              {
+                "id": "manutencao-frota",
+                "pergunta": "Manutenção da frota: oficina própria, contrato com terceiros ou frota locada? Gasto médio mensal?",
+                "porque": "Regra R1: manutenção e reativação são responsabilidade da Samais.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": "Feita junto à frota municipal. Gasto médio mensal não informado.",
+                "nota": null
+              },
+              {
+                "id": "combustivel",
+                "pergunta": "Combustível: forma de fornecimento e consumo mensal médio em litros",
+                "porque": "Outro custo que costuma estar na garagem da prefeitura e migra para a contratada.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Abastecimento na garagem da Prefeitura. Consumo de 349,8 litros/mês.",
+                "nota": null
+              },
+              {
+                "id": "rss",
+                "pergunta": "Lavagem, desinfecção e descarte de resíduos (RSS grupos A, B, E): contratos vigentes e responsáveis",
+                "porque": "Obrigação sanitária com custo recorrente; se hoje é feito pela própria equipe, vira contrato na nossa operação.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Executado pelos próprios condutores socorristas e técnicos de enfermagem — não há contrato específico.",
+                "nota": "Vira contrato na nossa operação: hoje é trabalho absorvido pela equipe, não linha de custo."
+              },
+              {
+                "id": "epi-treinamento",
+                "pergunta": "EPI, fardamento e treinamentos obrigatórios (NR-32, SAVC, BLS): periodicidade, quantidade por profissional e custeio atual",
+                "porque": "Rubrica recorrente subestimada. Quantidade por profissional/ano é o que permite orçar, não o valor total do ano passado.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Treinamentos mensais (NEP). Fardamento: R$ 26.676,00.",
+                "nota": "Valor total sem quantidade por profissional/ano — não permite orçar, só comparar."
+              },
+              {
+                "id": "oxigenio",
+                "pergunta": "Oxigênio medicinal: fornecedor, modalidade (cilindro/usina), consumo mensal e responsável pela troca",
+                "porque": "Item crítico de continuidade e contrato próprio de fornecimento. Falta de O₂ para viatura.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "seguros",
+                "pergunta": "Seguros exigidos: seguro total da frota, RC profissional, seguro de vida da equipe — quem contrata hoje?",
+                "porque": "LIÇÃO CANOAS: o edital exigia seguro total da frota e isso não estava em nenhuma planilha inicial.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 7,
+            "respondidas": 5,
+            "completude": 71
+          },
+          {
+            "id": "tecnologia",
+            "nome": "Tecnologia e comunicação",
+            "perguntas": [
+              {
+                "id": "sistema-gestao",
+                "pergunta": "Sistema de gestão/regulação atualmente utilizado (E-SUS SAMU, próprio, terceirizado)?",
+                "porque": "Define se entramos substituindo ou integrando — e onde o CoPilot OS e o PEP OS se encaixam.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Telefonia e, para dados, o programa SSOSAMU.",
+                "nota": null
+              },
+              {
+                "id": "telefonia-radio",
+                "pergunta": "Telefonia 192, gravação de chamadas, rádio-comunicação e rastreamento veicular: contratos e custos atuais",
+                "porque": "Infra da CRU. Gravação é exigência legal e costuma ter contrato próprio.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Gravação via telefone e prontuário online pelo consórcio AMVAPA (SSOSAMU).",
+                "nota": null
+              },
+              {
+                "id": "integracao-rede",
+                "pergunta": "Há integração com a rede hospitalar (vaga zero, regulação de leitos, CROSS)?",
+                "porque": "Sem integração, o tempo-resposta some no destino — e a meta contratual fica fora do nosso controle.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Não há integração com a rede hospitalar (vaga zero / regulação de leitos / CROSS).",
+                "nota": "Sem integração, o tempo-resposta some no destino e a meta contratual fica fora do nosso controle."
+              },
+              {
+                "id": "dados-historicos",
+                "pergunta": "O histórico de atendimentos é exportável? Em que formato e com que profundidade?",
+                "porque": "Sem dado exportável não há migração para o PEP OS nem linha de base para indicador. Vira trabalho manual na partida.",
+                "essencial": false,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 4,
+            "respondidas": 3,
+            "completude": 75
+          },
+          {
+            "id": "financeiro",
+            "nome": "Financeiro e contratual",
+            "perguntas": [
+              {
+                "id": "custo-atual",
+                "pergunta": "Custo mensal total atual do serviço, com abertura por rubrica se possível",
+                "porque": "Cenário A declarado. Lembrar: declarado × 1,38 ≈ custo real, somados os invisíveis.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "repasses",
+                "pergunta": "Repasses federais (FNS) e estaduais recebidos mensalmente, por habilitação e portaria",
+                "porque": "Abate direto da contrapartida municipal — é o argumento que torna a proposta viável para o gestor.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "publico",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": "Federal R$ 159.568,50/mês: USA R$ 71.662,50 (PT 1.631/2023) + USA R$ 50.050,00 (PT 1.816/2023) + Central R$ 13.786,50 + USA R$ 12.637,30 + USB R$ 11.432,20 (PT 10.850/2026).",
+                "nota": null
+              },
+              {
+                "id": "contrapartida",
+                "pergunta": "Contrapartida municipal mensal (recursos próprios alocados ao serviço)",
+                "porque": "Mostra a capacidade fiscal real e o teto político do preço.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "contrato-vigente",
+                "pergunta": "Existe contrato vigente com OSS, consórcio ou empresa privada? Vigência, valor mensal e data de encerramento",
+                "porque": "Define a janela de oportunidade e o preço-âncora do concorrente.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "modelo-pretendido",
+                "pergunta": "Há intenção de manter o modelo, regionalizar via consórcio, licitar (Lei 14.133/2021) ou fazer chamamento para OSS? Qual o horizonte?",
+                "porque": "REGRA DO CEO: com OS/OSC existem caminhos de precificação DIFERENTES e o número muda em cada um. Nunca assumir o caminho — perguntar antes de calcular.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "iss-tributos",
+                "pergunta": "Alíquota de ISS do município para o serviço e eventuais retenções previstas em contrato",
+                "porque": "ISS varia por município (em Canoas, 4%) e entra direto na carga tributária sobre faturamento. Muda preço e remuneração residual.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "prazo-pagamento",
+                "pergunta": "Prazo de pagamento após atesto da nota e histórico real de atraso do ente",
+                "porque": "É a conta de capital de giro: a folha roda desde o dia 1 e o primeiro recebimento vem depois. Com várias partidas simultâneas, é o risco silencioso.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "interno",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "garantia-reajuste",
+                "pergunta": "Garantia contratual exigida (% e modalidade), vigência pretendida e índice/periodicidade de reajuste",
+                "porque": "Garantia imobiliza caixa na partida; sem cláusula de reajuste anual atrelada à CCT, o contrato longo corrói a remuneração sozinho.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "metas-glosa",
+                "pergunta": "Há metas de desempenho com desconto/glosa no repasse? Quais indicadores, qual o percentual em risco e como é apurado?",
+                "porque": "LIÇÃO CANOAS: obrigação do termo que consome dinheiro é rubrica de custo. Meta com glosa é receita variável disfarçada de fixa.",
+                "essencial": true,
+                "novo": true,
+                "sensibilidade": "publico",
+                "respondida": false,
+                "procedencia": null,
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 9,
+            "respondidas": 5,
+            "completude": 56
+          },
+          {
+            "id": "criticos",
+            "nome": "Pontos críticos e expectativas",
+            "perguntas": [
+              {
+                "id": "prioridades",
+                "pergunta": "Há prioridades de melhoria já definidas (ampliação de frota, nova base, qualificação da Central)?",
+                "porque": "Define o Cenário Amplo e o que pode virar aditivo depois.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              },
+              {
+                "id": "prazo-reestruturacao",
+                "pergunta": "Existe meta ou prazo para reestruturação do serviço?",
+                "porque": "Sem prazo, a frente é radar; com prazo, é pipeline.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "verificado",
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 1,
+            "total": 3,
+            "respondidas": 3,
+            "completude": 100
+          },
+          {
+            "id": "documentos",
+            "nome": "Documentos complementares",
+            "perguntas": [
+              {
+                "id": "docs",
+                "pergunta": "Portarias de habilitação · relatórios de produção (12 meses) · folha sintética por categoria · contrato vigente com aditivos · demonstrativo de repasses · CCT aplicável · plano de cargos · termos de cooperação com o consórcio",
+                "porque": "Documento vale mais que resposta: transforma premissa (⚠️) em fato verificado (✅) no estudo.",
+                "essencial": true,
+                "novo": false,
+                "sensibilidade": "interno",
+                "respondida": true,
+                "procedencia": "a-verificar",
+                "resposta": null,
+                "nota": null
+              }
+            ],
+            "reservados": 0,
+            "total": 1,
+            "respondidas": 1,
+            "completude": 100
+          }
+        ]
+      }
+    ]
   }
 }

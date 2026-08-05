@@ -114,6 +114,11 @@ body::before{
    ignoram a url() e ficam no blur, então degrada sozinho.
    Padrão instaurado nos estudos e no ROTA — agora é o padrão do OS.          */
 .glass, .barra-vidro{
+  /* ⚠️ DUAS declarações de propósito. `backdrop-filter: blur() url(...)` é INVÁLIDO no
+     Firefox, e declaração inválida é descartada INTEIRA — o resultado é ficar sem vidro
+     nenhum, com o conteúdo do fundo atravessando o cartão. A primeira linha é a base que
+     vale em todo navegador; a segunda só é aplicada por quem entende url(). */
+  backdrop-filter:var(--glass-blur);
   backdrop-filter:var(--glass-blur) url(#glassDistort);
 }
 /* Conteúdo largo (tabela, gráfico) precisa rolar DENTRO do vidro: o overflow:hidden
@@ -197,6 +202,14 @@ body::before{
   display:inline-flex;align-items:center;min-height:40px;padding:0 2px}
 .topnav-links a:hover{color:var(--gold-soft)}
 .topnav-links a[aria-current="page"]{color:var(--gold)}
+/* Com 7 itens a barra rola no celular. Rolagem sem pista visual parece corte: a máscara
+   esmaece a borda direita e diz "tem mais aqui" sem gastar espaço com seta. */
+@media (max-width:820px){
+  .topnav-links{
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+  }
+}
 
 /* ── Tipografia base ─────────────────────────────────────────────────── */
 h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.02em;line-height:1.1;margin:0}

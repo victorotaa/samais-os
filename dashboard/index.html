@@ -163,7 +163,8 @@ footer i{font-family:var(--fb);font-style:italic}
 .kpi,.card,.doc,.acoes,.alerta{
   background:var(--glass-bg);
   -webkit-backdrop-filter:var(--glass-blur);
-  backdrop-filter:var(--glass-blur) url(#glassDistort);
+  backdrop-filter:var(--glass-blur);                      /* base: vale em todo navegador */
+  backdrop-filter:var(--glass-blur) url(#glassDistort);   /* refração: só onde url() é aceita */
   border:var(--glass-border);
   box-shadow:var(--glass-shadow);
   overflow:hidden;

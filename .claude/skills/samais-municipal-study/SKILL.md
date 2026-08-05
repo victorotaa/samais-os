@@ -23,6 +23,46 @@ O output é **HTML single-file**, autossuficiente, funcionando como material de 
 
 ## Protocolo de Execução
 
+### FASE 0 — Briefing (obrigatória: olhe antes de pesquisar)
+
+**Antes de qualquer varredura, verifique se já existe levantamento respondido do alvo** em
+`briefings/<slug>.json` (repositório `samais-os`). Dado que o próprio ente informou vale mais
+que qualquer estimativa — e pesquisar o que já está respondido é retrabalho que ainda por
+cima produz número pior.
+
+```
+node scripts/briefing-dossie.mjs <slug> --stdout   # briefing completo, com o que cada resposta alimenta
+```
+
+Cada pergunta do questionário declara **`porque`**: a que bloco da Fórmula Mestre ela serve.
+Use isso como mapa de entrada do cálculo:
+
+| Do briefing | Alimenta |
+|---|---|
+| população · atendimentos · chamadas 192 | dimensionamento e métrica de ouro (R$ 5,20/hab) |
+| frota (com as PARADAS) · bases e equipe | postos × Fator de Cobertura 4,5 |
+| pisos · CCT · adicionais · benefícios · absenteísmo | bloco de pessoal do CDO |
+| **horas obrigatórias de NEP** | rubrica que quase ficou de fora em Canoas (R$ 229 mil/mês) |
+| suprimento · oxigênio · combustível · manutenção · RSS · EPI | não-pessoal do CDO |
+| **ISS do município** | carga tributária sobre faturamento — muda o preço |
+| **metas com glosa** | receita variável disfarçada de fixa |
+| **prazo de pagamento** | capital de giro até o primeiro recebimento |
+| custo atual · contrapartida · repasse federal | Cenário A e o abatimento que viabiliza a proposta |
+| **modelo pretendido** | qual caminho de precificação usar — regra do CEO, nunca assumir |
+| cedidos · almoxarifado central · combustível da garagem | os custos INVISÍVEIS (declarado × 1,38 ≈ real) |
+
+**Regras de uso do briefing no estudo:**
+- Resposta com `procedencia: verificado` entra como ✅ **fato**; `premissa` entra como ⚠️.
+- `estado: "nao-existe"` é **achado, não lacuna** — "o município não mede tempo-resposta" é
+  argumento de venda, e deve aparecer no dossiê como tal.
+- `estado: "a-levantar"` vira pendência explícita no estudo, nunca número inventado.
+- O que estiver marcado `restrito` **não entra em nenhuma peça** — nem no HTML, nem em slide.
+
+Se não houver briefing do alvo, siga para a FASE 1 e registre, ao final, quais perguntas do
+questionário padrão ficaram sem resposta — é isso que se manda ao ente.
+
+---
+
 ### FASE 1 — Qualificação do Alvo
 
 Antes de pesquisar, confirme ou extraia do contexto:

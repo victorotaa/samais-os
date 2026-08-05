@@ -147,6 +147,23 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   quando várias correm juntas, a restrição do negócio deixa de ser vender e passa a ser
   **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
 
+- **`briefings/`** — **o que se pergunta ao ente antes de calcular**, e a entrada do estudo
+  (`samais-municipal-study` FASE 0: olhar o briefing antes de pesquisar). O questionário é
+  **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra; questionário longo
+  volta pela metade. Quatro regras de formulação, nascidas da auditoria de Avaré: uma pergunta
+  = um dado · unidade e período no enunciado · tabela em vez de campo aberto · estado explícito
+  (`respondido` · `nao-existe` · `a-levantar` · `nao-se-aplica`), porque "não existe indicador"
+  é **achado**, não lacuna. Cada briefing guarda só as respostas,
+  referenciando a pergunta por id — o build recusa resposta a pergunta inexistente.
+  Cada pergunta declara **`porque`** (o que alimenta na Fórmula Mestre) e **`sensibilidade`**
+  (`publico` · `interno` · `restrito`). ⚠️ **O bundle é público:** só `publico` leva o texto;
+  `interno` vira "respondido · uso interno"; **`restrito` some inteiro — nem o enunciado**,
+  porque mostrar "passivo trabalhista: respondido" ao lado de um município nomeado já é
+  informação. A completude conta **todas** as perguntas, inclusive as ocultas.
+  Semente: `briefings/avare-sp.json`. Para ler tudo ou mandar para a diretoria:
+  `node scripts/briefing-dossie.mjs <slug>` — gera o documento COMPLETO em
+  `briefings/_dossies/` (fora do git, porque leva o restrito junto).
+
 ## Ferramentas
 
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
@@ -169,6 +186,7 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
 - `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
+- `dashboard/briefings.html` — levantamentos aplicados, com a fronteira de sensibilidade.
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.

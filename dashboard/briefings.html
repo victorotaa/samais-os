@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="./marca-icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./marca-icone-180.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Samais-OS">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Samais-OS · Briefings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
+<style>
+/* tokens: doutrina/samais.css (canônico) */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+header{border-bottom:1px solid var(--line);padding:6px 0 26px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--t3);font-size:14px;max-width:72ch}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 4px}
+.kpi{border-radius:13px;padding:15px 16px}
+.kpi .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-family:var(--fd);font-weight:700;font-size:24px;margin-top:5px;color:var(--gold);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .v small{font-size:11.5px;color:var(--t3);font-family:var(--fb);font-weight:400;white-space:normal}
+
+.aviso{margin:22px 0 0;padding:15px 18px;border-radius:13px;font-size:13.5px;color:var(--t2)}
+.aviso b{color:var(--text);font-weight:500}
+
+.br{margin-top:22px;border-radius:16px;padding:20px 22px}
+.br-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.br-nome{font-family:var(--fd);font-weight:700;font-size:20px}
+.br-met{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:var(--fm);font-size:12px;color:var(--t3)}
+.br-met b{color:var(--gold);font-variant-numeric:tabular-nums}
+.br-met .alerta{color:var(--amber)}
+
+.bl{border-top:1px solid var(--line-soft);margin-top:18px;padding-top:14px}
+.bl-nome{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bl-nome .pct{color:var(--t3)}
+.qs{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.q{padding-left:14px;border-left:2px solid var(--line-soft)}
+.q.ok{border-left-color:var(--gold-deep)}
+.q.aberta{border-left-color:transparent}
+.q.achado{border-left-color:var(--green)}
+.q-p{font-size:13.5px;color:var(--t2);line-height:1.45}
+.q-p .tag{font-family:var(--fm);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line-soft);border-radius:4px;padding:1px 5px;margin-left:7px;color:var(--t3);
+  white-space:nowrap;display:inline-block;vertical-align:middle}
+.q-p .tag.novo{color:var(--gold);border-color:rgba(184,149,78,.4)}
+.q-r{font-size:13.5px;color:var(--text);margin-top:6px;line-height:1.5}
+.q-i{font-family:var(--fm);font-size:11.5px;color:var(--t3);margin-top:6px}
+.q-i.interno{color:var(--gold-dim)}
+.q-n{font-size:12.5px;color:var(--dim);margin-top:5px;line-height:1.45}
+.q-porque{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.45;font-style:italic}
+.proc{font-family:var(--fm);font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-left:8px}
+.proc[data-p="verificado"]{color:var(--green)}
+.proc[data-p="premissa"]{color:var(--amber)}
+.proc[data-p="a-verificar"]{color:var(--t3)}
+
+.nota-fim{margin-top:26px;padding:14px 16px;border-radius:12px;font-size:13px;color:var(--t3)}
+.nota-fim b{color:var(--t2);font-weight:500}
+.vazio{border:1px dashed var(--line);border-radius:14px;padding:32px 26px;margin-top:26px}
+.vazio h3{font-family:var(--fd);font-weight:700;font-size:17px;margin:0 0 8px}
+.vazio p{color:var(--t3);font-size:14px;margin:0 0 12px;max-width:64ch}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}}
+
+/* ── material liquid glass (doutrina/samais.css) ── */
+.kpi,.br,.aviso,.nota-fim,.vazio{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);                      /* base: vale em todo navegador */
+  backdrop-filter:var(--glass-blur) url(#glassDistort);   /* refração: só onde url() é aceita */
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  overflow:hidden;
+}
+@media(max-width:720px){
+  .kpi,.br,.aviso,.nota-fim,.vazio{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .kpi,.br,.aviso,.nota-fim,.vazio{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+}
+.rolavel{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+</style>
+</head>
+<body>
+
+<!-- refração do liquid glass · doutrina/glass-filter.html -->
+<svg width="0" height="0" aria-hidden="true" focusable="false"
+     style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%"
+          color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="topbar barra-vidro">
+  <a class="marca" href="./index.html" aria-label="Samais-OS">
+    <span class="nome">samais</span><span class="sep">·</span><span class="desc">OS</span>
+    <span class="mono-sa">SA+</span>
+  </a>
+  <nav class="topnav-links">
+    <a href="./index.html">Início</a>
+    <a href="./frentes.html">Frentes</a>
+    <a href="./briefings.html" aria-current="page">Briefings</a>
+    <a href="./implantacao.html">Implantação</a>
+    <a href="./radar.html">Radar</a>
+    <a href="./mercado.html">Mercado</a>
+    <a href="./obrigacoes.html">Obrigações</a>
+    <a href="./despesas/">Despesas</a>
+  </nav>
+</div>
+
+<header><div class="wrap">
+  <div class="kicker">levantamento de dados</div>
+  <h1>Briefings</h1>
+  <div class="sub">O que perguntamos ao ente antes de calcular, e o que já foi respondido.
+    O questionário é único — melhorar a pergunta melhora todos os levantamentos seguintes.
+    Cada pergunta diz <b>o que ela alimenta</b> no cálculo: instrumento, não formulário.</div>
+  <div class="kpis" id="kpis"></div>
+  <div class="aviso" id="aviso"></div>
+</div></header>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
+  <span id="stamp"></span>
+</footer>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const dataBR = iso => { const p=(iso||'').slice(0,10).split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:(iso||'—'); };
+
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  document.getElementById('stamp').textContent = 'build de ' + d.gerado_em;
+  const b = d.briefings;
+  if(!b || !b.coletados.length){ vazio(); return; }
+  kpis(b); aviso(b);
+  document.getElementById('main').innerHTML = b.coletados.map(cartao).join('') + notaFim(b);
+}).catch(()=>{
+  document.getElementById('main').innerHTML =
+    `<div class="vazio"><h3>Não consegui carregar os dados</h3>
+      <p>Rode <code>node scripts/build-dashboard.mjs</code> e sirva por HTTP.</p></div>`;
+});
+
+function kpis(b){
+  const c = b.coletados;
+  const media = Math.round(c.reduce((s,x)=>s+x.completude_essencial,0)/c.length);
+  const abertos = c.reduce((s,x)=>s+x.essenciais_pendentes,0);
+  document.getElementById('kpis').innerHTML = [
+    ['Levantamentos', c.length, 'municípios com briefing aplicado', false],
+    ['Perguntas no padrão', b.total_perguntas, 'versão ' + b.questionario_versao, false],
+    ['Essencial respondido', media+'%', 'média dos levantamentos', media<70],
+    ['Essenciais em aberto', abertos, abertos?'perguntas que travam o cálculo':'nenhuma', abertos>0],
+  ].map(([l,v,s,risco])=>`<div class="kpi"><div class="l">${l}</div>
+     <div class="v" ${risco?'style="color:var(--amber)"':''}>${v}${s?` <small>${s}</small>`:''}</div></div>`).join('');
+}
+
+// A regra que sustenta esta página existir num painel público.
+function aviso(b){
+  const res = b.coletados.reduce((s,x)=>s+(x.reservados||0),0);
+  document.getElementById('aviso').innerHTML =
+    `<b>Por que algumas respostas não aparecem aqui.</b> Este painel está em URL pública.
+     Resposta de briefing pode conter salário, processo trabalhista, nome de servidor ou
+     relato grave — então só o que é classificado como <b>público</b> traz o texto; o resto
+     aparece como <i>respondido · uso interno</i> e fica no repositório.
+     ${res?`Há ainda <b>${res} pergunta(s) de tratativa reservada</b> que não são exibidas nem no enunciado.`:''}
+     A contagem de completude considera <b>todas</b> as perguntas — completude que ignora o que existe seria falsa.`;
+}
+
+function cartao(b){
+  return `<section class="br">
+    <div class="br-top">
+      <span class="br-nome">${esc(b.alvo)}/${esc(b.uf)}</span>
+      <span class="q-i">aplicado em ${dataBR(b.aplicado_em)}</span>
+    </div>
+    <div class="br-met">
+      <span>respondido <b>${b.completude}%</b></span>
+      <span>essencial <b>${b.completude_essencial}%</b></span>
+      <span class="${b.essenciais_pendentes?'alerta':''}">${b.essenciais_pendentes} essencial(is) em aberto</span>
+      ${b.reservados?`<span>${b.reservados} reservada(s)</span>`:''}
+      ${b.tem_respondente?'<span>respondente registrado · uso interno</span>':''}
+    </div>
+    ${b.blocos.map(bloco).join('')}
+  </section>`;
+}
+
+function bloco(bl){
+  if(!bl.perguntas.length) return '';
+  return `<div class="bl">
+    <div class="bl-nome"><span>${esc(bl.nome)}</span>
+      <span class="pct">${bl.respondidas}/${bl.total}${bl.reservados?` · ${bl.reservados} reservada(s)`:''}</span></div>
+    <div class="qs">${bl.perguntas.map(pergunta).join('')}</div>
+  </div>`;
+}
+
+function pergunta(q){
+  const cls = q.respondida ? 'ok' : (q.estado === 'nao-existe' ? 'achado' : 'aberta');
+  const tags = (q.essencial?'<span class="tag">essencial</span>':'') + (q.novo?'<span class="tag novo">nova</span>':'');
+  const ROTULO = { 'nao-existe':'não existe — <b>achado</b>, não lacuna',
+                   'a-levantar':'a levantar', 'nao-se-aplica':'não se aplica' };
+  let corpo;
+  if(!q.respondida) corpo = `<div class="q-i">${ROTULO[q.estado] || 'não respondida'}</div>`;
+  else if(q.resposta) corpo = `<div class="q-r">${esc(q.resposta)}</div>` + (q.nota?`<div class="q-n">${esc(q.nota)}</div>`:'');
+  else corpo = `<div class="q-i interno">respondido · uso interno</div>`;
+  const proc = q.procedencia ? `<span class="proc" data-p="${q.procedencia}">${q.procedencia.replace('-',' ')}</span>` : '';
+  return `<div class="q ${cls}">
+    <div class="q-p">${esc(q.pergunta)}${tags}${proc}</div>
+    ${corpo}
+    ${q.porque?`<div class="q-porque">${esc(q.porque)}</div>`:''}
+  </div>`;
+}
+
+function notaFim(b){
+  return `<div class="nota-fim"><b>Como isto funciona:</b> o questionário é <b>único</b>
+    (versão ${esc(b.questionario_versao)}, ${b.total_perguntas} perguntas) — cada briefing guarda só as
+    respostas, referenciando a pergunta por id. O build recusa resposta a pergunta que não existe
+    no padrão, então erro de digitação não passa silencioso. As marcadas como <b>nova</b> foram
+    acrescentadas depois do briefing de Avaré, ao cruzar as perguntas com a Fórmula Mestre —
+    por isso aparecem sem resposta ali: não foram feitas na época.</div>`;
+}
+
+function vazio(){
+  document.getElementById('main').innerHTML = `
+    <div class="vazio"><h3>Nenhum briefing catalogado</h3>
+      <p>Aplique o questionário padrão e registre as respostas em
+         <b>briefings/&lt;slug&gt;.json</b>.</p></div>`;
+}
+</script>
+</body>
+</html>

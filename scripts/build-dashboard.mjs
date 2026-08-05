@@ -27,6 +27,9 @@ const MERCADO_PATH = join(ROOT, "inteligencia", "mercado", "indice.json");
 const IMPL_DIR = join(ROOT, "implantacao");
 const IMPL_SCHEMA_PATH = join(IMPL_DIR, "_schema", "implantacao.schema.json");
 const ROTEIRO_PATH = join(IMPL_DIR, "_schema", "roteiro-padrao.json");
+const BRIEF_DIR = join(ROOT, "briefings");
+const BRIEF_SCHEMA_PATH = join(BRIEF_DIR, "_schema", "briefing.schema.json");
+const QUESTIONARIO_PATH = join(BRIEF_DIR, "_schema", "questionario-padrao.json");
 const PRODUTOS_DIR = join(ROOT, "produtos");
 const PRODUTO_SCHEMA_PATH = join(PRODUTOS_DIR, "_schema", "produto.schema.json");
 const DASH_DIR = join(ROOT, "dashboard");
@@ -259,6 +262,93 @@ if (existsSync(ROTEIRO_PATH) && existsSync(IMPL_SCHEMA_PATH)) {
   implantacao = { roteiro_versao: roteiro.versao, frentes: porFrente };
 }
 
+// ---------- briefings de levantamento ----------
+// O painel é PÚBLICO. Uma resposta pode conter TAC com o MPT, salário, nome de respondente
+// ou relato de óbito — então o bundle recebe o TEXTO só quando a pergunta é `publico` E a
+// resposta não subiu a proteção. O resto vira "respondido · uso interno": a estrutura fica
+// visível (dá para saber o que já foi levantado), o conteúdo não vaza.
+let briefings = null;
+if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
+  const quest = JSON.parse(readFileSync(QUESTIONARIO_PATH, "utf8"));
+  const briefSchema = JSON.parse(readFileSync(BRIEF_SCHEMA_PATH, "utf8"));
+  const perguntaPorId = new Map();
+  for (const b of quest.blocos) for (const q of b.itens ?? b.perguntas) perguntaPorId.set(q.id, { ...q, bloco: b.id });
+
+  const NIVEL = { publico: 0, interno: 1, restrito: 2 };
+  const coletados = [];
+
+  for (const arq of readdirSync(BRIEF_DIR).filter((f) => f.endsWith(".json") && !f.startsWith("_")).sort()) {
+    const full = join(BRIEF_DIR, arq);
+    const rel = relative(ROOT, full);
+    let json;
+    try { json = JSON.parse(readFileSync(full, "utf8")); }
+    catch (e) { allErrors.push(`${rel}: JSON inválido — ${e.message}`); continue; }
+
+    const errs = validate(json, briefSchema);
+    if (errs.length) { allErrors.push(...errs.map((e) => `${rel} → ${e}`)); continue; }
+    for (const id of Object.keys(json.respostas)) {
+      if (!perguntaPorId.has(id)) allErrors.push(`${rel}: pergunta "${id}" não existe no questionário padrão`);
+    }
+
+    const blocos = quest.blocos.map((b) => {
+      const perguntasTodas = (b.itens ?? b.perguntas).map((q) => {
+        const r = json.respostas[q.id];
+        // "a levantar" e "não existe" TÊM registro mas NÃO são resposta — contar como
+        // respondidas faria a completude mentir (foi o que aconteceu ao migrar Avaré).
+        const respondida = r?.estado === "respondido";
+        const sens = r?.sensibilidade_override && NIVEL[r.sensibilidade_override] > NIVEL[q.sensibilidade ?? "interno"]
+          ? r.sensibilidade_override : (q.sensibilidade ?? "interno");
+        const publicavel = sens === "publico";
+        return {
+          id: q.id, pergunta: q.pergunta, porque: q.porque ?? null,
+          essencial: !!q.essencial, novo: !!q.novo, sensibilidade: sens,
+          respondida,
+          estado: r?.estado ?? null,
+          procedencia: r?.procedencia ?? null,
+          // ⚠️ a resposta só viaja quando pode ser publicada
+          resposta: respondida && publicavel ? (r.resposta ?? null) : null,
+          nota: r && publicavel ? (r.nota ?? null) : null,
+        };
+      });
+      // RESTRITO some inteiro do bundle — nem a pergunta. Mostrar "passivo trabalhista:
+      // respondido" ao lado de um município nomeado já é informação, mesmo sem o texto.
+      // Fica só a CONTAGEM, para o time saber que existe tratativa reservada ali.
+      const perguntas = perguntasTodas.filter((q) => q.sensibilidade !== "restrito");
+      const reservados = perguntasTodas.filter((q) => q.sensibilidade === "restrito").length;
+      const total = perguntasTodas.length, respondidas = perguntasTodas.filter((q) => q.respondida).length;
+      return { id: b.id, nome: b.nome, perguntas, reservados, total, respondidas,
+               completude: total ? Math.round((respondidas / total) * 100) : 100 };
+    });
+
+    // Contagens sobre TODAS as perguntas (inclusive as reservadas): completude que ignora
+    // o que existe é completude falsa.
+    const todas = quest.blocos.flatMap((b) => (b.itens ?? b.perguntas)).map((q) => ({
+      essencial: !!q.essencial,
+      respondida: json.respostas[q.id]?.estado === "respondido",
+      achado: json.respostas[q.id]?.estado === "nao-existe",
+    }));
+    const essenciais = todas.filter((q) => q.essencial);
+    coletados.push({
+      slug: json.slug, alvo: json.alvo, uf: json.uf, aplicado_em: json.aplicado_em,
+      frente: json.frente ?? null,
+      // respondente é dado pessoal: nunca vai ao bundle, só a existência
+      tem_respondente: !!json.respondente,
+      reservados: blocos.reduce((n, b) => n + b.reservados, 0),
+      total: todas.length,
+      respondidas: todas.filter((q) => q.respondida).length,
+      completude: todas.length ? Math.round((todas.filter((q) => q.respondida).length / todas.length) * 100) : 0,
+      achados: todas.filter((q) => q.achado).length,
+      completude_essencial: essenciais.length
+        ? Math.round((essenciais.filter((q) => q.respondida).length / essenciais.length) * 100) : 100,
+      essenciais_pendentes: essenciais.filter((q) => !q.respondida).length,
+      blocos,
+    });
+  }
+
+  coletados.sort((a, b) => b.aplicado_em.localeCompare(a.aplicado_em));
+  briefings = { questionario_versao: quest.versao, total_perguntas: perguntaPorId.size, coletados };
+}
+
 // ---------- produtos (como se acessa cada um: LP, sistema, documento) ----------
 const produtos = [];
 if (existsSync(PRODUTO_SCHEMA_PATH)) {
@@ -396,6 +486,7 @@ const data = {
   mercado,
   produtos,
   implantacao,
+  briefings,
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(data, null, 2) + "\n");
@@ -435,6 +526,14 @@ if (implantacao) {
   for (const x of f) {
     console.log(`   ↳ ${x.titulo}: ${x.prontidao_critica}% do crítico pronto` +
       (x.bloqueados ? ` · ⚠ ${x.bloqueados} bloqueado(s)` : ""));
+  }
+}
+if (briefings) {
+  const c = briefings.coletados;
+  console.log(`✓ briefings: ${c.length} levantamento(s) · questionário v${briefings.questionario_versao} (${briefings.total_perguntas} perguntas)`);
+  for (const b of c) {
+    console.log(`   ↳ ${b.alvo}/${b.uf}: ${b.completude}% respondido, ${b.completude_essencial}% do essencial` +
+      (b.essenciais_pendentes ? ` · ${b.essenciais_pendentes} essencial(is) em aberto` : ""));
   }
 }
 if (produtos.length) {

@@ -16,95 +16,587 @@
       "id": "servico",
       "nome": "Serviço e cobertura",
       "perguntas": [
-        { "id": "populacao", "pergunta": "População coberta pelo serviço e municípios atendidos", "formato": "numero", "unidade": "habitantes", "porque": "Base da métrica de ouro (R$ 5,20/hab/mês) e do per capita exibido no estudo.", "documento": "Estimativa IBGE mais recente", "sensibilidade": "publico", "essencial": true },
-        { "id": "modelo-gestao", "pergunta": "Modelo atual de gestão do serviço", "formato": "escolha", "opcoes": ["execução direta pelo município", "consórcio intermunicipal", "OSS / organização social", "empresa contratada", "misto"], "porque": "Define o Cenário A e a porta de entrada da proposta.", "sensibilidade": "publico", "essencial": true },
-        { "id": "central-regulacao", "pergunta": "A Central de Regulação Médica é própria do município? Se não, qual é utilizada e sob qual rateio?", "formato": "texto", "porque": "CRU é o maior custo fixo depois da folha; o rateio define quem paga o quê.", "sensibilidade": "publico", "essencial": true },
-        { "id": "habilitacoes-repasse", "pergunta": "Habilitações vigentes no Ministério da Saúde e o custeio federal correspondente", "formato": "tabela", "colunas": ["Unidade habilitada (USB/USA/Central/motolância)", "Portaria", "Vigência", "Repasse mensal (R$)"], "porque": "Habilitação destrava o repasse, e repasse abate a contrapartida do município — é o argumento que torna a proposta viável para o gestor.", "documento": "Portarias de habilitação + demonstrativo do FNS (12 meses)", "sensibilidade": "publico", "essencial": true }
+        {
+          "id": "populacao",
+          "pergunta": "População coberta pelo serviço e municípios atendidos",
+          "formato": "numero",
+          "unidade": "habitantes",
+          "porque": "Base da métrica de ouro (R$ 5,20/hab/mês) e do per capita exibido no estudo.",
+          "para_que": "Dimensiona a cobertura e permite comparar o serviço com o de municípios semelhantes.",
+          "documento": "Estimativa IBGE mais recente",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "modelo-gestao",
+          "pergunta": "Modelo atual de gestão do serviço",
+          "formato": "escolha",
+          "opcoes": [
+            "execução direta pelo município",
+            "consórcio intermunicipal",
+            "OSS / organização social",
+            "empresa contratada",
+            "misto"
+          ],
+          "porque": "Define o Cenário A e a porta de entrada da proposta.",
+          "para_que": "Descreve como o serviço funciona hoje, ponto de partida de qualquer comparação.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "central-regulacao",
+          "pergunta": "A Central de Regulação Médica é própria do município? Se não, qual é utilizada e sob qual rateio?",
+          "formato": "texto",
+          "porque": "CRU é o maior custo fixo depois da folha; o rateio define quem paga o quê.",
+          "para_que": "A regulação é estrutura própria; saber quem a mantém define o que entra no escopo.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "habilitacoes-repasse",
+          "pergunta": "Habilitações vigentes no Ministério da Saúde e o custeio federal correspondente",
+          "formato": "tabela",
+          "colunas": [
+            "Unidade habilitada (USB/USA/Central/motolância)",
+            "Portaria",
+            "Vigência",
+            "Repasse mensal (R$)"
+          ],
+          "porque": "Habilitação destrava o repasse, e repasse abate a contrapartida do município — é o argumento que torna a proposta viável para o gestor.",
+          "para_que": "Habilitação federal destrava repasse, e repasse reduz o que o município desembolsa.",
+          "documento": "Portarias de habilitação + demonstrativo do FNS (12 meses)",
+          "sensibilidade": "publico",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "frota",
       "nome": "Frota e bases",
       "perguntas": [
-        { "id": "frota-inventario", "pergunta": "Frota em operação", "formato": "tabela", "colunas": ["Tipo (USB/USA/VIR/motolância/ambulancha)", "Quantidade", "Base", "Ano/modelo", "Situação (operante/parada)"], "porque": "Regra R1: a frota é do ente e a Samais reativa as paradas — viatura parada é escopo de custo, não detalhe. Em Avaré, 2 das 3 USB estavam paradas.", "documento": "CRLV e relatório de manutenção", "sensibilidade": "publico", "essencial": true },
-        { "id": "bases-equipe", "pergunta": "Bases descentralizadas e equipe lotada em cada uma", "formato": "tabela", "colunas": ["Base", "Viatura(s)", "Categoria profissional", "Quantidade"], "porque": "Postos por base × Fator de Cobertura 4,5 = headcount. É o cálculo central do estudo.", "sensibilidade": "publico", "essencial": true },
-        { "id": "bases-imovel", "pergunta": "Os imóveis das bases são próprios, cedidos ou locados, e quem custeia água, energia, IPTU e manutenção predial?", "formato": "texto", "porque": "Lição Canoas: quando o imóvel fica por conta da contratada, vira rubrica que o edital esconde na entrelinha.", "sensibilidade": "publico", "essencial": true },
-        { "id": "combustivel", "pergunta": "Consumo mensal de combustível da frota", "formato": "numero", "unidade": "litros/mês", "periodo": "média dos últimos 12 meses", "porque": "Custo que hoje costuma sair da garagem da prefeitura e migra inteiro para a contratada.", "documento": "Relatório de abastecimento", "sensibilidade": "publico", "essencial": true }
+        {
+          "id": "frota-inventario",
+          "pergunta": "Frota em operação",
+          "formato": "tabela",
+          "colunas": [
+            "Tipo (USB/USA/VIR/motolância/ambulancha)",
+            "Quantidade",
+            "Base",
+            "Ano/modelo",
+            "Situação (operante/parada)"
+          ],
+          "porque": "Regra R1: a frota é do ente e a Samais reativa as paradas — viatura parada é escopo de custo, não detalhe. Em Avaré, 2 das 3 USB estavam paradas.",
+          "para_que": "A frota é do município. Viatura parada precisa entrar no plano de reativação.",
+          "documento": "CRLV e relatório de manutenção",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "bases-equipe",
+          "pergunta": "Bases descentralizadas e equipe lotada em cada uma",
+          "formato": "tabela",
+          "colunas": [
+            "Base",
+            "Viatura(s)",
+            "Categoria profissional",
+            "Quantidade"
+          ],
+          "porque": "Postos por base × Fator de Cobertura 4,5 = headcount. É o cálculo central do estudo.",
+          "para_que": "Postos por base determinam o tamanho da equipe necessária para cobrir 24 horas.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "bases-imovel",
+          "pergunta": "Os imóveis das bases são próprios, cedidos ou locados, e quem custeia água, energia, IPTU e manutenção predial?",
+          "formato": "texto",
+          "porque": "Lição Canoas: quando o imóvel fica por conta da contratada, vira rubrica que o edital esconde na entrelinha.",
+          "para_que": "Define de quem é a responsabilidade pelo imóvel — muda quem paga o quê.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "combustivel",
+          "pergunta": "Consumo mensal de combustível da frota",
+          "formato": "numero",
+          "unidade": "litros/mês",
+          "periodo": "média dos últimos 12 meses",
+          "porque": "Custo que hoje costuma sair da garagem da prefeitura e migra inteiro para a contratada.",
+          "para_que": "Custo recorrente que hoje costuma sair de outra pasta e passa para a operação.",
+          "documento": "Relatório de abastecimento",
+          "sensibilidade": "publico",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "pessoal",
       "nome": "Pessoal",
       "perguntas": [
-        { "id": "quadro-atual", "pergunta": "Quadro funcional atual do serviço", "formato": "tabela", "colunas": ["Categoria", "Quantidade", "Vínculo (CLT/estatutário/cedido/RPA)", "Carga horária semanal ou escala"], "porque": "Cenário A real e ponto de partida do dimensionamento. Vínculo importa: estatutário custa mais que CLT no piso.", "documento": "Folha de pagamento sintética por categoria", "sensibilidade": "interno", "essencial": true },
-        { "id": "pisos", "pergunta": "Piso salarial praticado por categoria", "formato": "tabela", "colunas": ["Categoria", "Salário-base (R$/mês)"], "porque": "Entrada direta do bloco de pessoal — a maior rubrica do CDO.", "sensibilidade": "interno", "essencial": true },
-        { "id": "cct", "pergunta": "Qual CCT e qual sindicato regem as categorias? (nome e número de registro no MTE)", "formato": "texto", "porque": "Em Avaré vieram os pisos SEM a CCT — e sem ela não dá para validar os valores nem projetar reajuste. Pergunta separada de propósito.", "documento": "CCT vigente", "sensibilidade": "publico", "essencial": true, "nova": true },
-        { "id": "adicionais", "pergunta": "Adicionais praticados: insalubridade, periculosidade, noturno e sobreaviso", "formato": "tabela", "colunas": ["Adicional", "Percentual", "Base de cálculo", "Categorias que recebem"], "porque": "Em APH esses adicionais são regra, não exceção. Omiti-los subdimensiona a folha inteira.", "sensibilidade": "interno", "essencial": true, "nova": true },
-        { "id": "beneficios", "pergunta": "Benefícios previstos na CCT (vale-transporte, alimentação, plano de saúde, seguro de vida)", "formato": "tabela", "colunas": ["Benefício", "Valor por profissional (R$)", "Periodicidade"], "porque": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.", "sensibilidade": "interno", "nova": true },
-        { "id": "absenteismo", "pergunta": "Taxa de absenteísmo do quadro atual", "formato": "numero", "unidade": "%", "periodo": "média dos últimos 12 meses", "porque": "Alimenta o Fator de Cobertura. FC 4,5 cobre o headcount físico; absenteísmo alto exige folga adicional que ninguém orça.", "sensibilidade": "interno", "essencial": true, "nova": true },
-        { "id": "cedidos", "pergunta": "Servidores municipais cedidos ou em comissão atuando no serviço", "formato": "tabela", "colunas": ["Função", "Quantidade", "Origem (secretaria/órgão)"], "porque": "O maior custo invisível do Cenário A costuma ser médico cedido. Fator calibrado em Avaré: declarado × 1,38 ≈ real.", "sensibilidade": "interno", "essencial": true },
-        { "id": "horas-nep", "pergunta": "Carga horária OBRIGATÓRIA e REMUNERADA de capacitação/NEP, por categoria", "formato": "tabela", "colunas": ["Categoria", "Horas/ano exigidas", "Previsto em contrato ou termo?"], "porque": "LIÇÃO CANOAS: 400h médico + 600h enfermeiro + 600h técnico + 250h condutor = R$ 229 mil/mês que quase ficaram de fora do estudo. É a pergunta que mais dinheiro salvou.", "documento": "Termo de referência / plano de educação permanente", "sensibilidade": "publico", "essencial": true, "nova": true }
+        {
+          "id": "quadro-atual",
+          "pergunta": "Quadro funcional atual do serviço",
+          "formato": "tabela",
+          "colunas": [
+            "Categoria",
+            "Quantidade",
+            "Vínculo (CLT/estatutário/cedido/RPA)",
+            "Carga horária semanal ou escala"
+          ],
+          "porque": "Cenário A real e ponto de partida do dimensionamento. Vínculo importa: estatutário custa mais que CLT no piso.",
+          "para_que": "Retrato da equipe atual. O tipo de vínculo muda o custo de cada profissional.",
+          "documento": "Folha de pagamento sintética por categoria",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "pisos",
+          "pergunta": "Piso salarial praticado por categoria",
+          "formato": "tabela",
+          "colunas": [
+            "Categoria",
+            "Salário-base (R$/mês)"
+          ],
+          "porque": "Entrada direta do bloco de pessoal — a maior rubrica do CDO.",
+          "para_que": "Base de cálculo da folha, a maior parte do custo de um serviço de urgência.",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "cct",
+          "pergunta": "Qual CCT e qual sindicato regem as categorias? (nome e número de registro no MTE)",
+          "formato": "texto",
+          "porque": "Em Avaré vieram os pisos SEM a CCT — e sem ela não dá para validar os valores nem projetar reajuste. Pergunta separada de propósito.",
+          "para_que": "A convenção coletiva é o que valida os pisos e define o reajuste ao longo do contrato.",
+          "documento": "CCT vigente",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "adicionais",
+          "pergunta": "Adicionais praticados: insalubridade, periculosidade, noturno e sobreaviso",
+          "formato": "tabela",
+          "colunas": [
+            "Adicional",
+            "Percentual",
+            "Base de cálculo",
+            "Categorias que recebem"
+          ],
+          "porque": "Em APH esses adicionais são regra, não exceção. Omiti-los subdimensiona a folha inteira.",
+          "para_que": "Em atendimento pré-hospitalar esses adicionais são regra; sem eles a folha fica subdimensionada.",
+          "sensibilidade": "interno",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "beneficios",
+          "pergunta": "Benefícios previstos na CCT (vale-transporte, alimentação, plano de saúde, seguro de vida)",
+          "formato": "tabela",
+          "colunas": [
+            "Benefício",
+            "Valor por profissional (R$)",
+            "Periodicidade"
+          ],
+          "porque": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
+          "para_que": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
+          "sensibilidade": "interno",
+          "nova": true
+        },
+        {
+          "id": "absenteismo",
+          "pergunta": "Taxa de absenteísmo do quadro atual",
+          "formato": "numero",
+          "unidade": "%",
+          "periodo": "média dos últimos 12 meses",
+          "porque": "Alimenta o Fator de Cobertura. FC 4,5 cobre o headcount físico; absenteísmo alto exige folga adicional que ninguém orça.",
+          "para_que": "Falta e afastamento exigem folga adicional para a escala não descobrir.",
+          "sensibilidade": "interno",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "cedidos",
+          "pergunta": "Servidores municipais cedidos ou em comissão atuando no serviço",
+          "formato": "tabela",
+          "colunas": [
+            "Função",
+            "Quantidade",
+            "Origem (secretaria/órgão)"
+          ],
+          "porque": "O maior custo invisível do Cenário A costuma ser médico cedido. Fator calibrado em Avaré: declarado × 1,38 ≈ real.",
+          "para_que": "Profissional cedido tem custo real, ainda que não apareça no orçamento do serviço.",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "horas-nep",
+          "pergunta": "Carga horária OBRIGATÓRIA e REMUNERADA de capacitação/NEP, por categoria",
+          "formato": "tabela",
+          "colunas": [
+            "Categoria",
+            "Horas/ano exigidas",
+            "Previsto em contrato ou termo?"
+          ],
+          "porque": "LIÇÃO CANOAS: 400h médico + 600h enfermeiro + 600h técnico + 250h condutor = R$ 229 mil/mês que quase ficaram de fora do estudo. É a pergunta que mais dinheiro salvou.",
+          "para_que": "Educação permanente é obrigação com hora paga; precisa estar prevista, não improvisada.",
+          "documento": "Termo de referência / plano de educação permanente",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        }
       ]
     },
     {
       "id": "demanda",
       "nome": "Demanda",
       "perguntas": [
-        { "id": "atendimentos", "pergunta": "Ocorrências atendidas por mês", "formato": "tabela", "colunas": ["Mês (AAAA-MM)", "Ocorrências despachadas"], "periodo": "últimos 12 meses", "porque": "Dimensionamento e validação de porte. A série revela a sazonalidade que a média esconde.", "documento": "Relatórios mensais de produção", "sensibilidade": "publico", "essencial": true },
-        { "id": "chamadas-192", "pergunta": "Chamadas recebidas no 192 por mês (não apenas as que geraram despacho)", "formato": "numero", "unidade": "chamadas/mês", "periodo": "média dos últimos 12 meses", "porque": "TARM e rádio-operador são dimensionados por chamada RECEBIDA, não por viatura despachada.", "sensibilidade": "publico", "essencial": true, "nova": true },
-        { "id": "tempo-resposta", "pergunta": "Tempo-resposta mediano, em minutos", "formato": "tabela", "colunas": ["Prioridade/classificação", "Tempo-resposta mediano (min)", "Fonte do dado"], "porque": "Linha de base da meta contratual. Sem base, qualquer meta é chute — e chute vira glosa. Em Avaré esta pergunta era aberta e voltou vazia.", "sensibilidade": "publico", "essencial": true },
-        { "id": "perfil-demanda", "pergunta": "Ocorrências por natureza (clínica, traumática, obstétrica, psiquiátrica, transferências)", "formato": "tabela", "colunas": ["Natureza", "Ocorrências no período", "% do total"], "periodo": "últimos 12 meses", "porque": "O perfil define o mix USB/USA e o insumo consumido. Em Avaré vieram números absolutos sem período declarado — inutilizáveis.", "sensibilidade": "publico", "essencial": true },
-        { "id": "demanda-reprimida", "pergunta": "Há horários, áreas ou situações com cobertura reconhecidamente insuficiente?", "formato": "texto", "porque": "É onde mora a proposta de valor — e o risco de assumir SLA que a configuração atual não entrega.", "sensibilidade": "publico", "essencial": true }
+        {
+          "id": "atendimentos",
+          "pergunta": "Ocorrências atendidas por mês",
+          "formato": "tabela",
+          "colunas": [
+            "Mês (AAAA-MM)",
+            "Ocorrências despachadas"
+          ],
+          "periodo": "últimos 12 meses",
+          "porque": "Dimensionamento e validação de porte. A série revela a sazonalidade que a média esconde.",
+          "para_que": "A série mensal revela a sazonalidade que a média esconde.",
+          "documento": "Relatórios mensais de produção",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "chamadas-192",
+          "pergunta": "Chamadas recebidas no 192 por mês (não apenas as que geraram despacho)",
+          "formato": "numero",
+          "unidade": "chamadas/mês",
+          "periodo": "média dos últimos 12 meses",
+          "porque": "TARM e rádio-operador são dimensionados por chamada RECEBIDA, não por viatura despachada.",
+          "para_que": "A equipe da central é dimensionada por chamada recebida, não por viatura despachada.",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "tempo-resposta",
+          "pergunta": "Tempo-resposta mediano, em minutos",
+          "formato": "tabela",
+          "colunas": [
+            "Prioridade/classificação",
+            "Tempo-resposta mediano (min)",
+            "Fonte do dado"
+          ],
+          "porque": "Linha de base da meta contratual. Sem base, qualquer meta é chute — e chute vira glosa. Em Avaré esta pergunta era aberta e voltou vazia.",
+          "para_que": "É a linha de base da meta contratual. Sem base medida, meta vira estimativa.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "perfil-demanda",
+          "pergunta": "Ocorrências por natureza (clínica, traumática, obstétrica, psiquiátrica, transferências)",
+          "formato": "tabela",
+          "colunas": [
+            "Natureza",
+            "Ocorrências no período",
+            "% do total"
+          ],
+          "periodo": "últimos 12 meses",
+          "porque": "O perfil define o mix USB/USA e o insumo consumido. Em Avaré vieram números absolutos sem período declarado — inutilizáveis.",
+          "para_que": "O perfil das ocorrências define a combinação de viaturas e o insumo consumido.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "demanda-reprimida",
+          "pergunta": "Há horários, áreas ou situações com cobertura reconhecidamente insuficiente?",
+          "formato": "texto",
+          "porque": "É onde mora a proposta de valor — e o risco de assumir SLA que a configuração atual não entrega.",
+          "para_que": "Mostra o que o serviço hoje não consegue atender e o que precisa mudar para atender.",
+          "sensibilidade": "publico",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "insumos",
       "nome": "Insumos e serviços de apoio",
       "perguntas": [
-        { "id": "suprimento", "pergunta": "Como é feito hoje o suprimento de medicamentos e material médico-hospitalar?", "formato": "escolha", "opcoes": ["almoxarifado central da saúde", "compra direta pelo serviço", "contrato com fornecedor", "fornecido pelo consórcio/OSS"], "porque": "Se sai do almoxarifado central, o custo está ESCONDIDO em outra pasta — e passa a ser nosso na contratação.", "sensibilidade": "publico", "essencial": true },
-        { "id": "oxigenio", "pergunta": "Oxigênio medicinal: fornecedor, modalidade, consumo mensal e responsável pela troca de cilindros", "formato": "tabela", "colunas": ["Fornecedor", "Modalidade (cilindro/usina)", "Consumo mensal", "Quem troca"], "porque": "Item crítico de continuidade, com contrato próprio. Falta de O₂ para a viatura.", "sensibilidade": "publico", "essencial": true, "nova": true },
-        { "id": "manutencao-frota", "pergunta": "Gasto mensal com manutenção da frota", "formato": "numero", "unidade": "R$/mês", "periodo": "média dos últimos 12 meses", "porque": "Regra R1: manutenção e reativação são responsabilidade da Samais. Em Avaré a pergunta vinha junto com 'oficina própria ou terceiros?' e o valor se perdeu.", "documento": "Notas ou contrato de manutenção", "sensibilidade": "publico", "essencial": true },
-        { "id": "rss", "pergunta": "Descarte de resíduos de serviço de saúde (grupos A, B, E): há contrato vigente e quem executa?", "formato": "texto", "porque": "Obrigação sanitária com custo recorrente. Se hoje é feito pela própria equipe, vira contrato na nossa operação — foi o caso de Avaré.", "sensibilidade": "publico", "essencial": true },
-        { "id": "epi-fardamento", "pergunta": "EPI e fardamento fornecidos", "formato": "tabela", "colunas": ["Item", "Quantidade por profissional/ano", "Custo anual (R$)"], "porque": "Em Avaré veio só o total anual — dá para comparar, não para orçar. Quantidade por profissional é o que permite dimensionar.", "sensibilidade": "publico", "essencial": true }
+        {
+          "id": "suprimento",
+          "pergunta": "Como é feito hoje o suprimento de medicamentos e material médico-hospitalar?",
+          "formato": "escolha",
+          "opcoes": [
+            "almoxarifado central da saúde",
+            "compra direta pelo serviço",
+            "contrato com fornecedor",
+            "fornecido pelo consórcio/OSS"
+          ],
+          "porque": "Se sai do almoxarifado central, o custo está ESCONDIDO em outra pasta — e passa a ser nosso na contratação.",
+          "para_que": "Se o insumo vem do almoxarifado central, o custo está registrado em outra pasta.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "oxigenio",
+          "pergunta": "Oxigênio medicinal: fornecedor, modalidade, consumo mensal e responsável pela troca de cilindros",
+          "formato": "tabela",
+          "colunas": [
+            "Fornecedor",
+            "Modalidade (cilindro/usina)",
+            "Consumo mensal",
+            "Quem troca"
+          ],
+          "porque": "Item crítico de continuidade, com contrato próprio. Falta de O₂ para a viatura.",
+          "para_que": "Item crítico de continuidade, com contrato e logística próprios.",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "manutencao-frota",
+          "pergunta": "Gasto mensal com manutenção da frota",
+          "formato": "numero",
+          "unidade": "R$/mês",
+          "periodo": "média dos últimos 12 meses",
+          "porque": "Regra R1: manutenção e reativação são responsabilidade da Samais. Em Avaré a pergunta vinha junto com 'oficina própria ou terceiros?' e o valor se perdeu.",
+          "para_que": "Manutenção e reativação da frota entram no escopo da operação.",
+          "documento": "Notas ou contrato de manutenção",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "rss",
+          "pergunta": "Descarte de resíduos de serviço de saúde (grupos A, B, E): há contrato vigente e quem executa?",
+          "formato": "texto",
+          "porque": "Obrigação sanitária com custo recorrente. Se hoje é feito pela própria equipe, vira contrato na nossa operação — foi o caso de Avaré.",
+          "para_que": "Obrigação sanitária com custo recorrente, feita por contrato ou pela própria equipe.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "epi-fardamento",
+          "pergunta": "EPI e fardamento fornecidos",
+          "formato": "tabela",
+          "colunas": [
+            "Item",
+            "Quantidade por profissional/ano",
+            "Custo anual (R$)"
+          ],
+          "porque": "Em Avaré veio só o total anual — dá para comparar, não para orçar. Quantidade por profissional é o que permite dimensionar.",
+          "para_que": "Quantidade por profissional é o que permite dimensionar; só o total anual não permite.",
+          "sensibilidade": "publico",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "tecnologia",
       "nome": "Tecnologia e comunicação",
       "perguntas": [
-        { "id": "sistema-gestao", "pergunta": "Qual sistema de gestão/regulação é utilizado hoje?", "formato": "texto", "porque": "Define se entramos substituindo ou integrando — e onde o CoPilot OS e o PEP OS se encaixam.", "sensibilidade": "publico", "essencial": true },
-        { "id": "telefonia-radio", "pergunta": "Telefonia 192, gravação de chamadas, rádio-comunicação e rastreamento veicular", "formato": "tabela", "colunas": ["Serviço", "Fornecedor", "Custo mensal (R$)", "Quem contrata hoje"], "porque": "Infra da CRU, com contratos próprios. Gravação é exigência legal.", "sensibilidade": "publico", "essencial": true },
-        { "id": "integracao-rede", "pergunta": "Há integração com a rede hospitalar (vaga zero, regulação de leitos, CROSS)?", "formato": "escolha", "opcoes": ["sim, integrado", "parcial", "não há integração"], "porque": "Sem integração o tempo-resposta some no destino, fora do nosso controle — e isso muda que meta dá para assinar.", "sensibilidade": "publico", "essencial": true }
+        {
+          "id": "sistema-gestao",
+          "pergunta": "Qual sistema de gestão/regulação é utilizado hoje?",
+          "formato": "texto",
+          "porque": "Define se entramos substituindo ou integrando — e onde o CoPilot OS e o PEP OS se encaixam.",
+          "para_que": "Define se o sistema atual é substituído ou integrado.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "telefonia-radio",
+          "pergunta": "Telefonia 192, gravação de chamadas, rádio-comunicação e rastreamento veicular",
+          "formato": "tabela",
+          "colunas": [
+            "Serviço",
+            "Fornecedor",
+            "Custo mensal (R$)",
+            "Quem contrata hoje"
+          ],
+          "porque": "Infra da CRU, com contratos próprios. Gravação é exigência legal.",
+          "para_que": "Infraestrutura da central, com contratos próprios. A gravação é exigência legal.",
+          "sensibilidade": "publico",
+          "essencial": true
+        },
+        {
+          "id": "integracao-rede",
+          "pergunta": "Há integração com a rede hospitalar (vaga zero, regulação de leitos, CROSS)?",
+          "formato": "escolha",
+          "opcoes": [
+            "sim, integrado",
+            "parcial",
+            "não há integração"
+          ],
+          "porque": "Sem integração o tempo-resposta some no destino, fora do nosso controle — e isso muda que meta dá para assinar.",
+          "para_que": "Sem integração com a rede, o tempo até o destino fica fora do controle do serviço.",
+          "sensibilidade": "publico",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "financeiro",
       "nome": "Financeiro e contratual",
       "perguntas": [
-        { "id": "custo-atual", "pergunta": "Custo mensal total do serviço hoje", "formato": "numero", "unidade": "R$/mês", "periodo": "média dos últimos 12 meses", "porque": "Cenário A declarado. Lembrar: declarado × 1,38 ≈ real, somados os invisíveis.", "documento": "Demonstrativo de execução orçamentária do serviço", "sensibilidade": "interno", "essencial": true },
-        { "id": "contrapartida", "pergunta": "Contrapartida municipal mensal (recursos próprios alocados ao serviço)", "formato": "numero", "unidade": "R$/mês", "porque": "Mostra a capacidade fiscal real e o teto político do preço.", "sensibilidade": "interno", "essencial": true },
-        { "id": "contrato-vigente", "pergunta": "Contrato ou instrumento vigente de operação do serviço", "formato": "tabela", "colunas": ["Contratado", "Objeto", "Valor mensal (R$)", "Início", "Encerramento"], "porque": "Define a janela de oportunidade e o preço-âncora do concorrente. Em Avaré a pergunta pedia quatro coisas numa frase e voltou só 'Sim, consórcio AMVAPA' — por isso virou tabela.", "documento": "Contrato vigente com aditivos", "sensibilidade": "interno", "essencial": true },
-        { "id": "iss", "pergunta": "Alíquota de ISS do município para o serviço e retenções previstas", "formato": "numero", "unidade": "%", "porque": "ISS varia por município (em Canoas, 4%) e incide sobre faturamento — muda preço e remuneração residual.", "sensibilidade": "publico", "essencial": true, "nova": true },
-        { "id": "prazo-pagamento", "pergunta": "Prazo de pagamento após o atesto da nota e histórico real de atraso", "formato": "tabela", "colunas": ["Prazo contratual (dias)", "Atraso médio observado (dias)"], "porque": "É a conta de capital de giro: a folha roda desde o dia 1 e o primeiro recebimento vem depois. Com várias partidas simultâneas, é o risco silencioso.", "sensibilidade": "interno", "essencial": true, "nova": true },
-        { "id": "garantia-reajuste", "pergunta": "Garantia contratual exigida e regra de reajuste", "formato": "tabela", "colunas": ["Garantia (%)", "Modalidade", "Índice de reajuste", "Periodicidade"], "porque": "Garantia imobiliza caixa na partida; sem reajuste atrelado à CCT, contrato longo corrói a remuneração sozinho.", "sensibilidade": "publico", "essencial": true, "nova": true },
-        { "id": "metas-glosa", "pergunta": "Metas de desempenho com desconto/glosa no repasse", "formato": "tabela", "colunas": ["Indicador", "Meta", "% do repasse em risco", "Como é apurado"], "porque": "LIÇÃO CANOAS: obrigação do termo que consome dinheiro é rubrica de custo. Meta com glosa é receita variável disfarçada de fixa — e sem saber COMO se apura, a discussão vai para a versão de cada um.", "documento": "Termo de referência / contrato", "sensibilidade": "publico", "essencial": true, "nova": true }
+        {
+          "id": "custo-atual",
+          "pergunta": "Custo mensal total do serviço hoje",
+          "formato": "numero",
+          "unidade": "R$/mês",
+          "periodo": "média dos últimos 12 meses",
+          "porque": "Cenário A declarado. Lembrar: declarado × 1,38 ≈ real, somados os invisíveis.",
+          "para_que": "O custo declarado hoje, para comparar com o custo da operação proposta.",
+          "documento": "Demonstrativo de execução orçamentária do serviço",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "contrapartida",
+          "pergunta": "Contrapartida municipal mensal (recursos próprios alocados ao serviço)",
+          "formato": "numero",
+          "unidade": "R$/mês",
+          "porque": "Mostra a capacidade fiscal real e o teto político do preço.",
+          "para_que": "Mostra a capacidade orçamentária do município para o serviço.",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "contrato-vigente",
+          "pergunta": "Contrato ou instrumento vigente de operação do serviço",
+          "formato": "tabela",
+          "colunas": [
+            "Contratado",
+            "Objeto",
+            "Valor mensal (R$)",
+            "Início",
+            "Encerramento"
+          ],
+          "porque": "Define a janela de oportunidade e o preço-âncora do concorrente. Em Avaré a pergunta pedia quatro coisas numa frase e voltou só 'Sim, consórcio AMVAPA' — por isso virou tabela.",
+          "para_que": "Define a janela do contrato atual e o que já está contratado.",
+          "documento": "Contrato vigente com aditivos",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "iss",
+          "pergunta": "Alíquota de ISS do município para o serviço e retenções previstas",
+          "formato": "numero",
+          "unidade": "%",
+          "porque": "ISS varia por município (em Canoas, 4%) e incide sobre faturamento — muda preço e remuneração residual.",
+          "para_que": "O ISS varia por município e incide sobre o faturamento do contrato.",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "prazo-pagamento",
+          "pergunta": "Prazo de pagamento após o atesto da nota e histórico real de atraso",
+          "formato": "tabela",
+          "colunas": [
+            "Prazo contratual (dias)",
+            "Atraso médio observado (dias)"
+          ],
+          "porque": "É a conta de capital de giro: a folha roda desde o dia 1 e o primeiro recebimento vem depois. Com várias partidas simultâneas, é o risco silencioso.",
+          "para_que": "A folha roda desde o primeiro dia; o prazo de pagamento define a necessidade de caixa.",
+          "sensibilidade": "interno",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "garantia-reajuste",
+          "pergunta": "Garantia contratual exigida e regra de reajuste",
+          "formato": "tabela",
+          "colunas": [
+            "Garantia (%)",
+            "Modalidade",
+            "Índice de reajuste",
+            "Periodicidade"
+          ],
+          "porque": "Garantia imobiliza caixa na partida; sem reajuste atrelado à CCT, contrato longo corrói a remuneração sozinho.",
+          "para_que": "Garantia imobiliza recursos na partida; o índice de reajuste sustenta o contrato longo.",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        },
+        {
+          "id": "metas-glosa",
+          "pergunta": "Metas de desempenho com desconto/glosa no repasse",
+          "formato": "tabela",
+          "colunas": [
+            "Indicador",
+            "Meta",
+            "% do repasse em risco",
+            "Como é apurado"
+          ],
+          "porque": "LIÇÃO CANOAS: obrigação do termo que consome dinheiro é rubrica de custo. Meta com glosa é receita variável disfarçada de fixa — e sem saber COMO se apura, a discussão vai para a versão de cada um.",
+          "para_que": "Meta com desconto no repasse é parte do contrato, e precisa ter forma de apuração definida.",
+          "documento": "Termo de referência / contrato",
+          "sensibilidade": "publico",
+          "essencial": true,
+          "nova": true
+        }
       ]
     },
     {
       "id": "decisao",
       "nome": "Decisão e risco",
       "perguntas": [
-        { "id": "modelo-pretendido", "pergunta": "Qual caminho a gestão pretende seguir e em que horizonte?", "formato": "escolha", "opcoes": ["manter o modelo atual", "regionalizar via consórcio", "municipalizar com execução direta", "licitar pela Lei 14.133/2021", "chamamento público para OSS", "ainda em discussão"], "porque": "REGRA DO CEO: com OS/OSC existem caminhos de precificação DIFERENTES e o número muda em cada um. Nunca assumir o caminho — perguntar antes de calcular.", "sensibilidade": "interno", "essencial": true },
-        { "id": "passivo-trabalhista", "pergunta": "Há passivo trabalhista, ações em curso ou TAC com o MPT relacionados ao serviço?", "formato": "texto", "porque": "Risco de sucessão trabalhista. Pode exigir blindagem contratual explícita ou inviabilizar a operação.", "sensibilidade": "restrito", "essencial": true },
-        { "id": "problemas-prioridades", "pergunta": "Quais os principais problemas operacionais hoje e há prioridades de melhoria já definidas?", "formato": "texto", "porque": "É a proposta de valor dita pelo próprio cliente — e o que ele vai cobrar de nós no dia 1. Também define o Cenário Amplo e o que pode virar aditivo.", "sensibilidade": "restrito", "essencial": true }
+        {
+          "id": "modelo-pretendido",
+          "pergunta": "Qual caminho a gestão pretende seguir e em que horizonte?",
+          "formato": "escolha",
+          "opcoes": [
+            "manter o modelo atual",
+            "regionalizar via consórcio",
+            "municipalizar com execução direta",
+            "licitar pela Lei 14.133/2021",
+            "chamamento público para OSS",
+            "ainda em discussão"
+          ],
+          "porque": "REGRA DO CEO: com OS/OSC existem caminhos de precificação DIFERENTES e o número muda em cada um. Nunca assumir o caminho — perguntar antes de calcular.",
+          "para_que": "Contratação direta e parceria com organização social seguem caminhos diferentes.",
+          "sensibilidade": "interno",
+          "essencial": true
+        },
+        {
+          "id": "passivo-trabalhista",
+          "pergunta": "Há passivo trabalhista, ações em curso ou TAC com o MPT relacionados ao serviço?",
+          "formato": "texto",
+          "porque": "Risco de sucessão trabalhista. Pode exigir blindagem contratual explícita ou inviabilizar a operação.",
+          "para_que": "Passivo existente pode exigir tratamento contratual explícito.",
+          "sensibilidade": "restrito",
+          "essencial": true
+        },
+        {
+          "id": "problemas-prioridades",
+          "pergunta": "Quais os principais problemas operacionais hoje e há prioridades de melhoria já definidas?",
+          "formato": "texto",
+          "porque": "É a proposta de valor dita pelo próprio cliente — e o que ele vai cobrar de nós no dia 1. Também define o Cenário Amplo e o que pode virar aditivo.",
+          "para_que": "É o que o município quer resolver — e o que será cobrado desde o primeiro dia.",
+          "sensibilidade": "restrito",
+          "essencial": true
+        }
       ]
     },
     {
       "id": "documentos",
       "nome": "Documentos",
       "perguntas": [
-        { "id": "docs", "pergunta": "Documentos anexados", "formato": "tabela", "colunas": ["Documento", "Recebido?"], "porque": "Documento vale mais que resposta: é o que transforma premissa (⚠️) em fato verificado (✅) no estudo. Lista: portarias de habilitação · relatórios de produção (12 meses) · folha sintética por categoria · contrato vigente com aditivos · demonstrativo de repasses · CCT aplicável · termo de referência · termos de cooperação com o consórcio.", "sensibilidade": "interno", "essencial": true }
+        {
+          "id": "docs",
+          "pergunta": "Documentos anexados",
+          "formato": "tabela",
+          "colunas": [
+            "Documento",
+            "Recebido?"
+          ],
+          "porque": "Documento vale mais que resposta: é o que transforma premissa (⚠️) em fato verificado (✅) no estudo. Lista: portarias de habilitação · relatórios de produção (12 meses) · folha sintética por categoria · contrato vigente com aditivos · demonstrativo de repasses · CCT aplicável · termo de referência · termos de cooperação com o consórcio.",
+          "para_que": "Documento transforma resposta declarada em dado verificado.",
+          "sensibilidade": "interno",
+          "essencial": true
+        }
       ]
     }
-  ]
+  ],
+  "_camadas": "DUAS camadas de justificativa, e a diferença é de PUBLICAÇÃO, não de estilo. `porque` é INTERNO: cita a régua de preço, o Fator de Cobertura, o fator de custo real e as lições de Avaré e Canoas — é o que faz a pergunta ser instrumento e não formulário, e não pode sair daqui. `para_que` é o que quem responde e quem visita o painel público lê: diz para que serve a resposta, sem entregar o método. O build só embarca `para_que`, e falha se `porque` aparecer no bundle."
 }

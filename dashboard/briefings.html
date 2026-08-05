@@ -224,7 +224,7 @@ function pergunta(q){
   return `<div class="q ${cls}">
     <div class="q-p">${esc(q.pergunta)}${tags}${proc}</div>
     ${corpo}
-    ${q.porque?`<div class="q-porque">${esc(q.porque)}</div>`:''}
+    ${q.para_que?`<div class="q-porque">${esc(q.para_que)}</div>`:''}
   </div>`;
 }
 

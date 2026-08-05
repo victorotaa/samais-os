@@ -66,7 +66,7 @@
         },
         {
           "id": "headcount-fc",
-          "nome": "Headcount com Fator de Cobertura 4,5",
+          "nome": "Headcount conferido contra o estudo",
           "critico": true
         },
         {
@@ -76,7 +76,7 @@
         },
         {
           "id": "valor-mensal",
-          "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+          "nome": "Valor contratual mensal fechado",
           "critico": true
         },
         {

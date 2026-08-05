@@ -74,7 +74,7 @@
       "verdict": "go",
       "gatilho": "Expansão de frota anunciada (20 USB, notícias oficiais jan/2025) + modelo de custos calibrado com a diretoria",
       "atualizado_em": "2026-08-04",
-      "proximo_passo": "FECHADO — junto com Canoas, é a implantação mais próxima. Antes do dia 1: confirmar headcount real com Fator de Cobertura 4,5 (lição Taboão 148 vs 80), fechar CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
+      "proximo_passo": "FECHADO — junto com Canoas, é a implantação mais próxima. Antes do dia 1: confirmar o headcount real contra o estudo, fechar a CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base.",
       "_slug": "belem"
     },
     {
@@ -87,7 +87,7 @@
       "operador_atual": null,
       "verdict": "go",
       "atualizado_em": "2026-08-04",
-      "proximo_passo": "FECHADO e IMINENTE. Valor de referência do estudo: R$ 1,8 mi/mês, substituindo custo atual estimado em R$ 2,1–2,3 mi/mês; cofinanciamento federal de ~R$ 900 mil/mês reduz a contrapartida municipal. ⚠️ É aqui que nasceu a lição 148 vs 80 — confirmar headcount com Fator de Cobertura 4,5, nunca 2,2. ⚠️ População 273 mil é aproximada do estudo (a precisar pelo IBGE).",
+      "proximo_passo": "FECHADO e IMINENTE. Valor de referência do estudo: R$ 1,8 mi/mês, substituindo custo atual estimado em R$ 2,1–2,3 mi/mês; cofinanciamento federal de ~R$ 900 mil/mês reduz a contrapartida municipal. ⚠️ Confirmar o headcount contra o estudo antes da partida. ⚠️ População 273 mil é aproximada do estudo (a precisar pelo IBGE).",
       "populacao": 273000,
       "gatilho": "Estudo produzido: estudos/taboao-da-serra-sp.html (samais-estudos (main, 03/08/2026))",
       "_slug": "taboao"
@@ -141,7 +141,7 @@
       "verdict": "atencao",
       "gatilho": "Proposta antiga da Samais, sem desfecho",
       "atualizado_em": "2026-07-30",
-      "proximo_passo": "STAND-BY por decisão interna. Não está morta (por isso não arquivada) e não está andando. A retomar: recuperar a proposta original, checar se o valor ainda fecha com os parâmetros atuais (BDI 35%, FC 4,5) e identificar o que travou. ⚠️ Serviço=SAMU é premissa a validar.",
+      "proximo_passo": "STAND-BY por decisão interna. Não está morta (por isso não arquivada) e não está andando. A retomar: recuperar a proposta original, checar se o valor ainda fecha com os parâmetros atuais e identificar o que travou. ⚠️ Serviço=SAMU é premissa a validar.",
       "_slug": "taubate"
     }
   ],
@@ -408,7 +408,7 @@
               },
               {
                 "id": "headcount-fc",
-                "nome": "Headcount com Fator de Cobertura 4,5",
+                "nome": "Headcount conferido contra o estudo",
                 "critico": true,
                 "estado": "pendente",
                 "nota": "A levantar."
@@ -422,7 +422,7 @@
               },
               {
                 "id": "valor-mensal",
-                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "nome": "Valor contratual mensal fechado",
                 "critico": true,
                 "estado": "em-andamento",
                 "nota": "Estudo: R$ 2.048.134/mês no SAMU (remuneração 7,2%). ⚠️ Se o CAPS entrou no contrato, são R$ 4.453.196 integrados — confirmar escopo antes de tudo."
@@ -894,7 +894,7 @@
               },
               {
                 "id": "headcount-fc",
-                "nome": "Headcount com Fator de Cobertura 4,5",
+                "nome": "Headcount conferido contra o estudo",
                 "critico": true,
                 "estado": "pendente",
                 "nota": "⚠️ Diligência de headcount real com FC 4,5. É a maior frente do pipeline: erro aqui é caro."
@@ -908,10 +908,10 @@
               },
               {
                 "id": "valor-mensal",
-                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "nome": "Valor contratual mensal fechado",
                 "critico": true,
                 "estado": "em-andamento",
-                "nota": "Estudo fecha em ~R$ 8,1 mi/mês (FC 4,5, 20 USB, BDI 35%) e bate com o alvo verbal do CEO (R$ 7,9 mi). Falta conferir contra o valor efetivamente contratado."
+                "nota": "Estudo fecha em ~R$ 8,1 mi/mês (20 USB) e bate com o alvo verbal do CEO (R$ 7,9 mi). Falta conferir contra o valor efetivamente contratado."
               },
               {
                 "id": "benchmark",
@@ -1380,7 +1380,7 @@
               },
               {
                 "id": "headcount-fc",
-                "nome": "Headcount com Fator de Cobertura 4,5",
+                "nome": "Headcount conferido contra o estudo",
                 "critico": true,
                 "estado": "em-andamento",
                 "nota": "Não se parte do zero: população (~106 mil) é praticamente idêntica à de Avaré+Manduri, cujo estudo fecha em ~R$ 1,0 mi/mês (R$ 9,50/hab). Serve de referência para resposta rápida, a calibrar com o histórico real de atendimentos."
@@ -1394,7 +1394,7 @@
               },
               {
                 "id": "valor-mensal",
-                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "nome": "Valor contratual mensal fechado",
                 "critico": true,
                 "estado": "pendente",
                 "nota": null
@@ -1866,7 +1866,7 @@
               },
               {
                 "id": "headcount-fc",
-                "nome": "Headcount com Fator de Cobertura 4,5",
+                "nome": "Headcount conferido contra o estudo",
                 "critico": true,
                 "estado": "pendente",
                 "nota": "⚠️ É a frente da lição 148 vs 80 — FC 4,5, nunca 2,2."
@@ -1880,7 +1880,7 @@
               },
               {
                 "id": "valor-mensal",
-                "nome": "Valor contratual mensal fechado (BDI 35% sobre o CDO)",
+                "nome": "Valor contratual mensal fechado",
                 "critico": true,
                 "estado": "em-andamento",
                 "nota": "Estudo: R$ 1,8 mi/mês de referência, contra custo atual estimado de R$ 2,1–2,3 mi/mês. Cofinanciamento federal ~R$ 900 mil/mês. Conferir o contratado."
@@ -2281,7 +2281,7 @@
               {
                 "id": "populacao",
                 "pergunta": "População coberta pelo serviço e municípios atendidos",
-                "porque": "Base da métrica de ouro (R$ 5,20/hab/mês) e do per capita exibido no estudo.",
+                "para_que": "Dimensiona a cobertura e permite comparar o serviço com o de municípios semelhantes.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2294,7 +2294,7 @@
               {
                 "id": "modelo-gestao",
                 "pergunta": "Modelo atual de gestão do serviço",
-                "porque": "Define o Cenário A e a porta de entrada da proposta.",
+                "para_que": "Descreve como o serviço funciona hoje, ponto de partida de qualquer comparação.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2307,7 +2307,7 @@
               {
                 "id": "central-regulacao",
                 "pergunta": "A Central de Regulação Médica é própria do município? Se não, qual é utilizada e sob qual rateio?",
-                "porque": "CRU é o maior custo fixo depois da folha; o rateio define quem paga o quê.",
+                "para_que": "A regulação é estrutura própria; saber quem a mantém define o que entra no escopo.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2320,7 +2320,7 @@
               {
                 "id": "habilitacoes-repasse",
                 "pergunta": "Habilitações vigentes no Ministério da Saúde e o custeio federal correspondente",
-                "porque": "Habilitação destrava o repasse, e repasse abate a contrapartida do município — é o argumento que torna a proposta viável para o gestor.",
+                "para_que": "Habilitação federal destrava repasse, e repasse reduz o que o município desembolsa.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2343,7 +2343,7 @@
               {
                 "id": "frota-inventario",
                 "pergunta": "Frota em operação",
-                "porque": "Regra R1: a frota é do ente e a Samais reativa as paradas — viatura parada é escopo de custo, não detalhe. Em Avaré, 2 das 3 USB estavam paradas.",
+                "para_que": "A frota é do município. Viatura parada precisa entrar no plano de reativação.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2356,7 +2356,7 @@
               {
                 "id": "bases-equipe",
                 "pergunta": "Bases descentralizadas e equipe lotada em cada uma",
-                "porque": "Postos por base × Fator de Cobertura 4,5 = headcount. É o cálculo central do estudo.",
+                "para_que": "Postos por base determinam o tamanho da equipe necessária para cobrir 24 horas.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2369,7 +2369,7 @@
               {
                 "id": "bases-imovel",
                 "pergunta": "Os imóveis das bases são próprios, cedidos ou locados, e quem custeia água, energia, IPTU e manutenção predial?",
-                "porque": "Lição Canoas: quando o imóvel fica por conta da contratada, vira rubrica que o edital esconde na entrelinha.",
+                "para_que": "Define de quem é a responsabilidade pelo imóvel — muda quem paga o quê.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2382,7 +2382,7 @@
               {
                 "id": "combustivel",
                 "pergunta": "Consumo mensal de combustível da frota",
-                "porque": "Custo que hoje costuma sair da garagem da prefeitura e migra inteiro para a contratada.",
+                "para_que": "Custo recorrente que hoje costuma sair de outra pasta e passa para a operação.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2405,7 +2405,7 @@
               {
                 "id": "quadro-atual",
                 "pergunta": "Quadro funcional atual do serviço",
-                "porque": "Cenário A real e ponto de partida do dimensionamento. Vínculo importa: estatutário custa mais que CLT no piso.",
+                "para_que": "Retrato da equipe atual. O tipo de vínculo muda o custo de cada profissional.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2418,7 +2418,7 @@
               {
                 "id": "pisos",
                 "pergunta": "Piso salarial praticado por categoria",
-                "porque": "Entrada direta do bloco de pessoal — a maior rubrica do CDO.",
+                "para_que": "Base de cálculo da folha, a maior parte do custo de um serviço de urgência.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2431,7 +2431,7 @@
               {
                 "id": "cct",
                 "pergunta": "Qual CCT e qual sindicato regem as categorias? (nome e número de registro no MTE)",
-                "porque": "Em Avaré vieram os pisos SEM a CCT — e sem ela não dá para validar os valores nem projetar reajuste. Pergunta separada de propósito.",
+                "para_que": "A convenção coletiva é o que valida os pisos e define o reajuste ao longo do contrato.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2444,7 +2444,7 @@
               {
                 "id": "adicionais",
                 "pergunta": "Adicionais praticados: insalubridade, periculosidade, noturno e sobreaviso",
-                "porque": "Em APH esses adicionais são regra, não exceção. Omiti-los subdimensiona a folha inteira.",
+                "para_que": "Em atendimento pré-hospitalar esses adicionais são regra; sem eles a folha fica subdimensionada.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2457,7 +2457,7 @@
               {
                 "id": "beneficios",
                 "pergunta": "Benefícios previstos na CCT (vale-transporte, alimentação, plano de saúde, seguro de vida)",
-                "porque": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
+                "para_que": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
                 "essencial": false,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2470,7 +2470,7 @@
               {
                 "id": "absenteismo",
                 "pergunta": "Taxa de absenteísmo do quadro atual",
-                "porque": "Alimenta o Fator de Cobertura. FC 4,5 cobre o headcount físico; absenteísmo alto exige folga adicional que ninguém orça.",
+                "para_que": "Falta e afastamento exigem folga adicional para a escala não descobrir.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2483,7 +2483,7 @@
               {
                 "id": "cedidos",
                 "pergunta": "Servidores municipais cedidos ou em comissão atuando no serviço",
-                "porque": "O maior custo invisível do Cenário A costuma ser médico cedido. Fator calibrado em Avaré: declarado × 1,38 ≈ real.",
+                "para_que": "Profissional cedido tem custo real, ainda que não apareça no orçamento do serviço.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2496,7 +2496,7 @@
               {
                 "id": "horas-nep",
                 "pergunta": "Carga horária OBRIGATÓRIA e REMUNERADA de capacitação/NEP, por categoria",
-                "porque": "LIÇÃO CANOAS: 400h médico + 600h enfermeiro + 600h técnico + 250h condutor = R$ 229 mil/mês que quase ficaram de fora do estudo. É a pergunta que mais dinheiro salvou.",
+                "para_que": "Educação permanente é obrigação com hora paga; precisa estar prevista, não improvisada.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2519,7 +2519,7 @@
               {
                 "id": "atendimentos",
                 "pergunta": "Ocorrências atendidas por mês",
-                "porque": "Dimensionamento e validação de porte. A série revela a sazonalidade que a média esconde.",
+                "para_que": "A série mensal revela a sazonalidade que a média esconde.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2532,7 +2532,7 @@
               {
                 "id": "chamadas-192",
                 "pergunta": "Chamadas recebidas no 192 por mês (não apenas as que geraram despacho)",
-                "porque": "TARM e rádio-operador são dimensionados por chamada RECEBIDA, não por viatura despachada.",
+                "para_que": "A equipe da central é dimensionada por chamada recebida, não por viatura despachada.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2545,7 +2545,7 @@
               {
                 "id": "tempo-resposta",
                 "pergunta": "Tempo-resposta mediano, em minutos",
-                "porque": "Linha de base da meta contratual. Sem base, qualquer meta é chute — e chute vira glosa. Em Avaré esta pergunta era aberta e voltou vazia.",
+                "para_que": "É a linha de base da meta contratual. Sem base medida, meta vira estimativa.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2558,7 +2558,7 @@
               {
                 "id": "perfil-demanda",
                 "pergunta": "Ocorrências por natureza (clínica, traumática, obstétrica, psiquiátrica, transferências)",
-                "porque": "O perfil define o mix USB/USA e o insumo consumido. Em Avaré vieram números absolutos sem período declarado — inutilizáveis.",
+                "para_que": "O perfil das ocorrências define a combinação de viaturas e o insumo consumido.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2571,7 +2571,7 @@
               {
                 "id": "demanda-reprimida",
                 "pergunta": "Há horários, áreas ou situações com cobertura reconhecidamente insuficiente?",
-                "porque": "É onde mora a proposta de valor — e o risco de assumir SLA que a configuração atual não entrega.",
+                "para_que": "Mostra o que o serviço hoje não consegue atender e o que precisa mudar para atender.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2579,7 +2579,7 @@
                 "estado": "respondido",
                 "procedencia": "verificado",
                 "resposta": "Sim: há horários em que a USB está empenhada ou inoperante durante o descanso intrajornada da equipe.",
-                "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento com Fator de Cobertura correto."
+                "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento da equipe."
               }
             ],
             "reservados": 0,
@@ -2594,7 +2594,7 @@
               {
                 "id": "suprimento",
                 "pergunta": "Como é feito hoje o suprimento de medicamentos e material médico-hospitalar?",
-                "porque": "Se sai do almoxarifado central, o custo está ESCONDIDO em outra pasta — e passa a ser nosso na contratação.",
+                "para_que": "Se o insumo vem do almoxarifado central, o custo está registrado em outra pasta.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2607,7 +2607,7 @@
               {
                 "id": "oxigenio",
                 "pergunta": "Oxigênio medicinal: fornecedor, modalidade, consumo mensal e responsável pela troca de cilindros",
-                "porque": "Item crítico de continuidade, com contrato próprio. Falta de O₂ para a viatura.",
+                "para_que": "Item crítico de continuidade, com contrato e logística próprios.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2620,7 +2620,7 @@
               {
                 "id": "manutencao-frota",
                 "pergunta": "Gasto mensal com manutenção da frota",
-                "porque": "Regra R1: manutenção e reativação são responsabilidade da Samais. Em Avaré a pergunta vinha junto com 'oficina própria ou terceiros?' e o valor se perdeu.",
+                "para_que": "Manutenção e reativação da frota entram no escopo da operação.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2633,7 +2633,7 @@
               {
                 "id": "rss",
                 "pergunta": "Descarte de resíduos de serviço de saúde (grupos A, B, E): há contrato vigente e quem executa?",
-                "porque": "Obrigação sanitária com custo recorrente. Se hoje é feito pela própria equipe, vira contrato na nossa operação — foi o caso de Avaré.",
+                "para_que": "Obrigação sanitária com custo recorrente, feita por contrato ou pela própria equipe.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2646,7 +2646,7 @@
               {
                 "id": "epi-fardamento",
                 "pergunta": "EPI e fardamento fornecidos",
-                "porque": "Em Avaré veio só o total anual — dá para comparar, não para orçar. Quantidade por profissional é o que permite dimensionar.",
+                "para_que": "Quantidade por profissional é o que permite dimensionar; só o total anual não permite.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2669,7 +2669,7 @@
               {
                 "id": "sistema-gestao",
                 "pergunta": "Qual sistema de gestão/regulação é utilizado hoje?",
-                "porque": "Define se entramos substituindo ou integrando — e onde o CoPilot OS e o PEP OS se encaixam.",
+                "para_que": "Define se o sistema atual é substituído ou integrado.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2682,7 +2682,7 @@
               {
                 "id": "telefonia-radio",
                 "pergunta": "Telefonia 192, gravação de chamadas, rádio-comunicação e rastreamento veicular",
-                "porque": "Infra da CRU, com contratos próprios. Gravação é exigência legal.",
+                "para_que": "Infraestrutura da central, com contratos próprios. A gravação é exigência legal.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2695,7 +2695,7 @@
               {
                 "id": "integracao-rede",
                 "pergunta": "Há integração com a rede hospitalar (vaga zero, regulação de leitos, CROSS)?",
-                "porque": "Sem integração o tempo-resposta some no destino, fora do nosso controle — e isso muda que meta dá para assinar.",
+                "para_que": "Sem integração com a rede, o tempo até o destino fica fora do controle do serviço.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2718,7 +2718,7 @@
               {
                 "id": "custo-atual",
                 "pergunta": "Custo mensal total do serviço hoje",
-                "porque": "Cenário A declarado. Lembrar: declarado × 1,38 ≈ real, somados os invisíveis.",
+                "para_que": "O custo declarado hoje, para comparar com o custo da operação proposta.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2731,7 +2731,7 @@
               {
                 "id": "contrapartida",
                 "pergunta": "Contrapartida municipal mensal (recursos próprios alocados ao serviço)",
-                "porque": "Mostra a capacidade fiscal real e o teto político do preço.",
+                "para_que": "Mostra a capacidade orçamentária do município para o serviço.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2744,7 +2744,7 @@
               {
                 "id": "contrato-vigente",
                 "pergunta": "Contrato ou instrumento vigente de operação do serviço",
-                "porque": "Define a janela de oportunidade e o preço-âncora do concorrente. Em Avaré a pergunta pedia quatro coisas numa frase e voltou só 'Sim, consórcio AMVAPA' — por isso virou tabela.",
+                "para_que": "Define a janela do contrato atual e o que já está contratado.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2757,7 +2757,7 @@
               {
                 "id": "iss",
                 "pergunta": "Alíquota de ISS do município para o serviço e retenções previstas",
-                "porque": "ISS varia por município (em Canoas, 4%) e incide sobre faturamento — muda preço e remuneração residual.",
+                "para_que": "O ISS varia por município e incide sobre o faturamento do contrato.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2770,7 +2770,7 @@
               {
                 "id": "prazo-pagamento",
                 "pergunta": "Prazo de pagamento após o atesto da nota e histórico real de atraso",
-                "porque": "É a conta de capital de giro: a folha roda desde o dia 1 e o primeiro recebimento vem depois. Com várias partidas simultâneas, é o risco silencioso.",
+                "para_que": "A folha roda desde o primeiro dia; o prazo de pagamento define a necessidade de caixa.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2783,7 +2783,7 @@
               {
                 "id": "garantia-reajuste",
                 "pergunta": "Garantia contratual exigida e regra de reajuste",
-                "porque": "Garantia imobiliza caixa na partida; sem reajuste atrelado à CCT, contrato longo corrói a remuneração sozinho.",
+                "para_que": "Garantia imobiliza recursos na partida; o índice de reajuste sustenta o contrato longo.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2796,7 +2796,7 @@
               {
                 "id": "metas-glosa",
                 "pergunta": "Metas de desempenho com desconto/glosa no repasse",
-                "porque": "LIÇÃO CANOAS: obrigação do termo que consome dinheiro é rubrica de custo. Meta com glosa é receita variável disfarçada de fixa — e sem saber COMO se apura, a discussão vai para a versão de cada um.",
+                "para_que": "Meta com desconto no repasse é parte do contrato, e precisa ter forma de apuração definida.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "publico",
@@ -2819,7 +2819,7 @@
               {
                 "id": "modelo-pretendido",
                 "pergunta": "Qual caminho a gestão pretende seguir e em que horizonte?",
-                "porque": "REGRA DO CEO: com OS/OSC existem caminhos de precificação DIFERENTES e o número muda em cada um. Nunca assumir o caminho — perguntar antes de calcular.",
+                "para_que": "Contratação direta e parceria com organização social seguem caminhos diferentes.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",
@@ -2842,7 +2842,7 @@
               {
                 "id": "docs",
                 "pergunta": "Documentos anexados",
-                "porque": "Documento vale mais que resposta: é o que transforma premissa (⚠️) em fato verificado (✅) no estudo. Lista: portarias de habilitação · relatórios de produção (12 meses) · folha sintética por categoria · contrato vigente com aditivos · demonstrativo de repasses · CCT aplicável · termo de referência · termos de cooperação com o consórcio.",
+                "para_que": "Documento transforma resposta declarada em dado verificado.",
                 "essencial": true,
                 "novo": false,
                 "sensibilidade": "interno",

@@ -89,7 +89,7 @@
     "demanda-reprimida": {
       "resposta": "Sim: há horários em que a USB está empenhada ou inoperante durante o descanso intrajornada da equipe.",
       "procedencia": "verificado",
-      "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento com Fator de Cobertura correto.",
+      "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento da equipe.",
       "estado": "respondido"
     },
     "suprimento": {

@@ -300,7 +300,12 @@ if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
           ? r.sensibilidade_override : (q.sensibilidade ?? "interno");
         const publicavel = sens === "publico";
         return {
-          id: q.id, pergunta: q.pergunta, porque: q.porque ?? null,
+          // `porque` NÃO viaja: cita a régua de preço por habitante, o Fator de Cobertura,
+          // o fator de custo real e as lições de Avaré e Canoas — método comercial nosso,
+          // e este bundle está em URL pública. Vai `para_que`, que diz para que serve a
+          // resposta sem entregar como se calcula. O `porque` completo fica no repositório
+          // e no dossiê (scripts/briefing-dossie.mjs), que não é publicado.
+          id: q.id, pergunta: q.pergunta, para_que: q.para_que ?? null,
           essencial: !!q.essencial, novo: !!q.novo, sensibilidade: sens,
           respondida,
           estado: r?.estado ?? null,
@@ -605,7 +610,22 @@ if (existsSync(MANIFESTO_OS)) {
 // ---------- guarda final: nada confidencial pode ter entrado no bundle ----------
 // O build monta o bundle; esta checagem prova que montou só o previsto. Barato de rodar,
 // e é a diferença entre "acho que não vazou" e "o build falha se vazar".
-const PROIBIDO = [/bastidor/i, /interpretacao/i, /interpretação/i, /github\.com/i];
+// Camada confidencial + MÉTODO COMERCIAL. A segunda leva entrou depois de o campo `porque`
+// do questionário publicar a régua de preço por habitante num painel aberto: a doutrina
+// dizia "nada confidencial no bundle" e mesmo assim passou, porque a guarda só olhava para
+// nomes de arquivo. Régua de preço, fator de cobertura e composição de BDI são o método —
+// se aparecerem numa superfície que o cliente pode abrir, o build para.
+const PROIBIDO = [
+  /bastidor/i, /interpretacao/i, /interpretação/i, /github\.com/i,
+  /m[ée]trica de ouro/i,
+  /R\$\s?5,20/i,
+  /\/hab\/m[êe]s/i,
+  /fator de cobertura/i,
+  /remunera[çc][ãa]o residual/i,
+  /\bBDI\b/,
+  /pre[çc]o-[âa]ncora/i,
+  /teto pol[íi]tico do pre[çc]o/i,
+];
 const vazamentos = [];
 (function varrer(dir) {
   for (const entry of readdirSync(dir)) {

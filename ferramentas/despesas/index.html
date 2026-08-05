@@ -28,23 +28,42 @@ header{border-bottom:1px solid var(--line);padding:18px 0 14px;position:sticky;t
   background:rgba(20,20,22,.42);-webkit-backdrop-filter:blur(28px) saturate(175%);
   backdrop-filter:blur(28px) saturate(175%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 34px rgba(0,0,0,.34)}
-.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand .topnav-links{flex:1 1 auto;justify-content:center}
+@media(max-width:820px){ .brand .topnav-links{order:3;flex:0 0 100%;justify-content:flex-start} }
 .wordmark{font-family:var(--fd);font-weight:700;font-size:17px;letter-spacing:.02em}
 .wordmark .d{color:var(--gold)}
 .who{font-family:var(--fm);font-size:11px;color:var(--t3);text-align:right;line-height:1.3}
 .who b{color:var(--gold-dim);font-weight:500}
 
 /* nav */
-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;
   background:rgba(20,20,22,.62);-webkit-backdrop-filter:blur(26px) saturate(170%);
   backdrop-filter:blur(26px) saturate(170%);border-top:1px solid rgba(255,255,255,.12);
   box-shadow:0 -8px 30px rgba(0,0,0,.4);
   padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;background:none;border:0;color:var(--t3);font-family:var(--fm);font-size:10.5px;
+nav.tabs button{flex:1;background:none;border:0;color:var(--t3);font-family:var(--fm);font-size:10.5px;
   letter-spacing:.1em;text-transform:uppercase;padding:13px 4px 12px;cursor:pointer;
   border-top:2px solid transparent;transition:color .15s,border-color .15s}
-nav button[aria-current="true"]{color:var(--gold);border-top-color:var(--gold)}
-nav .ico{display:block;font-size:17px;margin-bottom:3px;line-height:1}
+nav.tabs button[aria-current="true"]{color:var(--gold);border-top-color:var(--gold)}
+nav.tabs .ico{display:block;font-size:17px;margin-bottom:3px;line-height:1}
+
+/* ciclos mensais — o histórico que a ferramenta não mostrava */
+.sec-t{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dim);margin:26px 0 10px}
+.ciclo{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;
+  border:1px solid var(--line-soft);margin-bottom:8px;width:100%;text-align:left;
+  background:var(--card);color:var(--text);cursor:pointer;font-family:var(--fb);
+  transition:border-color .16s,transform .16s}
+.ciclo:hover{border-color:var(--gold-dim);transform:translateY(-1px)}
+.ciclo .mes{flex:1 1 auto;font-size:15px}
+.ciclo .mes small{display:block;font-family:var(--fm);font-size:11px;color:var(--t3);margin-top:3px}
+.ciclo .tot{font-family:var(--fm);font-size:15px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ciclo .selo{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line-soft);border-radius:5px;padding:2px 7px;flex:0 0 auto}
+.ciclo .selo.fechado{color:var(--green);border-color:rgba(30,122,75,.4)}
+.ciclo .selo.aberto{color:var(--amber);border-color:rgba(184,128,78,.4)}
+.vazio-c{border:1px dashed var(--line);border-radius:12px;padding:22px 18px;color:var(--t3);font-size:13.5px}
 
 /* views */
 .view{display:none;padding-top:18px}
@@ -121,6 +140,15 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 .kpi .v{font-family:var(--fd);font-weight:700;font-size:19px;color:var(--gold);margin-top:5px;
   font-variant-numeric:tabular-nums}
 .kpi.destaque .v{color:#F0D699}
+/* Três colunas em 390px quebravam "R$ 1.185,00" no meio — número partido ao meio se lê
+   como dois números. O valor encolhe antes de quebrar. */
+@media(max-width:430px){
+  .kpis{gap:8px}
+  .kpi{padding:11px 10px}
+  .kpi .l{font-size:8.5px;letter-spacing:.06em}
+  .kpi .v{font-size:14px;white-space:nowrap}
+  .kpi .v small{display:block;white-space:normal}
+}
 .bloco{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 16px;margin-bottom:14px}
 .bloco h3{font-family:var(--fm);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim);
   margin:0 0 12px;font-weight:500}
@@ -234,7 +262,19 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
     <span class="nome">samais</span><span class="sep">·</span><span class="desc">prestação de contas</span>
     <span class="mono-sa">SA+</span>
   </a>
-  <div class="who">responsável<br><b id="whoName">—</b></div>
+  <!-- A ferramenta é uma superfície do OS, não um app à parte: sem esta barra não há
+       caminho de volta a não ser o botão do navegador. -->
+  <nav class="topnav-links">
+    <a href="../index.html">Início</a>
+    <a href="../frentes.html">Frentes</a>
+    <a href="../briefings.html">Briefings</a>
+    <a href="../implantacao.html">Implantação</a>
+    <a href="../radar.html">Radar</a>
+    <a href="../mercado.html">Mercado</a>
+    <a href="../obrigacoes.html">Obrigações</a>
+    <a href="./" aria-current="page">Despesas</a>
+  </nav>
+  <div class="who">quem lança<br><b id="whoName">—</b></div>
 </div></header>
 
 <!-- ENTRADA: escolha de perfil. Aparece enquanto não houver perfil no aparelho. -->
@@ -256,8 +296,21 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 
 <main class="wrap">
 
+  <!-- ============ INÍCIO ============ -->
+  <section class="view on" id="v-inicio">
+    <h2>Prestação de contas</h2>
+    <p class="sub" id="inicioSub">Panorama do mês e os ciclos já fechados.</p>
+    <div class="kpis" id="i-kpis"></div>
+    <div class="btns" style="margin:18px 0 6px">
+      <button class="btn primario" id="i-novo">Novo lançamento</button>
+      <button class="btn ghost" id="i-ver">Ver despesas do mês</button>
+    </div>
+    <div class="sec-t">Ciclos mensais</div>
+    <div id="i-ciclos"></div>
+  </section>
+
   <!-- ============ LANÇAR ============ -->
-  <section class="view on" id="v-lancar">
+  <section class="view" id="v-lancar">
     <h2 id="formTitulo">Novo lançamento</h2>
     <p class="sub" id="formSub">Registre a despesa e anexe o comprovante.</p>
 
@@ -441,8 +494,9 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 <div id="print"></div>
 <div id="toast"></div>
 
-<nav>
-  <button data-v="lancar"  aria-current="true"><span class="ico">＋</span>Lançar</button>
+<nav class="tabs">
+  <button data-v="inicio" aria-current="true"><span class="ico">◈</span>Início</button>
+  <button data-v="lancar"><span class="ico">＋</span>Lançar</button>
   <button data-v="lista"><span class="ico">▤</span>Despesas</button>
   <button data-v="fech"><span class="ico">∑</span>Fechamento</button>
   <button data-v="ajustes"><span class="ico">⚙</span>Ajustes</button>
@@ -552,13 +606,14 @@ const estado = { view:'lancar', despesas:[], config:{}, editId:null, fotoBlob:nu
                  mesLista:'', mesFech:'' };
 
 /* ============================ navegação ============================ */
-document.querySelectorAll('nav button').forEach(b=>{
+document.querySelectorAll('nav.tabs button').forEach(b=>{
   b.onclick = () => irPara(b.dataset.v);
 });
 function irPara(v){
   estado.view=v;
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
-  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-current', String(b.dataset.v===v)));
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-current', String(b.dataset.v===v)));
+  if(v==='inicio') renderInicio();
   if(v==='lista') renderLista();
   if(v==='fech')  renderFechamento();
   if(v==='ajustes') renderAjustes();
@@ -879,6 +934,51 @@ $('#btnPDF').onclick = async () => {
   setTimeout(()=>window.print(), 350);
 };
 
+/* ============================ início (panorama) ============================ */
+// A ferramenta abria direto no formulário — pedia dado antes de mostrar situação. Agora
+// entra pelo panorama: quanto tem no mês, quanto falta reembolsar, e os ciclos anteriores.
+function renderInicio(){
+  const mesAtual = ymDe(hojeISO());
+  const doMes = estado.despesas.filter(d => ymDe(d.data) === mesAtual);
+  const aReembolsar = doMes.filter(d => d.reembolsavel && d.status === 'pendente')
+                           .reduce((s2,d)=>s2+d.valor_centavos, 0);
+  const total = doMes.reduce((s2,d)=>s2+d.valor_centavos, 0);
+
+  $('#inicioSub').textContent = `${nomeMes(mesAtual)} · lançando como ${rotuloPerfil()}`;
+  $('#i-kpis').innerHTML = [
+    ['Lançamentos', doMes.length, 'no mês'],
+    ['Total do mês', fmt(total), ''],
+    ['A reembolsar', fmt(aReembolsar), aReembolsar ? 'pendente' : 'nada em aberto'],
+  ].map(([l,v,sub])=>`<div class="kpi"><div class="l">${l}</div>
+      <div class="v">${v}${sub?` <small>${sub}</small>`:''}</div></div>`).join('');
+
+  // Um ciclo é FECHADO quando não sobrou nada pendente de reembolso nele — derivado do
+  // estado dos lançamentos, nunca de um botão "fechar mês" que alguém esquece de apertar.
+  const meses = [...new Set(estado.despesas.map(d=>ymDe(d.data)).filter(Boolean))].sort().reverse();
+  if(!meses.length){
+    $('#i-ciclos').innerHTML = `<div class="vazio-c">Nenhum lançamento ainda. O primeiro ciclo
+      aparece aqui assim que você registrar uma despesa.</div>`;
+    return;
+  }
+  $('#i-ciclos').innerHTML = meses.map(m=>{
+    const doCiclo = estado.despesas.filter(d=>ymDe(d.data)===m);
+    const pend = doCiclo.filter(d=>d.reembolsavel && d.status==='pendente');
+    const tot = doCiclo.reduce((s2,d)=>s2+d.valor_centavos,0);
+    const fechado = pend.length === 0;
+    return `<button class="ciclo" data-mes="${m}">
+      <span class="mes">${nomeMes(m)}${m===mesAtual?' · em curso':''}
+        <small>${doCiclo.length} lançamento(s)${pend.length?` · ${pend.length} a reembolsar`:''}</small></span>
+      <span class="tot">${fmt(tot)}</span>
+      <span class="selo ${fechado?'fechado':'aberto'}">${fechado?'fechado':'aberto'}</span>
+    </button>`;
+  }).join('');
+  $('#i-ciclos').querySelectorAll('.ciclo').forEach(b=>{
+    b.onclick = () => { estado.mesFech = b.dataset.mes; irPara('fech'); };
+  });
+}
+$('#i-novo').onclick = () => { limparForm(); irPara('lancar'); };
+$('#i-ver').onclick  = () => { estado.mesLista = ymDe(hojeISO()); irPara('lista'); };
+
 /* ============================ perfil (quem lança) ============================ */
 function renderPerfil(){
   $('#perfilGrid').innerHTML = PESSOAS.map(p=>
@@ -901,6 +1001,7 @@ async function definirPerfil(id, nome){
   await put('config',{k:'responsavel_nome',v:nome||null});
   await carregar();
   $('#perfilTela').hidden = true;
+  irPara('inicio');
   toast('Lançando como ' + rotuloPerfil() + '.');
 }
 /** Rótulo de quem lança: "Outros" sempre mostra o nome, senão vira lançamento anônimo. */
@@ -994,6 +1095,7 @@ $('#btnLimpar').onclick = async () => {
   preencherCategorias();
   await carregar();
   if(!estado.config.responsavel){ $('#perfilTela').hidden = false; renderPerfil(); }
+  irPara('inicio');
   if('serviceWorker' in navigator && location.protocol==='https:'){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }

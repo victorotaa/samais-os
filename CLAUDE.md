@@ -178,6 +178,12 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
     valida: cai em `briefings/<slug>.json` e o build confere.
   - **O link não é segredo:** carrega só `alvo`, `uf`, `slug` e quem enviou. Nenhuma resposta,
     nenhum dado nosso. Quem abrir sem responder vê perguntas em branco.
+  - **Dois lastros, e um não substitui o outro.** O `.json` é para o sistema; o **relatório em
+    PDF** é para quem respondeu — sai pela impressão do próprio aparelho ("Salvar em PDF") e
+    volta por WhatsApp. JSON não se lê numa reunião e PDF não entra no cálculo.
+    ⚠️ **Impressão usa a versão light da identidade** (fundo claro, ouro `#B8954E`, wordmark
+    SVG oficial — nunca tipografia imitando a marca). O canvas escuro do OS mora no `html` e o
+    brilho ambiente num `body::before` fixo: zerar só o `body` faz sair retângulo preto no PDF.
   O questionário é **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra;
   questionário longo volta pela metade. Quatro regras de formulação, nascidas da auditoria de
   Avaré: uma pergunta = um dado · unidade e período no enunciado · tabela em vez de campo

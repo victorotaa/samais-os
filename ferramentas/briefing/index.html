@@ -144,6 +144,60 @@ td input{padding:8px 10px;font-size:14px}
 
 @media(max-width:520px){h1{font-size:23px}.acoes .btn{flex:1 1 100%}}
 
+/* ── relatório impresso ──────────────────────────────────────────────────────
+   Versão LIGHT da identidade (doutrina: fundo claro, texto #0A0A0A, mesmo ouro).
+   Papel não é tela: o vidro, o escuro e o ouro sobre preto não sobrevivem à
+   impressão — e um PDF que sai cinza-chumbo não serve de lastro para ninguém. */
+#relatorio{display:none}
+@media print{
+  @page{size:A4;margin:14mm}
+  body{background:#fff;color:#0A0A0A;padding:0}
+  /* O canvas escuro do OS vive no `html` e o brilho ambiente num `body::before` fixo —
+     zerar só o `body` deixava um retângulo preto sair impresso depois do rodapé. */
+  html{background:#fff !important}
+  body::before,body::after{display:none !important}
+  header,.rodape,.view,#toast,svg{display:none !important}
+  #relatorio{display:block}
+  .r-head{border-bottom:2px solid #B8954E;padding-bottom:10px;margin-bottom:16px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+  .r-head .t img{display:block;height:26px;width:auto}   /* wordmark oficial, nunca tipografia imitando a marca */
+  .r-head .t small{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:11px;
+    color:#5c574e;margin-top:6px;letter-spacing:0}
+  .r-head .m{font-family:'JetBrains Mono',monospace;font-size:10px;text-align:right;line-height:1.7;
+    color:#3a372f;white-space:nowrap}
+  .r-res{display:flex;gap:22px;margin-bottom:6px;padding:11px 14px;background:#F6F3EC;
+    border:1px solid #E3DCCB;border-radius:6px}
+  .r-res div{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5c574e}
+  .r-res b{display:block;font-family:'Syne',sans-serif;font-size:16px;color:#141413;margin-top:2px}
+  .r-res b.g{color:#8E7238}
+  .r-intro{font-size:10.5px;color:#5c574e;line-height:1.55;margin:10px 0 4px}
+  .r-bl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:#8E7238;margin:17px 0 8px;border-bottom:1px solid #E3DCCB;padding-bottom:4px}
+  /* Pergunta partida entre páginas vira duas perguntas na leitura. */
+  .r-q{page-break-inside:avoid;margin-bottom:11px;padding-left:9px;border-left:2px solid #E3DCCB}
+  .r-q.ok{border-left-color:#8E7238}
+  .r-q.achado{border-left-color:#1E7A4B}
+  .r-q .p{font-size:11.5px;font-weight:600;color:#141413;line-height:1.4}
+  .r-q .u{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#8a857a;margin-top:2px}
+  .r-q .a{font-size:11px;color:#0A0A0A;margin-top:4px;line-height:1.5;white-space:pre-wrap}
+  .r-q .e{font-family:'JetBrains Mono',monospace;font-size:9px;margin-top:4px;color:#5c574e}
+  .r-q .e.achado{color:#1E7A4B}
+  .r-q .n{font-size:10px;color:#5c574e;margin-top:3px;font-style:italic}
+  .r-q table{width:100%;border-collapse:collapse;font-size:10px;margin-top:5px}
+  .r-q th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.05em;
+    text-transform:uppercase;color:#6b665c;border-bottom:1px solid #cfc7b5;padding:4px 6px}
+  .r-q td{padding:4px 6px;border-bottom:1px solid #ece7db;vertical-align:top}
+  /* Assinatura: é o que transforma um impresso em documento devolvido. */
+  .r-pend{columns:2;column-gap:22px;font-size:10px;color:#5c574e;line-height:1.5}
+  .r-pend div{break-inside:avoid;padding-left:9px;text-indent:-9px;margin-bottom:3px}
+  .r-pend div::before{content:"· ";color:#b3ac9c}
+  .r-ass{margin-top:30px;display:flex;gap:40px;page-break-inside:avoid}
+  .r-ass div{flex:1;border-top:1px solid #999;padding-top:5px;
+    font-family:'JetBrains Mono',monospace;font-size:9px;color:#5c574e}
+  .r-foot{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;
+    color:#8a857a;text-align:center;line-height:1.6}
+}
+
 /* ── material liquid glass (doutrina/samais.css) ──
    Declaração-base primeiro: Firefox descarta a linha inteira quando não entende a url(),
    e sem a base ficaria sem vidro nenhum. */
@@ -251,17 +305,35 @@ header{border-width:0 0 1px}
     <div class="kicker">último passo</div>
     <h1>Devolver as respostas</h1>
     <div class="card" id="resumo"></div>
+    <!-- O relatório é para QUEM RESPONDEU: um documento legível, com tudo o que foi
+         informado, para conferir, arquivar e mandar de volta. O arquivo .json abaixo é
+         para o sistema. São dois lastros do mesmo levantamento, e o segundo não substitui
+         o primeiro — PDF não entra no cálculo, e JSON não se lê numa reunião. -->
     <div class="card">
-      <h2>Como devolver</h2>
-      <p>Gere o arquivo e devolva-o a quem enviou o link — por e-mail, WhatsApp ou qualquer
-         canal que você já use. É um arquivo de texto; pode abrir antes para conferir.</p>
+      <h2>Relatório para você</h2>
+      <p>Um documento com tudo o que você informou, para <b>conferir antes de mandar</b>,
+         guardar e devolver por WhatsApp. Ao gerar, o aparelho abre a tela de impressão:
+         escolha <b>“Salvar em PDF”</b> (ou “Imprimir em PDF”) e o arquivo fica na sua pasta
+         de downloads.</p>
       <div class="acoes">
-        <button class="btn primario" id="btBaixar">Gerar arquivo</button>
-        <button class="btn" id="btCopiar">Copiar respostas</button>
+        <button class="btn primario" id="btRelatorio">Gerar relatório em PDF</button>
+        <button class="btn" id="btZap">Mandar pelo WhatsApp</button>
+      </div>
+      <p style="color:var(--t3);font-size:13px;margin-top:4px">O WhatsApp abre com a mensagem
+         pronta — anexe o PDF que você acabou de salvar.</p>
+    </div>
+
+    <div class="card">
+      <h2>Arquivo para o sistema</h2>
+      <p>Além do relatório, gere o arquivo que a equipe carrega direto no sistema, sem
+         redigitar nada. É um arquivo de texto; pode abrir antes para conferir.</p>
+      <div class="acoes">
+        <button class="btn" id="btBaixar">Gerar arquivo</button>
+        <button class="btn ghost" id="btCopiar">Copiar respostas</button>
         <button class="btn ghost" id="btEnviar">Enviar por e-mail</button>
       </div>
       <p style="color:var(--t3);font-size:13px;margin-top:4px">Ainda dá para voltar e completar
-         o que ficou em aberto — o arquivo pode ser gerado quantas vezes for preciso.</p>
+         o que ficou em aberto — relatório e arquivo podem ser gerados quantas vezes for preciso.</p>
     </div>
     <div class="acoes">
       <button class="btn ghost" id="btVoltarQ">Voltar às perguntas</button>
@@ -276,6 +348,7 @@ header{border-width:0 0 1px}
   <button class="btn primario" id="btProx">Próximo</button>
 </div>
 
+<div id="relatorio"></div>
 <div id="toast"></div>
 
 <script>
@@ -393,7 +466,11 @@ function cartaoPergunta(q, n){
     ${q.para_que?`<div class="q-para">${esc(q.para_que)}</div>`:''}
     <div class="estados">${ESTADOS.map(([v,rot])=>
       `<button class="est" data-q="${q.id}" data-e="${v}" aria-pressed="${r?.estado===v}">${rot}</button>`).join('')}</div>
-    <div data-campo="${q.id}">${r?.estado==='respondido'?campo(q,r):''}</div>
+    <div data-campo="${q.id}">${
+      r?.estado === 'respondido' ? campo(q, r)
+      : r?.estado ? notaC(q, r, 'Por quê? (opcional)')   /* "não existe" pede explicação
+          mais do que "tenho o dado" — é onde mora o achado: "a regulação é do consórcio" */
+      : ''}</div>
     ${q.documento?`<div class="q-doc">documento que comprova: ${esc(q.documento)}</div>`:''}
   </div>`;
 }
@@ -427,9 +504,10 @@ function linhaTab(q, ln, i){
     `<td><input type="text" data-cel="${q.id}" data-l="${i}" data-c="${j}" value="${esc(ln?.[j]??'')}"></td>`).join('')}
     <td><button class="lixo" data-del="${q.id}" data-l="${i}" title="remover linha">×</button></td></tr>`;
 }
-function notaC(q, r){
-  return `<div class="campo nota-c"><label class="f">Observação (opcional)</label>
-    <input type="text" data-nota="${q.id}" value="${esc(r?.nota??'')}" placeholder="ressalva, fonte, período"></div>`;
+function notaC(q, r, rotulo){
+  return `<div class="campo nota-c"><label class="f">${esc(rotulo || 'Observação (opcional)')}</label>
+    <input type="text" data-nota="${q.id}" value="${esc(r?.nota??'')}"
+      placeholder="${rotulo ? 'quem faz hoje, desde quando, por quê' : 'ressalva, fonte, período'}"></div>`;
 }
 
 /* ── eventos por pergunta ─────────────────────────────────────────────── */
@@ -596,6 +674,117 @@ $('#btEnviar').onclick = () => {
     `Gere o arquivo pelo botão "Gerar arquivo" e anexe a este e-mail.\n\n` +
     `Respondente: ${(R.respondente?.nome||'—')}\n`;
   location.href = `mailto:?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+};
+
+/* ── relatório para quem respondeu ────────────────────────────────────────────
+   O .json é ilegível para quem preencheu — não dá para conferir, nem arquivar, nem
+   mostrar a um secretário. Este documento é o lastro do outro lado: sai em PDF pelo
+   próprio aparelho (a tela de impressão do celular já oferece "Salvar em PDF") e volta
+   por WhatsApp. Traz TUDO, inclusive o que não foi respondido — um relatório que só
+   mostra o preenchido esconde justamente o que falta cobrar. */
+const dataBRlonga = () => {
+  const d = new Date();
+  const M = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  return `${d.getDate()} de ${M[d.getMonth()]} de ${d.getFullYear()}`;
+};
+const ROTULO_ESTADO = {
+  'nao-existe':    ['achado', 'Não existe no serviço hoje'],
+  'a-levantar':    ['',       'A levantar — o dado existe, mas não estava disponível agora'],
+  'nao-se-aplica': ['',       'Não se aplica a este serviço'],
+};
+
+function montarRelatorio(){
+  const nome = CTX.alvo ? `${CTX.alvo}${CTX.uf?'/'+CTX.uf:''}` : 'Levantamento';
+  const resp = R.respondente || {};
+  const com   = TODAS.filter(q=>R.respostas[q.id]?.estado==='respondido').length;
+  const achad = TODAS.filter(q=>R.respostas[q.id]?.estado==='nao-existe').length;
+  const lev   = TODAS.filter(q=>R.respostas[q.id]?.estado==='a-levantar').length;
+  const branco= TODAS.filter(q=>!R.respostas[q.id]).length;
+
+  const linhasResp = [
+    resp.nome  && `Respondido por: <b>${esc(resp.nome)}</b>`,
+    resp.cargo && esc(resp.cargo),
+    resp.orgao && esc(resp.orgao),
+    `Emitido em ${dataBRlonga()}`,
+  ].filter(Boolean).join('<br>');
+
+  const blocos = QUEST.blocos.map(b => {
+    const qs = b.perguntas.map(q => {
+      const r = R.respostas[q.id];
+      const un = [q.unidade && `em ${q.unidade}`, q.periodo].filter(Boolean).join(' · ');
+      const cab = `<div class="p">${esc(q.pergunta)}</div>` + (un?`<div class="u">${esc(un)}</div>`:'');
+      const nota = r?.nota ? `<div class="n">Obs.: ${esc(r.nota)}</div>` : '';
+
+      if(!r) return '';   // sem marcação: vai para a lista do fim, não interrompe o que foi respondido
+
+      if(r.estado !== 'respondido'){
+        const [cls, txt] = ROTULO_ESTADO[r.estado] || ['', r.estado];
+        return `<div class="r-q ${cls}">${cab}<div class="e ${cls}">${txt}</div>${nota}</div>`;
+      }
+      const corpo = Array.isArray(r.valor) ? tabelaHTML(q, r.valor) : `<div class="a">${esc(r.valor ?? '')}</div>`;
+      if(!corpo) return `<div class="r-q">${cab}<div class="e">Marcada como respondida, sem preenchimento</div>${nota}</div>`;
+      return `<div class="r-q ok">${cab}${corpo}${nota}</div>`;
+    }).join('');
+    if(!qs.trim()) return '';   // bloco inteiro em branco não vira cabeçalho vazio
+    return `<div class="r-bl">${esc(b.nome)}</div>${qs}`;
+  }).join('');
+
+  // Trinta e cinco "não respondida" intercaladas afogam as que foram respondidas e
+  // triplicam o documento. Ficam numa lista no fim — visíveis, sem atrapalhar a leitura.
+  const emBranco = TODAS.filter(q=>!R.respostas[q.id]);
+  const pendencias = emBranco.length ? `
+    <div class="r-bl">Não respondidas nesta rodada (${emBranco.length})</div>
+    <div class="r-pend">${emBranco.map(q=>`<div>${esc(q.pergunta)}</div>`).join('')}</div>` : '';
+
+  $('#relatorio').innerHTML = `
+    <div class="r-head">
+      <div class="t"><img src="./samais-logo-gold.svg" alt="Samais">
+        <small>Levantamento do serviço de urgência — ${esc(nome)}</small></div>
+      <div class="m">${linhasResp}</div>
+    </div>
+    <div class="r-res">
+      <div>Respondidas<b>${com} de ${TODAS.length}</b></div>
+      ${achad?`<div>Não existem hoje<b class="g">${achad}</b></div>`:''}
+      ${lev?`<div>A levantar<b>${lev}</b></div>`:''}
+      ${branco?`<div>Em branco<b>${branco}</b></div>`:''}
+    </div>
+    <div class="r-intro">Este documento reproduz as respostas informadas no levantamento, na
+      íntegra e sem edição. Itens marcados como <b>não existe</b> são registro do que o serviço
+      não possui hoje — não são lacunas de preenchimento. Itens <b>a levantar</b> ficam pendentes
+      para complemento posterior.</div>
+    ${blocos}
+    ${pendencias}
+    <div class="r-ass">
+      <div>Responsável pelas informações${resp.nome?` — ${esc(resp.nome)}`:''}</div>
+      <div>Data</div>
+    </div>
+    <div class="r-foot">Levantamento aplicado por Samais Gestão em Saúde · ${TODAS.length} perguntas
+      · versão ${esc(QUEST.versao)}<br>Documento gerado no próprio aparelho de quem respondeu.
+      Nenhuma resposta foi transmitida sem envio.</div>`;
+}
+
+function tabelaHTML(q, linhas){
+  const cols = q.colunas || [];
+  const uteis = (linhas||[]).filter(l => l.some(c => String(c||'').trim()));
+  if(!uteis.length) return '';
+  return `<table><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead>
+    <tbody>${uteis.map(l=>`<tr>${cols.map((_,i)=>`<td>${esc(String(l[i]??'').trim())}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+$('#btRelatorio').onclick = () => {
+  montarRelatorio();
+  toast('Na tela de impressão, escolha “Salvar em PDF”.');
+  // Delay para o toast aparecer e o layout assentar antes de o navegador congelar a página.
+  setTimeout(()=>window.print(), 400);
+};
+
+$('#btZap').onclick = () => {
+  const nome = CTX.alvo ? `${CTX.alvo}${CTX.uf?'/'+CTX.uf:''}` : 'o serviço';
+  const com = TODAS.filter(q=>R.respostas[q.id]?.estado==='respondido').length;
+  const texto = `Segue o levantamento do serviço de urgência de ${nome}, respondido: ` +
+    `${com} de ${TODAS.length} perguntas. Anexo o relatório em PDF.` +
+    (R.respondente?.nome ? `\n\n${R.respondente.nome}` : '');
+  window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
 };
 </script>
 </body>

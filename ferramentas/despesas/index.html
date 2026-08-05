@@ -173,12 +173,16 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 @media print{
   @page{size:A4;margin:14mm}
   body{background:#fff;color:#141413;padding:0;background-image:none}
+  /* O canvas escuro do OS vive no `html` e o brilho ambiente num `body::before` fixo —
+     zerar só o `body` deixava um retângulo preto sair impresso depois do rodapé. */
+  html{background:#fff !important}
+  body::before,body::after{display:none !important}
   header,nav,.view,#toast{display:none !important}
   #print{display:block}
   .p-head{border-bottom:2px solid #B8954E;padding-bottom:10px;margin-bottom:16px;
     display:flex;justify-content:space-between;align-items:flex-end}
-  .p-head .t{font-family:'Syne',sans-serif;font-weight:800;font-size:19px}
-  .p-head .t span{color:#B8954E}
+  .p-head .t img{display:block;height:26px;width:auto}
+  .p-head .t small{display:block;font-family:'Inter',sans-serif;font-size:11px;color:#5c574e;margin-top:6px}
   .p-head .m{font-family:'JetBrains Mono',monospace;font-size:10px;text-align:right;line-height:1.6}
   .p-res{display:flex;gap:22px;margin-bottom:16px;padding:11px 14px;background:#F6F3EC;border:1px solid #E3DCCB;border-radius:6px}
   .p-res div{font-family:'JetBrains Mono',monospace;font-size:10px;color:#5c574e}
@@ -889,7 +893,7 @@ $('#btnPDF').onclick = async () => {
       <td>${d.tipo==='viagem'?'Viagem':'Predial'}</td>
       <td>${esc(d.categoria)}</td>
       <td>${esc(d.descricao)}${d.fornecedor?` <span style="color:#8a857a">· ${esc(d.fornecedor)}</span>`:''}</td>
-      <td>${FORMAS[d.forma_pagamento]||d.forma_pagamento}</td>
+      <td>${FORMAS[d.forma_pagamento]||d.forma_pagamento||'—'}</td>
       <td>${esc(nomeDe(d))}</td>
       <td class="num">${fmt(d.valor_centavos)}</td></tr>`; }).join('');
 
@@ -912,7 +916,7 @@ $('#btnPDF').onclick = async () => {
 
   $('#print').innerHTML = `
     <div class="p-head">
-      <div class="t">samais <span>·</span> prestação de contas</div>
+      <div class="t"><img src="./samais-logo-gold.svg" alt="Samais"><small>Prestação de contas</small></div>
       <div class="m">Competência: <b>${nomeMes(mes)}</b><br>Responsável: <b>${esc(quem)}</b><br>Emitido em ${dataBR(hojeISO())}</div>
     </div>
     <div class="p-res">

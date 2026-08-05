@@ -23,6 +23,7 @@ Thumbs.db
 
 # Gerado pelo build (cópia das ferramentas dentro do bundle publicável)
 dashboard/despesas/
+dashboard/briefing/
 
 # Dossiês de briefing — documento COMPLETO (inclui interno e restrito).
 # Gerado por scripts/briefing-dossie.mjs; existe só na máquina de quem rodou.

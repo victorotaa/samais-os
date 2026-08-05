@@ -50,7 +50,7 @@ function semanaISO(data) {
 }
 
 // ---------- filtros (doutrina compartilhada com o indexador de mercado) ----------
-const { filtros, pontuar } = carregarFiltros(FILTROS_PATH);
+const { filtros, avaliar } = carregarFiltros(FILTROS_PATH);
 const ufsAlvo = (filtros.ufs?.lista || []).map((u) => u.toUpperCase());
 
 // ---------- PNCP ----------
@@ -111,15 +111,6 @@ function mapear(it) {
   };
 }
 
-/** Meses de vigência declarados; null quando o PNCP não publica as duas datas. */
-function mesesVigencia(o) {
-  if (!o.vigencia_inicio || !o.vigencia_fim) return null;
-  const a = Date.parse(String(o.vigencia_inicio).slice(0, 10));
-  const b = Date.parse(String(o.vigencia_fim).slice(0, 10));
-  if (!Number.isFinite(a) || !Number.isFinite(b) || b <= a) return null;
-  return Math.max(1, Math.round((b - a) / 86400000 / 30.4375));
-}
-
 // ---------- execução ----------
 const hoje = new Date();
 const dias = Number(arg("--dias") || filtros.dias_janela || 7);
@@ -176,39 +167,23 @@ for (const bruto of brutos) {
   if (vistos.has(o.id)) { duplicadas++; continue; }
   vistos.add(o.id);
 
-  const { score, termos, temNucleo, motivoDescarte } = pontuar(o.objeto);
-  // "absoluto" e "compra-de-bem" descartam sempre; "condicional" cede ao núcleo
-  if (motivoDescarte === "absoluto" || motivoDescarte === "compra-de-bem") { descartadasRuido++; continue; }
-  if (motivoDescarte === "condicional" && !temNucleo) { descartadasRuido++; continue; }
-  if (score < (filtros.score_minimo ?? 5)) { descartadasScore++; continue; }
-  if (ufsAlvo.length && !ufsAlvo.includes(o.uf)) { descartadasUF++; continue; }
-
-  // ---- porte: o PNCP publica o TOTAL do certame; o piso é MENSAL ----
-  const refMensal = filtros.valor_minimo_mensal_estimado ?? 0;
-  const meses = mesesVigencia(o) ?? (filtros.vigencia_presumida_meses ?? 12);
-  const mensalEstimado = o.valor_estimado != null ? o.valor_estimado / meses : null;
-  // Sem valor publicado NÃO se descarta: ausência de dado não é evidência de porte pequeno.
-  if (mensalEstimado != null && refMensal > 0 && mensalEstimado < refMensal) {
-    descartadasPorte++; continue;
+  // A decisão inteira (ruído · score · UF · porte mensal · iminência) vem do módulo
+  // de doutrina — o mesmo que o reprocessamento aplica ao histórico.
+  const v = avaliar(o, iso(hoje), ufsAlvo);
+  if (!v.ok) {
+    if (v.motivo === "ruido") descartadasRuido++;
+    else if (v.motivo === "score") descartadasScore++;
+    else if (v.motivo === "uf") descartadasUF++;
+    else if (v.motivo === "porte") descartadasPorte++;
+    continue;
   }
-
-  // ---- iminência: quantos dias faltam para encerrar a proposta ----
-  const diasEnc = o.encerramento_proposta
-    ? Math.round((Date.parse(String(o.encerramento_proposta).slice(0, 10)) - Date.parse(iso(hoje))) / 86400000)
-    : null;
 
   oportunidades.push({
     ...o,
     modalidade: bruto.__modalidade || bruto.modalidadeNome || "—",
-    score,
-    termos_casados: [...new Set(termos)],
-    vigencia_meses: mesesVigencia(o),
-    vigencia_presumida: mesesVigencia(o) == null,
-    valor_mensal_estimado: mensalEstimado != null ? Math.round(mensalEstimado) : null,
-    valor_nao_publicado: o.valor_estimado == null,
-    dias_para_encerramento: diasEnc,
-    iminente: diasEnc != null && diasEnc >= 0 && diasEnc <= (filtros.dias_iminente ?? 15),
-    encerrado: diasEnc != null && diasEnc < 0,
+    score: v.score,
+    termos_casados: v.termos,
+    ...v.porte,
     fonte_url: `https://pncp.gov.br/app/editais/${encodeURIComponent(o.id)}`,
     captado_em: new Date().toISOString(),
   });
@@ -233,7 +208,7 @@ const pacote = {
 };
 
 console.log(`\n◇ ${brutos.length} contratação(ões) varrida(s) → ${oportunidades.length} oportunidade(s) no radar`);
-console.log(`  descartadas: ${descartadasRuido} por ruído · ${descartadasScore} por score · ${descartadasUF} por UF · ${duplicadas} duplicada(s)`);
+console.log(`  descartadas: ${descartadasRuido} por ruído · ${descartadasScore} por score · ${descartadasUF} por UF · ${descartadasPorte} por porte (<R$ ${((filtros.valor_minimo_mensal_estimado||0)/1000).toFixed(0)} mil/mês) · ${duplicadas} duplicada(s)`);
 for (const o of oportunidades.slice(0, 10)) {
   console.log(`  [${String(o.score).padStart(2)}] ${o.uf} · ${(o.municipio || o.orgao).slice(0, 34).padEnd(34)} ${o.objeto.slice(0, 66)}`);
 }

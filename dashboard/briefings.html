@@ -69,6 +69,33 @@ h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter
 .proc[data-p="premissa"]{color:var(--amber)}
 .proc[data-p="a-verificar"]{color:var(--t3)}
 
+/* gerador de link — a metade que faltava: catalogar respostas pressupõe alguém as ter dado */
+.ger{margin:26px 0 0;border-radius:16px;padding:20px 22px}
+.ger h2{font-family:var(--fd);font-weight:700;font-size:19px;margin:0 0 4px}
+.ger .g-sub{color:var(--t3);font-size:13.5px;margin-bottom:16px;max-width:74ch}
+.g-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px}
+.g-form label{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t3);display:block;margin-bottom:5px}
+.g-form input{width:100%;background:var(--s1);color:var(--text);border:1px solid var(--line-soft);
+  border-radius:10px;padding:10px 12px;font-family:var(--fb);font-size:14.5px;outline:none}
+.g-form input:focus{border-color:var(--gold-dim)}
+#g-uf{text-transform:uppercase}
+#g-slug{font-family:var(--mono);font-size:13px}
+.g-url{font-family:var(--fm);font-size:12px;color:var(--gold-dim);background:rgba(184,149,78,.06);
+  border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;word-break:break-all;line-height:1.5}
+.g-url.vazio-u{color:var(--dim);border-style:dashed}
+.g-acoes{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.g-btn{border:1px solid var(--line-soft);background:var(--s1);color:var(--text);border-radius:10px;
+  padding:10px 16px;font-family:var(--fm);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;transition:all .15s;min-height:40px;text-decoration:none;display:inline-flex;align-items:center}
+.g-btn:hover{border-color:var(--gold-dim)}
+.g-btn.primario{background:linear-gradient(180deg,var(--gold-soft),var(--gold-deep));color:#100C04;
+  border-color:transparent;font-weight:500}
+.g-btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.g-nota{font-size:12.5px;color:var(--dim);line-height:1.5;margin-top:14px;
+  border-top:1px solid var(--line-soft);padding-top:12px}
+.g-nota b{color:var(--t3);font-weight:500}
+
 .nota-fim{margin-top:26px;padding:14px 16px;border-radius:12px;font-size:13px;color:var(--t3)}
 .nota-fim b{color:var(--t2);font-weight:500}
 .vazio{border:1px dashed var(--line);border-radius:14px;padding:32px 26px;margin-top:26px}
@@ -79,7 +106,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;disp
 @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}}
 
 /* ── material liquid glass (doutrina/samais.css) ── */
-.kpi,.br,.aviso,.nota-fim,.vazio{
+.kpi,.br,.aviso,.nota-fim,.vazio,.ger{
   background:var(--glass-bg);
   -webkit-backdrop-filter:var(--glass-blur);
   backdrop-filter:var(--glass-blur);                      /* base: vale em todo navegador */
@@ -89,10 +116,10 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;disp
   overflow:hidden;
 }
 @media(max-width:720px){
-  .kpi,.br,.aviso,.nota-fim,.vazio{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+  .kpi,.br,.aviso,.nota-fim,.vazio,.ger{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
 }
 @media (prefers-reduced-transparency: reduce){
-  .kpi,.br,.aviso,.nota-fim,.vazio{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+  .kpi,.br,.aviso,.nota-fim,.vazio,.ger{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
 }
 .rolavel{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 </style>
@@ -137,7 +164,42 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;disp
   <div class="aviso" id="aviso"></div>
 </div></header>
 
-<main class="wrap" id="main"></main>
+<main class="wrap">
+
+  <!-- A página só catalogava respostas — e resposta não aparece sozinha. Esta é a outra
+       metade: o link que se manda para o ente responder. -->
+  <section class="ger">
+    <h2>Enviar um levantamento</h2>
+    <div class="g-sub">Gera o link do questionário para a pessoa do ente responder pelo
+      celular. O que ela preencher fica <b>no aparelho dela</b> até gerar o arquivo e devolver
+      — não há servidor no meio. O arquivo já sai no formato que o OS valida: cai em
+      <code>briefings/&lt;slug&gt;.json</code> e aparece aqui embaixo no próximo build.</div>
+    <div class="g-form">
+      <div><label for="g-alvo">Município ou consórcio</label>
+        <input type="text" id="g-alvo" placeholder="Avaré" autocomplete="off"></div>
+      <div><label for="g-uf">UF</label>
+        <input type="text" id="g-uf" placeholder="SP" maxlength="2" autocomplete="off"></div>
+      <div><label for="g-slug">Slug (casa com a frente)</label>
+        <input type="text" id="g-slug" placeholder="avare-sp" autocomplete="off"></div>
+      <div><label for="g-de">Enviado por</label>
+        <input type="text" id="g-de" placeholder="Victor Ota" autocomplete="off"></div>
+    </div>
+    <div class="g-url vazio-u" id="g-url">Preencha o município para gerar o link.</div>
+    <div class="g-acoes">
+      <button class="g-btn primario" id="g-copiar" aria-disabled="true">Copiar link</button>
+      <a class="g-btn" id="g-abrir" aria-disabled="true" target="_blank" rel="noopener">Abrir o questionário</a>
+      <a class="g-btn" id="g-zap" aria-disabled="true" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <a class="g-btn" id="g-mail" aria-disabled="true">Enviar por e-mail</a>
+    </div>
+    <div class="g-nota"><b>O link não é segredo.</b> Ele carrega apenas o nome do alvo — nenhuma
+      resposta, nenhum dado nosso. Quem abrir sem responder vê só as perguntas em branco.
+      <b>Quando o arquivo voltar</b>, salve em <code>briefings/</code> e rode
+      <code>node scripts/build-dashboard.mjs</code>: o build recusa resposta a pergunta que não
+      existe no padrão, então erro de digitação não passa silencioso.</div>
+  </section>
+
+  <div id="main"></div>
+</main>
 
 <footer class="wrap">
   <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
@@ -224,7 +286,7 @@ function pergunta(q){
   return `<div class="q ${cls}">
     <div class="q-p">${esc(q.pergunta)}${tags}${proc}</div>
     ${corpo}
-    ${q.porque?`<div class="q-porque">${esc(q.porque)}</div>`:''}
+    ${q.para_que?`<div class="q-porque">${esc(q.para_que)}</div>`:''}
   </div>`;
 }
 
@@ -236,6 +298,57 @@ function notaFim(b){
     acrescentadas depois do briefing de Avaré, ao cruzar as perguntas com a Fórmula Mestre —
     por isso aparecem sem resposta ali: não foram feitas na época.</div>`;
 }
+
+/* ── gerador de link ────────────────────────────────────────────────────────
+   O slug se sugere sozinho a partir do nome + UF, mas continua editável: ele precisa
+   casar com frentes/<slug>/ e só quem está olhando sabe se já existe uma frente. */
+const gEls = ['g-alvo','g-uf','g-slug','g-de'].map(id=>document.getElementById(id));
+const semAcento = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const slugify = s => semAcento(String(s||'').toLowerCase()).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+let slugTocado = false;
+document.getElementById('g-slug').addEventListener('input',()=>{ slugTocado = true; });
+
+function urlBriefing(){
+  const alvo = document.getElementById('g-alvo').value.trim();
+  const uf   = document.getElementById('g-uf').value.trim().toUpperCase().slice(0,2);
+  if(!slugTocado) document.getElementById('g-slug').value = alvo ? slugify(alvo) + (uf?'-'+uf.toLowerCase():'') : '';
+  const slug = document.getElementById('g-slug').value.trim();
+  const de   = document.getElementById('g-de').value.trim();
+  if(!alvo) return null;
+  const q = new URLSearchParams();
+  q.set('alvo', alvo); if(uf) q.set('uf', uf); if(slug) q.set('slug', slug); if(de) q.set('de', de);
+  return new URL('./briefing/?' + q.toString(), location.href).href;
+}
+
+function atualizarGerador(){
+  const url = urlBriefing();
+  const box = document.getElementById('g-url');
+  const btns = ['g-copiar','g-abrir','g-zap','g-mail'].map(id=>document.getElementById(id));
+  if(!url){
+    box.textContent = 'Preencha o município para gerar o link.';
+    box.classList.add('vazio-u');
+    btns.forEach(b=>b.setAttribute('aria-disabled','true'));
+    return;
+  }
+  box.textContent = url; box.classList.remove('vazio-u');
+  btns.forEach(b=>b.setAttribute('aria-disabled','false'));
+  const alvo = document.getElementById('g-alvo').value.trim();
+  const texto = `Levantamento do serviço de urgência — ${alvo}. ` +
+    `São 40 perguntas, dá para responder em partes pelo celular: ${url}`;
+  document.getElementById('g-abrir').href = url;
+  document.getElementById('g-zap').href   = 'https://wa.me/?text=' + encodeURIComponent(texto);
+  document.getElementById('g-mail').href  = 'mailto:?subject=' +
+    encodeURIComponent(`Levantamento do serviço de urgência — ${alvo}`) + '&body=' + encodeURIComponent(texto);
+}
+gEls.forEach(el=>el.addEventListener('input', atualizarGerador));
+document.getElementById('g-copiar').onclick = async () => {
+  const url = urlBriefing(); if(!url) return;
+  const b = document.getElementById('g-copiar');
+  try { await navigator.clipboard.writeText(url); b.textContent = 'Link copiado'; }
+  catch(e){ b.textContent = 'Copie o link acima'; }   // clipboard exige contexto seguro
+  setTimeout(()=>b.textContent = 'Copiar link', 2200);
+};
+atualizarGerador();
 
 function vazio(){
   document.getElementById('main').innerHTML = `

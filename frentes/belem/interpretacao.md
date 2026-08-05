@@ -73,3 +73,9 @@ número de R$ 8,1 mi/mês vira compromisso.
 
 *Assuntos estratégicos confidenciais (estruturação jurídico-tributária, veículos de
 remuneração) não são registrados aqui — tratar apenas em conversa.*
+
+## Dimensionamento — a conferir antes do dia 1
+
+O headcount tem que ser confirmado com **Fator de Cobertura 4,5** por posto (12×36), **nunca 2,2** — é a lição Taboão (148 vs 80: o 2,2 cobre um turno e subdimensiona a operação pela metade). Junto: fechar a CCT-PA e conferir se o valor contratado bate com os R$ 8,1 mi/mês do Cenário Base (estudo com FC 4,5, 20 USB, BDI 35% sobre o CDO).
+
+*Saiu de `status.json` em 05/08/2026: `proximo_passo` é camada citável e vai ao painel público. Régua de dimensionamento e composição de preço são método — moram aqui.*

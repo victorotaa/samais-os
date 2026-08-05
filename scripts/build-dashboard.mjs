@@ -39,12 +39,16 @@ const OUT_PATH = join(DASH_DIR, "data.json");
 const ALERTA_PADRAO_DIAS = 30;
 
 // Ferramentas embarcadas no bundle: origem → destino dentro de dashboard/
-const FERRAMENTAS = [{ de: join(ROOT, "ferramentas", "despesas"), para: join(DASH_DIR, "despesas") }];
+const FERRAMENTAS = [
+  { de: join(ROOT, "ferramentas", "despesas"), para: join(DASH_DIR, "despesas") },
+  { de: join(ROOT, "ferramentas", "briefing"), para: join(DASH_DIR, "briefing") },
+];
 
 // Identidade visual canônica: doutrina/samais.css é a FONTE DE VERDADE dos tokens.
 // O build a distribui para cada superfície do bundle — nenhuma página redeclara cores.
 const CSS_CANONICO = join(ROOT, "doutrina", "samais.css");
-const CSS_DESTINOS = [join(DASH_DIR, "samais.css"), join(DASH_DIR, "despesas", "samais.css")];
+const CSS_DESTINOS = [join(DASH_DIR, "samais.css"), join(DASH_DIR, "despesas", "samais.css"),
+  join(DASH_DIR, "briefing", "samais.css")];
 
 // A marca também é doutrina: o ícone de app vive em doutrina/ e é distribuído daqui, para
 // que nenhuma superfície mantenha a sua própria versão (foi assim que a ferramenta de
@@ -57,6 +61,9 @@ const MARCA_ASSETS = [
 // relativa. Precisam ficar AO LADO do CSS em cada superfície, senão a marca some.
 const MARCA_OFICIAL = ["samais-logo-gold.svg", "samais-monograma-gold.svg"];
 const MANIFESTO_OS = join(ROOT, "doutrina", "manifest-os.webmanifest");
+// Toda superfície do bundle recebe marca e ícones: sem os SVGs ao lado do CSS, o
+// url() relativo não resolve e a marca some justamente na página que vai para fora.
+const SUPERFICIES = [DASH_DIR, join(DASH_DIR, "despesas"), join(DASH_DIR, "briefing")];
 
 // ---------- validador de JSON Schema (subset draft-07) ----------
 function validate(data, schema, path = "") {
@@ -300,7 +307,12 @@ if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
           ? r.sensibilidade_override : (q.sensibilidade ?? "interno");
         const publicavel = sens === "publico";
         return {
-          id: q.id, pergunta: q.pergunta, porque: q.porque ?? null,
+          // `porque` NÃO viaja: cita a régua de preço por habitante, o Fator de Cobertura,
+          // o fator de custo real e as lições de Avaré e Canoas — método comercial nosso,
+          // e este bundle está em URL pública. Vai `para_que`, que diz para que serve a
+          // resposta sem entregar como se calcula. O `porque` completo fica no repositório
+          // e no dossiê (scripts/briefing-dossie.mjs), que não é publicado.
+          id: q.id, pergunta: q.pergunta, para_que: q.para_que ?? null,
           essencial: !!q.essencial, novo: !!q.novo, sensibilidade: sens,
           respondida,
           estado: r?.estado ?? null,
@@ -412,6 +424,13 @@ if (existsSync(RADAR_SEMANAS_DIR)) {
         gerado_em: pacote.gerado_em,
         varridos: pacote.varridos ?? null,
         total: (pacote.oportunidades || []).length,
+        // Semana com zero oportunidade não é o mesmo que radar que nunca rodou. Sem estes
+        // dois campos a página não consegue dizer "o filtro derrubou tudo" e mostra
+        // "captação ainda não rodou" — que é falso e manda ninguém rodar o script à toa.
+        captou: true,
+        descartados: pacote.descartados ?? null,
+        revogadas_no_reprocessamento: pacote.revogadas_no_reprocessamento ?? null,
+        reprocessado_em: pacote.reprocessado_em ?? null,
         semanas_disponiveis: semanas.map((f) => f.replace(/\.json$/, "")),
         oportunidades: pacote.oportunidades || [],
       };
@@ -572,7 +591,7 @@ for (const arq of MARCA_ASSETS) {
     assetsFaltando++;
     continue;
   }
-  for (const dir of [DASH_DIR, join(DASH_DIR, "despesas")]) cpSync(de, join(dir, arq));
+  for (const dir of SUPERFICIES) cpSync(de, join(dir, arq));
 }
 for (const arq of MARCA_OFICIAL) {
   const de = join(ROOT, "doutrina", "marca", arq);
@@ -580,11 +599,35 @@ for (const arq of MARCA_OFICIAL) {
     console.error(`✖ logotipo oficial ausente: ${relative(ROOT, de)} — a marca não renderiza sem ele.`);
     process.exit(1);
   }
-  for (const dir of [DASH_DIR, join(DASH_DIR, "despesas")]) cpSync(de, join(dir, arq));
+  for (const dir of SUPERFICIES) cpSync(de, join(dir, arq));
 }
 if (!assetsFaltando) {
   console.log(`✓ marca (${MARCA_ASSETS.length + MARCA_OFICIAL.length} arquivos, logotipos oficiais incluídos)` +
-    " → dashboard/ e dashboard/despesas/");
+    " → dashboard/, dashboard/despesas/ e dashboard/briefing/");
+}
+
+// ---------- questionário para quem RESPONDE ----------
+// O formulário do ente carrega a sua própria cópia do questionário, e é a cópia que
+// define o que ele vê. Sai `porque` (régua de preço, fator de cobertura, lições de
+// Avaré e Canoas — método nosso) e sai `sensibilidade`, que é classificação interna:
+// mostrar "restrito" ao lado de uma pergunta ensina o respondente a não responder.
+// Fica `para_que`, que explica a pergunta sem entregar o cálculo.
+if (existsSync(QUESTIONARIO_PATH)) {
+  const q = JSON.parse(readFileSync(QUESTIONARIO_PATH, "utf8"));
+  const publico = {
+    versao: q.versao,
+    blocos: q.blocos.map((b) => ({
+      id: b.id,
+      nome: b.nome,
+      perguntas: (b.itens ?? b.perguntas).map((p) => {
+        const { porque, sensibilidade, novo, nova, ...resto } = p;
+        return resto;
+      }),
+    })),
+  };
+  const n = publico.blocos.reduce((s, b) => s + b.perguntas.length, 0);
+  writeFileSync(join(DASH_DIR, "briefing", "questionario.json"), JSON.stringify(publico, null, 2) + "\n");
+  console.log(`✓ questionário do respondente: ${n} pergunta(s), sem a camada interna → dashboard/briefing/questionario.json`);
 }
 
 if (existsSync(MANIFESTO_OS)) {
@@ -598,7 +641,22 @@ if (existsSync(MANIFESTO_OS)) {
 // ---------- guarda final: nada confidencial pode ter entrado no bundle ----------
 // O build monta o bundle; esta checagem prova que montou só o previsto. Barato de rodar,
 // e é a diferença entre "acho que não vazou" e "o build falha se vazar".
-const PROIBIDO = [/bastidor/i, /interpretacao/i, /interpretação/i, /github\.com/i];
+// Camada confidencial + MÉTODO COMERCIAL. A segunda leva entrou depois de o campo `porque`
+// do questionário publicar a régua de preço por habitante num painel aberto: a doutrina
+// dizia "nada confidencial no bundle" e mesmo assim passou, porque a guarda só olhava para
+// nomes de arquivo. Régua de preço, fator de cobertura e composição de BDI são o método —
+// se aparecerem numa superfície que o cliente pode abrir, o build para.
+const PROIBIDO = [
+  /bastidor/i, /interpretacao/i, /interpretação/i, /github\.com/i,
+  /m[ée]trica de ouro/i,
+  /R\$\s?5,20/i,
+  /\/hab\/m[êe]s/i,
+  /fator de cobertura/i,
+  /remunera[çc][ãa]o residual/i,
+  /\bBDI\b/,
+  /pre[çc]o-[âa]ncora/i,
+  /teto pol[íi]tico do pre[çc]o/i,
+];
 const vazamentos = [];
 (function varrer(dir) {
   for (const entry of readdirSync(dir)) {

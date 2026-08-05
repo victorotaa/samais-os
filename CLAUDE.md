@@ -98,9 +98,12 @@ pasta de arquivos.
    de captação precisa de uma camada derivada que some o histórico (`radar/` → `inteligencia/mercado/`).
    Se um dado só existe na última rodada, ele não está no OS — está de passagem.
 2. **Derivação re-aplica a doutrina atual ao passado.** Regra nova vale para trás. O critério
-   de prospecção vive em um único módulo (`scripts/lib/filtro-radar.mjs`) usado tanto na
-   captação quanto na memória; recalibrar `radar/filtros.json` limpa o histórico na próxima
-   indexação, sem varrer a fonte de novo.
+   de prospecção vive em um único módulo (`scripts/lib/filtro-radar.mjs`) — termos, piso de
+   porte mensal e iminência — usado pela captação, pelo reprocessamento e pela memória.
+   Recalibrou `radar/filtros.json`? `node scripts/reprocessar-radar.mjs` reaplica às semanas
+   já gravadas e `indexar-mercado.mjs` limpa o histórico, **sem varrer o PNCP de novo** (a
+   janela da API não volta, e a varredura é cara). O que a captação da época não trouxe
+   continua `null` — reprocessar reavalia, não inventa campo.
 3. **Duas camadas, fronteira física.** O que pode ser citado e o que não pode nunca moram no
    mesmo arquivo:
 
@@ -123,6 +126,23 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   **doutrina de prospecção como configuração** (núcleo 10 · adjacente 5 · contexto 2;
   exclusão de ruído em 3 níveis). Roda por GitHub Actions toda segunda; histórico em
   `radar/semanas/AAAA-SS.json`. Captação **não** é análise — o que interessar vira frente.
+  **Escopo (decisão do Ota, 05/08/2026): só OPERAÇÃO COMPLETA, de porte.** SAMU · transporte
+  sanitário · sistemas de prontuário e escala. **Provisão de mão de obra médica está fora** —
+  plantonista, credenciamento de profissional, consultas/exames/cirurgias são outro negócio,
+  com outra margem e outro risco (exclusão absoluta; "serviços médicos" genérico cai no
+  condicional, para não derrubar edital de SAMU que cita equipe médica dentro da operação).
+  ⚠️ **O piso de porte é MENSAL** (`valor_minimo_mensal_estimado`, hoje R$ 500 mil/mês) e o
+  PNCP publica o **total do certame** — o radar divide pela vigência declarada, ou por 12 meses
+  quando ela não vem, e o cartão **avisa qual dos dois foi**. Certame sem valor publicado
+  **não** é descartado: ausência de dado não é evidência de porte pequeno.
+  Semana com zero oportunidade **não é falha de captação** — a página diz quantos caíram em
+  cada corte, e quantos eram do escopo e caíram só pelo tamanho (é esse número que justifica
+  mexer no piso).
+  **Edital que sumiu do PNCP sai do radar** (`scripts/revalidar-editais.mjs`, semanal): cartão
+  que leva a 404 manda alguém preparar proposta para o que não está mais lá. ⚠️ **Só 404
+  derruba, e só na segunda confirmação** — timeout, 5xx e rede fora são *indeterminado*, nunca
+  ausência. O derrubado vira **lápide** em `radar/derrubados.json`, que o indexador respeita:
+  o que foi enterrado não ressuscita numa reindexação, e continua auditável.
 - **`inteligencia/mercado/`** — **memória acumulada** do radar (`indice.json`, derivado —
   nunca editar à mão). Responde o que uma semana não responde: recorrência por município
   (sinal mais forte), concentração por UF, faixa de valor publicada. Gerado por
@@ -148,15 +168,29 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
 
 - **`briefings/`** — **o que se pergunta ao ente antes de calcular**, e a entrada do estudo
-  (`samais-municipal-study` FASE 0: olhar o briefing antes de pesquisar). O questionário é
-  **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra; questionário longo
-  volta pela metade. Quatro regras de formulação, nascidas da auditoria de Avaré: uma pergunta
-  = um dado · unidade e período no enunciado · tabela em vez de campo aberto · estado explícito
-  (`respondido` · `nao-existe` · `a-levantar` · `nao-se-aplica`), porque "não existe indicador"
-  é **achado**, não lacuna. Cada briefing guarda só as respostas,
+  (`samais-municipal-study` FASE 0: olhar o briefing antes de pesquisar). São **duas
+  superfícies**, e faltar uma delas quebra o ciclo: **perguntar** (o link que se manda) e
+  **catalogar** (o que voltou). A página `dashboard/briefings.html` gera o link; o formulário
+  vive em `ferramentas/briefing/` e vai ao bundle como `dashboard/briefing/`.
+  - **Quem responde é o ente, no celular dele.** O formulário é **local-first**: as respostas
+    ficam no aparelho (localStorage) até a pessoa gerar o arquivo e devolver. **Não há
+    servidor** — nada é transmitido sem ela mandar. O arquivo já sai no formato que o OS
+    valida: cai em `briefings/<slug>.json` e o build confere.
+  - **O link não é segredo:** carrega só `alvo`, `uf`, `slug` e quem enviou. Nenhuma resposta,
+    nenhum dado nosso. Quem abrir sem responder vê perguntas em branco.
+  O questionário é **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra;
+  questionário longo volta pela metade. Quatro regras de formulação, nascidas da auditoria de
+  Avaré: uma pergunta = um dado · unidade e período no enunciado · tabela em vez de campo
+  aberto · estado explícito (`respondido` · `nao-existe` · `a-levantar` · `nao-se-aplica`),
+  porque "não existe indicador" é **achado**, não lacuna. Cada briefing guarda só as respostas,
   referenciando a pergunta por id — o build recusa resposta a pergunta inexistente.
-  Cada pergunta declara **`porque`** (o que alimenta na Fórmula Mestre) e **`sensibilidade`**
-  (`publico` · `interno` · `restrito`). ⚠️ **O bundle é público:** só `publico` leva o texto;
+  **`essencial` = sem isso o cálculo não fecha**, não "é importante": chegou a haver 39 de 40
+  marcadas, e sinal que aponta para tudo não aponta para nada. Hoje são 15.
+  ⚠️ **Duas justificativas, e a diferença é de publicação.** `porque` é **interno** (régua de
+  preço, dimensionamento, lições de Avaré e Canoas) e **não sai do repositório**; `para_que` é
+  o que quem responde e o painel público leem. O build embarca só `para_que` — e a guarda de
+  confidencialidade **falha** se régua de preço, fator de cobertura ou BDI aparecerem no bundle.
+  ⚠️ **O bundle é público:** por `sensibilidade`, só `publico` leva o texto da resposta;
   `interno` vira "respondido · uso interno"; **`restrito` some inteiro — nem o enunciado**,
   porque mostrar "passivo trabalhista: respondido" ao lado de um município nomeado já é
   informação. A completude conta **todas** as perguntas, inclusive as ocultas.
@@ -166,6 +200,9 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
 
 ## Ferramentas
 
+- `ferramentas/briefing/` — formulário de levantamento que o **ente** responde (link gerado
+  na página de briefings). **Local-first**: nada sai do aparelho até gerar o arquivo. A saída
+  já é `briefings/<slug>.json` válido.
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
   comprovante, fechamento mensal, PDF de reembolso, consolidação da equipe por JSON.
   **Local-first** (IndexedDB no aparelho; nada em servidor). Schema:
@@ -177,6 +214,8 @@ Ordem completa (o build é o último passo, sempre):
 
 ```
 node scripts/radar-licitacoes.mjs     # captação da semana no PNCP (roda por Actions toda segunda)
+node scripts/revalidar-editais.mjs    # derruba edital que sumiu do PNCP (404 em 2 semanas seguidas)
+node scripts/reprocessar-radar.mjs    # SÓ após recalibrar filtros.json: reaplica a doutrina às semanas já gravadas
 node scripts/indexar-mercado.mjs      # acumula na memória de mercado, re-aplicando os filtros atuais
 node scripts/build-dashboard.mjs      # valida frentes/obrigações → data.json + monta o bundle
 npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetch do data.json)
@@ -186,7 +225,10 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
 - `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
-- `dashboard/briefings.html` — levantamentos aplicados, com a fronteira de sensibilidade.
+- `dashboard/briefings.html` — levantamentos aplicados + gerador do link de levantamento.
+- `dashboard/briefing/` — cópia de `ferramentas/briefing/` (**gerada**, fora do git): o
+  formulário que o ente responde, com a sua própria cópia do questionário **sem** a camada
+  interna (`porque` e `sensibilidade` não viajam).
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.

@@ -54,8 +54,26 @@ select:focus{border-color:var(--gold-dim)}
 .op .sc{flex:0 0 auto;font-family:var(--fm);font-size:11px;color:var(--gold);border:1px solid var(--line);
   border-radius:6px;padding:3px 9px;white-space:nowrap}
 .op .met{font-family:var(--fm);font-size:11px;color:var(--t3);margin-top:9px}
-.op .val{font-family:var(--fm);font-size:14px;color:var(--gold);margin-top:8px;font-variant-numeric:tabular-nums}
-.op .val small{color:var(--t3);font-size:11px}
+/* O valor MENSAL é o número que decide se vale a conversa — o total do certame só
+   diz o tamanho do contrato inteiro. Por isso o mensal é o grande e o total, a nota. */
+.op .val{font-family:var(--fm);font-size:18px;color:var(--gold);margin-top:10px;
+  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.op .val small{color:var(--t3);font-size:11px;font-weight:400}
+.op .val .tot{color:var(--t3);font-size:11.5px}
+.op .val.incerto{color:var(--amber)}
+.op .prazo{font-family:var(--fm);font-size:11px;margin-top:8px;color:var(--t3)}
+.op .prazo b{color:var(--t2);font-weight:500}
+.op .prazo.iminente{color:var(--amber)}
+.op .prazo.iminente b{color:var(--amber)}
+.sel{flex:0 0 auto;font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:5px;padding:3px 8px;white-space:nowrap;border:1px solid}
+.sel.iminente{color:var(--amber);border-color:rgba(221,141,12,.42);background:rgba(221,141,12,.09)}
+/* Com quem falar. Em prospecção B2G a conversa acontece ANTES do edital: um radar que só
+   diz "existe um certame" não serve para ligar para ninguém. Só o que o PNCP publicou. */
+.op .quem{margin-top:11px;padding-top:10px;border-top:1px solid var(--line-soft);
+  font-family:var(--fm);font-size:10.5px;color:var(--t3);display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:4px 18px}
+.op .quem b{color:var(--t2);font-weight:500}
 .op .termos{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
 .tag{font-family:var(--fm);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;
   border-radius:5px;border:1px solid var(--line-soft);color:var(--gold-dim)}
@@ -143,7 +161,8 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding:20px 0 46px;disp
     <select id="f-uf"><option value="todas">Todas as UFs</option></select>
     <select id="f-ord">
       <option value="score">Maior relevância</option>
-      <option value="valor">Maior valor</option>
+      <option value="valor">Maior valor mensal</option>
+      <option value="prazo">Prazo mais curto</option>
       <option value="data">Mais recente</option>
     </select>
     <span class="janela" id="janela"></span>
@@ -168,7 +187,8 @@ let RADAR=null, SEMANA=null, CACHE={};
 fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   document.getElementById('stamp').textContent = 'build de ' + d.gerado_em;
   RADAR = d.radar;
-  if(!RADAR || !RADAR.total){ vazio(RADAR); return; }
+  // Radar que nunca rodou × radar que rodou e não achou nada são estados diferentes.
+  if(!RADAR || !RADAR.captou){ vazio(RADAR); return; }
   CACHE[RADAR.semana] = RADAR.oportunidades;
   SEMANA = RADAR.semana;
   const sems = RADAR.semanas_disponiveis || [RADAR.semana];
@@ -211,43 +231,99 @@ function render(){
   const uf = document.getElementById('f-uf').value;
   const ord = document.getElementById('f-ord').value;
   let lista = ops().filter(o => uf==='todas' || o.uf===uf);
+  const mensal = o => o.valor_mensal_estimado ?? null;
   lista.sort((a,b) =>
-    ord==='valor' ? (b.valor_estimado||0)-(a.valor_estimado||0) :
+    ord==='valor' ? (mensal(b)||0)-(mensal(a)||0) :
+    ord==='prazo' ? (a.dias_para_encerramento ?? 9999)-(b.dias_para_encerramento ?? 9999) :
     ord==='data'  ? (b.publicado_em||'').localeCompare(a.publicado_em||'') :
-                    b.score-a.score || (b.valor_estimado||0)-(a.valor_estimado||0));
+                    b.score-a.score || (mensal(b)||0)-(mensal(a)||0));
 
-  const total = lista.reduce((s,o)=>s+(o.valor_estimado||0),0);
-  const comValor = lista.filter(o=>o.valor_estimado!=null).length;
+  // Somar o valor MENSAL, não o total do certame: o total cobre a vigência inteira (às
+  // vezes plurianual), e somá-lo infla o tamanho do que está em jogo em 12× ou mais.
+  const somaMensal = lista.reduce((s,o)=>s+(mensal(o)||0),0);
+  const semValor = lista.filter(o=>o.valor_nao_publicado).length;
+  const iminentes = lista.filter(o=>o.iminente).length;
   document.getElementById('kpis').innerHTML = [
-    ['Oportunidades', lista.length, ''],
-    ['Alta relevância', lista.filter(o=>o.score>=10).length, ''],
-    ['Valor somado', BRLc(total)||'—', comValor?`${comValor} com valor publicado`:''],
+    ['Oportunidades', lista.length, semValor?`${semValor} sem valor publicado`:''],
+    ['Iminentes', iminentes, iminentes?'proposta encerra em breve':'nenhuma no prazo curto'],
+    ['Somado por mês', BRLc(somaMensal)||'—', 'estimativa, não total do certame'],
     ['UFs', new Set(lista.map(o=>o.uf).filter(u=>u&&u!=='--')).size, '']
   ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}${s?` <small>${s}</small>`:''}</div></div>`).join('');
 
-  if(!lista.length){
-    document.getElementById('lista').innerHTML =
-      `<div class="vazio"><h3>Nada nesta seleção</h3><p>Sem oportunidade nesta semana/UF.</p></div>`;
-    return;
-  }
+  if(!lista.length){ document.getElementById('lista').innerHTML = filtrouTudo(uf); return; }
   document.getElementById('lista').innerHTML = lista.map(cartao).join('');
+}
+
+/* Seleção vazia é ambígua: pode ser semana fraca ou filtro que derrubou tudo. Dizer qual
+   dos dois foi importa — "0 oportunidades" sem explicação parece captação quebrada. */
+function filtrouTudo(uf){
+  const r = (RADAR && RADAR.semana===SEMANA) ? RADAR : null;
+  // Um certame pode cair na captação (descartados) ou no reprocessamento, quando os filtros
+  // foram recalibrados depois. Para quem lê é o mesmo fato: passou perto e não entrou.
+  const rev = r && (r.descartados || r.revogadas_no_reprocessamento) ? (() => {
+    const soma = {};
+    for(const fonte of [r.descartados, r.revogadas_no_reprocessamento]){
+      for(const [k,n] of Object.entries(fonte||{})) if(k!=='duplicadas') soma[k]=(soma[k]||0)+n;
+    }
+    return soma;
+  })() : null;
+  // Os cortes não são equivalentes e somá-los num número só engana: quase tudo que o PNCP
+  // publica não tem nada a ver com o negócio. O que informa é quanto chegou até o ÚLTIMO
+  // corte — os que eram do escopo e caíram só por tamanho.
+  const porQue = rev ? `<p>O PNCP publicou <b>${r.varridos ?? '?'}</b> contratações nesta janela.
+      Fora do escopo: <b>${(rev.ruido||0)+(rev.score||0)}</b> (mão de obra médica, obra, compra de
+      bem, sinal fraco)${rev.uf?` · fora das UFs de interesse: <b>${rev.uf}</b>`:''}.</p>
+      ${rev.porte ? `<p><b>${rev.porte}</b> eram do escopo e caíram só pelo tamanho — abaixo do
+         piso de <b>R$ 500 mil/mês</b>. É aqui que mexer no piso muda o resultado.</p>` : ''}
+      <p>Não é falha de captação: é o filtro funcionando. Só entra operação completa, de porte.
+         Para recalibrar, edite <code>radar/filtros.json</code> e rode
+         <code>node scripts/reprocessar-radar.mjs</code> — a regra nova vale para trás.</p>`
+    : `<p>Sem oportunidade nesta semana${uf!=='todas'?` em <b>${esc(uf)}</b>`:''}.</p>`;
+  return `<div class="vazio"><h3>Nenhuma oportunidade passou o filtro</h3>${porQue}</div>`;
 }
 
 function cartao(o){
   const local = [o.municipio, o.uf!=='--'?o.uf:null].filter(Boolean).join(' · ');
   const met = [local, o.orgao, o.modalidade, `publicado ${dataBR(o.publicado_em)}`].filter(Boolean).map(esc).join('  ·  ');
+
+  // Valor mensal: o PNCP publica o TOTAL da vigência inteira. Quando a vigência não vem
+  // declarada, a divisão usa a presunção legal de 12 meses — e isso fica DITO no cartão,
+  // porque um número derivado de premissa não pode se passar por número medido.
+  const m = o.valor_mensal_estimado;
+  const val = m != null
+    ? `<div class="val${o.vigencia_presumida?' incerto':''}">${BRL(m)} <small>/mês${
+        o.vigencia_presumida ? ' · vigência não publicada, dividido por 12'
+                             : ` · ${o.vigencia_meses} meses declarados`}</small>
+        ${o.valor_estimado!=null?`<span class="tot">total do certame ${BRL(o.valor_estimado)}</span>`:''}</div>`
+    : `<div class="val incerto">valor não publicado <small>porte a confirmar no edital</small></div>`;
+
+  const d = o.dias_para_encerramento;
+  const prazo = d == null ? (o.abertura_proposta ? `<div class="prazo">abertura da proposta: <b>${dataBR(o.abertura_proposta)}</b></div>` : '')
+    : d < 0  ? `<div class="prazo">proposta encerrada em <b>${dataBR(o.encerramento_proposta)}</b></div>`
+    : `<div class="prazo${o.iminente?' iminente':''}">proposta encerra em <b>${d} dia${d===1?'':'s'}</b> · ${dataBR(o.encerramento_proposta)}</div>`;
+
+  const c = o.contato || {};
+  const linhas = [
+    ['Unidade', c.unidade], ['CNPJ do órgão', c.orgao_cnpj],
+    ['Processo', c.processo], ['Compra', c.numero_compra && `${c.numero_compra}/${c.ano_compra ?? ''}`],
+    ['Amparo legal', c.amparo_legal], ['Código IBGE', c.municipio_ibge],
+  ].filter(([,v])=>v).map(([l,v])=>`<span>${l}: <b>${esc(v)}</b></span>`);
+  const quem = linhas.length ? `<div class="quem">${linhas.join('')}</div>` : '';
+
   return `<a class="op ${o.score>=10?'alto':''}" href="${esc(o.fonte_url)}" target="_blank" rel="noopener">
     <div class="top">
       <div class="obj">${esc(o.objeto)}</div>
       <span class="sc">score ${o.score}</span>
+      ${o.iminente?'<span class="sel iminente">iminente</span>':''}
     </div>
     <div class="met">${met}</div>
-    ${o.valor_estimado!=null ? `<div class="val">${BRL(o.valor_estimado)} <small>estimado (total)</small></div>` : ''}
-    ${o.abertura_proposta ? `<div class="met">abertura da proposta: ${dataBR(o.abertura_proposta)}</div>` : ''}
+    ${val}
+    ${prazo}
     <div class="termos">
       ${(o.termos_casados||[]).slice(0,6).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
-      ${o.porte_a_revisar ? '<span class="tag aviso">porte a revisar</span>' : ''}
+      ${o.valor_nao_publicado ? '<span class="tag aviso">porte a confirmar</span>' : ''}
     </div>
+    ${quem}
     <div class="abre">Abrir no PNCP →</div>
   </a>`;
 }
@@ -269,6 +345,10 @@ function nota(){
   const el = document.getElementById('nota');
   el.innerHTML = `<b>Como ler:</b> o <b>score</b> soma os pesos dos termos que casaram com o objeto do edital
     (núcleo 10 · adjacente 5 · contexto 2) — as etiquetas mostram exatamente quais casaram, então nada é caixa-preta.
+    O <b>valor por mês</b> é derivado: o PNCP publica o total da vigência inteira, e o radar divide pela vigência
+    declarada (ou por 12 meses, quando ela não vem — e aí o cartão avisa). <b>Escopo:</b> só operação completa de
+    SAMU, transporte sanitário e sistemas — provisão de mão de obra médica está fora, e abaixo de
+    <b>R$ 500 mil/mês</b> a operação não paga a estrutura.
     Captação não é análise: o que interessar vira frente em <b>frentes/</b> e segue o protocolo de estudo municipal.`;
   el.hidden = false;
 }

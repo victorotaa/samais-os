@@ -412,6 +412,13 @@ if (existsSync(RADAR_SEMANAS_DIR)) {
         gerado_em: pacote.gerado_em,
         varridos: pacote.varridos ?? null,
         total: (pacote.oportunidades || []).length,
+        // Semana com zero oportunidade não é o mesmo que radar que nunca rodou. Sem estes
+        // dois campos a página não consegue dizer "o filtro derrubou tudo" e mostra
+        // "captação ainda não rodou" — que é falso e manda ninguém rodar o script à toa.
+        captou: true,
+        descartados: pacote.descartados ?? null,
+        revogadas_no_reprocessamento: pacote.revogadas_no_reprocessamento ?? null,
+        reprocessado_em: pacote.reprocessado_em ?? null,
         semanas_disponiveis: semanas.map((f) => f.replace(/\.json$/, "")),
         oportunidades: pacote.oportunidades || [],
       };

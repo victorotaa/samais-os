@@ -76,5 +76,70 @@ export function carregarFiltros(caminho) {
     return !r.motivoDescarte && r.score >= scoreMinimo;
   }
 
-  return { filtros, pontuar, qualifica, scoreMinimo };
+  return { filtros, pontuar, qualifica, scoreMinimo, mesesVigencia, derivarPorte, avaliar };
+
+  // ---------------------------------------------------------------------------
+  // Porte e iminência — derivados, nunca digitados, e aqui pelo mesmo motivo dos
+  // termos: a captação e o reprocessamento do histórico precisam chegar ao MESMO
+  // número. Se cada script dividisse o valor pela vigência do seu jeito, o mesmo
+  // certame teria um valor mensal na semana e outro na memória.
+  // ---------------------------------------------------------------------------
+
+  /** Meses de vigência declarados; null quando o PNCP não publica as duas datas. */
+  function mesesVigencia(o) {
+    if (!o?.vigencia_inicio || !o?.vigencia_fim) return null;
+    const a = Date.parse(String(o.vigencia_inicio).slice(0, 10));
+    const b = Date.parse(String(o.vigencia_fim).slice(0, 10));
+    if (!Number.isFinite(a) || !Number.isFinite(b) || b <= a) return null;
+    return Math.max(1, Math.round((b - a) / 86400000 / 30.4375));
+  }
+
+  /**
+   * O PNCP publica o valor TOTAL do certame (vigência inteira, às vezes plurianual).
+   * O que decide se vale a conversa é o MENSAL — comparar o total com o piso mensal
+   * infla o mercado em 12× ou mais.
+   * @param {object} o oportunidade mapeada
+   * @param {string} hojeISO data de referência AAAA-MM-DD (para dias_para_encerramento)
+   */
+  function derivarPorte(o, hojeISO) {
+    const meses = mesesVigencia(o);
+    const usados = meses ?? (filtros.vigencia_presumida_meses ?? 12);
+    const mensal = o.valor_estimado != null ? Math.round(o.valor_estimado / usados) : null;
+    const diasEnc = o.encerramento_proposta
+      ? Math.round((Date.parse(String(o.encerramento_proposta).slice(0, 10)) - Date.parse(hojeISO)) / 86400000)
+      : null;
+    return {
+      vigencia_meses: meses,
+      vigencia_presumida: meses == null,
+      vigencia_meses_usados: usados,
+      valor_mensal_estimado: mensal,
+      valor_nao_publicado: o.valor_estimado == null,
+      dias_para_encerramento: diasEnc,
+      iminente: diasEnc != null && diasEnc >= 0 && diasEnc <= (filtros.dias_iminente ?? 15),
+      encerrado: diasEnc != null && diasEnc < 0,
+    };
+  }
+
+  /**
+   * A decisão inteira em um lugar: passa ou não passa, e por quê.
+   * @returns {{ok:boolean, motivo:string|null, score:number, termos:string[], porte:object}}
+   */
+  function avaliar(o, hojeISO, ufsAlvo = []) {
+    const { score, termos, temNucleo, motivoDescarte } = pontuar(o.objeto || "");
+    const porte = derivarPorte(o, hojeISO);
+    const nao = (motivo) => ({ ok: false, motivo, score, termos: [...new Set(termos)], porte });
+
+    if (motivoDescarte === "absoluto" || motivoDescarte === "compra-de-bem") return nao("ruido");
+    if (motivoDescarte === "condicional" && !temNucleo) return nao("ruido");
+    if (score < scoreMinimo) return nao("score");
+    if (ufsAlvo.length && !ufsAlvo.includes(o.uf)) return nao("uf");
+
+    // Sem valor publicado NÃO se descarta: ausência de dado não é evidência de porte
+    // pequeno (Princípio da Realidade). Entra sinalizado, para conferência manual.
+    const piso = filtros.valor_minimo_mensal_estimado ?? 0;
+    if (porte.valor_mensal_estimado != null && piso > 0 && porte.valor_mensal_estimado < piso) {
+      return nao("porte");
+    }
+    return { ok: true, motivo: null, score, termos: [...new Set(termos)], porte };
+  }
 }

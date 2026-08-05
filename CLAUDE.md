@@ -98,9 +98,12 @@ pasta de arquivos.
    de captação precisa de uma camada derivada que some o histórico (`radar/` → `inteligencia/mercado/`).
    Se um dado só existe na última rodada, ele não está no OS — está de passagem.
 2. **Derivação re-aplica a doutrina atual ao passado.** Regra nova vale para trás. O critério
-   de prospecção vive em um único módulo (`scripts/lib/filtro-radar.mjs`) usado tanto na
-   captação quanto na memória; recalibrar `radar/filtros.json` limpa o histórico na próxima
-   indexação, sem varrer a fonte de novo.
+   de prospecção vive em um único módulo (`scripts/lib/filtro-radar.mjs`) — termos, piso de
+   porte mensal e iminência — usado pela captação, pelo reprocessamento e pela memória.
+   Recalibrou `radar/filtros.json`? `node scripts/reprocessar-radar.mjs` reaplica às semanas
+   já gravadas e `indexar-mercado.mjs` limpa o histórico, **sem varrer o PNCP de novo** (a
+   janela da API não volta, e a varredura é cara). O que a captação da época não trouxe
+   continua `null` — reprocessar reavalia, não inventa campo.
 3. **Duas camadas, fronteira física.** O que pode ser citado e o que não pode nunca moram no
    mesmo arquivo:
 
@@ -123,6 +126,18 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   **doutrina de prospecção como configuração** (núcleo 10 · adjacente 5 · contexto 2;
   exclusão de ruído em 3 níveis). Roda por GitHub Actions toda segunda; histórico em
   `radar/semanas/AAAA-SS.json`. Captação **não** é análise — o que interessar vira frente.
+  **Escopo (decisão do Ota, 05/08/2026): só OPERAÇÃO COMPLETA, de porte.** SAMU · transporte
+  sanitário · sistemas de prontuário e escala. **Provisão de mão de obra médica está fora** —
+  plantonista, credenciamento de profissional, consultas/exames/cirurgias são outro negócio,
+  com outra margem e outro risco (exclusão absoluta; "serviços médicos" genérico cai no
+  condicional, para não derrubar edital de SAMU que cita equipe médica dentro da operação).
+  ⚠️ **O piso de porte é MENSAL** (`valor_minimo_mensal_estimado`, hoje R$ 500 mil/mês) e o
+  PNCP publica o **total do certame** — o radar divide pela vigência declarada, ou por 12 meses
+  quando ela não vem, e o cartão **avisa qual dos dois foi**. Certame sem valor publicado
+  **não** é descartado: ausência de dado não é evidência de porte pequeno.
+  Semana com zero oportunidade **não é falha de captação** — a página diz quantos caíram em
+  cada corte, e quantos eram do escopo e caíram só pelo tamanho (é esse número que justifica
+  mexer no piso).
 - **`inteligencia/mercado/`** — **memória acumulada** do radar (`indice.json`, derivado —
   nunca editar à mão). Responde o que uma semana não responde: recorrência por município
   (sinal mais forte), concentração por UF, faixa de valor publicada. Gerado por
@@ -177,6 +192,7 @@ Ordem completa (o build é o último passo, sempre):
 
 ```
 node scripts/radar-licitacoes.mjs     # captação da semana no PNCP (roda por Actions toda segunda)
+node scripts/reprocessar-radar.mjs    # SÓ após recalibrar filtros.json: reaplica a doutrina às semanas já gravadas
 node scripts/indexar-mercado.mjs      # acumula na memória de mercado, re-aplicando os filtros atuais
 node scripts/build-dashboard.mjs      # valida frentes/obrigações → data.json + monta o bundle
 npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetch do data.json)

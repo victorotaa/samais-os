@@ -33,7 +33,10 @@
     "tipo": {
       "type": "string",
       "description": "Frente de custo.",
-      "enum": ["viagem", "predial"]
+      "enum": [
+        "viagem",
+        "predial"
+      ]
     },
     "categoria": {
       "type": "string",
@@ -63,8 +66,20 @@
     },
     "responsavel": {
       "type": "string",
-      "description": "Quem pagou — é quem recebe o reembolso.",
-      "minLength": 1
+      "description": "Quem lançou — é quem recebe o reembolso. Perfil fixo da equipe; 'outros' exige responsavel_nome. ⚠️ Registros anteriores a 05/08/2026 guardavam o nome digitado em texto livre; o app continua exibindo esses valores como estão.",
+      "enum": [
+        "victor",
+        "vinicius",
+        "matheus",
+        "outros"
+      ]
+    },
+    "responsavel_nome": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nome de quem lançou quando responsavel='outros'. Sem isto o reembolso não tem destinatário."
     },
     "reembolsavel": {
       "type": "boolean",
@@ -73,22 +88,37 @@
     "status": {
       "type": "string",
       "description": "Situação do reembolso.",
-      "enum": ["pendente", "reembolsado"]
+      "enum": [
+        "pendente",
+        "reembolsado"
+      ]
     },
     "fornecedor": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Estabelecimento/fornecedor. Opcional."
     },
     "centro_custo": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Obra, sede, município ou projeto ao qual a despesa se vincula. Opcional."
     },
     "observacao": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Nota livre. Opcional."
     },
     "comprovante_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Referência à imagem do comprovante (canhoto/nota) guardada no dispositivo. Opcional."
     },
     "criado_em": {

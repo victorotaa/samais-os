@@ -173,6 +173,24 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
   .p-foot{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#8a857a;text-align:center}
 }
 
+/* entrada por perfil */
+.perfil-tela{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+  padding:24px;background:rgba(10,10,10,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.perfil-box{max-width:460px;width:100%;padding:26px 24px;border-radius:18px}
+.perfil-k{font-family:var(--fm);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+.perfil-h{font-family:var(--fd);font-weight:800;font-size:22px;margin:8px 0 6px}
+.perfil-s{color:var(--t3);font-size:13.5px;margin:0 0 18px;line-height:1.5}
+.perfil-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.perfil-b{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:64px;
+  padding:14px 15px;border-radius:12px;border:1px solid var(--line-soft);background:var(--card);
+  color:var(--text);font-family:var(--fb);font-size:15px;cursor:pointer;text-align:left;
+  transition:border-color .16s,transform .16s}
+.perfil-b:hover{border-color:var(--gold-dim);transform:translateY(-1px)}
+.perfil-b.atual{border-color:var(--gold);background:rgba(184,149,78,.09)}
+.perfil-b .ini{font-family:var(--fd);font-weight:800;font-size:13px;color:var(--gold);letter-spacing:.04em}
+.perfil-aviso{margin:18px 0 0;font-size:12px;color:var(--dim);line-height:1.45}
+.perfil-aviso b{color:var(--t3);font-weight:500}
+
 /* ── material liquid glass (doutrina/samais.css) ──
    Recipe canônica, idêntica à dos estudos e do ROTA. A REFRAÇÃO (url(#glassDistort))
    é o que separa liquid glass de "card borrado": distorce o fundo atrás do vidro.
@@ -218,6 +236,23 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
   </a>
   <div class="who">responsável<br><b id="whoName">—</b></div>
 </div></header>
+
+<!-- ENTRADA: escolha de perfil. Aparece enquanto não houver perfil no aparelho. -->
+<div class="perfil-tela" id="perfilTela" hidden>
+  <div class="perfil-box glass">
+    <div class="perfil-k">quem está lançando</div>
+    <h2 class="perfil-h">Escolha o seu perfil</h2>
+    <p class="perfil-s">Separa os lançamentos por pessoa e monta o reembolso de cada um.
+      Fica gravado neste aparelho — dá para trocar a qualquer momento em Ajustes.</p>
+    <div class="perfil-grid" id="perfilGrid"></div>
+    <div class="field" id="perfilOutroWrap" hidden>
+      <label for="perfilOutro">Nome de quem lançou</label>
+      <input id="perfilOutro" type="text" placeholder="Ex.: André" autocomplete="off">
+      <div class="btns" style="margin-top:10px"><button class="btn primario" id="perfilOutroOk">Continuar</button></div>
+    </div>
+    <p class="perfil-aviso">Isto <b>não é senha</b>: organiza os lançamentos, não protege o aparelho.</p>
+  </div>
+</div>
 
 <main class="wrap">
 
@@ -360,10 +395,11 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
     <p class="sub">Identidade, backup e consolidação da equipe.</p>
 
     <div class="field">
-      <label for="a-nome">Seu nome (responsável pelos lançamentos)</label>
-      <input id="a-nome" type="text" placeholder="Ex.: Victor Ota" autocomplete="off">
+      <label>Quem está lançando neste aparelho</label>
+      <div class="perfil-grid" id="a-perfilGrid" style="margin-top:8px"></div>
+      <p class="hint" style="margin-top:10px">Trocar de perfil não move os lançamentos já feitos —
+        cada um fica com quem o registrou. Isto organiza; <b>não é senha</b>.</p>
     </div>
-    <div class="btns"><button class="btn ghost" id="btnNome">Salvar nome</button></div>
 
     <div class="bloco" style="margin-top:22px">
       <h3>Backup e consolidação</h3>
@@ -416,6 +452,18 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 'use strict';
 
 /* ============================ constantes ============================ */
+/* Quem lança. É SELEÇÃO DE PERFIL, não autenticação: separa e organiza os lançamentos,
+   não protege nada — os dados ficam no aparelho e qualquer um que o abra vê tudo. Chamar
+   isto de "login" seria prometer o que não entrega. */
+const PESSOAS = [
+  // A sigla é declarada, não derivada: "Victor" e "Vinícius" dariam ambos "VI".
+  { id:'victor',   nome:'Victor',   sigla:'VIC' },
+  { id:'vinicius', nome:'Vinícius', sigla:'VIN' },
+  { id:'matheus',  nome:'Matheus',  sigla:'MAT' },
+  { id:'outros',   nome:'Outros',   sigla:'···' },
+];
+const nomePessoa = id => (PESSOAS.find(p=>p.id===id)||{}).nome || id || '—';
+
 const CATEGORIAS = {
   viagem: ['Passagem aérea','Passagem rodoviária','Combustível','Pedágio','Estacionamento',
            'Hospedagem','Alimentação','Táxi / aplicativo','Locação de veículo','Bagagem','Outros (viagem)'],
@@ -562,7 +610,7 @@ $('#btnSalvar').onclick = async () => {
   if(!valor){ toast('Informe o valor da despesa.'); $('#f-valor').focus(); return; }
   if(!descricao){ toast('Descreva a despesa em uma linha.'); $('#f-descricao').focus(); return; }
   const responsavel = (estado.config.responsavel||'').trim();
-  if(!responsavel){ toast('Defina seu nome em Ajustes primeiro.'); irPara('ajustes'); return; }
+  if(!responsavel){ $('#perfilTela').hidden = false; renderPerfil(); return; }
 
   const agora = new Date().toISOString();
   const anterior = estado.editId ? estado.despesas.find(d=>d.id===estado.editId) : null;
@@ -584,6 +632,8 @@ $('#btnSalvar').onclick = async () => {
     valor_centavos: valor,
     forma_pagamento: $('#f-forma').value,
     responsavel,
+    // "outros" precisa dizer QUEM, senão o reembolso não tem destinatário
+    responsavel_nome: responsavel === 'outros' ? (estado.config.responsavel_nome || null) : null,
     reembolsavel: $('#f-reemb').checked,
     status: anterior?.status || 'pendente',
     fornecedor: $('#f-fornecedor').value.trim() || null,
@@ -640,7 +690,7 @@ async function alternarStatus(id){
 async function carregar(){
   estado.despesas = (await all('despesas')).sort((a,b)=> (b.data||'').localeCompare(a.data||'') || (b.criado_em||'').localeCompare(a.criado_em||''));
   const cfg = await all('config'); estado.config = Object.fromEntries(cfg.map(c=>[c.k,c.v]));
-  $('#whoName').textContent = estado.config.responsavel || 'defina em Ajustes';
+  $('#whoName').textContent = estado.config.responsavel ? rotuloPerfil() : 'escolha o perfil';
   sincronizarSelects();
 }
 function mesesDisponiveis(){
@@ -649,6 +699,13 @@ function mesesDisponiveis(){
   return [...s].sort().reverse();
 }
 function responsaveis(){ return [...new Set(estado.despesas.map(d=>d.responsavel).filter(Boolean))].sort(); }
+/** Nome de exibição de um lançamento. Registro antigo guardava o nome digitado — continua
+    funcionando: se não casar com nenhum perfil, mostra o que está gravado. */
+function nomeDe(d){
+  if(d.responsavel === 'outros') return d.responsavel_nome ? `Outros · ${d.responsavel_nome}` : 'Outros';
+  const p = PESSOAS.find(x=>x.id===d.responsavel);
+  return p ? p.nome : (d.responsavel || '—');
+}
 
 function sincronizarSelects(){
   const meses = mesesDisponiveis();
@@ -658,10 +715,11 @@ function sincronizarSelects(){
   $('#fl-mes').innerHTML = opts(estado.mesLista);
   $('#fc-mes').innerHTML = opts(estado.mesFech);
   const rs = responsaveis();
-  const ropts = `<option value="todos">Todos</option>` + rs.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('');
+  const rot = r => { const p=PESSOAS.find(x=>x.id===r); return p ? p.nome : r; };
+  const ropts = `<option value="todos">Todos</option>` + rs.map(r=>`<option value="${esc(r)}">${esc(rot(r))}</option>`).join('');
   const rv=$('#fl-resp').value, fv=$('#fc-resp').value;
   $('#fl-resp').innerHTML = ropts; if(rs.includes(rv)) $('#fl-resp').value=rv;
-  $('#fc-resp').innerHTML = `<option value="todos">Todos os responsáveis</option>` + rs.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('');
+  $('#fc-resp').innerHTML = `<option value="todos">Todos os responsáveis</option>` + rs.map(r=>`<option value="${esc(r)}">${esc(rot(r))}</option>`).join('');
   if(rs.includes(fv)) $('#fc-resp').value=fv;
 }
 ['#fl-mes','#fl-tipo','#fl-status','#fl-resp'].forEach(s=>$(s).addEventListener('change',()=>{ if(s==='#fl-mes') estado.mesLista=$(s).value; renderLista(); }));
@@ -697,7 +755,7 @@ async function renderLista(){
       </div>
       <div class="right">
         <div class="v">${fmt(d.valor_centavos)}</div>
-        <div class="meta" style="margin-top:6px">${esc((d.responsavel||'').split(' ')[0])}</div>
+        <div class="meta" style="margin-top:6px">${esc(nomeDe(d))}</div>
       </div>
     </div>`).join('');
 
@@ -728,7 +786,7 @@ function agregar(ds){
   ds.forEach(d=>{
     const k = `${d.tipo}|${d.categoria}`;
     porCat[k] = (porCat[k]||0) + d.valor_centavos;
-    if(d.reembolsavel && d.status==='pendente') porResp[d.responsavel]=(porResp[d.responsavel]||0)+d.valor_centavos;
+    if(d.reembolsavel && d.status==='pendente') porResp[nomeDe(d)]=(porResp[nomeDe(d)]||0)+d.valor_centavos;
   });
   return {total, reemb, porCat, porResp};
 }
@@ -777,7 +835,7 @@ $('#btnPDF').onclick = async () => {
       <td>${esc(d.categoria)}</td>
       <td>${esc(d.descricao)}${d.fornecedor?` <span style="color:#8a857a">· ${esc(d.fornecedor)}</span>`:''}</td>
       <td>${FORMAS[d.forma_pagamento]||d.forma_pagamento}</td>
-      <td>${esc((d.responsavel||'').split(' ')[0])}</td>
+      <td>${esc(nomeDe(d))}</td>
       <td class="num">${fmt(d.valor_centavos)}</td></tr>`; }).join('');
 
   let anexo='';
@@ -821,21 +879,64 @@ $('#btnPDF').onclick = async () => {
   setTimeout(()=>window.print(), 350);
 };
 
+/* ============================ perfil (quem lança) ============================ */
+function renderPerfil(){
+  $('#perfilGrid').innerHTML = PESSOAS.map(p=>
+    `<button class="perfil-b" data-p="${p.id}"><span class="ini">${p.sigla}</span>${esc(p.nome)}</button>`).join('');
+  $('#perfilGrid').querySelectorAll('button').forEach(b=>{
+    b.onclick = async () => {
+      const id = b.dataset.p;
+      if(id === 'outros'){ $('#perfilOutroWrap').hidden = false; $('#perfilOutro').focus(); return; }
+      await definirPerfil(id, null);
+    };
+  });
+  $('#perfilOutroOk').onclick = async () => {
+    const nome = $('#perfilOutro').value.trim();
+    if(!nome){ toast('Diga quem lançou.'); $('#perfilOutro').focus(); return; }
+    await definirPerfil('outros', nome);
+  };
+}
+async function definirPerfil(id, nome){
+  await put('config',{k:'responsavel',v:id});
+  await put('config',{k:'responsavel_nome',v:nome||null});
+  await carregar();
+  $('#perfilTela').hidden = true;
+  toast('Lançando como ' + rotuloPerfil() + '.');
+}
+/** Rótulo de quem lança: "Outros" sempre mostra o nome, senão vira lançamento anônimo. */
+function rotuloPerfil(){
+  const id = estado.config.responsavel;
+  if(!id) return '—';
+  if(id === 'outros') return estado.config.responsavel_nome ? `Outros · ${estado.config.responsavel_nome}` : 'Outros';
+  return nomePessoa(id);
+}
+
 /* ============================ ajustes / backup ============================ */
 async function renderAjustes(){
-  $('#a-nome').value = estado.config.responsavel || '';
+  $('#a-perfilGrid').innerHTML = PESSOAS.map(p=>{
+    const atual = estado.config.responsavel === p.id;
+    return `<button class="perfil-b${atual?' atual':''}" data-p="${p.id}">
+      <span class="ini">${p.sigla}</span>${esc(p.nome)}${atual?' · atual':''}</button>`;
+  }).join('');
+  $('#a-perfilGrid').querySelectorAll('button').forEach(b=>{
+    b.onclick = async () => {
+      const id = b.dataset.p;
+      let nome = null;
+      if(id === 'outros'){
+        nome = (prompt('Nome de quem vai lançar:', estado.config.responsavel_nome || '')||'').trim();
+        if(!nome){ toast('Perfil não trocado — "Outros" precisa de um nome.'); return; }
+      }
+      await definirPerfil(id, nome);
+      await renderAjustes();
+    };
+  });
   const cmps = await all('comprovantes');
   $('#a-qtd').textContent = estado.despesas.length;
   $('#a-cmp').textContent = cmps.length;
   const bytes = cmps.reduce((s,c)=>s+(c.blob?.size||0),0);
   $('#a-tam').textContent = bytes ? (bytes/1048576).toFixed(1)+' MB' : '—';
 }
-$('#btnNome').onclick = async () => {
-  const v=$('#a-nome').value.trim();
-  if(!v){ toast('Informe seu nome.'); return; }
-  await put('config',{k:'responsavel',v}); await carregar();
-  toast('Nome salvo.');
-};
+
 
 $('#btnExport').onclick = async () => {
   const incluir = $('#a-comprov').checked;
@@ -844,10 +945,11 @@ $('#btnExport').onclick = async () => {
     for(const c of await all('comprovantes')) comprovantes[c.id] = await blobParaDataURL(c.blob);
   }
   const pacote = { formato:'samais-despesas', versao:1, exportado_em:new Date().toISOString(),
-                   responsavel: estado.config.responsavel||null, despesas: estado.despesas, comprovantes };
+                   responsavel: estado.config.responsavel||null,
+                   responsavel_nome: estado.config.responsavel_nome||null, despesas: estado.despesas, comprovantes };
   const blob = new Blob([JSON.stringify(pacote)],{type:'application/json'});
   const a=document.createElement('a');
-  const quem=(estado.config.responsavel||'equipe').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const quem=(rotuloPerfil()==='—'?'equipe':rotuloPerfil()).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   a.href=URL.createObjectURL(blob); a.download=`despesas-${quem}-${hojeISO()}.json`; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   toast(`Exportado: ${estado.despesas.length} lançamento(s).`);
@@ -891,7 +993,7 @@ $('#btnLimpar').onclick = async () => {
   $('#f-data').value = hojeISO();
   preencherCategorias();
   await carregar();
-  if(!estado.config.responsavel){ irPara('ajustes'); toast('Comece definindo seu nome.'); }
+  if(!estado.config.responsavel){ $('#perfilTela').hidden = false; renderPerfil(); }
   if('serviceWorker' in navigator && location.protocol==='https:'){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }

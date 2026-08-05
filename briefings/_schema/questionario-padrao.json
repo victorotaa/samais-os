@@ -50,7 +50,7 @@
           "porque": "CRU é o maior custo fixo depois da folha; o rateio define quem paga o quê.",
           "para_que": "A regulação é estrutura própria; saber quem a mantém define o que entra no escopo.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "habilitacoes-repasse",
@@ -66,7 +66,7 @@
           "para_que": "Habilitação federal destrava repasse, e repasse reduz o que o município desembolsa.",
           "documento": "Portarias de habilitação + demonstrativo do FNS (12 meses)",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -113,7 +113,7 @@
           "porque": "Lição Canoas: quando o imóvel fica por conta da contratada, vira rubrica que o edital esconde na entrelinha.",
           "para_que": "Define de quem é a responsabilidade pelo imóvel — muda quem paga o quê.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "combustivel",
@@ -125,7 +125,7 @@
           "para_que": "Custo recorrente que hoje costuma sair de outra pasta e passa para a operação.",
           "documento": "Relatório de abastecimento",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -201,7 +201,8 @@
           "porque": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
           "para_que": "Linha recorrente que raramente aparece no edital e sempre aparece na folha.",
           "sensibilidade": "interno",
-          "nova": true
+          "nova": true,
+          "essencial": false
         },
         {
           "id": "absenteismo",
@@ -212,7 +213,7 @@
           "porque": "Alimenta o Fator de Cobertura. FC 4,5 cobre o headcount físico; absenteísmo alto exige folga adicional que ninguém orça.",
           "para_que": "Falta e afastamento exigem folga adicional para a escala não descobrir.",
           "sensibilidade": "interno",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         },
         {
@@ -275,7 +276,7 @@
           "porque": "TARM e rádio-operador são dimensionados por chamada RECEBIDA, não por viatura despachada.",
           "para_que": "A equipe da central é dimensionada por chamada recebida, não por viatura despachada.",
           "sensibilidade": "publico",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         },
         {
@@ -290,7 +291,7 @@
           "porque": "Linha de base da meta contratual. Sem base, qualquer meta é chute — e chute vira glosa. Em Avaré esta pergunta era aberta e voltou vazia.",
           "para_que": "É a linha de base da meta contratual. Sem base medida, meta vira estimativa.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "perfil-demanda",
@@ -305,7 +306,7 @@
           "porque": "O perfil define o mix USB/USA e o insumo consumido. Em Avaré vieram números absolutos sem período declarado — inutilizáveis.",
           "para_que": "O perfil das ocorrências define a combinação de viaturas e o insumo consumido.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "demanda-reprimida",
@@ -314,7 +315,7 @@
           "porque": "É onde mora a proposta de valor — e o risco de assumir SLA que a configuração atual não entrega.",
           "para_que": "Mostra o que o serviço hoje não consegue atender e o que precisa mudar para atender.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -335,7 +336,7 @@
           "porque": "Se sai do almoxarifado central, o custo está ESCONDIDO em outra pasta — e passa a ser nosso na contratação.",
           "para_que": "Se o insumo vem do almoxarifado central, o custo está registrado em outra pasta.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "oxigenio",
@@ -350,7 +351,7 @@
           "porque": "Item crítico de continuidade, com contrato próprio. Falta de O₂ para a viatura.",
           "para_que": "Item crítico de continuidade, com contrato e logística próprios.",
           "sensibilidade": "publico",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         },
         {
@@ -363,7 +364,7 @@
           "para_que": "Manutenção e reativação da frota entram no escopo da operação.",
           "documento": "Notas ou contrato de manutenção",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "rss",
@@ -372,7 +373,7 @@
           "porque": "Obrigação sanitária com custo recorrente. Se hoje é feito pela própria equipe, vira contrato na nossa operação — foi o caso de Avaré.",
           "para_que": "Obrigação sanitária com custo recorrente, feita por contrato ou pela própria equipe.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "epi-fardamento",
@@ -386,7 +387,7 @@
           "porque": "Em Avaré veio só o total anual — dá para comparar, não para orçar. Quantidade por profissional é o que permite dimensionar.",
           "para_que": "Quantidade por profissional é o que permite dimensionar; só o total anual não permite.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -401,7 +402,7 @@
           "porque": "Define se entramos substituindo ou integrando — e onde o CoPilot OS e o PEP OS se encaixam.",
           "para_que": "Define se o sistema atual é substituído ou integrado.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "telefonia-radio",
@@ -416,7 +417,7 @@
           "porque": "Infra da CRU, com contratos próprios. Gravação é exigência legal.",
           "para_que": "Infraestrutura da central, com contratos próprios. A gravação é exigência legal.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "integracao-rede",
@@ -430,7 +431,7 @@
           "porque": "Sem integração o tempo-resposta some no destino, fora do nosso controle — e isso muda que meta dá para assinar.",
           "para_que": "Sem integração com a rede, o tempo até o destino fica fora do controle do serviço.",
           "sensibilidade": "publico",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -458,7 +459,7 @@
           "porque": "Mostra a capacidade fiscal real e o teto político do preço.",
           "para_que": "Mostra a capacidade orçamentária do município para o serviço.",
           "sensibilidade": "interno",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "contrato-vigente",
@@ -499,7 +500,7 @@
           "porque": "É a conta de capital de giro: a folha roda desde o dia 1 e o primeiro recebimento vem depois. Com várias partidas simultâneas, é o risco silencioso.",
           "para_que": "A folha roda desde o primeiro dia; o prazo de pagamento define a necessidade de caixa.",
           "sensibilidade": "interno",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         },
         {
@@ -515,7 +516,7 @@
           "porque": "Garantia imobiliza caixa na partida; sem reajuste atrelado à CCT, contrato longo corrói a remuneração sozinho.",
           "para_que": "Garantia imobiliza recursos na partida; o índice de reajuste sustenta o contrato longo.",
           "sensibilidade": "publico",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         },
         {
@@ -532,7 +533,7 @@
           "para_que": "Meta com desconto no repasse é parte do contrato, e precisa ter forma de apuração definida.",
           "documento": "Termo de referência / contrato",
           "sensibilidade": "publico",
-          "essencial": true,
+          "essencial": false,
           "nova": true
         }
       ]
@@ -565,7 +566,7 @@
           "porque": "Risco de sucessão trabalhista. Pode exigir blindagem contratual explícita ou inviabilizar a operação.",
           "para_que": "Passivo existente pode exigir tratamento contratual explícito.",
           "sensibilidade": "restrito",
-          "essencial": true
+          "essencial": false
         },
         {
           "id": "problemas-prioridades",
@@ -574,7 +575,7 @@
           "porque": "É a proposta de valor dita pelo próprio cliente — e o que ele vai cobrar de nós no dia 1. Também define o Cenário Amplo e o que pode virar aditivo.",
           "para_que": "É o que o município quer resolver — e o que será cobrado desde o primeiro dia.",
           "sensibilidade": "restrito",
-          "essencial": true
+          "essencial": false
         }
       ]
     },
@@ -593,10 +594,11 @@
           "porque": "Documento vale mais que resposta: é o que transforma premissa (⚠️) em fato verificado (✅) no estudo. Lista: portarias de habilitação · relatórios de produção (12 meses) · folha sintética por categoria · contrato vigente com aditivos · demonstrativo de repasses · CCT aplicável · termo de referência · termos de cooperação com o consórcio.",
           "para_que": "Documento transforma resposta declarada em dado verificado.",
           "sensibilidade": "interno",
-          "essencial": true
+          "essencial": false
         }
       ]
     }
   ],
-  "_camadas": "DUAS camadas de justificativa, e a diferença é de PUBLICAÇÃO, não de estilo. `porque` é INTERNO: cita a régua de preço, o Fator de Cobertura, o fator de custo real e as lições de Avaré e Canoas — é o que faz a pergunta ser instrumento e não formulário, e não pode sair daqui. `para_que` é o que quem responde e quem visita o painel público lê: diz para que serve a resposta, sem entregar o método. O build só embarca `para_que`, e falha se `porque` aparecer no bundle."
+  "_camadas": "DUAS camadas de justificativa, e a diferença é de PUBLICAÇÃO, não de estilo. `porque` é INTERNO: cita a régua de preço, o Fator de Cobertura, o fator de custo real e as lições de Avaré e Canoas — é o que faz a pergunta ser instrumento e não formulário, e não pode sair daqui. `para_que` é o que quem responde e quem visita o painel público lê: diz para que serve a resposta, sem entregar o método. O build só embarca `para_que`, e falha se `porque` aparecer no bundle.",
+  "_essencial": "ESSENCIAL não quer dizer 'importante' — quer dizer que sem a resposta o cálculo NÃO FECHA e a lacuna vira premissa numa linha que move o número. Chegou a haver 39 de 40 marcadas: sinal que aponta para tudo não aponta para nada, e quem responde não sabe onde gastar o tempo curto que tem. As demais 25 continuam valendo — só não travam o estudo."
 }

@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="description" content="Levantamento de dados do serviço de urgência — Samais Gestão em Saúde.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="./marca-icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./marca-icone-180.png">
+<title>Samais · Levantamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
+<style>
+/* tokens: doutrina/samais.css (canônico) — nenhuma cor redeclarada aqui */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;padding-bottom:96px}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+
+header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);padding:14px 0 0;
+  background:rgba(20,20,22,.5);-webkit-backdrop-filter:blur(26px) saturate(170%);
+  backdrop-filter:blur(26px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 30px rgba(0,0,0,.32)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.alvo{font-family:var(--fm);font-size:11px;color:var(--t3);text-align:right;line-height:1.35}
+.alvo b{color:var(--gold-dim);font-weight:500;display:block;font-size:12.5px}
+/* A barra de progresso é o contrato com quem responde: 40 perguntas assusta menos
+   quando dá para ver onde está e quanto falta. */
+.prog{height:3px;background:rgba(255,255,255,.07);margin-top:13px;border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));
+  width:0;transition:width .35s ease}
+.progl{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--t3);padding:7px 0 11px}
+
+h1{font-family:var(--fd);font-weight:800;font-size:27px;margin:26px 0 8px;letter-spacing:-.01em}
+h2{font-family:var(--fd);font-weight:700;font-size:19px;margin:0 0 4px}
+.sub{color:var(--t3);font-size:14.5px;margin-bottom:18px}
+.kicker{font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim)}
+
+.view{display:none}
+.view.on{display:block}
+
+.card{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+  padding:18px 20px;margin-bottom:14px}
+.card p{margin:0 0 12px;font-size:14.5px;color:var(--t2)}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:0 0 12px;padding-left:18px;color:var(--t2);font-size:14.5px}
+.card li{margin-bottom:6px}
+
+/* pergunta */
+.q{border:1px solid var(--line-soft);border-radius:14px;padding:16px 18px;margin-bottom:12px;
+  background:var(--card);border-left:3px solid var(--line)}
+.q.feita{border-left-color:var(--gold-dim)}
+.q.pulada{border-left-color:rgba(255,255,255,.14)}
+.q-n{font-family:var(--fm);font-size:10px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.q-p{font-size:15.5px;font-weight:500;color:var(--text);margin:5px 0 4px;line-height:1.45}
+.q-meta{font-family:var(--fm);font-size:10.5px;color:var(--gold-dim);margin-bottom:3px}
+.q-para{font-size:12.5px;color:var(--dim);font-style:italic;line-height:1.45;margin-bottom:11px}
+.q-doc{font-family:var(--fm);font-size:10.5px;color:var(--t3);margin-top:9px}
+.oblig{font-family:var(--fm);font-size:9px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(184,149,78,.34);border-radius:5px;padding:1px 6px;margin-left:8px}
+
+/* Os quatro estados são o coração do questionário: "não existe indicador" é ACHADO,
+   não lacuna, e sem um botão para dizer isso a resposta volta em branco e some. */
+.estados{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.est{font-family:var(--fm);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 11px;border-radius:8px;border:1px solid var(--line-soft);background:transparent;
+  color:var(--t3);cursor:pointer;transition:all .14s;min-height:34px}
+.est:hover{border-color:var(--gold-dim);color:var(--t2)}
+.est[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);background:rgba(184,149,78,.09)}
+
+input[type=text],input[type=number],textarea,select{
+  width:100%;background:var(--s1);color:var(--text);border:1px solid var(--line-soft);
+  border-radius:10px;padding:11px 13px;font-family:var(--fb);font-size:15px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold-dim)}
+textarea{min-height:84px;resize:vertical;line-height:1.5}
+label.f{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--t3);margin:0 0 5px}
+.campo{margin-bottom:10px}
+.nota-c{margin-top:9px}
+
+/* tabela: a auditoria mostrou que campo aberto para dado estruturado volta pela metade */
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px}
+table{border-collapse:collapse;width:100%;min-width:440px}
+th{font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t3);text-align:left;padding:0 6px 6px;font-weight:400;white-space:nowrap}
+td{padding:0 6px 6px}
+td input{padding:8px 10px;font-size:14px}
+.tbl-acoes{display:flex;gap:8px;flex-wrap:wrap}
+.lixo{background:none;border:1px solid var(--line-soft);color:var(--t3);border-radius:8px;
+  width:34px;min-width:34px;cursor:pointer;font-size:15px;line-height:1}
+.lixo:hover{border-color:var(--amber);color:var(--amber)}
+
+.btn{border:1px solid var(--line-soft);background:var(--s1);color:var(--text);border-radius:11px;
+  padding:12px 18px;font-family:var(--fm);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  cursor:pointer;transition:all .15s;min-height:44px}
+.btn:hover{border-color:var(--gold-dim)}
+.btn.primario{background:linear-gradient(180deg,var(--gold-soft),var(--gold-deep));
+  color:#100C04;border-color:transparent;font-weight:500}
+.btn.primario:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.acoes{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 8px}
+.acoes .btn{flex:1 1 auto}
+
+.blocos{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+/* No celular os 9 blocos empilhavam em sete linhas e empurravam a primeira pergunta
+   para fora da tela: quem abre vê índice, não questionário. Vira trilho horizontal,
+   com a máscara dizendo que há mais à direita (mesmo recurso da barra do OS). */
+@media(max-width:600px){
+  .blocos{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin:0 -18px 16px;padding:0 18px 2px;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
+  .blocos::-webkit-scrollbar{display:none}
+  .bl{flex:0 0 auto;white-space:nowrap}
+}
+.bl{font-family:var(--fm);font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  padding:6px 10px;border-radius:8px;border:1px solid var(--line-soft);background:transparent;
+  color:var(--t3);cursor:pointer;min-height:32px}
+.bl[aria-current="true"]{border-color:var(--gold);color:var(--gold)}
+.bl .n{color:var(--dim);margin-left:5px}
+.bl.completo .n{color:var(--gold-dim)}
+
+.rodape{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;gap:10px;padding:11px 18px;
+  padding-bottom:calc(11px + env(safe-area-inset-bottom));
+  background:rgba(20,20,22,.66);-webkit-backdrop-filter:blur(24px) saturate(170%);
+  backdrop-filter:blur(24px) saturate(170%);border-top:1px solid rgba(255,255,255,.12)}
+.rodape .btn{flex:1 1 0}
+.rodape .passo{font-family:var(--fm);font-size:10.5px;color:var(--t3);align-self:center;
+  white-space:nowrap;padding:0 4px}
+
+.lgpd{font-size:12.5px;color:var(--dim);line-height:1.5;border-top:1px solid var(--line-soft);
+  padding-top:13px;margin-top:15px}
+.lgpd b{color:var(--t3);font-weight:500}
+#toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(14px);z-index:60;
+  background:var(--s2);border:1px solid var(--line);border-radius:11px;padding:11px 17px;
+  font-family:var(--fm);font-size:12px;opacity:0;pointer-events:none;transition:all .22s;max-width:88vw}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:520px){h1{font-size:23px}.acoes .btn{flex:1 1 100%}}
+
+/* ── material liquid glass (doutrina/samais.css) ──
+   Declaração-base primeiro: Firefox descarta a linha inteira quando não entende a url(),
+   e sem a base ficaria sem vidro nenhum. */
+.card,.q,.rodape,header{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur) url(#glassDistort);
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+}
+header,.rodape{border-radius:0}
+header{border-width:0 0 1px}
+.rodape{border-width:1px 0 0}
+.q{border-left-width:3px}
+@media(max-width:720px){
+  /* sem refração no celular: custa GPU e não se vê a 390px */
+  .card,.q,.rodape,header{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .card,.q,.rodape,header{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+}
+/* escape do material: a tabela rola DENTRO do vidro em vez de ser clipada. Depois do material. */
+.tbl{overflow-x:auto;overflow-y:hidden}
+</style>
+</head>
+<body>
+
+<!-- refração do liquid glass · doutrina/glass-filter.html -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<header><div class="wrap">
+  <div class="hrow">
+    <a class="marca" href="#" onclick="return false" aria-label="Samais">
+      <span class="nome">samais</span><span class="sep">·</span><span class="desc">levantamento</span>
+      <span class="mono-sa">SA+</span>
+    </a>
+    <div class="alvo"><b id="hAlvo">—</b><span id="hBloco">levantamento do serviço</span></div>
+  </div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div class="progl"><span id="progTxt">—</span><span id="progSalvo">salva neste aparelho</span></div>
+</div></header>
+
+<main class="wrap">
+
+  <!-- ABERTURA -->
+  <section class="view on" id="v-inicio">
+    <div class="kicker">samais gestão em saúde</div>
+    <h1 id="tAlvo">Levantamento do serviço de urgência</h1>
+    <p class="sub">Um questionário curto sobre como o serviço funciona hoje. As respostas
+      permitem dimensionar a operação e comparar o custo atual com o de uma operação
+      contratada — sem elas, qualquer número seria estimativa.</p>
+
+    <div class="card">
+      <h2>Antes de começar</h2>
+      <ul>
+        <li><b id="cN">40</b> perguntas, em <b id="cB">9</b> blocos. Dá para responder em partes:
+          o que você preencher fica salvo <b>neste aparelho</b> e você pode fechar e voltar depois.</li>
+        <li>Se um dado <b>não existe</b>, diga que não existe — isso é resposta, não falha.
+          Saber que o serviço não mede um indicador é tão útil quanto o número.</li>
+        <li>Se o dado existe mas você não tem agora, marque <b>a levantar</b> e siga.</li>
+        <li>Ao final, o questionário gera um <b>arquivo</b> para você devolver a quem enviou
+          o link. <b>Nada é enviado automaticamente</b> — nenhuma resposta sai deste aparelho
+          antes disso.</li>
+      </ul>
+      <p style="color:var(--t3);font-size:13.5px">Documento vale mais que resposta: onde houver
+        portaria, relatório ou contrato, indique o documento — é o que transforma um número
+        declarado em dado verificado.</p>
+      <div class="lgpd"><b>Sobre os dados.</b> O levantamento é para estudo de viabilidade do
+        serviço (prospecção B2G). Pedimos o mínimo necessário e não pedimos dado pessoal de
+        paciente nem de servidor identificado. As respostas ficam no seu navegador até você
+        gerar o arquivo e decidir devolvê-lo.</div>
+    </div>
+
+    <div class="campo"><label class="f" for="qNome">Seu nome (opcional)</label>
+      <input type="text" id="qNome" placeholder="quem está respondendo"></div>
+    <div class="campo"><label class="f" for="qCargo">Cargo / função (opcional)</label>
+      <input type="text" id="qCargo" placeholder="ex.: coordenador do serviço"></div>
+    <div class="campo"><label class="f" for="qOrgao">Órgão (opcional)</label>
+      <input type="text" id="qOrgao" placeholder="ex.: Secretaria Municipal de Saúde"></div>
+
+    <div class="acoes">
+      <button class="btn primario" id="btComecar">Começar</button>
+      <button class="btn ghost" id="btRetomar" hidden>Retomar de onde parei</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTAS -->
+  <section class="view" id="v-perguntas">
+    <div class="blocos" id="blocos"></div>
+    <div class="kicker" id="blKicker">bloco</div>
+    <h2 id="blNome">—</h2>
+    <p class="sub" id="blSub"></p>
+    <div id="perguntas"></div>
+  </section>
+
+  <!-- FECHAMENTO -->
+  <section class="view" id="v-fim">
+    <div class="kicker">último passo</div>
+    <h1>Devolver as respostas</h1>
+    <div class="card" id="resumo"></div>
+    <div class="card">
+      <h2>Como devolver</h2>
+      <p>Gere o arquivo e devolva-o a quem enviou o link — por e-mail, WhatsApp ou qualquer
+         canal que você já use. É um arquivo de texto; pode abrir antes para conferir.</p>
+      <div class="acoes">
+        <button class="btn primario" id="btBaixar">Gerar arquivo</button>
+        <button class="btn" id="btCopiar">Copiar respostas</button>
+        <button class="btn ghost" id="btEnviar">Enviar por e-mail</button>
+      </div>
+      <p style="color:var(--t3);font-size:13px;margin-top:4px">Ainda dá para voltar e completar
+         o que ficou em aberto — o arquivo pode ser gerado quantas vezes for preciso.</p>
+    </div>
+    <div class="acoes">
+      <button class="btn ghost" id="btVoltarQ">Voltar às perguntas</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="rodape" id="rodape" hidden>
+  <button class="btn ghost" id="btAnt">Anterior</button>
+  <span class="passo" id="passo">—</span>
+  <button class="btn primario" id="btProx">Próximo</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const hojeISO = () => { const d=new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+let toastT;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2600); }
+
+/* ── contexto vindo do link ───────────────────────────────────────────────
+   O link carrega só identificação do alvo — nada secreto, nada de resposta.
+   Sem slug o questionário ainda funciona: vira levantamento avulso.        */
+const P = new URLSearchParams(location.search);
+const CTX = {
+  slug:  P.get('slug')  || '',
+  alvo:  P.get('alvo')  || '',
+  uf:    (P.get('uf')   || '').toUpperCase().slice(0,2),
+  de:    P.get('de')    || '',
+};
+const CHAVE = 'samais-briefing:' + (CTX.slug || 'avulso');
+
+/* ── estado ───────────────────────────────────────────────────────────── */
+let QUEST = null, TODAS = [], BLOCO = 0;
+let R = { respondente:{nome:'',cargo:'',orgao:''}, respostas:{} };
+
+try { const s = localStorage.getItem(CHAVE); if(s) R = JSON.parse(s); } catch(e){}
+const salvar = () => { try{ localStorage.setItem(CHAVE, JSON.stringify(R)); }catch(e){} };
+
+/* ── carga do questionário ────────────────────────────────────────────── */
+fetch('./questionario.json').then(r=>r.ok?r.json():Promise.reject()).then(q=>{
+  QUEST = q;
+  TODAS = q.blocos.flatMap(b=>b.perguntas);
+  $('#cN').textContent = TODAS.length;
+  $('#cB').textContent = q.blocos.length;
+  const nome = CTX.alvo ? `${CTX.alvo}${CTX.uf?'/'+CTX.uf:''}` : 'Levantamento';
+  $('#hAlvo').textContent = nome;
+  document.title = `Samais · Levantamento${CTX.alvo?' — '+CTX.alvo:''}`;
+  if(CTX.alvo) $('#tAlvo').textContent = `Serviço de urgência — ${nome}`;
+  if(CTX.de) $('#hBloco').textContent = 'a pedido de ' + CTX.de;
+  $('#qNome').value  = R.respondente?.nome  || '';
+  $('#qCargo').value = R.respondente?.cargo || '';
+  $('#qOrgao').value = R.respondente?.orgao || '';
+  if(Object.keys(R.respostas||{}).length) $('#btRetomar').hidden = false;
+  progresso();
+}).catch(()=>{
+  $('#v-inicio').innerHTML = `<div class="card"><h2>Não consegui carregar as perguntas</h2>
+    <p>Recarregue a página. Se persistir, avise quem enviou o link.</p></div>`;
+});
+
+/* ── navegação ────────────────────────────────────────────────────────── */
+function irPara(v){
+  $$('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  $('#rodape').hidden = (v !== 'perguntas');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+$('#btComecar').onclick = () => { guardarRespondente(); BLOCO = 0; renderBloco(); irPara('perguntas'); };
+$('#btRetomar').onclick = () => {
+  guardarRespondente();
+  // Retoma no primeiro bloco que ainda tem pergunta sem registro — não no começo.
+  const i = QUEST.blocos.findIndex(b => b.perguntas.some(q => !R.respostas[q.id]));
+  BLOCO = i < 0 ? 0 : i; renderBloco(); irPara('perguntas');
+};
+$('#btVoltarQ').onclick = () => { renderBloco(); irPara('perguntas'); };
+$('#btAnt').onclick = () => { if(BLOCO>0){ BLOCO--; renderBloco(); } };
+$('#btProx').onclick = () => {
+  if(BLOCO < QUEST.blocos.length-1){ BLOCO++; renderBloco(); }
+  else { renderFim(); irPara('fim'); }
+};
+function guardarRespondente(){
+  R.respondente = { nome:$('#qNome').value.trim(), cargo:$('#qCargo').value.trim(), orgao:$('#qOrgao').value.trim() };
+  salvar();
+}
+
+/* ── render de um bloco ───────────────────────────────────────────────── */
+const ESTADOS = [
+  ['respondido',   'Tenho o dado'],
+  ['nao-existe',   'Não existe'],
+  ['a-levantar',   'A levantar'],
+  ['nao-se-aplica','Não se aplica'],
+];
+
+function renderBloco(){
+  const b = QUEST.blocos[BLOCO];
+  $('#blKicker').textContent = `bloco ${BLOCO+1} de ${QUEST.blocos.length}`;
+  $('#blNome').textContent = b.nome;
+  $('#hBloco').textContent = b.nome;
+  const ess = b.perguntas.filter(q=>q.essencial).length;
+  $('#blSub').textContent = `${b.perguntas.length} pergunta(s)` + (ess?` · ${ess} essencial(is) para o cálculo`:'');
+  $('#passo').textContent = `${BLOCO+1}/${QUEST.blocos.length}`;
+  $('#btAnt').disabled = BLOCO === 0;
+  $('#btProx').textContent = BLOCO === QUEST.blocos.length-1 ? 'Concluir' : 'Próximo';
+
+  $('#blocos').innerHTML = QUEST.blocos.map((x,i)=>{
+    const feitas = x.perguntas.filter(q=>R.respostas[q.id]).length;
+    return `<button class="bl ${feitas===x.perguntas.length?'completo':''}" data-i="${i}"
+      ${i===BLOCO?'aria-current="true"':''}>${esc(x.nome)}<span class="n">${feitas}/${x.perguntas.length}</span></button>`;
+  }).join('');
+  $$('#blocos .bl').forEach(el=>el.onclick=()=>{ BLOCO=+el.dataset.i; renderBloco(); });
+
+  $('#perguntas').innerHTML = b.perguntas.map((q,i)=>cartaoPergunta(q, i+1)).join('');
+  b.perguntas.forEach(ligar);
+  progresso();
+}
+
+function cartaoPergunta(q, n){
+  const r = R.respostas[q.id];
+  const cls = !r ? '' : (r.estado==='respondido' ? 'feita' : 'pulada');
+  const meta = [q.unidade && `em ${q.unidade}`, q.periodo].filter(Boolean).join(' · ');
+  return `<div class="q ${cls}" id="q-${q.id}">
+    <div class="q-n">pergunta ${n}${q.essencial?'<span class="oblig">essencial</span>':''}</div>
+    <div class="q-p">${esc(q.pergunta)}</div>
+    ${meta?`<div class="q-meta">${esc(meta)}</div>`:''}
+    ${q.para_que?`<div class="q-para">${esc(q.para_que)}</div>`:''}
+    <div class="estados">${ESTADOS.map(([v,rot])=>
+      `<button class="est" data-q="${q.id}" data-e="${v}" aria-pressed="${r?.estado===v}">${rot}</button>`).join('')}</div>
+    <div data-campo="${q.id}">${r?.estado==='respondido'?campo(q,r):''}</div>
+    ${q.documento?`<div class="q-doc">documento que comprova: ${esc(q.documento)}</div>`:''}
+  </div>`;
+}
+
+/* O formato manda no campo. Tabela em vez de texto livre foi a correção que mais
+   mudou a qualidade da devolução: pedido estruturado volta estruturado. */
+function campo(q, r){
+  const v = r?.valor;
+  if(q.formato === 'escolha'){
+    return `<div class="campo"><label class="f">Resposta</label>
+      <select data-in="${q.id}"><option value="">— escolha —</option>
+      ${(q.opcoes||[]).map(o=>`<option ${v===o?'selected':''}>${esc(o)}</option>`).join('')}</select></div>` + notaC(q,r);
+  }
+  if(q.formato === 'numero'){
+    return `<div class="campo"><label class="f">Resposta${q.unidade?` (${esc(q.unidade)})`:''}</label>
+      <input type="text" inputmode="decimal" data-in="${q.id}" value="${esc(v??'')}"
+        placeholder="${esc(q.unidade||'número')}"></div>` + notaC(q,r);
+  }
+  if(q.formato === 'tabela'){
+    const cols = q.colunas || [];
+    const linhas = Array.isArray(v) && v.length ? v : [cols.map(()=>'')];
+    return `<div class="tbl"><table><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}<th></th></tr></thead>
+      <tbody data-tab="${q.id}">${linhas.map((ln,i)=>linhaTab(q,ln,i)).join('')}</tbody></table></div>
+      <div class="tbl-acoes"><button class="btn ghost" data-add="${q.id}">+ linha</button></div>` + notaC(q,r);
+  }
+  return `<div class="campo"><label class="f">Resposta</label>
+    <textarea data-in="${q.id}" placeholder="descreva">${esc(v??'')}</textarea></div>` + notaC(q,r);
+}
+function linhaTab(q, ln, i){
+  return `<tr>${(q.colunas||[]).map((c,j)=>
+    `<td><input type="text" data-cel="${q.id}" data-l="${i}" data-c="${j}" value="${esc(ln?.[j]??'')}"></td>`).join('')}
+    <td><button class="lixo" data-del="${q.id}" data-l="${i}" title="remover linha">×</button></td></tr>`;
+}
+function notaC(q, r){
+  return `<div class="campo nota-c"><label class="f">Observação (opcional)</label>
+    <input type="text" data-nota="${q.id}" value="${esc(r?.nota??'')}" placeholder="ressalva, fonte, período"></div>`;
+}
+
+/* ── eventos por pergunta ─────────────────────────────────────────────── */
+function ligar(q){
+  const box = $(`#q-${CSS.escape(q.id)}`);
+  if(!box) return;
+
+  box.querySelectorAll('.est').forEach(b=>b.onclick=()=>{
+    const e = b.dataset.e;
+    const atual = R.respostas[q.id];
+    if(atual?.estado === e){ delete R.respostas[q.id]; }        // clicar de novo desmarca
+    else { R.respostas[q.id] = { ...(atual||{}), estado:e }; }
+    salvar(); redesenhar(q);
+  });
+  ligarCampos(q, box);
+}
+
+function ligarCampos(q, box){
+  box.querySelectorAll('[data-in]').forEach(el=>el.oninput=()=>{
+    R.respostas[q.id] = { ...(R.respostas[q.id]||{estado:'respondido'}), valor: el.value };
+    salvar(); progresso();
+  });
+  box.querySelectorAll('[data-nota]').forEach(el=>el.oninput=()=>{
+    R.respostas[q.id] = { ...(R.respostas[q.id]||{estado:'respondido'}), nota: el.value };
+    salvar();
+  });
+  box.querySelectorAll('[data-cel]').forEach(el=>el.oninput=()=>{
+    const r = R.respostas[q.id] || {estado:'respondido'};
+    const m = Array.isArray(r.valor) ? r.valor.map(x=>[...x]) : [];
+    const l = +el.dataset.l, c = +el.dataset.c;
+    while(m.length <= l) m.push((q.colunas||[]).map(()=>''));
+    m[l][c] = el.value;
+    R.respostas[q.id] = { ...r, valor:m }; salvar(); progresso();
+  });
+  box.querySelectorAll('[data-add]').forEach(el=>el.onclick=()=>{
+    const r = R.respostas[q.id] || {estado:'respondido'};
+    const m = Array.isArray(r.valor) ? r.valor.map(x=>[...x]) : [(q.colunas||[]).map(()=>'')];
+    m.push((q.colunas||[]).map(()=>''));
+    R.respostas[q.id] = { ...r, valor:m }; salvar(); redesenhar(q);
+  });
+  box.querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{
+    const r = R.respostas[q.id]; if(!r || !Array.isArray(r.valor)) return;
+    const m = r.valor.filter((_,i)=>i !== +el.dataset.l);
+    R.respostas[q.id] = { ...r, valor: m.length?m:[(q.colunas||[]).map(()=>'')] };
+    salvar(); redesenhar(q);
+  });
+}
+
+// Redesenha só o cartão da pergunta: recriar o bloco inteiro faria o teclado do celular
+// fechar e perder o foco a cada tecla.
+function redesenhar(q){
+  const box = $(`#q-${CSS.escape(q.id)}`);
+  const b = QUEST.blocos[BLOCO];
+  const n = b.perguntas.findIndex(x=>x.id===q.id) + 1;
+  box.outerHTML = cartaoPergunta(q, n);
+  ligar(q);
+  $$('#blocos .bl').forEach((el,i)=>{
+    const x = QUEST.blocos[i], feitas = x.perguntas.filter(p=>R.respostas[p.id]).length;
+    el.querySelector('.n').textContent = `${feitas}/${x.perguntas.length}`;
+    el.classList.toggle('completo', feitas===x.perguntas.length);
+  });
+  progresso();
+}
+
+/* ── progresso ────────────────────────────────────────────────────────── */
+function progresso(){
+  if(!TODAS.length) return;
+  const feitas = TODAS.filter(q=>R.respostas[q.id]).length;
+  const pct = Math.round(feitas / TODAS.length * 100);
+  $('#progBar').style.width = pct + '%';
+  $('#progTxt').textContent = `${feitas} de ${TODAS.length} respondidas · ${pct}%`;
+}
+
+/* ── fechamento ───────────────────────────────────────────────────────── */
+function renderFim(){
+  const feitas = TODAS.filter(q=>R.respostas[q.id]?.estado==='respondido').length;
+  const achados = TODAS.filter(q=>R.respostas[q.id]?.estado==='nao-existe').length;
+  const aLevantar = TODAS.filter(q=>R.respostas[q.id]?.estado==='a-levantar').length;
+  const emBranco = TODAS.filter(q=>!R.respostas[q.id]);
+  const essAberto = TODAS.filter(q=>q.essencial && R.respostas[q.id]?.estado!=='respondido');
+
+  $('#resumo').innerHTML = `
+    <h2>O que você respondeu</h2>
+    <ul>
+      <li><b>${feitas}</b> pergunta(s) com dado</li>
+      ${achados?`<li><b>${achados}</b> marcadas como <b>não existe</b> — isso é achado, não lacuna</li>`:''}
+      ${aLevantar?`<li><b>${aLevantar}</b> a levantar</li>`:''}
+      ${emBranco.length?`<li><b>${emBranco.length}</b> sem nenhuma marcação</li>`:''}
+    </ul>
+    ${essAberto.length ? `<p style="color:var(--amber)">Ainda faltam <b>${essAberto.length}</b>
+        pergunta(s) essenciais. Dá para devolver assim mesmo — mas cada uma delas vira
+        premissa em vez de dado no estudo.</p>
+      <p style="color:var(--t3);font-size:13px">${essAberto.slice(0,6).map(q=>esc(q.pergunta)).join(' · ')}${essAberto.length>6?' …':''}</p>`
+      : `<p style="color:var(--gold-dim)">Todas as perguntas essenciais estão respondidas.</p>`}`;
+}
+
+/* O arquivo sai no formato que o Samais-OS valida (briefings/&lt;slug&gt;.json): quem recebe
+   deixa cair na pasta e o build confere. Formato livre daria trabalho manual dos dois lados. */
+function montar(){
+  const respostas = {};
+  for(const q of TODAS){
+    const r = R.respostas[q.id];
+    if(!r?.estado) continue;
+    const o = { estado: r.estado };
+    if(r.estado === 'respondido'){
+      const t = textoDe(q, r.valor);
+      if(!t) continue;                       // marcou "tenho o dado" e não preencheu: não é resposta
+      o.resposta = t;
+      o.procedencia = 'premissa';            // declarado pelo ente; vira 'verificado' com documento
+    }
+    if(r.nota) o.nota = r.nota;
+    respostas[q.id] = o;
+  }
+  const b = {
+    slug: CTX.slug || 'levantamento-sem-slug',
+    alvo: CTX.alvo || '(preencher)',
+    uf: /^[A-Z]{2}$/.test(CTX.uf) ? CTX.uf : 'SP',
+    aplicado_em: hojeISO(),
+    respostas,
+  };
+  const resp = R.respondente || {};
+  if(resp.nome || resp.cargo || resp.orgao){
+    b.respondente = { nome:resp.nome||null, cargo:resp.cargo||null, orgao:resp.orgao||null };
+  }
+  return b;
+}
+function textoDe(q, v){
+  if(v == null) return '';
+  if(Array.isArray(v)){
+    const cols = q.colunas || [];
+    const linhas = v.filter(l => l.some(c => String(c||'').trim()));
+    if(!linhas.length) return '';
+    // Markdown: legível como texto e já pronto para o estudo, sem conversão.
+    return [`| ${cols.join(' | ')} |`, `|${cols.map(()=>'---').join('|')}|`,
+            ...linhas.map(l=>`| ${cols.map((_,i)=>String(l[i]??'').trim()).join(' | ')} |`)].join('\n');
+  }
+  return String(v).trim();
+}
+const nomeArq = () => `briefing-${CTX.slug || 'levantamento'}.json`;
+
+$('#btBaixar').onclick = () => {
+  const blob = new Blob([JSON.stringify(montar(), null, 2) + '\n'], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = nomeArq();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  toast('Arquivo gerado — devolva a quem enviou o link.');
+};
+$('#btCopiar').onclick = async () => {
+  const txt = JSON.stringify(montar(), null, 2);
+  try { await navigator.clipboard.writeText(txt); toast('Respostas copiadas.'); }
+  catch(e){
+    // clipboard exige contexto seguro; sem ele, mostra o texto para copiar à mão
+    const ta = document.createElement('textarea');
+    ta.value = txt; ta.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:60vh;z-index:99';
+    document.body.appendChild(ta); ta.select();
+    toast('Selecione e copie o texto exibido.');
+    ta.onblur = () => ta.remove();
+  }
+};
+$('#btEnviar').onclick = () => {
+  const assunto = `Levantamento — ${CTX.alvo || 'serviço de urgência'}${CTX.uf?'/'+CTX.uf:''}`;
+  const corpo = `Segue o levantamento respondido.\n\n` +
+    `Gere o arquivo pelo botão "Gerar arquivo" e anexe a este e-mail.\n\n` +
+    `Respondente: ${(R.respondente?.nome||'—')}\n`;
+  location.href = `mailto:?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+};
+</script>
+</body>
+</html>

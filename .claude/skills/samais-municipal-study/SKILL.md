@@ -58,8 +58,15 @@ Use isso como mapa de entrada do cálculo:
 - `estado: "a-levantar"` vira pendência explícita no estudo, nunca número inventado.
 - O que estiver marcado `restrito` **não entra em nenhuma peça** — nem no HTML, nem em slide.
 
-Se não houver briefing do alvo, siga para a FASE 1 e registre, ao final, quais perguntas do
-questionário padrão ficaram sem resposta — é isso que se manda ao ente.
+**Se não houver briefing do alvo**, não pare: siga para a FASE 1 com o que for público e, em
+paralelo, **mande o levantamento**. O link se gera na página de briefings do painel (seção
+"Enviar um levantamento") — o ente responde pelo celular e devolve um arquivo que cai direto
+em `briefings/<slug>.json`. Ao fechar o estudo, registre quais perguntas ficaram sem resposta:
+cada uma vira premissa ⚠️ no lugar de dado ✅, e é isso que se cobra na próxima rodada.
+
+**Prioridade quando o tempo é curto:** as **15 perguntas `essencial`** são as que travam o
+cálculo. As outras 25 melhoram o estudo, mas não o impedem — não segure o envio esperando
+questionário completo.
 
 ---
 

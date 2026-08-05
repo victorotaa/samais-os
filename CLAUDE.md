@@ -163,15 +163,29 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   **capacidade de implantar** — mesmas pessoas, mesma frota, mesmo caixa.
 
 - **`briefings/`** — **o que se pergunta ao ente antes de calcular**, e a entrada do estudo
-  (`samais-municipal-study` FASE 0: olhar o briefing antes de pesquisar). O questionário é
-  **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra; questionário longo
-  volta pela metade. Quatro regras de formulação, nascidas da auditoria de Avaré: uma pergunta
-  = um dado · unidade e período no enunciado · tabela em vez de campo aberto · estado explícito
-  (`respondido` · `nao-existe` · `a-levantar` · `nao-se-aplica`), porque "não existe indicador"
-  é **achado**, não lacuna. Cada briefing guarda só as respostas,
+  (`samais-municipal-study` FASE 0: olhar o briefing antes de pesquisar). São **duas
+  superfícies**, e faltar uma delas quebra o ciclo: **perguntar** (o link que se manda) e
+  **catalogar** (o que voltou). A página `dashboard/briefings.html` gera o link; o formulário
+  vive em `ferramentas/briefing/` e vai ao bundle como `dashboard/briefing/`.
+  - **Quem responde é o ente, no celular dele.** O formulário é **local-first**: as respostas
+    ficam no aparelho (localStorage) até a pessoa gerar o arquivo e devolver. **Não há
+    servidor** — nada é transmitido sem ela mandar. O arquivo já sai no formato que o OS
+    valida: cai em `briefings/<slug>.json` e o build confere.
+  - **O link não é segredo:** carrega só `alvo`, `uf`, `slug` e quem enviou. Nenhuma resposta,
+    nenhum dado nosso. Quem abrir sem responder vê perguntas em branco.
+  O questionário é **único** e tem **teto de 40 perguntas** — para incluir uma, tira outra;
+  questionário longo volta pela metade. Quatro regras de formulação, nascidas da auditoria de
+  Avaré: uma pergunta = um dado · unidade e período no enunciado · tabela em vez de campo
+  aberto · estado explícito (`respondido` · `nao-existe` · `a-levantar` · `nao-se-aplica`),
+  porque "não existe indicador" é **achado**, não lacuna. Cada briefing guarda só as respostas,
   referenciando a pergunta por id — o build recusa resposta a pergunta inexistente.
-  Cada pergunta declara **`porque`** (o que alimenta na Fórmula Mestre) e **`sensibilidade`**
-  (`publico` · `interno` · `restrito`). ⚠️ **O bundle é público:** só `publico` leva o texto;
+  **`essencial` = sem isso o cálculo não fecha**, não "é importante": chegou a haver 39 de 40
+  marcadas, e sinal que aponta para tudo não aponta para nada. Hoje são 15.
+  ⚠️ **Duas justificativas, e a diferença é de publicação.** `porque` é **interno** (régua de
+  preço, dimensionamento, lições de Avaré e Canoas) e **não sai do repositório**; `para_que` é
+  o que quem responde e o painel público leem. O build embarca só `para_que` — e a guarda de
+  confidencialidade **falha** se régua de preço, fator de cobertura ou BDI aparecerem no bundle.
+  ⚠️ **O bundle é público:** por `sensibilidade`, só `publico` leva o texto da resposta;
   `interno` vira "respondido · uso interno"; **`restrito` some inteiro — nem o enunciado**,
   porque mostrar "passivo trabalhista: respondido" ao lado de um município nomeado já é
   informação. A completude conta **todas** as perguntas, inclusive as ocultas.
@@ -181,6 +195,9 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
 
 ## Ferramentas
 
+- `ferramentas/briefing/` — formulário de levantamento que o **ente** responde (link gerado
+  na página de briefings). **Local-first**: nada sai do aparelho até gerar o arquivo. A saída
+  já é `briefings/<slug>.json` válido.
 - `ferramentas/despesas/` — prestação de contas (viagem + sede): lançamento com foto do
   comprovante, fechamento mensal, PDF de reembolso, consolidação da equipe por JSON.
   **Local-first** (IndexedDB no aparelho; nada em servidor). Schema:
@@ -202,7 +219,10 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
 - `dashboard/index.html` — **home do OS** (índice: ferramentas, doutrina, inteligência, produtos).
 - `dashboard/frentes.html` — cockpit de frentes (pipeline).
 - `dashboard/implantacao.html` — prontidão de partida das frentes contratadas.
-- `dashboard/briefings.html` — levantamentos aplicados, com a fronteira de sensibilidade.
+- `dashboard/briefings.html` — levantamentos aplicados + gerador do link de levantamento.
+- `dashboard/briefing/` — cópia de `ferramentas/briefing/` (**gerada**, fora do git): o
+  formulário que o ente responde, com a sua própria cópia do questionário **sem** a camada
+  interna (`porque` e `sensibilidade` não viajam).
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.

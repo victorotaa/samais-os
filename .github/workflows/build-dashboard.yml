@@ -1,21 +1,19 @@
 name: build-dashboard
 
-# Mantém o cockpit honesto: a cada push/PR que toca frentes ou o build,
-# valida todos os status.json contra o schema e regenera data.json.
-# Falha o CI se algum status.json for inválido (o build sai com código 1).
+# Mantém o cockpit honesto: valida frentes, obrigações, implantação, briefings e produtos
+# contra os schemas, regenera data.json e roda a GUARDA DE CONFIDENCIALIDADE. Falha o CI
+# se qualquer arquivo for inválido ou se termo proibido aparecer no bundle publicável.
+#
+# SEM FILTRO DE `paths`, de propósito. Havia um, listando frentes/ + dashboard/ + o script —
+# e ele não cobria ferramentas/, briefings/, implantacao/, produtos/ nem radar/. Ou seja: a
+# guarda que existe para impedir vazamento não rodava justamente nas mudanças com mais
+# chance de introduzir um. Filtro de caminho precisa ser mantido em sincronia com cada
+# domínio novo, e foi exatamente isso que falhou. O job leva ~7s; não vale o risco.
 
 on:
   push:
     branches: [main]
-    paths:
-      - "frentes/**"
-      - "scripts/build-dashboard.mjs"
-      - "dashboard/**"
   pull_request:
-    paths:
-      - "frentes/**"
-      - "scripts/build-dashboard.mjs"
-      - "dashboard/**"
   workflow_dispatch:
 
 jobs:

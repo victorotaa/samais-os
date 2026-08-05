@@ -69,10 +69,14 @@ async function buscarPagina(modalidade, de, ate, pagina) {
   return { itens, totalPaginas };
 }
 
-/** Extrai os campos que interessam, tolerando nomes alternativos do PNCP. */
+/** Extrai os campos que interessam, tolerando nomes alternativos do PNCP.
+ *  Captura também o CONTATO do alvo: em prospecção B2G a conversa costuma acontecer
+ *  ANTES do edital, e um radar que só diz "existe um certame" não serve para ligar
+ *  para ninguém. Tudo que o PNCP publicar sobre a unidade compradora vem junto. */
 function mapear(it) {
   const un = it.unidadeOrgao || it.unidade || {};
   const org = it.orgaoEntidade || it.orgao || {};
+  const amp = it.amparoLegal || {};
   const id = it.numeroControlePNCP || it.numeroControlePncp || it.id || "";
   return {
     id: String(id),
@@ -86,7 +90,34 @@ function mapear(it) {
     valor_estimado:
       typeof it.valorTotalEstimado === "number" ? it.valorTotalEstimado
       : typeof it.valorTotal === "number" ? it.valorTotal : null,
+    // com quem falar — só o que o PNCP publicou; campo ausente fica null, nunca inventado
+    contato: {
+      unidade: un.nomeUnidade || un.nome || null,
+      codigo_unidade: un.codigoUnidade || null,
+      orgao_cnpj: org.cnpj || null,
+      esfera: org.esferaId || null,
+      poder: org.poderId || null,
+      municipio_ibge: un.codigoIbge || null,
+      sistema_origem: it.linkSistemaOrigem || null,
+      processo: it.processo || it.numeroProcesso || null,
+      numero_compra: it.numeroCompra || null,
+      ano_compra: it.anoCompra || null,
+      amparo_legal: amp.nome || amp.descricao || null,
+      complemento: (it.informacaoComplementar || "").toString().slice(0, 400) || null,
+    },
+    // vigência declarada, quando vier — é o que permite converter valor total em mensal
+    vigencia_inicio: it.dataInicioVigencia || null,
+    vigencia_fim: it.dataFimVigencia || null,
   };
+}
+
+/** Meses de vigência declarados; null quando o PNCP não publica as duas datas. */
+function mesesVigencia(o) {
+  if (!o.vigencia_inicio || !o.vigencia_fim) return null;
+  const a = Date.parse(String(o.vigencia_inicio).slice(0, 10));
+  const b = Date.parse(String(o.vigencia_fim).slice(0, 10));
+  if (!Number.isFinite(a) || !Number.isFinite(b) || b <= a) return null;
+  return Math.max(1, Math.round((b - a) / 86400000 / 30.4375));
 }
 
 // ---------- execução ----------
@@ -137,7 +168,7 @@ if (!fixture && !brutos.length && falhas.length) {
 // ---------- filtragem ----------
 const vistos = new Set();
 const oportunidades = [];
-let descartadasRuido = 0, descartadasScore = 0, descartadasUF = 0, duplicadas = 0;
+let descartadasRuido = 0, descartadasScore = 0, descartadasUF = 0, descartadasPorte = 0, duplicadas = 0;
 
 for (const bruto of brutos) {
   const o = mapear(bruto);
@@ -152,19 +183,42 @@ for (const bruto of brutos) {
   if (score < (filtros.score_minimo ?? 5)) { descartadasScore++; continue; }
   if (ufsAlvo.length && !ufsAlvo.includes(o.uf)) { descartadasUF++; continue; }
 
+  // ---- porte: o PNCP publica o TOTAL do certame; o piso é MENSAL ----
   const refMensal = filtros.valor_minimo_mensal_estimado ?? 0;
+  const meses = mesesVigencia(o) ?? (filtros.vigencia_presumida_meses ?? 12);
+  const mensalEstimado = o.valor_estimado != null ? o.valor_estimado / meses : null;
+  // Sem valor publicado NÃO se descarta: ausência de dado não é evidência de porte pequeno.
+  if (mensalEstimado != null && refMensal > 0 && mensalEstimado < refMensal) {
+    descartadasPorte++; continue;
+  }
+
+  // ---- iminência: quantos dias faltam para encerrar a proposta ----
+  const diasEnc = o.encerramento_proposta
+    ? Math.round((Date.parse(String(o.encerramento_proposta).slice(0, 10)) - Date.parse(iso(hoje))) / 86400000)
+    : null;
+
   oportunidades.push({
     ...o,
     modalidade: bruto.__modalidade || bruto.modalidadeNome || "—",
     score,
     termos_casados: [...new Set(termos)],
-    porte_a_revisar: o.valor_estimado != null && refMensal > 0 && o.valor_estimado < refMensal,
+    vigencia_meses: mesesVigencia(o),
+    vigencia_presumida: mesesVigencia(o) == null,
+    valor_mensal_estimado: mensalEstimado != null ? Math.round(mensalEstimado) : null,
+    valor_nao_publicado: o.valor_estimado == null,
+    dias_para_encerramento: diasEnc,
+    iminente: diasEnc != null && diasEnc >= 0 && diasEnc <= (filtros.dias_iminente ?? 15),
+    encerrado: diasEnc != null && diasEnc < 0,
     fonte_url: `https://pncp.gov.br/app/editais/${encodeURIComponent(o.id)}`,
     captado_em: new Date().toISOString(),
   });
 }
 
-oportunidades.sort((a, b) => b.score - a.score || (b.valor_estimado || 0) - (a.valor_estimado || 0));
+// Iminente primeiro: prazo curto é o que muda a agenda de hoje. Depois score, depois valor.
+oportunidades.sort((a, b) =>
+  (b.iminente ? 1 : 0) - (a.iminente ? 1 : 0) ||
+  (a.dias_para_encerramento ?? 9999) - (b.dias_para_encerramento ?? 9999) ||
+  b.score - a.score || (b.valor_estimado || 0) - (a.valor_estimado || 0));
 
 const semana = semanaISO(hoje);
 const pacote = {
@@ -172,7 +226,7 @@ const pacote = {
   janela: { de: `${de.slice(0, 4)}-${de.slice(4, 6)}-${de.slice(6)}`, ate: `${ate.slice(0, 4)}-${ate.slice(4, 6)}-${ate.slice(6)}` },
   gerado_em: iso(hoje),
   varridos: brutos.length,
-  descartados: { ruido: descartadasRuido, score: descartadasScore, uf: descartadasUF, duplicadas },
+  descartados: { ruido: descartadasRuido, score: descartadasScore, uf: descartadasUF, porte: descartadasPorte, duplicadas },
   modalidades: modalidadesConsultadas,
   falhas,
   oportunidades,

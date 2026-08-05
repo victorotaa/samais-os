@@ -293,16 +293,20 @@ if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
     const blocos = quest.blocos.map((b) => {
       const perguntasTodas = (b.itens ?? b.perguntas).map((q) => {
         const r = json.respostas[q.id];
+        // "a levantar" e "não existe" TÊM registro mas NÃO são resposta — contar como
+        // respondidas faria a completude mentir (foi o que aconteceu ao migrar Avaré).
+        const respondida = r?.estado === "respondido";
         const sens = r?.sensibilidade_override && NIVEL[r.sensibilidade_override] > NIVEL[q.sensibilidade ?? "interno"]
           ? r.sensibilidade_override : (q.sensibilidade ?? "interno");
         const publicavel = sens === "publico";
         return {
           id: q.id, pergunta: q.pergunta, porque: q.porque ?? null,
           essencial: !!q.essencial, novo: !!q.novo, sensibilidade: sens,
-          respondida: !!r,
+          respondida,
+          estado: r?.estado ?? null,
           procedencia: r?.procedencia ?? null,
           // ⚠️ a resposta só viaja quando pode ser publicada
-          resposta: r ? (publicavel ? r.resposta : null) : null,
+          resposta: respondida && publicavel ? (r.resposta ?? null) : null,
           nota: r && publicavel ? (r.nota ?? null) : null,
         };
       });
@@ -319,7 +323,9 @@ if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
     // Contagens sobre TODAS as perguntas (inclusive as reservadas): completude que ignora
     // o que existe é completude falsa.
     const todas = quest.blocos.flatMap((b) => (b.itens ?? b.perguntas)).map((q) => ({
-      essencial: !!q.essencial, respondida: !!json.respostas[q.id],
+      essencial: !!q.essencial,
+      respondida: json.respostas[q.id]?.estado === "respondido",
+      achado: json.respostas[q.id]?.estado === "nao-existe",
     }));
     const essenciais = todas.filter((q) => q.essencial);
     coletados.push({
@@ -331,6 +337,7 @@ if (existsSync(QUESTIONARIO_PATH) && existsSync(BRIEF_SCHEMA_PATH)) {
       total: todas.length,
       respondidas: todas.filter((q) => q.respondida).length,
       completude: todas.length ? Math.round((todas.filter((q) => q.respondida).length / todas.length) * 100) : 0,
+      achados: todas.filter((q) => q.achado).length,
       completude_essencial: essenciais.length
         ? Math.round((essenciais.filter((q) => q.respondida).length / essenciais.length) * 100) : 100,
       essenciais_pendentes: essenciais.filter((q) => !q.respondida).length,

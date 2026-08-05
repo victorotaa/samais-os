@@ -53,6 +53,7 @@ h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter
 .q{padding-left:14px;border-left:2px solid var(--line-soft)}
 .q.ok{border-left-color:var(--gold-deep)}
 .q.aberta{border-left-color:transparent}
+.q.achado{border-left-color:var(--green)}
 .q-p{font-size:13.5px;color:var(--t2);line-height:1.45}
 .q-p .tag{font-family:var(--fm);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
   border:1px solid var(--line-soft);border-radius:4px;padding:1px 5px;margin-left:7px;color:var(--t3);
@@ -211,10 +212,12 @@ function bloco(bl){
 }
 
 function pergunta(q){
-  const cls = q.respondida ? 'ok' : 'aberta';
+  const cls = q.respondida ? 'ok' : (q.estado === 'nao-existe' ? 'achado' : 'aberta');
   const tags = (q.essencial?'<span class="tag">essencial</span>':'') + (q.novo?'<span class="tag novo">nova</span>':'');
+  const ROTULO = { 'nao-existe':'não existe — <b>achado</b>, não lacuna',
+                   'a-levantar':'a levantar', 'nao-se-aplica':'não se aplica' };
   let corpo;
-  if(!q.respondida) corpo = `<div class="q-i">não respondida</div>`;
+  if(!q.respondida) corpo = `<div class="q-i">${ROTULO[q.estado] || 'não respondida'}</div>`;
   else if(q.resposta) corpo = `<div class="q-r">${esc(q.resposta)}</div>` + (q.nota?`<div class="q-n">${esc(q.nota)}</div>`:'');
   else corpo = `<div class="q-i interno">respondido · uso interno</div>`;
   const proc = q.procedencia ? `<span class="proc" data-p="${q.procedencia}">${q.procedencia.replace('-',' ')}</span>` : '';

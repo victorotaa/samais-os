@@ -12,157 +12,212 @@
   "respostas": {
     "populacao": {
       "resposta": "Base descentralizada atende ~96.450 hab (IBGE). A Central de Regulação, sediada em Avaré e gerenciada pelo consórcio AMVAPA — onde também fica a USA —, cobre 17 municípios, 312.109 hab.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "modelo-gestao": {
       "resposta": "MISTO: a base descentralizada é gerenciada pelo município; a Central de Regulação e a USA são do consórcio AMVAPA.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "central-regulacao": {
       "resposta": "Não há central própria. Usa a CRU SAMU 192 Regional Vale do Jurumirim, administrada pelo consórcio AMVAPA.",
-      "procedencia": "verificado"
-    },
-    "habilitacoes": {
-      "resposta": "Central de Regulação SAMU 192 Qualificada — habilitada. PT GM 1844 de 24/07/2017 (vigência indeterminada) e PT GM/MS 10.850 de 13/04/2026 (04/2026–04/2029).",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "frota-inventario": {
       "resposta": "3 USB na base de Avaré: 2012 Peugeot Boxer (PARADA), 2015 Renault Master (PARADA), 2024 Renault Master (operante). Ou seja, 2 de 3 viaturas paradas.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "bases-equipe": {
       "resposta": "1 base (Bravo-01, 1 USB). Equipe: 1 enfermeiro, 5 técnicos de enfermagem, 6 condutores socorristas, 2 auxiliares de serviços gerais, 1 técnica auxiliar de RM, 1 coordenador de base.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "bases-imovel": {
       "resposta": "Imóvel próprio, custeado pela Prefeitura Municipal (água, energia, IPTU, manutenção).",
-      "procedencia": "verificado"
-    },
-    "veiculos-disponibilizados": {
-      "resposta": "Não.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "quadro-atual": {
       "resposta": "Condutor socorrista 6 (CLT/estatutário, 12x36) · Técnico de enfermagem 5 (CLT, 12x36) · Auxiliar de serviços gerais 2 (CLT, 12x36) · Enfermeiro 1 (CLT, 30h) · Técnica auxiliar RM 1 (CLT, 40h) · Coordenador de base 1 (CLT, 40h).",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
-    "pisos-cct": {
+    "pisos": {
       "resposta": "Condutor socorrista R$ 2.643,79 · Técnico de enfermagem R$ 3.314,34 · Auxiliar de serviços gerais R$ 2.272,62 · Enfermeiro R$ 3.935,10 · Técnica auxiliar RM R$ 2.643,79 · Coordenador de base R$ 2.206,51 + R$ 1.453,86. ⚠️ CCT de referência não informada.",
       "procedencia": "verificado",
-      "nota": "Falta a CCT/sindicato de referência — sem ela não dá para validar se os pisos estão corretos nem projetar reajuste."
+      "nota": "Falta a CCT/sindicato de referência — sem ela não dá para validar se os pisos estão corretos nem projetar reajuste.",
+      "estado": "respondido"
     },
     "cedidos": {
       "resposta": "1 coordenador cedido. Além disso, há médicos efetivos do município cedidos à Central de Regulação e à USA — custo que NÃO aparece na conta declarada do SAMU.",
       "procedencia": "verificado",
-      "nota": "Custo invisível clássico: médico cedido é a maior rubrica oculta do Cenário A."
+      "nota": "Custo invisível clássico: médico cedido é a maior rubrica oculta do Cenário A.",
+      "estado": "respondido"
     },
     "passivo-trabalhista": {
       "resposta": "Sim — existe TAC com o MPT relacionado ao serviço (procedimento preparatório registrado).",
       "procedencia": "verificado",
       "sensibilidade_override": "restrito",
-      "nota": "Nº do procedimento NÃO registrado em arquivo por decisão de confidencialidade. Tratar em conversa e com o jurídico antes de qualquer proposta."
+      "nota": "Nº do procedimento NÃO registrado em arquivo por decisão de confidencialidade. Tratar em conversa e com o jurídico antes de qualquer proposta.",
+      "estado": "respondido"
     },
-    "rotatividade": {
-      "resposta": "Não há rotatividade relevante. Médicos efetivos do município são cedidos à Central e à USA, e o consórcio contrata médicos para esses locais.",
-      "procedencia": "verificado"
-    },
-    "horas-capacitacao": {
+    "horas-nep": {
       "resposta": "Treinamentos mensais via NEP. ⚠️ Carga horária obrigatória e remunerada NÃO quantificada.",
       "procedencia": "a-verificar",
-      "nota": "Pergunta acrescentada depois deste levantamento. É a lição Canoas: sem a carga horária não dá para orçar."
+      "nota": "Pergunta acrescentada depois deste levantamento. É a lição Canoas: sem a carga horária não dá para orçar. ⚠️ Perdida por defeito de formulação na v2026-08-04 — refazer com o questionário novo.",
+      "estado": "a-levantar"
     },
-    "volume-atendimentos": {
+    "atendimentos": {
       "resposta": "USB Avaré: média de 152 atendimentos/mês. Mínimo 131, máximo 168 (pico no mês 4).",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "tempo-resposta": {
       "resposta": "Não informado.",
-      "procedencia": "a-verificar"
+      "procedencia": "a-verificar",
+      "estado": "a-levantar",
+      "nota": "⚠️ Perdida por defeito de formulação na v2026-08-04 — refazer com o questionário novo."
     },
-    "classificacao": {
+    "perfil-demanda": {
       "resposta": "Clínico 1.385 · trauma 540 · obstétrico 38 · psiquiátrico 124 (no período consolidado).",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "demanda-reprimida": {
       "resposta": "Sim: há horários em que a USB está empenhada ou inoperante durante o descanso intrajornada da equipe.",
       "procedencia": "verificado",
-      "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento com Fator de Cobertura correto."
+      "nota": "Descanso intrajornada sem cobertura é buraco de escala — resolve-se no dimensionamento com Fator de Cobertura correto.",
+      "estado": "respondido"
     },
     "suprimento": {
       "resposta": "Almoxarifado Central da Saúde.",
       "procedencia": "verificado",
-      "nota": "Custo hoje ESCONDIDO em outra pasta; migra para a contratada."
+      "nota": "Custo hoje ESCONDIDO em outra pasta; migra para a contratada.",
+      "estado": "respondido"
     },
     "manutencao-frota": {
       "resposta": "Feita junto à frota municipal. Gasto médio mensal não informado.",
-      "procedencia": "a-verificar"
+      "procedencia": "a-verificar",
+      "estado": "a-levantar",
+      "nota": "⚠️ Perdida por defeito de formulação na v2026-08-04 — refazer com o questionário novo."
     },
     "combustivel": {
       "resposta": "Abastecimento na garagem da Prefeitura. Consumo de 349,8 litros/mês.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "rss": {
       "resposta": "Executado pelos próprios condutores socorristas e técnicos de enfermagem — não há contrato específico.",
       "procedencia": "verificado",
-      "nota": "Vira contrato na nossa operação: hoje é trabalho absorvido pela equipe, não linha de custo."
+      "nota": "Vira contrato na nossa operação: hoje é trabalho absorvido pela equipe, não linha de custo.",
+      "estado": "respondido"
     },
-    "epi-treinamento": {
+    "epi-fardamento": {
       "resposta": "Treinamentos mensais (NEP). Fardamento: R$ 26.676,00.",
       "procedencia": "verificado",
-      "nota": "Valor total sem quantidade por profissional/ano — não permite orçar, só comparar."
+      "nota": "Valor total sem quantidade por profissional/ano — não permite orçar, só comparar.",
+      "estado": "respondido"
     },
     "sistema-gestao": {
       "resposta": "Telefonia e, para dados, o programa SSOSAMU.",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "telefonia-radio": {
       "resposta": "Gravação via telefone e prontuário online pelo consórcio AMVAPA (SSOSAMU).",
-      "procedencia": "verificado"
+      "procedencia": "verificado",
+      "estado": "respondido"
     },
     "integracao-rede": {
       "resposta": "Não há integração com a rede hospitalar (vaga zero / regulação de leitos / CROSS).",
       "procedencia": "verificado",
-      "nota": "Sem integração, o tempo-resposta some no destino e a meta contratual fica fora do nosso controle."
+      "nota": "Sem integração, o tempo-resposta some no destino e a meta contratual fica fora do nosso controle.",
+      "estado": "respondido"
     },
     "custo-atual": {
       "resposta": "Média mensal jan–mar/2026: R$ 491.417,77.",
       "procedencia": "verificado",
-      "nota": "Declarado. Somados os invisíveis (médicos cedidos, almoxarifado, combustível, frota, imóvel), o custo real é maior — fator calibrado em Avaré: declarado × 1,38."
-    },
-    "repasses": {
-      "resposta": "Federal R$ 159.568,50/mês: USA R$ 71.662,50 (PT 1.631/2023) + USA R$ 50.050,00 (PT 1.816/2023) + Central R$ 13.786,50 + USA R$ 12.637,30 + USB R$ 11.432,20 (PT 10.850/2026).",
-      "procedencia": "verificado"
+      "nota": "Declarado. Somados os invisíveis (médicos cedidos, almoxarifado, combustível, frota, imóvel), o custo real é maior — fator calibrado em Avaré: declarado × 1,38.",
+      "estado": "respondido"
     },
     "contrapartida": {
       "resposta": "Não informada.",
-      "procedencia": "a-verificar"
+      "procedencia": "a-verificar",
+      "estado": "a-levantar",
+      "nota": "⚠️ Perdida por defeito de formulação na v2026-08-04 — refazer com o questionário novo."
     },
     "contrato-vigente": {
       "resposta": "Sim, com o consórcio AMVAPA. Vigência, valor e data de encerramento não informados.",
-      "procedencia": "a-verificar"
+      "procedencia": "a-verificar",
+      "estado": "a-levantar",
+      "nota": "⚠️ Perdida por defeito de formulação na v2026-08-04 — refazer com o questionário novo."
     },
     "modelo-pretendido": {
       "resposta": "O município mantém interesse em SAMU MUNICIPALIZADO — é o maior da região e concentra a maior demanda. Avalia que o modelo regionalizado via consórcio limita tempo-resposta, disponibilidade de viaturas e capacidade de atendimento. Porém NÃO há definição de horizonte, modelo operacional, contratação, licitação (14.133/2021) ou chamamento para OSS. O tema segue em discussão.",
       "procedencia": "verificado",
-      "nota": "Intenção clara, caminho indefinido. Pela regra do CEO, o caminho muda a precificação — não assumir."
+      "nota": "Intenção clara, caminho indefinido. Pela regra do CEO, o caminho muda a precificação — não assumir.",
+      "estado": "respondido"
     },
-    "problemas": {
+    "problemas-prioridades": {
       "resposta": "(1) Frota insuficiente — ambulâncias frequentemente empenhadas em ocorrências e transferências. (2) Cobertura insuficiente da USA — uma única USA para 17 municípios, impactando tempo-resposta nos casos graves. (3) Fragilidade na regulação e no despacho — houve casos de não liberação de ambulância do SAMU em situações graves, com orientação de enviar ambulância sanitária, e já ocorreram desfechos graves, incluindo óbito.",
       "procedencia": "verificado",
       "sensibilidade_override": "restrito",
-      "nota": "Contém relato de óbito e crítica direta à gestão regional. NUNCA em peça externa, slide ou proposta."
-    },
-    "prioridades": {
-      "resposta": "Não há previsão concreta de ampliação de frota, novas bases ou qualificação da Central. Houve reuniões entre prefeitos e a AMVAPA, sem encaminhamentos efetivos.",
-      "procedencia": "verificado"
-    },
-    "prazo-reestruturacao": {
-      "resposta": "Não.",
-      "procedencia": "verificado"
+      "nota": "Contém relato de óbito e crítica direta à gestão regional. NUNCA em peça externa, slide ou proposta.",
+      "estado": "respondido"
     },
     "docs": {
       "resposta": "Solicitados: portarias de habilitação, relatórios de produção (12 meses), folha sintética, contrato vigente com aditivos, demonstrativo de repasses, CCT, plano de cargos e termos de cooperação com o consórcio. Recebidas as portarias de habilitação da Central.",
-      "procedencia": "a-verificar"
+      "procedencia": "a-verificar",
+      "estado": "respondido"
+    },
+    "habilitacoes-repasse": {
+      "estado": "respondido",
+      "procedencia": "verificado",
+      "resposta": "Central de Regulação SAMU 192 Qualificada — habilitada (PT GM 1844 de 24/07/2017, vigência indeterminada; PT GM/MS 10.850 de 13/04/2026, 04/2026–04/2029). Repasse federal total R$ 159.568,50/mês: USA R$ 71.662,50 (PT 1.631/2023) · USA R$ 50.050,00 (PT 1.816/2023) · Central R$ 13.786,50 · USA R$ 12.637,30 · USB R$ 11.432,20 (PT 10.850/2026).",
+      "nota": "Unificação de duas perguntas da v2026-08-04 (habilitações + repasses) numa tabela só."
+    },
+    "cct": {
+      "estado": "a-levantar",
+      "nota": "Os pisos vieram, a CCT não — a pergunta antiga pedia as duas coisas juntas. Sem a CCT não dá para validar os valores nem projetar reajuste."
+    },
+    "adicionais": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "beneficios": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "absenteismo": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "chamadas-192": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "oxigenio": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "iss": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "prazo-pagamento": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "garantia-reajuste": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
+    },
+    "metas-glosa": {
+      "estado": "a-levantar",
+      "nota": "Pergunta criada em 05/08/2026, depois do levantamento de Avaré — não foi feita na época."
     }
   }
 }

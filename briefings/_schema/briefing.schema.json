@@ -4,43 +4,113 @@
   "description": "As RESPOSTAS de um levantamento. O questionário não se copia aqui — vive em briefings/_schema/questionario-padrao.json e é referenciado por id de pergunta. A completude é DERIVADA pelo build, nunca digitada.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["slug", "alvo", "uf", "aplicado_em", "respostas"],
+  "required": [
+    "slug",
+    "alvo",
+    "uf",
+    "aplicado_em",
+    "respostas"
+  ],
   "properties": {
-    "slug": { "type": "string", "minLength": 2, "description": "Identificador. Casa com frentes/<slug>/ quando houver frente." },
-    "alvo": { "type": "string", "minLength": 2, "description": "Município, consórcio ou ente levantado." },
-    "uf": { "type": "string", "pattern": "^[A-Z]{2}$" },
-    "aplicado_em": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "slug": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Identificador. Casa com frentes/<slug>/ quando houver frente."
+    },
+    "alvo": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Município, consórcio ou ente levantado."
+    },
+    "uf": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "aplicado_em": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
     "respondente": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "additionalProperties": false,
       "description": "Quem respondeu. ⚠️ Dado pessoal (LGPD): fica INTERNO, nunca vai ao bundle publicado.",
       "properties": {
-        "nome": { "type": ["string", "null"] },
-        "cargo": { "type": ["string", "null"] },
-        "orgao": { "type": ["string", "null"] }
+        "nome": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cargo": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "orgao": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
-    "frente": { "type": ["string", "null"], "description": "Slug da frente vinculada, se existir." },
+    "frente": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Slug da frente vinculada, se existir."
+    },
     "respostas": {
       "type": "object",
       "description": "Mapa id_da_pergunta → resposta. Pergunta ausente conta como NÃO RESPONDIDA — não é preciso listar o que ficou em branco.",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["resposta"],
+        "required": [
+          "estado"
+        ],
         "properties": {
-          "resposta": { "type": "string", "minLength": 1 },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "respondido",
+              "nao-existe",
+              "a-levantar",
+              "nao-se-aplica"
+            ],
+            "description": "Silêncio é ambíguo. 'não existe indicador de tempo-resposta' é ACHADO (argumento de venda); 'a levantar' é follow-up; 'não se aplica' fecha o assunto. Só `respondido` exige o campo resposta."
+          },
+          "resposta": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Obrigatória quando estado=respondido."
+          },
           "procedencia": {
             "type": "string",
-            "enum": ["verificado", "premissa", "a-verificar"],
+            "enum": [
+              "verificado",
+              "premissa",
+              "a-verificar"
+            ],
             "description": "verificado = com documento/fonte; premissa = declarado sem comprovação; a-verificar = respondente sinalizou pendência."
           },
           "sensibilidade_override": {
             "type": "string",
-            "enum": ["publico", "interno", "restrito"],
+            "enum": [
+              "publico",
+              "interno",
+              "restrito"
+            ],
             "description": "Sobe a proteção de uma resposta específica acima do padrão da pergunta. NUNCA usar para baixar: o padrão do questionário é o piso."
           },
-          "nota": { "type": "string" }
+          "nota": {
+            "type": "string"
+          }
         }
       }
     }

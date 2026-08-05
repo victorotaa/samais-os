@@ -34,6 +34,14 @@ jobs:
         id: radar
         run: node scripts/radar-licitacoes.mjs --dias "${{ inputs.dias || '7' }}"
 
+      # Edital sai do PNCP: cancelado, republicado com outro número, removido. Cartão que
+      # leva a 404 é pior que cartão nenhum — manda alguém preparar proposta para o que não
+      # está mais lá. Só 404 confirmado em DUAS semanas derruba; indisponibilidade da API
+      # não apaga nada (por isso o passo nunca falha o job).
+      - name: Revalidar os editais já captados (derruba os que sumiram)
+        continue-on-error: true
+        run: node scripts/revalidar-editais.mjs
+
       # Captação sozinha não vira inteligência: acumula na memória de mercado, que
       # re-aplica os filtros atuais a TODO o histórico.
       - name: Indexar o mercado (memória acumulada)
@@ -44,7 +52,7 @@ jobs:
 
       - name: Commitar a captação da semana
         run: |
-          ALVOS="radar/semanas inteligencia/mercado dashboard/data.json"
+          ALVOS="radar/semanas radar/derrubados.json inteligencia/mercado dashboard/data.json"
           if [ -z "$(git status --porcelain $ALVOS)" ]; then
             echo "Nada novo no radar — sem commit."
             exit 0
@@ -52,5 +60,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add $ALVOS
-          git commit -m "chore(radar): captação semanal do PNCP + índice de mercado [skip ci]"
+          git commit -m "chore(radar): captação semanal do PNCP + revalidação + índice de mercado [skip ci]"
           git push

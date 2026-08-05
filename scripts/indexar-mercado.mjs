@@ -32,10 +32,23 @@ const SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const MERCADO_DIR = join(ROOT, "inteligencia", "mercado");
 const OUT = join(MERCADO_DIR, "indice.json");
 const FILTROS_PATH = join(ROOT, "radar", "filtros.json");
+const LAPIDES_PATH = join(ROOT, "radar", "derrubados.json");
 
 // A doutrina ATUAL é re-aplicada ao histórico: recalibrar os filtros limpa o índice na
 // próxima indexação, sem varrer o PNCP de novo. Doutrina nova vale para trás.
-const { pontuar, scoreMinimo } = carregarFiltros(FILTROS_PATH);
+const { filtros, avaliar, pontuar } = carregarFiltros(FILTROS_PATH);
+
+// Edital derrubado por 404 não volta numa reindexação. Sem esta leitura, a memória
+// ressuscitaria o que scripts/revalidar-editais.mjs acabou de enterrar — a lápide existe
+// justamente para o registro sobreviver à remoção e continuar valendo.
+const hojeISO = new Date().toISOString().slice(0, 10);
+const ufsAlvo = (filtros.ufs?.lista || []).map((u) => u.toUpperCase());
+
+const derrubados = new Set(
+  existsSync(LAPIDES_PATH)
+    ? Object.keys(JSON.parse(readFileSync(LAPIDES_PATH, "utf8")).derrubados || {})
+    : []
+);
 
 const quieto = process.argv.includes("--quieto");
 const log = (...a) => { if (!quieto) console.log(...a); };
@@ -67,16 +80,16 @@ for (const arq of arquivos) {
   const ops = pacote.oportunidades || [];
   let novos = 0;
   let revogados = 0;
+  let enterrados = 0;
 
   for (const o of ops) {
-    // Re-aplica a doutrina atual: o que os filtros de hoje reprovam não entra na memória,
-    // mesmo que tenha sido captado quando os filtros eram mais frouxos.
-    const r = pontuar(o.objeto);
-    if (r.motivoDescarte || r.score < scoreMinimo) {
-      revogados++;
-      porId.delete(o.id);
-      continue;
-    }
+    if (derrubados.has(o.id)) { enterrados++; porId.delete(o.id); continue; }
+    // Re-aplica a doutrina atual INTEIRA — inclusive o piso de porte mensal. Usar só o
+    // score deixaria a memória mais frouxa que o radar, e as duas responderiam coisas
+    // diferentes sobre o mesmo mercado.
+    const v = avaliar(o, hojeISO, ufsAlvo);
+    if (!v.ok) { revogados++; porId.delete(o.id); continue; }
+    const r = { score: v.score, termos: v.termos, temNucleo: pontuar(o.objeto).temNucleo };
 
     const antes = porId.get(o.id);
     if (antes) {
@@ -95,6 +108,9 @@ for (const arq of arquivos) {
         publicado_em: o.publicado_em || null,
         encerramento_proposta: o.encerramento_proposta || null,
         valor_estimado: o.valor_estimado ?? null,
+        // O PNCP publica o total do certame; o mensal é o que se compara com uma frente.
+        valor_mensal_estimado: v.porte.valor_mensal_estimado,
+        vigencia_presumida: v.porte.vigencia_presumida,
         // score e termos são RECALCULADOS com os filtros atuais — não herdados do arquivo
         score: r.score,
         termos_casados: r.termos,
@@ -107,7 +123,8 @@ for (const arq of arquivos) {
     }
   }
   porSemana.push({ semana, janela: pacote.janela ?? null, varridos: pacote.varridos ?? null,
-                   captados: ops.length, novos, revogados_pela_doutrina_atual: revogados });
+                   captados: ops.length, novos, revogados_pela_doutrina_atual: revogados,
+                   enterrados_por_404: enterrados });
 }
 
 const registros = [...porId.values()].sort((a, b) =>

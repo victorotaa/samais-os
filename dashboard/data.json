@@ -181,7 +181,7 @@
     "oportunidades": []
   },
   "mercado": {
-    "gerado_em": "2026-08-05T21:07:44.827Z",
+    "gerado_em": "2026-08-05T21:33:42.516Z",
     "aviso_valor": "valor_estimado é o valor TOTAL do certame conforme PNCP (vigência inteira, às vezes plurianual) — NUNCA mensal.",
     "total_certames": 0,
     "semanas": [
@@ -194,7 +194,8 @@
         "varridos": 5320,
         "captados": 0,
         "novos": 0,
-        "revogados_pela_doutrina_atual": 0
+        "revogados_pela_doutrina_atual": 0,
+        "enterrados_por_404": 0
       }
     ],
     "por_uf": [],

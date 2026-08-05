@@ -138,6 +138,11 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   Semana com zero oportunidade **não é falha de captação** — a página diz quantos caíram em
   cada corte, e quantos eram do escopo e caíram só pelo tamanho (é esse número que justifica
   mexer no piso).
+  **Edital que sumiu do PNCP sai do radar** (`scripts/revalidar-editais.mjs`, semanal): cartão
+  que leva a 404 manda alguém preparar proposta para o que não está mais lá. ⚠️ **Só 404
+  derruba, e só na segunda confirmação** — timeout, 5xx e rede fora são *indeterminado*, nunca
+  ausência. O derrubado vira **lápide** em `radar/derrubados.json`, que o indexador respeita:
+  o que foi enterrado não ressuscita numa reindexação, e continua auditável.
 - **`inteligencia/mercado/`** — **memória acumulada** do radar (`indice.json`, derivado —
   nunca editar à mão). Responde o que uma semana não responde: recorrência por município
   (sinal mais forte), concentração por UF, faixa de valor publicada. Gerado por
@@ -209,6 +214,7 @@ Ordem completa (o build é o último passo, sempre):
 
 ```
 node scripts/radar-licitacoes.mjs     # captação da semana no PNCP (roda por Actions toda segunda)
+node scripts/revalidar-editais.mjs    # derruba edital que sumiu do PNCP (404 em 2 semanas seguidas)
 node scripts/reprocessar-radar.mjs    # SÓ após recalibrar filtros.json: reaplica a doutrina às semanas já gravadas
 node scripts/indexar-mercado.mjs      # acumula na memória de mercado, re-aplicando os filtros atuais
 node scripts/build-dashboard.mjs      # valida frentes/obrigações → data.json + monta o bundle

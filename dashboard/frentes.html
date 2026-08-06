@@ -66,8 +66,7 @@
   .stage[data-s="arquivada"]{color:var(--text-3);opacity:.6}
   /* gauge */
   .gauge{display:flex;align-items:center;gap:8px}
-  .gauge .bar{width:64px;height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
-  .gauge .fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold))}
+  .gauge .trilha{width:64px;flex:0 0 auto}   /* altura, cor e display: primitiva em samais.css */
   .gauge .n{font-family:var(--f-mono);font-size:12px;color:var(--text-2)}
   .verdict{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
   .verdict[data-v="go"]{color:var(--green)} .verdict[data-v="atencao"]{color:var(--amber)} .verdict[data-v="no-go"]{color:var(--red)}
@@ -204,7 +203,7 @@ function render(d){
       <div class="fr-row">
         <span class="stage" data-s="${f.estagio}">${stageLabel(f.estagio)}</span>
         ${implBadge(f)}
-        <span class="gauge"><span class="bar"><span class="fill" style="width:${(f.score/10*100).toFixed(0)}%"></span></span><span class="n">${f.score.toFixed(1)}</span></span>
+        <span class="gauge"><span class="trilha"><i style="width:${(f.score/10*100).toFixed(0)}%"></i></span><span class="n">${f.score.toFixed(1)}</span></span>
       </div>
       ${verdict?`<div class="fr-row"><span></span>${verdict}</div>`:""}
       <div class="next"><b>Próximo passo:</b> ${f.proximo_passo}</div>

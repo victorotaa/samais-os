@@ -652,8 +652,16 @@ const PROIBIDO = [
   /R\$\s?5,20/i,
   /\/hab\/m[êe]s/i,
   /fator de cobertura/i,
-  /remunera[çc][ãa]o residual/i,
+  // "remuneração residual" era específico demais: passou "remuneração 7,2%" no cartão de
+  // Canoas. Qualquer menção à NOSSA remuneração numa superfície que o cliente abre é
+  // vazamento — a palavra inteira barra, e o texto vai para interpretacao.md.
+  /remunera[çc][ãa]o/i,
   /\bBDI\b/,
+  /\bCDO\b/,
+  /equil[íi]brio zero/i,
+  // ⚠️ NÃO barrar per capita em geral: o valor por habitante do estudo é exibido ao
+  // cliente por decisão do CEO. O que é interno é a RÉGUA (R$ 5,20/hab), já coberta
+  // acima — barrar todo "R$ N/hab" derrubaria dado que a doutrina manda mostrar.
   /pre[çc]o-[âa]ncora/i,
   /teto pol[íi]tico do pre[çc]o/i,
 ];

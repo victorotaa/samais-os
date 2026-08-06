@@ -229,6 +229,24 @@ h2,h3,h4{font-weight:600}
   input[type="checkbox"]{width:20px;height:20px}
 }
 
+/* ── Barra de progresso — PRIMITIVA CANÔNICA ────────────────────────────
+   Mora aqui, e não em cada página, porque o MESMO bug já apareceu três vezes:
+   uma <span> usada como barra é INLINE, e `height`/`width` não se aplicam a
+   caixa inline. O resultado muda de página para página e nenhum deles parece
+   um erro de CSS:
+     · frentes — o preenchimento do medidor ficou com 0×0 e a barra de score
+       simplesmente NUNCA renderizou, sem quebrar mais nada;
+     · implantação — o filho `display:block` dentro da span inline virou uma
+       coluna dourada de 356px que engoliu o cartão e empurrou o cabeçalho
+       por cima da lista.
+   Declarar `display:block` na trilha E no preenchimento é o que fecha a porta.
+   Use `<span class="trilha"><i style="width:NN%"></i></span>` e ajuste só
+   altura/margem na página — geometria e cor saem daqui. */
+.trilha{display:block;height:6px;border-radius:3px;overflow:hidden;
+  background:rgba(255,255,255,.06)}
+.trilha > *{display:block;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold))}
+
 /* ── [hidden] tem que ganhar ────────────────────────────────────────────
    Um display:flex/grid de autor VENCE o display:none do atributo hidden —
    o elemento "escondido" reaparece (e, com glass, como caixa vazia).

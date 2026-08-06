@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-08-05",
+  "gerado_em": "2026-08-06",
   "total_frentes": 8,
   "pipeline_mensal": 12958134,
   "pipeline_anual": 155497608,
@@ -57,7 +57,7 @@
       "operador_atual": null,
       "verdict": "go",
       "atualizado_em": "2026-08-04",
-      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. Valor do ESTUDO: R$ 2.048.134/mês no SAMU (CDO 1.316.755, remuneração 7,2%, ~80 CLT, R$ 5,89/hab). ⚠️ ESCOPO A CONFIRMAR: o estudo também precifica a Rede CAPS em R$ 2.405.061 — integrado dá R$ 4.453.196/mês. Se o contrato fechado inclui o CAPS, o pipeline aqui está subdimensionado pela metade. ⚠️ Espaço de desconto estreito (~4%): piso a 4% de remuneração é R$ 1.966.890; abaixo de R$ 1.873.969 é equilíbrio zero — nunca contratar.",
+      "proximo_passo": "FECHADO — junto com Belém, é a implantação mais próxima. Valor do ESTUDO: R$ 2.048.134/mês no SAMU (~80 CLT). ⚠️ ESCOPO A CONFIRMAR: o estudo também precifica a Rede CAPS em R$ 2.405.061 — integrado dá R$ 4.453.196/mês. Se o contrato fechado inclui o CAPS, o pipeline aqui está subdimensionado pela metade. ⚠️ Espaço de desconto é estreito — os limites de preço são internos e não se registram aqui.",
       "populacao": 347657,
       "gatilho": "Estudo produzido: estudos-internos/canoas-rs.md (samais-estudos (main, 03/08/2026))",
       "_slug": "canoas"
@@ -426,7 +426,7 @@
                 "nome": "Valor contratual mensal fechado",
                 "critico": true,
                 "estado": "em-andamento",
-                "nota": "Estudo: R$ 2.048.134/mês no SAMU (remuneração 7,2%). ⚠️ Se o CAPS entrou no contrato, são R$ 4.453.196 integrados — confirmar escopo antes de tudo."
+                "nota": "Estudo: R$ 2.048.134/mês no SAMU. ⚠️ Se o CAPS entrou no contrato, são R$ 4.453.196 integrados — confirmar escopo antes de tudo."
               },
               {
                 "id": "benchmark",

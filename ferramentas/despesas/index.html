@@ -48,6 +48,40 @@ nav.tabs button{flex:1;background:none;border:0;color:var(--t3);font-family:var(
 nav.tabs button[aria-current="true"]{color:var(--gold);border-top-color:var(--gold)}
 nav.tabs .ico{display:block;font-size:17px;margin-bottom:3px;line-height:1}
 
+/* submenu do topo — espelha o rodapé */
+.subtabs{display:flex;gap:4px;margin-top:12px;overflow-x:auto;scrollbar-width:none;
+  padding-bottom:1px}
+.subtabs::-webkit-scrollbar{display:none}
+.subtabs button{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;
+  color:var(--t3);font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 12px;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap}
+.subtabs button:hover{color:var(--t2)}
+.subtabs button[aria-current="true"]{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* menu da tela inicial — o que a ferramenta faz, dito em quatro cartões */
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:20px 0 8px}
+.mcard{text-align:left;background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+  padding:16px 17px;cursor:pointer;color:var(--text);font-family:var(--fb);
+  transition:border-color .16s,transform .16s}
+.mcard:hover{border-color:var(--gold-dim);transform:translateY(-1px)}
+.mcard .mi{font-size:19px;line-height:1;color:var(--gold-dim);display:block;margin-bottom:9px}
+.mcard .mt{display:block;font-size:15.5px;font-weight:500}
+.mcard .ms{display:block;font-family:var(--fm);font-size:11px;color:var(--t3);margin-top:4px;line-height:1.45}
+/* Lançar é o que se faz todo dia; o resto se consulta. O destaque evita que a tela
+   inicial vire quatro opções equivalentes, que é o mesmo que nenhuma orientação. */
+.mcard.destaque{grid-column:1/-1;background:linear-gradient(180deg,rgba(184,149,78,.16),rgba(184,149,78,.05));
+  border-color:rgba(184,149,78,.34)}
+.mcard.destaque .mi,.mcard.destaque .mt{color:var(--gold)}
+.mcard.destaque .mt{font-size:17px}
+
+/* aviso de backup — local-first quer dizer que limpar o navegador apaga tudo */
+.aviso-bk{display:flex;gap:11px;align-items:flex-start;margin:16px 0 0;padding:13px 15px;
+  border:1px solid rgba(221,141,12,.3);background:rgba(221,141,12,.06);border-radius:12px;
+  font-size:13px;color:var(--t2);line-height:1.5}
+.aviso-bk b{color:var(--amber);font-weight:500}
+.aviso-bk .bk-i{color:var(--amber);flex:0 0 auto}
+.aviso-bk button{margin-top:7px}
+
 /* ciclos mensais — o histórico que a ferramenta não mostrava */
 .sec-t{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-dim);margin:26px 0 10px}
@@ -279,7 +313,12 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
     <a href="./" aria-current="page">Despesas</a>
   </nav>
   <div class="who">quem lança<br><b id="whoName">—</b></div>
-</div></header>
+</div>
+<!-- As mesmas seções do rodapé, também no topo. No desktop o polegar não alcança a
+     barra inferior e o olho procura navegação em cima; no celular a de baixo continua
+     sendo a que se usa. Uma fonte de verdade: os dois conjuntos leem o mesmo data-v. -->
+<div class="wrap"><nav class="subtabs" id="subtabs"></nav></div>
+</header>
 
 <!-- ENTRADA: escolha de perfil. Aparece enquanto não houver perfil no aparelho. -->
 <div class="perfil-tela" id="perfilTela" hidden>
@@ -305,10 +344,8 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
     <h2>Prestação de contas</h2>
     <p class="sub" id="inicioSub">Panorama do mês e os ciclos já fechados.</p>
     <div class="kpis" id="i-kpis"></div>
-    <div class="btns" style="margin:18px 0 6px">
-      <button class="btn primario" id="i-novo">Novo lançamento</button>
-      <button class="btn ghost" id="i-ver">Ver despesas do mês</button>
-    </div>
+    <nav class="menu" id="i-menu"></nav>
+    <div id="i-backup"></div>
     <div class="sec-t">Ciclos mensais</div>
     <div id="i-ciclos"></div>
   </section>
@@ -448,8 +485,10 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 
   <!-- ============ AJUSTES ============ -->
   <section class="view" id="v-ajustes">
-    <h2>Ajustes</h2>
-    <p class="sub">Identidade, backup e consolidação da equipe.</p>
+    <h2>Equipe &amp; backup</h2>
+    <p class="sub">Quem lança neste aparelho, consolidação dos lançamentos da equipe e
+      cópia de segurança. Não é tela de configuração: é aqui que os lançamentos de todos
+      viram um número só — e a única proteção contra perder o mês.</p>
 
     <div class="field">
       <label>Quem está lançando neste aparelho</label>
@@ -498,13 +537,7 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 <div id="print"></div>
 <div id="toast"></div>
 
-<nav class="tabs">
-  <button data-v="inicio" aria-current="true"><span class="ico">◈</span>Início</button>
-  <button data-v="lancar"><span class="ico">＋</span>Lançar</button>
-  <button data-v="lista"><span class="ico">▤</span>Despesas</button>
-  <button data-v="fech"><span class="ico">∑</span>Fechamento</button>
-  <button data-v="ajustes"><span class="ico">⚙</span>Ajustes</button>
-</nav>
+<nav class="tabs" id="tabs"></nav>
 
 <script>
 'use strict';
@@ -610,13 +643,32 @@ const estado = { view:'lancar', despesas:[], config:{}, editId:null, fotoBlob:nu
                  mesLista:'', mesFech:'' };
 
 /* ============================ navegação ============================ */
-document.querySelectorAll('nav.tabs button').forEach(b=>{
-  b.onclick = () => irPara(b.dataset.v);
-});
+/* As seções em UM lugar só: rodapé, submenu do topo e menu da tela inicial são três
+   apresentações da mesma lista. Quando estavam escritas à mão em cada lugar, renomear
+   uma aba obrigava a lembrar de três arquivos — e a terceira sempre ficava para trás. */
+const SECOES = [
+  { v:'inicio',  ico:'◈', rot:'Início',   menu:null },
+  { v:'lancar',  ico:'＋', rot:'Lançar',   menu:'Registrar uma despesa de viagem ou da sede, com foto do comprovante.' },
+  { v:'lista',   ico:'▤', rot:'Despesas', menu:'Ver, filtrar e editar o que já foi lançado.' },
+  { v:'fech',    ico:'∑', rot:'Fechamento', menu:'Fechar o mês e gerar o PDF de reembolso.' },
+  { v:'ajustes', ico:'⚙', rot:'Equipe & backup', curto:'Equipe',
+    menu:'Consolidar os lançamentos da equipe e salvar a cópia de segurança.' },
+];
+const TABS = 'nav.tabs button, nav.subtabs button';
+
+// O rodapé divide a largura da tela por cinco: a 390px, "Equipe & backup" quebra em duas
+// linhas e desalinha a barra inteira. Rótulo curto ali, completo onde há espaço.
+for(const [sel, comIcone] of [['#tabs', true], ['#subtabs', false]]){
+  document.querySelector(sel).innerHTML = SECOES.map(x =>
+    `<button data-v="${x.v}">${comIcone?`<span class="ico">${x.ico}</span>`:''}` +
+    `${esc(comIcone ? (x.curto || x.rot) : x.rot)}</button>`).join('');
+}
+document.querySelectorAll(TABS).forEach(b=>{ b.onclick = () => irPara(b.dataset.v); });
+
 function irPara(v){
   estado.view=v;
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
-  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-current', String(b.dataset.v===v)));
+  document.querySelectorAll(TABS).forEach(b=>b.setAttribute('aria-current', String(b.dataset.v===v)));
   if(v==='inicio') renderInicio();
   if(v==='lista') renderLista();
   if(v==='fech')  renderFechamento();
@@ -956,6 +1008,17 @@ function renderInicio(){
   ].map(([l,v,sub])=>`<div class="kpi"><div class="l">${l}</div>
       <div class="v">${v}${sub?` <small>${sub}</small>`:''}</div></div>`).join('');
 
+  // Menu: as mesmas seções do rodapé, ditas por extenso. Quem abre a ferramenta pela
+  // primeira vez não adivinha o que "Fechamento" faz a partir de um ícone de 17px.
+  $('#i-menu').innerHTML = SECOES.filter(x=>x.menu).map(x=>
+    `<button class="mcard${x.v==='lancar'?' destaque':''}" data-v="${x.v}">
+       <span class="mi">${x.ico}</span><span class="mt">${esc(x.rot)}</span>
+       <span class="ms">${esc(x.menu)}</span></button>`).join('');
+  $('#i-menu').querySelectorAll('.mcard').forEach(b=>{
+    b.onclick = () => { if(b.dataset.v==='lancar') limparForm(); irPara(b.dataset.v); };
+  });
+  avisoBackup();
+
   // Um ciclo é FECHADO quando não sobrou nada pendente de reembolso nele — derivado do
   // estado dos lançamentos, nunca de um botão "fechar mês" que alguém esquece de apertar.
   const meses = [...new Set(estado.despesas.map(d=>ymDe(d.data)).filter(Boolean))].sort().reverse();
@@ -980,8 +1043,24 @@ function renderInicio(){
     b.onclick = () => { estado.mesFech = b.dataset.mes; irPara('fech'); };
   });
 }
-$('#i-novo').onclick = () => { limparForm(); irPara('lancar'); };
-$('#i-ver').onclick  = () => { estado.mesLista = ymDe(hojeISO()); irPara('lista'); };
+/* Local-first tem um preço, e ele não pode ficar implícito: limpar os dados do
+   navegador, trocar de aparelho ou o iOS decidir liberar espaço apaga o histórico
+   inteiro. O aviso só aparece quando há o que perder, e some depois do backup —
+   alerta que está sempre ligado deixa de ser lido. */
+const DIAS_BACKUP = 7;
+function avisoBackup(){
+  const el = $('#i-backup');
+  if(!estado.despesas.length){ el.innerHTML = ''; return; }
+  const ultimo = estado.config.ultimo_backup || null;
+  const dias = ultimo ? Math.floor((Date.parse(hojeISO()) - Date.parse(ultimo)) / 86400000) : null;
+  if(dias != null && dias < DIAS_BACKUP){ el.innerHTML = ''; return; }
+  const quando = ultimo ? `A última cópia foi há <b>${dias} dia(s)</b>.` : 'Ainda não houve nenhuma cópia.';
+  el.innerHTML = `<div class="aviso-bk"><span class="bk-i">▲</span><span>
+      Os lançamentos ficam <b>somente neste aparelho</b>. ${quando}
+      Limpar os dados do navegador ou trocar de celular apaga tudo.
+      <button class="btn ghost sm" id="bk-agora">Salvar cópia agora</button></span></div>`;
+  $('#bk-agora').onclick = () => irPara('ajustes');
+}
 
 /* ============================ perfil (quem lança) ============================ */
 function renderPerfil(){
@@ -1057,6 +1136,8 @@ $('#btnExport').onclick = async () => {
   const quem=(rotuloPerfil()==='—'?'equipe':rotuloPerfil()).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   a.href=URL.createObjectURL(blob); a.download=`despesas-${quem}-${hojeISO()}.json`; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  estado.config.ultimo_backup = hojeISO();
+  await put('config',{k:'ultimo_backup',v:estado.config.ultimo_backup});
   toast(`Exportado: ${estado.despesas.length} lançamento(s).`);
 };
 

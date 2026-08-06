@@ -38,8 +38,20 @@ h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter
 .aviso{margin:22px 0 0;padding:15px 18px;border-radius:13px;font-size:13.5px;color:var(--t2)}
 .aviso b{color:var(--text);font-weight:500}
 
-.br{margin-top:22px;border-radius:16px;padding:20px 22px}
-.br-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.br{margin-top:14px;border-radius:16px;padding:0}
+.br-sum{list-style:none;cursor:pointer;padding:18px 22px;display:block;position:relative;
+  border-radius:16px;transition:background .15s}
+.br-sum::-webkit-details-marker{display:none}
+.br-sum:hover{background:rgba(255,255,255,.02)}
+.br-cab{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.br-abre{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-dim);display:block;margin-top:11px}
+.br-abre::after{content:" ↓"}
+.br[open] .br-sum{border-bottom:1px solid var(--line-soft);border-radius:16px 16px 0 0}
+.br[open] .br-abre::after{content:" ↑"}
+.br[open] .br-abre{color:var(--t3)}
+.br-abre:hover{color:var(--gold)}
+.br-corpo{padding:4px 22px 20px}
 .br-nome{font-family:var(--fd);font-weight:700;font-size:20px}
 .br-met{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:var(--fm);font-size:12px;color:var(--t3)}
 .br-met b{color:var(--gold);font-variant-numeric:tabular-nums}
@@ -148,6 +160,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;disp
     <a href="./briefings.html" aria-current="page">Briefings</a>
     <a href="./implantacao.html">Implantação</a>
     <a href="./radar.html">Radar</a>
+    <a href="./noticias.html">Monitoramento</a>
     <a href="./mercado.html">Mercado</a>
     <a href="./obrigacoes.html">Obrigações</a>
     <a href="./despesas/">Despesas</a>
@@ -247,21 +260,29 @@ function aviso(b){
      A contagem de completude considera <b>todas</b> as perguntas — completude que ignora o que existe seria falsa.`;
 }
 
+/* Cada briefing são 40 perguntas abertas. Com um levantamento a página já é longa;
+   com dez vira rolagem infinita e ninguém acha nada. Fecha em <details>: o resumo
+   (completude, essenciais em aberto) fica sempre visível — que é o que se consulta —
+   e as respostas abrem sob demanda. <details> nativo funciona sem JS e é acessível
+   por teclado; um acordeão de mão seria mais código e menos robusto. */
 function cartao(b){
-  return `<section class="br">
-    <div class="br-top">
-      <span class="br-nome">${esc(b.alvo)}/${esc(b.uf)}</span>
-      <span class="q-i">aplicado em ${dataBR(b.aplicado_em)}</span>
-    </div>
-    <div class="br-met">
-      <span>respondido <b>${b.completude}%</b></span>
-      <span>essencial <b>${b.completude_essencial}%</b></span>
-      <span class="${b.essenciais_pendentes?'alerta':''}">${b.essenciais_pendentes} essencial(is) em aberto</span>
-      ${b.reservados?`<span>${b.reservados} reservada(s)</span>`:''}
-      ${b.tem_respondente?'<span>respondente registrado · uso interno</span>':''}
-    </div>
-    ${b.blocos.map(bloco).join('')}
-  </section>`;
+  return `<details class="br">
+    <summary class="br-sum">
+      <span class="br-cab">
+        <span class="br-nome">${esc(b.alvo)}/${esc(b.uf)}</span>
+        <span class="q-i">aplicado em ${dataBR(b.aplicado_em)}</span>
+      </span>
+      <span class="br-met">
+        <span>respondido <b>${b.completude}%</b></span>
+        <span>essencial <b>${b.completude_essencial}%</b></span>
+        <span class="${b.essenciais_pendentes?'alerta':''}">${b.essenciais_pendentes} essencial(is) em aberto</span>
+        ${b.reservados?`<span>${b.reservados} reservada(s)</span>`:''}
+        ${b.tem_respondente?'<span>respondente registrado · uso interno</span>':''}
+      </span>
+      <span class="br-abre">ver respostas</span>
+    </summary>
+    <div class="br-corpo">${b.blocos.map(bloco).join('')}</div>
+  </details>`;
 }
 
 function bloco(bl){

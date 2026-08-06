@@ -49,10 +49,10 @@ section{padding:34px 0 0}
 .barras{display:flex;flex-direction:column;gap:9px}
 .linha{display:flex;align-items:center;gap:12px}
 .linha .rot{flex:0 0 92px;font-family:var(--fm);font-size:12px;color:var(--t2)}
-.linha .trilha{flex:1 1 auto;height:9px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden}
+.linha .trilha{flex:1 1 auto;height:9px;border-radius:5px}   /* primitiva: doutrina/samais.css */
 /* display:block é obrigatório — largura/altura não se aplicam a span inline, e a barra
    desaparece deixando só a trilha cinza (o defeito que a verificação no navegador pegou). */
-.linha .barra{display:block;height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));border-radius:5px}
+
 .linha .n{flex:0 0 auto;font-family:var(--fm);font-size:12px;color:var(--gold);
   font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
 .linha .v{flex:0 0 auto;font-family:var(--fm);font-size:11px;color:var(--t3);
@@ -146,6 +146,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;disp
     <a href="./briefings.html">Briefings</a>
     <a href="./implantacao.html">Implantação</a>
     <a href="./radar.html">Radar</a>
+    <a href="./noticias.html">Monitoramento</a>
     <a href="./mercado.html" aria-current="page">Mercado</a>
     <a href="./obrigacoes.html">Obrigações</a>
     <a href="./despesas/">Despesas</a>
@@ -226,7 +227,7 @@ function barras(itens, chave, max){
   return `<div class="barras">${itens.map(i=>`
     <div class="linha">
       <span class="rot">${esc(i[chave])}</span>
-      <span class="trilha"><span class="barra" style="width:${Math.max(2,(i.n/max)*100)}%"></span></span>
+      <span class="trilha"><i style="width:${Math.max(2,(i.n/max)*100)}%"></i></span>
       <span class="n">${i.n}</span>
       <span class="v">${BRLc(i.valor_total)}</span>
     </div>`).join('')}</div>`;

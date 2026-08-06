@@ -143,6 +143,25 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
   derruba, e só na segunda confirmação** — timeout, 5xx e rede fora são *indeterminado*, nunca
   ausência. O derrubado vira **lápide** em `radar/derrubados.json`, que o indexador respeita:
   o que foi enterrado não ressuscita numa reindexação, e continua auditável.
+- **`noticias/`** — **monitoramento do que MOVE contrato**, a cada 3 dias. O radar acha o
+  *certame*; isto acha o que vem **antes** dele: portaria de habilitação no DOU, decreto de
+  emergência no diário municipal, programa federal novo. Quem só vê o edital chega junto com
+  todo mundo. `noticias/filtros.json` é a doutrina de monitoramento como configuração, e usa
+  o **mesmo motor** do radar (`lib/filtro-radar.mjs`) com outro vocabulário.
+  **Duas regras que sustentam a página:**
+  1. **Fonte oficial e imprensa não se misturam.** `oficial` é ato publicado — fato datado e
+     citável (DOU, diário municipal via Querido Diário). `contexto` é pista, nunca sinal. Um
+     feed que trata acidente de trânsito e portaria de habilitação como a mesma coisa é ruído
+     com cara de inteligência — por isso ocorrência policial é **exclusão absoluta**, e o
+     `score_minimo` é 10 (exige termo do núcleo), o dobro do radar.
+  2. **Nada é resumido por máquina.** Título, data e fonte vão como saíram. Não há modelo
+     rodando no script, e resumo inventado seria premissa vestida de fato.
+  **Cruza com as frentes:** matéria que cita município onde temos frente é marcada e sobe ao
+  topo — alerta que chega no meio de um feed não é alerta.
+  Acumula em `noticias/indice.json` (derivado; `--reindexar` reconstrói das edições,
+  re-aplicando os filtros de hoje, sem tocar a rede). Fonte que cai **não** derruba a rodada:
+  fica em `falhas`, e o painel diz qual não respondeu — fonte fora do ar é diferente de não
+  haver notícia.
 - **`inteligencia/mercado/`** — **memória acumulada** do radar (`indice.json`, derivado —
   nunca editar à mão). Responde o que uma semana não responde: recorrência por município
   (sinal mais forte), concentração por UF, faixa de valor publicada. Gerado por
@@ -221,6 +240,7 @@ Ordem completa (o build é o último passo, sempre):
 ```
 node scripts/radar-licitacoes.mjs     # captação da semana no PNCP (roda por Actions toda segunda)
 node scripts/revalidar-editais.mjs    # derruba edital que sumiu do PNCP (404 em 2 semanas seguidas)
+node scripts/radar-noticias.mjs       # monitoramento do que move contrato (roda por Actions a cada 3 dias)
 node scripts/reprocessar-radar.mjs    # SÓ após recalibrar filtros.json: reaplica a doutrina às semanas já gravadas
 node scripts/indexar-mercado.mjs      # acumula na memória de mercado, re-aplicando os filtros atuais
 node scripts/build-dashboard.mjs      # valida frentes/obrigações → data.json + monta o bundle
@@ -236,6 +256,7 @@ npx serve dashboard                    # abrir por HTTP (file:// bloqueia o fetc
   formulário que o ente responde, com a sua própria cópia do questionário **sem** a camada
   interna (`porque` e `sensibilidade` não viajam).
 - `dashboard/radar.html` — radar de licitações (semana mais recente embarcada).
+- `dashboard/noticias.html` — monitoramento: atos publicados e contexto, separados.
 - `dashboard/mercado.html` — mercado acumulado (recorrência, UF, modalidade, faixa de valor).
 - `dashboard/obrigacoes.html` — calendário de obrigações.
 - `dashboard/despesas/` — cópia de `ferramentas/despesas/` (**gerada**, fora do git).

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="./marca-icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./marca-icone-180.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Samais-OS">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Samais-OS · Monitoramento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./samais.css">
+<style>
+/* tokens: doutrina/samais.css (canônico) */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+header{border-bottom:1px solid var(--line);padding:6px 0 26px}
+.kicker{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--fd);font-weight:800;font-size:32px;margin:10px 0 6px;letter-spacing:-.01em}
+.sub{color:var(--t3);font-size:14px;max-width:74ch}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 4px}
+.kpi{border-radius:13px;padding:15px 16px}
+.kpi .l{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.kpi .v{font-family:var(--fd);font-weight:700;font-size:24px;margin-top:5px;color:var(--gold);
+  font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:11.5px;color:var(--t3);font-family:var(--fb);font-weight:400;white-space:normal}
+
+.barra{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:22px 0 4px}
+select{background:var(--card);color:var(--text);border:1px solid var(--line-soft);border-radius:10px;
+  padding:9px 12px;font-family:var(--fm);font-size:12.5px;outline:none}
+select:focus{border-color:var(--gold-dim)}
+.quando{font-family:var(--fm);font-size:11px;color:var(--t3);margin-left:auto}
+
+/* A hierarquia é visual porque é real: ato publicado não pode parecer matéria de portal. */
+.m{display:block;border-radius:12px;padding:15px 18px;margin-bottom:9px;
+  border-left:3px solid var(--line);transition:border-color .16s,transform .16s}
+.m:hover{transform:translateY(-1px)}
+.m.oficial{border-left-color:var(--gold)}
+.m.oficial:hover{border-left-color:var(--gold-soft)}
+.m.contexto{border-left-color:rgba(255,255,255,.14)}
+.m-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.m-tit{font-size:14.5px;font-weight:500;color:var(--text);line-height:1.45}
+.m.contexto .m-tit{font-weight:400;color:var(--t2)}
+.selo{flex:0 0 auto;font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.selo.oficial{color:var(--gold);border-color:rgba(184,149,78,.36);background:rgba(184,149,78,.08)}
+.selo.contexto{color:var(--t3);border-color:var(--line-soft)}
+.m-met{font-family:var(--fm);font-size:10.5px;color:var(--t3);margin-top:9px}
+.m-frente{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--green-vivo,#1E7A4B);border:1px solid rgba(30,122,75,.4);
+  background:rgba(30,122,75,.09);border-radius:5px;padding:2px 8px;margin-top:9px}
+.m-termos{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:var(--fm);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;
+  border-radius:5px;border:1px solid var(--line-soft);color:var(--gold-dim)}
+.m-abre{font-family:var(--fm);font-size:10.5px;color:var(--t3);margin-top:10px}
+.m:hover .m-abre{color:var(--gold-dim)}
+
+.sec{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dim);margin:26px 0 11px}
+.sec .c{color:var(--t3);margin-left:7px}
+
+.nota{margin-top:26px;padding:14px 16px;border-radius:12px;font-size:13px;color:var(--t3)}
+.nota b{color:var(--t2);font-weight:500}
+.alerta-f{margin-top:22px;padding:15px 18px;border-radius:13px;font-size:13.5px;color:var(--t2);
+  border:1px solid rgba(30,122,75,.32);background:rgba(30,122,75,.07)}
+.alerta-f b{color:var(--text);font-weight:500}
+.vazio{border:1px dashed var(--line);border-radius:14px;padding:32px 26px;margin-top:26px}
+.vazio h3{font-family:var(--fd);font-weight:700;font-size:17px;margin:0 0 8px}
+.vazio p{color:var(--t3);font-size:14px;margin:0 0 12px;max-width:66ch}
+.vazio code{font-family:var(--fm);font-size:12.5px;color:var(--gold-dim);background:rgba(212,168,87,.07);
+  padding:2px 6px;border-radius:4px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0 46px;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--fm);font-size:11.5px;color:var(--t3)}
+@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}.quando{margin-left:0}
+  .barra select{flex:1 1 100%;min-width:0}}
+
+/* ── material liquid glass (doutrina/samais.css) ── */
+.kpi,.m,.nota,.vazio,.alerta-f{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);                      /* base: vale em todo navegador */
+  backdrop-filter:var(--glass-blur) url(#glassDistort);   /* refração: só onde url() é aceita */
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  overflow:hidden;
+}
+.m{border-left-width:3px}
+.alerta-f{border-color:rgba(30,122,75,.32)}
+@media(max-width:720px){
+  .kpi,.m,.nota,.vazio,.alerta-f{-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .kpi,.m,.nota,.vazio,.alerta-f{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--s1)}
+}
+</style>
+</head>
+<body>
+
+<!-- refração do liquid glass · doutrina/glass-filter.html -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none">
+  <filter id="glassDistort" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.1" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="topbar barra-vidro">
+  <a class="marca" href="./index.html" aria-label="Samais-OS">
+    <span class="nome">samais</span><span class="sep">·</span><span class="desc">OS</span>
+    <span class="mono-sa">SA+</span>
+  </a>
+  <nav class="topnav-links">
+    <a href="./index.html">Início</a>
+    <a href="./frentes.html">Frentes</a>
+    <a href="./briefings.html">Briefings</a>
+    <a href="./implantacao.html">Implantação</a>
+    <a href="./radar.html">Radar</a>
+    <a href="./noticias.html" aria-current="page">Monitoramento</a>
+    <a href="./mercado.html">Mercado</a>
+    <a href="./obrigacoes.html">Obrigações</a>
+    <a href="./despesas/">Despesas</a>
+  </nav>
+</div>
+
+<header><div class="wrap">
+  <div class="kicker">monitoramento · a cada 3 dias</div>
+  <h1>O que move contrato</h1>
+  <div class="sub">O radar de licitações acha o <b>certame</b>. Isto acha o que vem <b>antes</b> dele:
+    portaria de habilitação no Diário Oficial da União, decreto de emergência no diário municipal,
+    programa federal novo. Quem só vê o edital chega junto com todo mundo.</div>
+  <div class="kpis" id="kpis"></div>
+</div></header>
+
+<main class="wrap">
+  <div id="alerta"></div>
+  <div class="barra" id="barra" hidden>
+    <select id="f-tipo">
+      <option value="todas">Tudo</option>
+      <option value="oficial">Só fonte oficial</option>
+      <option value="frente">Só o que cita frente nossa</option>
+    </select>
+    <select id="f-fonte"><option value="todas">Todas as fontes</option></select>
+    <span class="quando" id="quando"></span>
+  </div>
+  <div id="lista"></div>
+  <div class="nota" id="nota" hidden></div>
+</main>
+
+<footer class="wrap">
+  <span>samais · gestão + saúde &nbsp;·&nbsp; uso interno</span>
+  <span id="stamp"></span>
+</footer>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const dataBR = iso => { const p=(iso||'').slice(0,10).split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:(iso||'—'); };
+let N = null;
+
+fetch('./data.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  document.getElementById('stamp').textContent = 'build de ' + d.gerado_em;
+  N = d.noticias;
+  if(!N || !N.rodou){ vazio(); return; }
+  preencherFontes(); render(); nota();
+  document.getElementById('barra').hidden = false;
+  document.getElementById('quando').textContent =
+    `${N.edicoes} rodada(s) · última em ${dataBR(N.gerado_em)}`;
+  ['f-tipo','f-fonte'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+}).catch(()=>{
+  document.getElementById('lista').innerHTML =
+    `<div class="vazio"><h3>Não consegui carregar os dados</h3>
+      <p>Rode <code>node scripts/build-dashboard.mjs</code> e sirva por HTTP.</p></div>`;
+});
+
+function preencherFontes(){
+  const fs = [...new Set(N.materias.map(m=>m.fonte).filter(Boolean))].sort();
+  document.getElementById('f-fonte').innerHTML = '<option value="todas">Todas as fontes</option>' +
+    fs.map(f=>`<option value="${esc(f)}">${esc(f)}</option>`).join('');
+}
+
+function render(){
+  const tipo = document.getElementById('f-tipo').value;
+  const fonte = document.getElementById('f-fonte').value;
+  let lista = N.materias.filter(m =>
+    (fonte==='todas' || m.fonte===fonte) &&
+    (tipo==='todas' || (tipo==='frente' ? !!m.frente : m.tipo===tipo)));
+
+  const oficiais = lista.filter(m=>m.tipo==='oficial');
+  const comFrente = N.materias.filter(m=>m.frente);
+  document.getElementById('kpis').innerHTML = [
+    ['Acompanhando', N.total, 'matérias acumuladas'],
+    ['De fonte oficial', N.oficiais, 'ato publicado, citável'],
+    ['Citam frente nossa', comFrente.length, comFrente.length?'olhar primeiro':'nenhuma agora'],
+    ['Rodadas', N.edicoes, 'a cada 3 dias'],
+  ].map(([l,v,s])=>`<div class="kpi"><div class="l">${l}</div>
+     <div class="v">${v}${s?` <small>${s}</small>`:''}</div></div>`).join('');
+
+  // O que cita uma frente nossa vem primeiro e separado: alerta que chega no meio de um
+  // feed não é alerta. É a diferença entre monitorar e ficar sabendo depois.
+  document.getElementById('alerta').innerHTML = comFrente.length
+    ? `<div class="alerta-f"><b>${comFrente.length} matéria(s) citam frente que já acompanhamos:</b>
+        ${[...new Set(comFrente.map(m=>m.frente_nome))].map(esc).join(' · ')}.
+        Estão marcadas na lista e podem ser isoladas no filtro.</div>` : '';
+
+  if(!lista.length){
+    document.getElementById('lista').innerHTML =
+      `<div class="vazio"><h3>Nada nesta seleção</h3>
+        <p>Nenhuma matéria acumulada corresponde a este filtro.</p></div>`;
+    return;
+  }
+  const contexto = lista.filter(m=>m.tipo!=='oficial');
+  document.getElementById('lista').innerHTML =
+    (oficiais.length ? `<div class="sec">Atos publicados<span class="c">${oficiais.length}</span></div>${oficiais.map(cartao).join('')}` : '') +
+    (contexto.length ? `<div class="sec">Contexto e imprensa<span class="c">${contexto.length}</span></div>${contexto.map(cartao).join('')}` : '');
+}
+
+function cartao(m){
+  const met = [m.orgao, m.fonte, m.data?`publicado ${dataBR(m.data)}`:null]
+    .filter(Boolean).map(esc).join('  ·  ');
+  return `<a class="m ${m.tipo==='oficial'?'oficial':'contexto'}" href="${esc(m.url)}" target="_blank" rel="noopener">
+    <div class="m-top">
+      <div class="m-tit">${esc(m.titulo)}</div>
+      <span class="selo ${m.tipo==='oficial'?'oficial':'contexto'}">${m.tipo==='oficial'?'oficial':'contexto'}</span>
+    </div>
+    <div class="m-met">${met}</div>
+    ${m.frente_nome?`<span class="m-frente">⚑ frente: ${esc(m.frente_nome)}</span>`:''}
+    <div class="m-termos">${(m.termos_casados||[]).slice(0,5).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+    <div class="m-abre">Abrir na fonte →</div>
+  </a>`;
+}
+
+function nota(){
+  const el = document.getElementById('nota');
+  el.innerHTML = `<b>Como ler:</b> <b>oficial</b> é ato publicado — portaria, decreto, aviso —
+    e é fato datado e citável. <b>Contexto</b> é comunicação e imprensa: pista, nunca sinal.
+    A página não mistura os dois, e nada aqui é resumido por máquina: título, data e fonte vão
+    como saíram, porque resumo inventado seria premissa vestida de fato.
+    Ocorrência policial (acidente, socorro, óbito) é descartada na captação — é o que faz
+    "SAMU" aparecer dezenas de vezes por dia e enterra a portaria que importa.
+    ${N.falhas_ultima?.length ? `<br><br>⚠️ Na última rodada não responderam:
+      <b>${N.falhas_ultima.map(esc).join(' · ')}</b>. Fonte fora do ar é diferente de
+      não haver notícia — por isso está dito.` : ''}`;
+  el.hidden = false;
+}
+
+function vazio(){
+  document.getElementById('lista').innerHTML = `
+    <div class="vazio"><h3>Monitoramento ainda sem rodada</h3>
+      <p>Roda a cada <b>3 dias</b> pelo GitHub Actions e grava em
+         <code>noticias/edicoes/AAAA-MM-DD.json</code>, acumulando em
+         <code>noticias/indice.json</code>.</p>
+      <p>Para rodar agora: <code>node scripts/radar-noticias.mjs</code> →
+         <code>node scripts/build-dashboard.mjs</code></p>
+      <p style="margin-top:12px">O que conta como matéria — fontes, termos e o que é ruído —
+         está em <code>noticias/filtros.json</code>. Recalibrou?
+         <code>node scripts/radar-noticias.mjs --reindexar</code> reaplica ao histórico
+         sem varrer as fontes de novo.</p>
+    </div>`;
+}
+</script>
+</body>
+</html>

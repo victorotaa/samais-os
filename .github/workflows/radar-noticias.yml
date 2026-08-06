@@ -1,0 +1,52 @@
+name: radar-noticias
+
+# Monitoramento do que MOVE contrato de APH: portaria de habilitação no DOU, decreto de
+# emergência no diário municipal, programa federal novo. A cada 3 dias — cadência escolhida
+# porque ato publicado não é notícia de minuto a minuto, e varrer todo dia só multiplica
+# ruído sem antecipar nada.
+#
+# 03:20 UTC (~00:20 em Brasília) nos dias 1, 4, 7… — o DOU do dia já publicado.
+
+on:
+  schedule:
+    - cron: "20 3 */3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-noticias
+  cancel-in-progress: false
+
+jobs:
+  monitorar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # O script já falha "soft": fonte que cai é registrada em `falhas` e a rodada
+      # segue; só sai com erro se NENHUMA fonte responder, e nesse caso não grava —
+      # indisponibilidade não pode virar "não houve movimento no mercado".
+      - name: Varrer as fontes
+        run: node scripts/radar-noticias.mjs
+
+      - name: Regerar o pacote do dashboard
+        run: node scripts/build-dashboard.mjs
+
+      - name: Commitar a rodada
+        run: |
+          ALVOS="noticias/edicoes noticias/indice.json dashboard/data.json"
+          if [ -z "$(git status --porcelain $ALVOS)" ]; then
+            echo "Nada novo no monitoramento — sem commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $ALVOS
+          git commit -m "chore(noticias): monitoramento de 3 dias [skip ci]"
+          git push

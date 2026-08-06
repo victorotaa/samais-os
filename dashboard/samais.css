@@ -221,6 +221,13 @@ h2,h3,h4{font-weight:600}
 /* Dados SEMPRE em mono, com dígitos alinhados */
 .dado{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
+/* ── <select> não cabe sozinho ───────────────────────────────────────────
+   O select se dimensiona pela OPÇÃO MAIS LARGA, ignorando o container: uma opção
+   como "Diários oficiais municipais (Querido Diário)" estoura 390px e a página
+   inteira ganha rolagem horizontal. `max-width` fecha isso onde o problema nasce,
+   em vez de cada página descobrir de novo. */
+select{max-width:100%}
+
 /* ── Alvos de toque (mobile) ─────────────────────────────────────────
    Controle que se toca com o dedo precisa de ~40px de altura. */
 @media (max-width:720px){

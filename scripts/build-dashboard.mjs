@@ -24,6 +24,8 @@ const OBRIG_DIR = join(ROOT, "obrigacoes");
 const RADAR_SEMANAS_DIR = join(ROOT, "radar", "semanas");
 const OBRIG_SCHEMA_PATH = join(OBRIG_DIR, "_schema", "obrigacao.schema.json");
 const MERCADO_PATH = join(ROOT, "inteligencia", "mercado", "indice.json");
+const NOTICIAS_PATH = join(ROOT, "noticias", "indice.json");
+const NOTICIAS_EDICOES = join(ROOT, "noticias", "edicoes");
 const IMPL_DIR = join(ROOT, "implantacao");
 const IMPL_SCHEMA_PATH = join(IMPL_DIR, "_schema", "implantacao.schema.json");
 const ROTEIRO_PATH = join(IMPL_DIR, "_schema", "roteiro-padrao.json");
@@ -440,6 +442,39 @@ if (existsSync(RADAR_SEMANAS_DIR)) {
   }
 }
 
+// ---------- monitoramento: o que move contrato (noticias/indice.json) ----------
+// Embarca a memória acumulada, não a última rodada: monitoramento que só mostra os
+// últimos 3 dias é foto, e a regra 1 da central de inteligência existe para isso.
+let noticias = null;
+if (existsSync(NOTICIAS_PATH)) {
+  try {
+    const idx = JSON.parse(readFileSync(NOTICIAS_PATH, "utf8"));
+    const materias = Object.values(idx.materias || {});
+    // Falha da ÚLTIMA rodada: a página precisa distinguir "não houve notícia" de
+    // "a fonte não respondeu" — sem isso, silêncio de fonte vira silêncio de mercado.
+    let falhasUltima = [];
+    if (existsSync(NOTICIAS_EDICOES)) {
+      const eds = readdirSync(NOTICIAS_EDICOES).filter((f) => f.endsWith(".json")).sort();
+      const ultima = eds[eds.length - 1];
+      if (ultima) {
+        try { falhasUltima = JSON.parse(readFileSync(join(NOTICIAS_EDICOES, ultima), "utf8")).falhas || []; }
+        catch { /* edição ilegível não derruba o build */ }
+      }
+    }
+    noticias = {
+      rodou: true,
+      gerado_em: idx.gerado_em ?? null,
+      edicoes: (idx.edicoes || []).length,
+      total: idx.total ?? materias.length,
+      oficiais: idx.oficiais ?? materias.filter((m) => m.tipo === "oficial").length,
+      falhas_ultima: falhasUltima,
+      materias,
+    };
+  } catch (e) {
+    console.warn(`⚠ noticias/indice.json ilegível: ${e.message}`);
+  }
+}
+
 // ---------- mercado: memória acumulada do radar (inteligencia/mercado/indice.json) ----------
 // Só dado público do PNCP, já captado — nada estimado. Gerado por scripts/indexar-mercado.mjs.
 let mercado = null;
@@ -502,6 +537,7 @@ const data = {
   obrigacoes,
   resumo_obrigacoes: resumoObrig,
   radar,
+  noticias,
   mercado,
   produtos,
   implantacao,
@@ -525,6 +561,14 @@ if (resumoObrig.total) {
     (alerta ? ` — ⚠ ${resumoObrig.vencidas} vencida(s), ${resumoObrig.criticas} crítica(s), ${resumoObrig.atencao} em atenção` : " — nenhuma crítica"));
 } else {
   console.log("• calendário de obrigações vazio (ver obrigacoes/README.md para o catálogo)");
+}
+if (noticias) {
+  const comFrente = noticias.materias.filter((m) => m.frente).length;
+  console.log(`✓ monitoramento: ${noticias.total} matéria(s) em ${noticias.edicoes} rodada(s)` +
+    ` — ${noticias.oficiais} de fonte oficial` + (comFrente ? `, ${comFrente} citando frente nossa` : ""));
+  if (noticias.falhas_ultima?.length) console.warn(`  ⚠ fonte(s) sem resposta na última rodada: ${noticias.falhas_ultima.length}`);
+} else {
+  console.log("• monitoramento sem rodada ainda (rode: node scripts/radar-noticias.mjs)");
 }
 if (radar) {
   console.log(`✓ radar ${radar.semana}: ${radar.total} oportunidade(s) de ${radar.varridos ?? "?"} varrida(s)`);

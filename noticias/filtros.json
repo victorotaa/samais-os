@@ -1,0 +1,145 @@
+{
+  "_doc": "Doutrina de MONITORAMENTO como configuração — o irmão de radar/filtros.json, com o mesmo motor de casamento por palavra inteira (scripts/lib/filtro-radar.mjs) e outro vocabulário. O radar procura CERTAME; este procura MOVIMENTO: portaria de habilitação, decreto de emergência, programa federal novo, rescisão de contrato. O que antecede o edital, não o edital.",
+  "_hierarquia": "As fontes NÃO são equivalentes e o painel não as mistura. `oficial` é ato publicado (DOU, diário municipal) — fato datado e citável. `contexto` é imprensa — pista, nunca sinal. Um feed que trata acidente de trânsito e portaria de habilitação como a mesma coisa é ruído com cara de inteligência.",
+  "termos": {
+    "nucleo": {
+      "peso": 10,
+      "_doc": "Ato que move contrato de APH. É o que faz a matéria valer uma leitura.",
+      "lista": [
+        "samu",
+        "samu 192",
+        "serviço de atendimento móvel de urgência",
+        "atendimento pré-hospitalar",
+        "pré-hospitalar",
+        "central de regulação",
+        "regulação das urgências",
+        "unidade de suporte básico",
+        "unidade de suporte avançado",
+        "transporte sanitário",
+        "habilitação de usb",
+        "habilitação de usa",
+        "rede de atenção às urgências",
+        "força nacional do sus"
+      ]
+    },
+    "adjacente": {
+      "peso": 5,
+      "_doc": "Movimento que muda o desenho ou o custeio do serviço.",
+      "lista": [
+        "custeio federal",
+        "incentivo financeiro",
+        "habilitação",
+        "portaria de habilitação",
+        "qualisus",
+        "samu resgate",
+        "componente pré-hospitalar móvel",
+        "consórcio intermunicipal de saúde",
+        "organização social de saúde",
+        "contrato de gestão",
+        "chamamento público",
+        "decreto de emergência",
+        "calamidade em saúde",
+        "rescisão contratual",
+        "intervenção no serviço"
+      ]
+    },
+    "contexto": {
+      "peso": 2,
+      "_doc": "Sinal fraco: sozinho não qualifica, mas soma quando acompanha o núcleo.",
+      "lista": [
+        "ministério da saúde",
+        "secretaria municipal de saúde",
+        "secretaria de estado da saúde",
+        "conasems",
+        "conass",
+        "tripartite",
+        "tempo-resposta",
+        "ambulância",
+        "urgência e emergência"
+      ]
+    }
+  },
+  "excluir": {
+    "_doc": "O que tem SAMU no texto e não é movimento de contrato. Sem estes cortes o painel vira plantão policial: 'ambulância do SAMU socorreu vítima' aparece dezenas de vezes por dia e enterra a portaria que importa.",
+    "absoluto": {
+      "_doc": "Casa em qualquer posição (palavra inteira) → descarta, mesmo com termo do núcleo.",
+      "lista": [
+        "acidente de trânsito",
+        "atropelamento",
+        "baleado",
+        "capotamento",
+        "colisão",
+        "corpo foi encontrado",
+        "esfaqueado",
+        "faleceu no local",
+        "feridos",
+        "homicídio",
+        "morreu no local",
+        "morte cerebral",
+        "óbito no local",
+        "socorrida pelo samu",
+        "socorrido pelo samu",
+        "tiros",
+        "vítima fatal",
+        "vítimas fatais"
+      ]
+    },
+    "se_no_inicio": {
+      "_doc": "Se a manchete COMEÇA assim, é ocorrência, não política pública.",
+      "caracteres_inicio": 60,
+      "lista": [
+        "homem é",
+        "mulher é",
+        "criança é",
+        "jovem é",
+        "idoso é",
+        "motociclista",
+        "condutor perde",
+        "carro capota",
+        "acidente"
+      ]
+    },
+    "condicional": {
+      "_doc": "Descarta se NÃO houver termo do núcleo — assim 'concurso público para o SAMU' sobrevive e 'concurso público da prefeitura' não entra.",
+      "lista": [
+        "concurso público",
+        "processo seletivo",
+        "campanha de vacinação",
+        "dengue",
+        "mutirão de cirurgias",
+        "inauguração de posto"
+      ]
+    }
+  },
+  "score_minimo": 10,
+  "_score_minimo_doc": "Mais alto que o do radar (5) de propósito: notícia é abundante e barata, certame é escasso. Aqui exige-se pelo menos UM termo do núcleo — sem isso a página enche de matéria que só encosta no assunto.",
+  "dias_janela": 4,
+  "_dias_janela_doc": "A varredura roda a cada 3 dias; a janela é de 4 para cobrir a emenda entre rodadas e nunca deixar buraco.",
+  "fontes": [
+    {
+      "id": "querido-diario",
+      "nome": "Diários oficiais municipais (Querido Diário)",
+      "tipo": "oficial",
+      "_doc": "API pública da Open Knowledge Brasil, 350+ municípios. É onde o movimento aparece PRIMEIRO: aviso de licitação, decreto de emergência, rescisão — semanas antes de virar notícia. Sem autenticação.",
+      "endpoint": "https://queridodiario.ok.org.br/api/gazettes",
+      "ativa": true
+    },
+    {
+      "id": "dou",
+      "nome": "Diário Oficial da União (Imprensa Nacional)",
+      "tipo": "oficial",
+      "_doc": "Portaria do Ministério da Saúde habilitando USB/USA e definindo custeio federal. É o indicador ANTECEDENTE de verdade: habilitação destrava repasse, e repasse é o que torna o contrato viável para o município (é a pergunta `habilitacoes-repasse` do briefing). ⚠️ O endpoint da busca do in.gov.br não é documentado como API pública e pode mudar sem aviso — por isso a fonte falha em silêncio, sem derrubar a rodada.",
+      "endpoint": "https://www.in.gov.br/consulta/-/buscar/dou",
+      "ativa": true
+    },
+    {
+      "id": "gov-saude",
+      "nome": "Ministério da Saúde — notícias",
+      "tipo": "contexto",
+      "_doc": "Programa novo, edital de habilitação, mudança de política. Fonte oficial, mas é comunicação: o ato mesmo está no DOU.",
+      "endpoint": "https://www.gov.br/saude/pt-br/assuntos/noticias/RSS",
+      "ativa": true
+    }
+  ],
+  "_fontes_doc": "Fonte que falha NÃO derruba a rodada: cada uma é registrada em `falhas` na edição, e o painel diz qual não respondeu. Rodada com zero matéria de uma fonte é diferente de fonte fora do ar, e o painel precisa saber distinguir."
+}

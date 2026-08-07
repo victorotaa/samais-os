@@ -19,7 +19,7 @@
 html,body{margin:0;padding:0}
 body{
   background:var(--bg); color:var(--text); font-family:var(--fb); line-height:1.55;
-  -webkit-font-smoothing:antialiased; padding-bottom:84px;
+  -webkit-font-smoothing:antialiased; padding-bottom:28px;
 }
 .wrap{max-width:900px;margin:0 auto;padding:0 16px}
 
@@ -37,7 +37,12 @@ header{border-bottom:1px solid var(--line);padding:18px 0 14px;position:sticky;t
 .who b{color:var(--gold-dim);font-weight:500}
 
 /* nav */
-nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;
+nav.tabs{display:none}
+@media(max-width:720px){
+  nav.tabs{display:flex}
+  body{padding-bottom:84px}   /* espaço para a barra fixa não cobrir o conteúdo */
+}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;
   background:rgba(20,20,22,.62);-webkit-backdrop-filter:blur(26px) saturate(170%);
   backdrop-filter:blur(26px) saturate(170%);border-top:1px solid rgba(255,255,255,.12);
   box-shadow:0 -8px 30px rgba(0,0,0,.4);
@@ -48,9 +53,17 @@ nav.tabs button{flex:1;background:none;border:0;color:var(--t3);font-family:var(
 nav.tabs button[aria-current="true"]{color:var(--gold);border-top-color:var(--gold)}
 nav.tabs .ico{display:block;font-size:17px;margin-bottom:3px;line-height:1}
 
-/* submenu do topo — espelha o rodapé */
+/* ── UMA barra por contexto, não duas ────────────────────────────────────
+   As duas ao mesmo tempo eram redundantes, e cada uma é errada no lugar do outro:
+   · no celular vale a de BAIXO — está no alcance do polegar, e ali o espaço
+     vertical é o recurso mais escasso: duas barras comem uma faixa de tela à toa;
+   · no desktop vale a de CIMA — barra fixa no rodapé é gesto de app mobile, fica
+     deslocada numa janela grande e ainda rouba altura.
+   Mesma navegação, apresentada onde a mão está. O corte é 720px, o mesmo da
+   identidade (samais.css), para não haver duas noções de "mobile" no projeto. */
 .subtabs{display:flex;gap:4px;margin-top:12px;overflow-x:auto;scrollbar-width:none;
   padding-bottom:1px}
+@media(max-width:720px){ .subtabs{display:none} }
 .subtabs::-webkit-scrollbar{display:none}
 .subtabs button{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;
   color:var(--t3);font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
@@ -197,10 +210,13 @@ label.btn{font-family:var(--fb);font-weight:600;text-transform:none;letter-spaci
 .total .v{color:var(--gold);font-family:var(--fm);font-variant-numeric:tabular-nums}
 
 /* toast */
-#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:96px;z-index:60;background:var(--card2);
+/* O toast se equilibrava acima da barra do rodapé; sem ela no desktop, flutuava no
+   meio da tela. Encosta embaixo, e só sobe onde a barra existe. */
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;z-index:60;background:var(--card2);
   border:1px solid var(--line);border-radius:10px;padding:11px 18px;font-size:14px;color:var(--text);
   opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:90vw;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+@media(max-width:720px){ #toast{bottom:96px} }
 
 /* impressão */
 #print{display:none}

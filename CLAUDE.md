@@ -225,6 +225,22 @@ nova, confirme com `node scripts/build-dashboard.mjs` que só o previsto foi cop
 
 ## Ferramentas
 
+**Local-first é decisão, não limitação** (Ota, 08/08/2026 — vale para `despesas/` e `briefing/`).
+Os dados ficam no aparelho de quem usa; a consolidação é por arquivo. Supabase foi avaliado
+duas vezes e **recusado nas duas**, por motivos diferentes:
+- **Briefing** — quem responde é externo, muda a cada município e responde uma vez. Exigir
+  login de um secretário de saúde derruba a taxa de resposta, que é o único número que
+  importa ali.
+- **Despesas** — o cenário até encaixa (4 pessoas fixas, dado que precisa ser compartilhado),
+  mas o custo não compensa hoje: deixaria de lançar sem sinal (despesa de viagem é justamente
+  onde falta rede), poria comprovante com nome/valor/lugar num servidor (LGPD), exigiria a
+  `anon key` no HTML de um repo **público** — onde a segurança passa a depender inteiramente
+  de o RLS estar certo — e reabriria a autenticação do painel, que está adiada.
+Havia um meio-termo proposto (só o consolidado sobe, comprovante nunca sai do aparelho);
+também recusado por ora. **Reabrir só com decisão explícita do Ota** — e, se reabrir, a fila
+offline não é opcional.
+
+
 - `ferramentas/briefing/` — formulário de levantamento que o **ente** responde (link gerado
   na página de briefings). **Local-first**: nada sai do aparelho até gerar o arquivo. A saída
   já é `briefings/<slug>.json` válido.
